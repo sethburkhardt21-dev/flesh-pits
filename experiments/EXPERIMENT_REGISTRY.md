@@ -22,6 +22,7 @@ appended beneath, never edited into the preregistration.
 | EXP-AB-K3B | changing_rule + delayed_reward | arch_b intact vs lesion_l1 | lesion gap (lesioned − intact) mean|e0|, mean|rerr|, 3 seeds | COMPLETE (result below) |
 | EXP-AB-K3C | delayed_multistep + compositional_rule | arch_b intact vs lesion_l1 | lesion gap D_e0 (task 1), D_rerr (task 2), 4 seeds | COMPLETE (result below) |
 | EXP-AB-5SEED | pomaze/changing_rule/delayed_reward | Phase-4 replication (M1, C2B, C4B, K3B) | original per-seed decision rules, ≥4/5 seeds | COMPLETE (result below) |
+| EXP-AB-K3D | changing_rule/delayed_reward/delayed_multistep/compositional_rule | arch_b intact vs lesion_l1 | lesion gap D_e0 per env/segment + per-channel D_c, 4 seeds, 95% CI | COMPLETE (characterized — |e0| a two-env phenomenon) |
 
 ---
 
@@ -716,3 +717,28 @@ receipt records, chain verified, G0c determinism MATCH)**
 - G1 tripwire CLEAN (pre-run and post-edit); G2 1e-12 all envs; G3 own hash verifies, chained onto EXP-FP-0007R; historical chain anomalies (pre-chain receipts, EXP-AB-K3C mismatch) preserved untouched per lab law.
 - Mechanism interpretation for gap #2: shadow-gating decision value requires benefit to be (i) usually positive (base rate) and (ii) predictable in magnitude from retrieval features. changing_rule/compositional_rule fail both; pomaze passes both; delayed_reward family passes (i) but with a different carrier (n_nbrs negative) than pomaze (e1_ema positive) — the carrier is env-family-specific, not universal. MATURITY.md retrieval row extended (INTEGRATED held, no maturity change — characterization, not a promotion experiment).
 - No negative_results.md entry: no preregistered descriptive criterion failed.
+
+---
+
+## EXP-AB-K3D — K3B |e0|-channel characterization (mechanism: memorization vs dynamics)
+
+**PREREGISTERED (2026-10-07, before run; canonical copy: experiments/preregistration_K3B_E0.json; seeds {76101..76104} checked fresh — zero overlap with any prior lab seed set)**
+- background: EXP-AB-K3B's reward-channel headline (+0.0602) reversed on fresh seeds (repro5: −0.0319); the surviving hierarchy signal rides |e0| (+0.0079 seed-mean, 4/5 positive, ~2.5× K3 scale). Recorded as NR-B-009 (claim weakened). This experiment characterizes the surviving |e0| channel.
+- hypothesis (DESCRIPTIVE): the intact-vs-L1-lesioned |e0| gap D_e0 is characterized per env with 95% CIs; on the two flip envs the mechanism decomposition (stable-phase vs post-flip held-out) distinguishes memorization from genuine context-dependent dynamics.
+- null: D_e0 <= 0 seed-mean on all 4 envs — the surviving channel is dead too.
+- preregistered metric: D_e0 = mean|e0|_lesioned − mean|e0|_intact per seed/segment; per-channel D_c; 95% t-CI (df=3). Per-channel |err| via the exact predict_next computation eval_transition performs.
+- baseline/ablation: arch_b lesion_l1=True (L0-only), paired streams + paired init seeds (76120+si).
+- conditions: changing_rule 45 eps (train 0–1499, stable held-out 1520–1599 = phase 7, post-flip 1600–1799 = phase 8; ref base 76210); compositional_rule 45 eps (train 0–1519, stable 1520–1599, post-flip 1600–1799; ref base 76220); delayed_reward 60 eps (train first 600, held-out last 120; ref base 76230); delayed_multistep 30 eps scripted (train eps 0–19, held-out eps 20–29). affect='none', contract 1.0.0.
+- decision rule: CHARACTERIZATION — descriptive criteria S1/S2/S3, no kill gate. Interpretation signatures: MEMORIZATION = D_e0(post-flip) <= 0 while D_e0(stable) > 0 with the gap in the rule-contingent channel; DYNAMICS = D_e0(post-flip) > 0; MIXED = else.
+- frozen gates: G0a empty held-out segment → VOID; G0b determinism spot-check (first seed recomputed, 1e-12).
+- methods note: first launch crashed at receipt-write (lim string contained a bare `%` before the format substitution — executor bug, no data interpreted; deterministic rerun reproduced every number bit-identically, G0b re-passed).
+
+**RESULT (2026-10-07, run complete — 16 arms, G0b PASS; lane receipt receipts/EXP-AB-K3D.json hash-verified, chained onto EXP-FP-0009; detail prototypes/architecture-b/receipts/EXP-AB-K3D.json hash-verified, chain-linked to EXP-AB-K3C)**
+- Verdict: **CHARACTERIZED** — the |e0| channel is a two-env phenomenon, NOT dead (null does not hold).
+- changing_rule: stable +0.0070 (3/4, CI [−0.0114, +0.0254]); post-flip +0.0103 (3/4, CI [−0.0110, +0.0315]). MEMORIZATION signature does NOT fire (no post-flip vanish/reverse); DYNAMICS fires by the frozen rule — carried seed-consistently by the rule-invariant last_action channel (+0.0190 post-flip, 4/4 both segments; cue ~0). last_reward post-flip +0.0256 but seed-variable (3/4; seed 76103 +0.0732).
+- delayed_reward: +0.0986 (4/4, CI [+0.0033, +0.1939] excludes 0) — strongest |e0| signal; gap lives in the branch channel (+0.0504, 4/4; 3 L1 contexts memorize per-branch constants).
+- delayed_multistep: −0.0555 (0/4, CI [−0.0765, −0.0345] excludes 0 — lesion HELPS; stage channel −0.0344, 4/4: 9 contexts fragment deterministic structure).
+- compositional_rule: stable −0.0016 (2/4); post-flip −0.0168 (0/4; last_reward post-flip −0.0223 — memorization liability under shift). Signature MIXED.
+- Mechanism reading: the |e0| advantage IS per-context base-rate/residual memorization by the D[ctx] tables — helps when per-context structure is stable and data-rich, hurts under shift or fragmentation; on changing_rule the flip-survival implicates per-context correction of L0's systematic biases on rule-invariant channels, not old-phase contingency memorization. Caveat: post-flip held-out mixes pre/post-adaptation trials of the closed-loop reference policy.
+- No negative_results.md entry: the channel was not killed (delayed_reward survives significantly); the delayed_multistep/compositional_rule deaths were already recorded under K3C.
+- MATURITY.md hierarchy row extended with the characterization; maturity stays INTEGRATED (no upgrade).

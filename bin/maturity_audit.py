@@ -136,6 +136,11 @@ def extract_tokens(evidence):
             "hash_chained": False}
     toks["receipts"] = RECEIPT_RE.findall(evidence)
     toks["receipt_paths"] = RECEIPT_PATH_RE.findall(evidence)
+    # Preregistration files are a different artifact class (sealed design
+    # docs, never hash-chained receipts) — exclude them from receipt checks.
+    prereg = lambda n: n.split("/")[-1].startswith("preregistration_")
+    toks["receipts"] = [n for n in toks["receipts"] if not prereg(n)]
+    toks["receipt_paths"] = [n for n in toks["receipt_paths"] if not prereg(n)]
     toks["nrs"] = NR_RE.findall(evidence)
     toks["exps"] = EXP_FP_RE.findall(evidence)
     low = evidence.lower()

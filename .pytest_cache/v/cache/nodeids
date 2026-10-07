@@ -5,6 +5,8 @@
   "experiments/tests/test_arch_d.py::TestArchD::test_predictor_error_declines_stationary",
   "experiments/tests/test_arch_d.py::TestArchD::test_runs_all_envs_workspace_bounded",
   "experiments/tests/test_arch_d.py::TestArchD::test_snapshot_roundtrip",
+  "experiments/tests/test_audit_prereg_exclusion.py::test_preregistration_excluded_from_receipt_tokens",
+  "experiments/tests/test_audit_prereg_exclusion.py::test_real_receipt_still_checked",
   "experiments/tests/test_baselines.py::TestBaselines::test_all_run_all_envs_valid_actions",
   "experiments/tests/test_baselines.py::TestBaselines::test_determinism",
   "experiments/tests/test_baselines.py::TestBaselines::test_info_never_drives_decisions",
