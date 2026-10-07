@@ -1,0 +1,85 @@
+{
+ "experiment_id": "TRANSFER-K4-RESTORE",
+ "permitted_state_per_seed": {
+  "11": {
+   "channels": [
+    "c0a0",
+    "c0a1",
+    "c1a0",
+    "c1a1"
+   ],
+   "gain_cap": 2.0,
+   "gain_lr": 0.15,
+   "gains": {
+    "c0a0": 0.8750000000000007,
+    "c0a1": 2.0,
+    "c1a0": 1.925,
+    "c1a1": 0.8750000000000007
+   },
+   "n_gain_updates": 400,
+   "seed": 11,
+   "theta": 0.45,
+   "trained_on": "changing_rule/1.0.0"
+  },
+  "22": {
+   "channels": [
+    "c0a0",
+    "c0a1",
+    "c1a0",
+    "c1a1"
+   ],
+   "gain_cap": 2.0,
+   "gain_lr": 0.15,
+   "gains": {
+    "c0a0": 0.8750000000000007,
+    "c0a1": 2.0,
+    "c1a0": 2.0,
+    "c1a1": 0.8750000000000007
+   },
+   "n_gain_updates": 400,
+   "seed": 22,
+   "theta": 0.45,
+   "trained_on": "changing_rule/1.0.0"
+  },
+  "33": {
+   "channels": [
+    "c0a0",
+    "c0a1",
+    "c1a0",
+    "c1a1"
+   ],
+   "gain_cap": 2.0,
+   "gain_lr": 0.15,
+   "gains": {
+    "c0a0": 0.8750000000000007,
+    "c0a1": 2.0,
+    "c1a0": 1.925,
+    "c1a1": 0.8000000000000007
+   },
+   "n_gain_updates": 400,
+   "seed": 33,
+   "theta": 0.45,
+   "trained_on": "changing_rule/1.0.0"
+  },
+  "44": {
+   "channels": [
+    "c0a0",
+    "c0a1",
+    "c1a0",
+    "c1a1"
+   ],
+   "gain_cap": 2.0,
+   "gain_lr": 0.15,
+   "gains": {
+    "c0a0": 0.8750000000000007,
+    "c0a1": 2.0,
+    "c1a0": 2.0,
+    "c1a1": 0.8000000000000007
+   },
+   "n_gain_updates": 400,
+   "seed": 44,
+   "theta": 0.45,
+   "trained_on": "changing_rule/1.0.0"
+  }
+ }
+}

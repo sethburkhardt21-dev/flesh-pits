@@ -1,10 +1,12 @@
 # Negative results — Architecture A (Phase 4 gap-closure, 2026-10-07)
 
 Supplements the lane-level `flesh-pits/research/negative_results.md`.
-NR-A-001/002/003 (build-time mechanism bugs) and NR-A-004 (theta=0.6
-stationarity perseveration) / NR-A-005 (frozen change-bids suffice on
-signal-tracking reversals) are referenced from ARCHITECTURE_A.md; their
-full entries live at the lane level. New entries below follow the same
+NR-A-001/002/003 (build-time mechanism bugs), NR-A-004 (theta=0.6
+stationarity perseveration, RESOLVED), NR-A-005 (frozen change-bids suffice
+on signal-tracking reversals) and NR-A-010 (K8 gate-a1 harness artifact)
+were cited from ARCHITECTURE_A.md / MATURITY.md but their full entries were
+never written anywhere — reconstructed 2026-10-07 by the maturity audit and
+appended below, marked as reconstructions. New entries follow the same
 honest-bounds discipline as NR-A-005.
 
 ## 2026-10-07 — NR-A-006: learned attention does not generalize to delayed_reward (K5 P1)
@@ -64,3 +66,85 @@ honest-bounds discipline as NR-A-005.
   Precise characterization: bids are CAUSAL for moment-to-moment
   arbitration under frozen gains; the learned system barely needs them.
   Receipt: receipts/k7_bid_ablation.json (verdict_split).
+
+## 2026-10-07 — NR-A-001/002/003 (reconstructed): build-time mechanism bugs
+
+*Reconstruction note (maturity audit, 2026-10-07): ARCHITECTURE_A.md cites
+NR-A-001/002/003 as living in this file and this file's header defers them
+to the lane level — neither location ever held full entries. The entries
+below are reconstructed from the one-line descriptions in ARCHITECTURE_A.md
+("tracking baselines, unobserved-arm punishment, within-tick ignition
+contamination"); all three were fixed during the build, before K1–K4.*
+
+- **NR-A-001 — tracking baselines**: a baseline that tracked the wrong
+  statistic (all-history instead of recency-weighted) admitted almost
+  nothing after the initial transient. Replaced with a recency-weighted
+  baseline; surprise is relative to current expectations.
+- **NR-A-002 — unobserved-arm punishment**: the gain update punished arms
+  that were never observed, decaying their gains for lack of evidence
+  rather than evidence of lack. Fixed: only observed arms update.
+- **NR-A-003 — within-tick ignition contamination**: ignition state leaked
+  across the tick boundary, letting one tick's gate decision contaminate
+  the next tick's arbitration. Fixed: per-tick gate state isolation.
+
+## 2026-10-07 — NR-A-004: theta=0.6 stationarity perseveration (RESOLVED, K6+K8)
+
+- Expectation: with the ignition gate at theta=0.6, the agent would still
+  act when the environment went fully stationary — ignition selects, the
+  gate propagates, the loop continues.
+- Observed: under sustained stationarity nothing crossed the gate, so no
+  proposal ever reached action selection and the agent froze on the stale
+  channel (K6 baseline: phase-2 'c' fraction 0.0, total ~84–85 while the
+  relevant channel had reversed). The freeze is the price of the gate as
+  built — action selection was gated on ignition.
+- Resolution: R1 sub-ignition exploratory path — when nothing ignites, act
+  on the graded arbitration winner WITHOUT propagating anything to
+  consumers (gate still decides ALL propagation; K2 sole-path unaffected).
+  K6 (seeds 1111/2222/3333): phase-2 'c' fraction 0.0→0.78, total 85→128.
+  K8 (fresh seeds 51501–51503): all 5 preregistered gates PASS; R1 wired as
+  the default `_select_action` 2026-10-07.
+- Rules out: "the freeze is the price of the gate." R2 (stationarity
+  detector lowering theta) also resolves but admits ~2.7× ignitions,
+  weakening gate selectivity — rejected.
+- Receipts: receipts/k6_stationarity_resolution.json,
+  receipts/k8_r1_wiring_confirmation.json,
+  receipts/k8_r1_wiring_decision.json.
+
+## 2026-10-07 — NR-A-005 (reconstructed): frozen change-bids suffice on signal-tracking reversals
+
+*Reconstruction note (maturity audit, 2026-10-07): cited as the bound on
+K4's claim in ARCHITECTURE_A.md and MATURITY.md; no full entry was ever
+written. Reconstructed from those citations.*
+
+- Expectation: learned attention gains would beat frozen gains on
+  signal-tracking reversal tasks.
+- Observed: on signal-tracking reversals the frozen change-bid baseline
+  adapts alone — no learned/frozen gap. The K4 win is specific to
+  salience-orthogonal relevance shifts.
+- Rules out: "learned attention earns its keep on every reversal task."
+  Precise bound: learning earns its keep for salience-orthogonal relevance
+  shifts (generalized K5 to noisy-signal tracking P2 and multi-reversal
+  stationary shifts P3), not where the frozen bid dynamics already track.
+
+## 2026-10-07 — NR-A-010: K8 first-run gate-a1 harness artifact (methodological)
+
+- Expectation: the K8 gate (a1) — frozen-gains ignition trajectories
+  EXACTLY identical baseline vs R1 on 3/3 seeds — would pass on the first
+  implementation.
+- Observed: FAILED on seed 51502 (ws-586 vs ws-1186) despite identical
+  ignition decisions. Root cause: `workspace_buffer.BoundedWorkspace._ids`
+  is a process-global `itertools.count`, so the second condition in the
+  same process continued the first condition's numbering. Harness
+  artifact, not a behavioral difference — verified by hand: same tick,
+  same bids, same winner, one ignition each.
+- Correction: reset the counter between conditions and compare behavioral
+  content per tick (ignited item id+strength, competed bids, winner). The
+  preregistration is unchanged; re-run passed 5/5 gates → WIRE.
+- Lesson: identity comparisons must name WHAT is being compared
+  (behavioral content, not process-global sequence numbers).
+- Follow-up note: a post-wire re-run of K8 is degenerate — the default
+  tick now includes the R1 path, so the baseline-vs-candidate contrast
+  collapses (verified by the auditor's own hand: gates a1–d pass, gate e
+  fails trivially because baseline now recovers too). The WIRE decision
+  rests on the pre-wire run recorded in the decision receipt.
+- Receipt: receipts/k8_r1_wiring_decision.json (method_correction field).

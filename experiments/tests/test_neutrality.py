@@ -39,6 +39,19 @@ SKIP_FILES = {
     "test_arch_b.py",
 }
 
+# Path-aware skips (relative to ROOT): files whose ONLY token occurrences
+# are the §14 enforcement machinery itself or its documentation.
+SKIP_PATHS = {
+    # intake/ is the §14 enforcement arm: GUARD_PATTERNS in intake.py is the
+    # denylist that REJECTS devotional machinery in incoming packages, and
+    # __init__.py documents the neutrality rule. Scanning the hunter's own
+    # denylist for the tokens it hunts is a false positive — same precedent
+    # as the files above. The tokens appear only in the rejection filter and
+    # its docs, never as privileged machinery. Verified by hand 2026-10-07.
+    "intake/intake.py",
+    "intake/__init__.py",
+}
+
 
 class TestNeutrality(unittest.TestCase):
     def test_no_privileged_identity_tokens(self):
@@ -49,6 +62,9 @@ class TestNeutrality(unittest.TestCase):
                 if not fn.endswith((".py", ".md")) or fn in SKIP_FILES:
                     continue
                 path = os.path.join(dirpath, fn)
+                rel = os.path.relpath(path, ROOT)
+                if rel in SKIP_PATHS:
+                    continue
                 with open(path, errors="replace") as fh:
                     for i, line in enumerate(fh, 1):
                         for rx, pat in PATTERNS:

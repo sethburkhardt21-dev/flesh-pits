@@ -80,15 +80,19 @@ class WorkspaceTick:
 
     # ---------------------------------------------------------------
     def _select_action(self, proposal, decision) -> tuple:
-        """Action-selection hook. Default (ignition-gated): the planner
-        proposal — which arrives only via broadcast after ignition — is
-        the sole path; with no proposal the previous action holds.
-        Subclasses may implement alternative resolution paths (e.g. an
-        explicit sub-ignition exploratory path for NR-A-004); the
-        default is behavior-identical to the pre-hook tick."""
+        """Action-selection hook. Default (R1, NR-A-004, wired
+        2026-10-07 after K6 + K8 confirmation): the planner proposal —
+        which arrives only via broadcast after ignition — is the sole
+        path when present; with no proposal (nothing ignited this
+        tick), act on the graded arbitration winner WITHOUT
+        propagating anything to consumers (no broadcast items exist on
+        this path, so no deliveries happen; the ignition gate remains
+        the sole decider of propagation — K2/K3 intact, verified K8).
+        Subclasses may still override this hook for alternative
+        resolution paths."""
         if proposal and proposal.get("proposed_action"):
             return proposal["proposed_action"], {"path": "ignited_proposal"}
-        return self._last_action, {"path": "hold"}
+        return decision["winner"], {"path": "sub_ignition_explore"}
 
     def step(self, observation: dict, env=None) -> dict:
         """One closed-loop tick. Returns a machine-readable trace."""
@@ -178,7 +182,8 @@ class WorkspaceTick:
         # 6. action selection consumes the planner queue THROUGH the bus
         #    (broadcast -> planner_input is the sole path workspace content
         #    takes to reach action selection). If nothing ignited this
-        #    tick, hold the previous action (no hallucinated proposals).
+        #    tick, _select_action's default R1 path acts on the graded
+        #    arbitration winner without propagating anything to consumers.
         #    Routed through _select_action so alternative resolution
         #    paths can be tested as explicit subclasses (NR-A-004).
         proposal = self.bus.read_consumer("planner_input")

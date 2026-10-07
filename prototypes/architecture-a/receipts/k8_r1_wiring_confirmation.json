@@ -1,0 +1,141 @@
+{
+  "a1_frozen_ignition_identity": {
+    "51501": {
+      "baseline_ignited": 0,
+      "ignition_trajectory_identical": true,
+      "r1_ignited": 0
+    },
+    "51502": {
+      "baseline_ignited": 1,
+      "ignition_trajectory_identical": true,
+      "r1_ignited": 1
+    },
+    "51503": {
+      "baseline_ignited": 0,
+      "ignition_trajectory_identical": true,
+      "r1_ignited": 0
+    }
+  },
+  "b_k1k2k3_reruns": {
+    "k1": {
+      "byte_identical": true,
+      "exit": 0,
+      "sha_after": "e007671877da7e95",
+      "sha_before": "e007671877da7e95",
+      "stderr_tail": ""
+    },
+    "k2": {
+      "byte_identical": true,
+      "exit": 0,
+      "sha_after": "bd2260363c15e14c",
+      "sha_before": "bd2260363c15e14c",
+      "stderr_tail": ""
+    },
+    "k3": {
+      "byte_identical": true,
+      "exit": 0,
+      "sha_after": "0fc80361213e7c93",
+      "sha_before": "0fc80361213e7c93",
+      "stderr_tail": ""
+    }
+  },
+  "c_k4_nondegradation": {
+    "detail": {
+      "11": {
+        "R": 1.611,
+        "frozen": 79.18,
+        "learned": 127.58,
+        "win": true
+      },
+      "22": {
+        "R": 2.027,
+        "frozen": 63.17,
+        "learned": 128.07,
+        "win": true
+      },
+      "33": {
+        "R": 1.949,
+        "frozen": 65.5,
+        "learned": 127.65,
+        "win": true
+      },
+      "44": {
+        "R": 1.565,
+        "frozen": 82.67,
+        "learned": 129.42,
+        "win": true
+      }
+    },
+    "margin": 1.3,
+    "need": 3,
+    "wins": 4
+  },
+  "candidate": "SubIgnitionExploreTick (imported from k6)",
+  "decision": "WIRE",
+  "experiment": "K8_r1_wiring_confirmation",
+  "gates": {
+    "a1_frozen_ignition_identity": true,
+    "b_k1k2k3_byte_identical": true,
+    "c_k4_nondegradation": true,
+    "d_sole_path_subignition": true,
+    "e_freeze_recovery_replicates": true
+  },
+  "learned_runs": {
+    "51501": {
+      "R1": {
+        "ignited": 180,
+        "phase2_c_fraction": 0.79,
+        "sole_path_violations": [],
+        "sub_ignition_trials": 20,
+        "total_reward": 127.93
+      },
+      "baseline": {
+        "ignited": 109,
+        "phase2_c_fraction": 0.0,
+        "sole_path_violations": [],
+        "sub_ignition_trials": 0,
+        "total_reward": 84.48
+      }
+    },
+    "51502": {
+      "R1": {
+        "ignited": 181,
+        "phase2_c_fraction": 0.81,
+        "sole_path_violations": [],
+        "sub_ignition_trials": 21,
+        "total_reward": 128.57
+      },
+      "baseline": {
+        "ignited": 107,
+        "phase2_c_fraction": 0.0,
+        "sole_path_violations": [],
+        "sub_ignition_trials": 0,
+        "total_reward": 84.02
+      }
+    },
+    "51503": {
+      "R1": {
+        "ignited": 181,
+        "phase2_c_fraction": 0.79,
+        "sole_path_violations": [],
+        "sub_ignition_trials": 19,
+        "total_reward": 128.45
+      },
+      "baseline": {
+        "ignited": 110,
+        "phase2_c_fraction": 0.0,
+        "sole_path_violations": [],
+        "sub_ignition_trials": 0,
+        "total_reward": 85.0
+      }
+    }
+  },
+  "method_correction": "First (a1) implementation compared raw item_ids and failed on seed 51502 (ws-586 vs ws-1186) despite identical ignition decisions: workspace_buffer.BoundedWorkspace._ids is a process-global itertools counter, so the second condition in the same process continues the first condition's numbering. Harness artifact, not a behavioral difference \u2014 verified by hand: same tick, same bids, same winner, one ignition each. Corrected by resetting the counter between conditions and comparing behavioral content (ignited item id+strength, competed bids, winner) per tick. The preregistration above is unchanged; this note is the honest record of the fix.",
+  "seeds": [
+    51501,
+    51502,
+    51503
+  ],
+  "theta": 0.6,
+  "ticks": 200
+}

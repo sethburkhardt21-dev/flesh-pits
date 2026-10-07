@@ -141,7 +141,7 @@ def test_live_policy_parses():
     with open(os.path.join(here, "var-budget-policy.json")) as f:
         policy = parse_policy(f.read())
     assert policy["version"] == 1
-    assert policy["maxTotalBytes"] == 167772160
+    assert policy["maxTotalBytes"] == 2415919104  # 2.25 GiB: scratch + 2 GiB models envelope (2026-10-07)
 
 
 def test_live_tree_within_budget():

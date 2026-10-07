@@ -24,9 +24,9 @@ perception -> specialists -> z-score salience bids -> attention arbitration
 | `ignition.py` | Recurrent bistable loop → hard Heaviside gate on propagation; `linear_probe` kill-control |
 | `broadcast.py` | In-memory sole-path bus: declared consumers, per-item consumer sets, lesion/restore, delivery receipts |
 | `consumers.py` | 6 real consumers with instrumentable effects (memory store, self-state, planner queue, gain updater, consolidation marks, report) |
-| `tick.py` | The tick; consumers exist only behind the bus; action selection reads the planner queue through the bus |
+| `tick.py` | The tick; consumers exist only behind the bus; action selection reads the planner queue through the bus. Default `_select_action`: ignited planner proposal wins; with no proposal (nothing ignited) the R1 sub-ignition exploratory path acts on the graded arbitration winner with zero consumer propagation (wired 2026-10-07, K8). |
 | `envs.py` | **PROVISIONAL** minimal env (canonical ENV_INTERFACE not on disk 2026-10-07); stationary-signal changing-relevance task |
-| `experiments/k1..k4_*.py` | Kill experiments, §38 standard, receipts in `receipts/` |
+| `experiments/k1..k8_*.py` | Kill experiments, §38 standard, receipts in `receipts/` (K8 = R1 wiring confirmation; decision receipt `k8_r1_wiring_decision.json`, hash-chained) |
 | `experiments/identity_symmetry_check.py` | §§14–15 neutrality verification |
 
 ## Kill-experiment outcomes (all with numbers)
@@ -56,13 +56,18 @@ perception -> specialists -> z-score salience bids -> attention arbitration
   shifts (P3, 4/4), but NOT to sparse delayed reward (NR-A-006: learned
   loses, R 0.08–0.17) or cue-conditioned contingencies without cue input
   (NR-A-007: no gap, R 1.03–1.09).
-- **Stationarity perseveration** (NR-A-004) — RESOLVED 2026-10-07 (K6):
-  R1 sub-ignition exploratory path recommended (act on the graded
-  arbitration winner when nothing ignites; nothing unignited reaches
-  consumers; gate still decides all propagation). 3/3 seeds: phase-2
-  'c' fraction 0.0→0.78, total 85→128; K1–K3 reruns byte-identical PASS;
-  K4 non-degradation 4/4. R2 (adaptive theta) also resolves but admits
-  ~2.7× ignitions — rejected. The freeze is not the price of the gate.
+- **Stationarity perseveration** (NR-A-004) — RESOLVED and WIRED
+  2026-10-07 (K6 + K8): R1 sub-ignition exploratory path is the default
+  tick behavior (act on the graded arbitration winner when nothing
+  ignites; nothing unignited reaches consumers; gate still decides all
+  propagation). K8 confirmation on fresh seeds 51501–51503: 5/5
+  preregistered gates PASS — frozen-gains ignition trajectories
+  byte-identical 3/3, K1–K3 reruns byte-identical, K4 non-degradation
+  4/4 (R 1.57–2.03), zero non-feedback consumer deliveries on all
+  sub-ignition trials, phase-2 'c' fraction 0.0→0.79–0.81 with total
+  84–85→128–129. Post-wire K1–K4 reruns byte-identical. R2 (adaptive
+  theta) also resolves but admits ~2.7× ignitions — rejected. The
+  freeze is not the price of the gate.
 - Three mechanism bugs found and fixed during the build (NR-A-001/002/003):
   tracking baselines, unobserved-arm punishment, within-tick ignition
   contamination. All in `research/negative_results.md`.
