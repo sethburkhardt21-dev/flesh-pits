@@ -145,3 +145,8 @@ evidence in receipts/.
   machinery does not robustly convert learning into better decisions under
   shift. All of Architecture A (K1–K4) reproduced 5/5 — the fragility is
   specific to B's adaptive machinery, not the reproduction method.
+
+## 2026-10-07 — EXP-FP-CALIB-01: B's §30 uncertainties are miscalibrated on all four domains
+- Expectation: B's §30 stated uncertainties (oconf/ounc, rconf/runc, uconf/uunc) are calibrated probabilistic claims — Brier score would beat sequential climatology on all four domains with reliability near the diagonal.
+- Observed: on 1950 fresh closed-loop ticks per domain (5 fresh seeds, changing_rule, preregistered thresholds from 2340 published ticks, no post-run tuning), B fails to beat climatology EVERYWHERE: D1 next_obs 0.2532 vs 0.2508 (skill −0.009, MCE 0.909); D2 action_consequence 0.2866 vs 0.2505 (skill −0.144, under-confident S=−0.19); D3 competence/failure 0.1025 vs 0.0734 (skill −0.398, over-confident S=+0.17, failure over-predicted ~3× in the main bin); D4 retrieval_usefulness 0.2610 vs 0.2472 (skill −0.056, observed benefit rate flat across the predicted range).
+- Rules out: "B's confidence outputs are decision-usable as probabilities." Root cause: stated uncertainty is essentially uncoupled from actual error magnitude (corr(sigma,|err|) = 0.02 D1/D3, 0.17 D2, 0.05 D4). The existing CalibrationTracker bin/slope summaries remain descriptive only; the "calibration tracked" maturity label described bookkeeping, not calibrated forecasts. Receipt: receipts/EXP-FP-CALIB-01.json (hash-chained); full table benchmarks/calibration_battery_results.json.

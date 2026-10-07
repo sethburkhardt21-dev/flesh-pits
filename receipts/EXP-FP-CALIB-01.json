@@ -1,0 +1,130 @@
+{
+  "baseline": "sequential climatology (running Laplace-smoothed base rate; secondary constant 0.5). Calibration must beat it to mean anything.",
+  "conditions": "changing_rule v1.0.0, arch_b, affect=none, 10 episodes x 5 fresh seeds {73101..73105} (never used before), PredictionLog JSONL per seed, canonical derive_seed streams. 1950 ticks pooled per domain.",
+  "config": {
+    "affect": "none",
+    "agent": "arch_b",
+    "bins": 10,
+    "contract_version": "1.0.0",
+    "env": "changing_rule",
+    "env_version": "1.0.0",
+    "episodes_per_seed": 10,
+    "experiment_id": "EXP-FP-CALIB-01",
+    "primary_seeds": [
+      73101,
+      73102,
+      73103,
+      73104,
+      73105
+    ],
+    "thresholds": {
+      "EPS_OBS": 0.2682,
+      "EPS_RW": 0.2067,
+      "TAU_FAIL": 0.4156
+    }
+  },
+  "config_hash": "f1adacd4748e3d8a4feada40b6a5e433d72c9af9becb2626d81cfce66ad85a87",
+  "episodes": [
+    {
+      "env": "changing_rule",
+      "n_episodes": 10,
+      "prediction_log": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-CALIB-01.seed73101.predictions.jsonl",
+      "seed": 73101
+    },
+    {
+      "env": "changing_rule",
+      "n_episodes": 10,
+      "prediction_log": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-CALIB-01.seed73102.predictions.jsonl",
+      "seed": 73102
+    },
+    {
+      "env": "changing_rule",
+      "n_episodes": 10,
+      "prediction_log": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-CALIB-01.seed73103.predictions.jsonl",
+      "seed": 73103
+    },
+    {
+      "env": "changing_rule",
+      "n_episodes": 10,
+      "prediction_log": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-CALIB-01.seed73104.predictions.jsonl",
+      "seed": 73104
+    },
+    {
+      "env": "changing_rule",
+      "n_episodes": 10,
+      "prediction_log": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-CALIB-01.seed73105.predictions.jsonl",
+      "seed": 73105
+    }
+  ],
+  "experiment_id": "EXP-FP-CALIB-01",
+  "hypothesis": "Architecture B's \u00a730 stated uncertainties are calibrated probabilistic claims: on all four domains the Brier score beats sequential climatology and the reliability curve sits near the diagonal.",
+  "interpretation": "FINDING (negative): B's \u00a730 stated uncertainties are MISCALIBRATED on all four domains \u2014 they fail to beat climatology everywhere. D1 next_obs: Brier 0.2532 vs climo 0.2508 (skill -0.009), ECE 0.048 but MCE 0.909 (high-confidence bin p\u22481.0 observed 0.09). D2 action_consequence: 0.2866 vs 0.2505 (skill -0.144), under-confident (S=-0.19; stated reward uncertainty systematically too large). D3 competence_failure: 0.1025 vs 0.0734 (skill -0.398), over-confident (S=+0.17; failure over-predicted ~3x in the main bin). D4 retrieval_usefulness: 0.2610 vs 0.2472 (skill -0.056), dispersion error (observed benefit rate flat ~0.40-0.47 across predicted 0.08-0.64). Root cause: stated uncertainty is essentially uncoupled from actual error magnitude \u2014 corr(sigma,|err|) = 0.02 (D1/D3), 0.17 (D2), 0.05 (D4). The Gaussian predictive claim is the tested object; per the preregistered abstention rule no thresholds/bins/mappings were tuned after the run. Consequence: B's confidence outputs are not decision-usable as probabilities; the CalibrationTracker slope/bin summaries remain descriptive only.",
+  "limitations": "Single env (changing_rule), closed-loop policy conditions the visited distribution; affect=none matches BAR/K1 characterization conditions. Gaussian bridge tests the full probabilistic claim (Gaussian + stated sigma), not sigma alone. corr(sigma,|err|) supplementary metric shows the uncoupling directly, independent of the bridge.",
+  "null_hypothesis": "Brier_B >= Brier_climo on every domain (stated uncertainties carry no probabilistic information beyond the base rate).",
+  "preregistered_metric": "Per-domain Brier_B vs Brier_climo (sequential Laplace-smoothed climatology); ECE/MCE over 10 bins; signed error S. CALIBRATED iff Brier_B<Brier_climo AND ECE<=0.10 AND MCE<=0.25; MISCALIBRATED iff Brier_B>=Brier_climo or reliability off-diagonal; UNMEASURABLE on degenerate gates. Thresholds frozen pre-run from 2340 published ticks (EPS_OBS=0.2682, EPS_RW=0.2067, TAU_FAIL=0.4156); no post-run tuning.",
+  "prev_receipt_hash": null,
+  "primary_seed": [
+    73101,
+    73102,
+    73103,
+    73104,
+    73105
+  ],
+  "receipt_hash": "3c884f88d11a49db8b5b46602095c10826325abd869617ea39cfcf81ab4977bf",
+  "started_utc": "2026-10-07T08:23:00.452989+00:00",
+  "summary": {
+    "action_consequence": {
+      "base_rate": 0.4897435897435897,
+      "brier_B": 0.28663550612275784,
+      "brier_climo": 0.25054870533057744,
+      "brier_const05": 0.25,
+      "corr_sigma_err": 0.16919814626941884,
+      "ece": 0.19487592572974446,
+      "mce": 0.6603036885548645,
+      "n": 1950,
+      "signed_error": -0.19247276286324683,
+      "skill_vs_climo": -0.14403108068176596,
+      "verdict": "MISCALIBRATED (fails to beat climatology; under-confident)"
+    },
+    "competence_failure": {
+      "base_rate": 0.07897435897435898,
+      "brier_B": 0.10254352574528713,
+      "brier_climo": 0.07336005083832148,
+      "brier_const05": 0.25,
+      "corr_sigma_err": 0.02098926153823181,
+      "ece": 0.17324719606139746,
+      "mce": 0.42654236639290155,
+      "n": 1950,
+      "signed_error": 0.16914463197011542,
+      "skill_vs_climo": -0.39781154147893427,
+      "verdict": "MISCALIBRATED (fails to beat climatology; over-confident)"
+    },
+    "next_obs": {
+      "base_rate": 0.498974358974359,
+      "brier_B": 0.2532019739680925,
+      "brier_climo": 0.2508327441168928,
+      "brier_const05": 0.25,
+      "corr_sigma_err": 0.02098926153823181,
+      "ece": 0.04799395785968025,
+      "mce": 0.9090909080909091,
+      "n": 1950,
+      "signed_error": 0.04688580151269252,
+      "skill_vs_climo": -0.009445456810437847,
+      "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+    },
+    "retrieval_usefulness": {
+      "base_rate": 0.43948717948717947,
+      "brier_B": 0.26102666070810676,
+      "brier_climo": 0.24720547939848184,
+      "brier_const05": 0.25,
+      "corr_sigma_err": 0.05236459251327304,
+      "ece": 0.11211457127455264,
+      "mce": 0.3335417732207422,
+      "n": 1950,
+      "signed_error": -0.010167720692631327,
+      "skill_vs_climo": -0.05590968834208532,
+      "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+    }
+  },
+  "written_utc": "2026-10-07T08:24:12.741893+00:00"
+}

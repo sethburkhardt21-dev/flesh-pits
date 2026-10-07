@@ -152,3 +152,24 @@ selection with no exploration locks into no-op fixed points. Both are
 documented D limitations and concrete bars for architectures A/B/C:
 beat D's numbers AND address (1) and (2), or the extra machinery is theater.
 Negative results preserved in research/negative_results.md.
+
+## EXP-FP-CALIB-01 — calibration battery for B's §30 predictions (§9 item 9)
+
+**PREREGISTERED (2026-10-07, before run; full JSON: benchmarks/calibration_battery_preregistration.json)**
+- hypothesis: Architecture B's §30 stated uncertainties are calibrated probabilistic claims: on all four domains the Brier score beats sequential climatology and the reliability curve sits near the diagonal.
+- null: Brier_B >= Brier_climo on every domain (stated uncertainties carry no probabilistic information beyond the base rate).
+- preregistered metric: per-domain Brier_B vs Brier_climo (sequential Laplace-smoothed climatology); ECE/MCE over 10 bins; signed error S. CALIBRATED iff Brier_B < Brier_climo AND ECE<=0.10 AND MCE<=0.25; MISCALIBRATED iff Brier_B >= Brier_climo or reliability fails; UNMEASURABLE on degenerate gates (n<200, std(p)<1e-9, base rate outside [0.02,0.98], non-finite).
+- domains: D1 next-obs (o=1(mean|e0|<=0.2682), p=erf(EPS/(sigma*sqrt2)), sigma=ounc); D2 action-consequence (o=1(|rerr|<=0.2067), p=erf bridge, sigma=runc); D3 competence/failure (o=1(mean|e0|>0.4156), p=erfc bridge, sigma=ounc); D4 retrieval-usefulness (o=1(benefit>0), p=Phi(uhat/sigma_u)). Thresholds from 2340 PUBLISHED changing_rule ticks (pre-battery), frozen.
+- baseline: sequential climatology (running base rate); secondary constant 0.5.
+- conditions: changing_rule v1.0.0, arch_b, affect=none, 10 episodes x 5 fresh seeds {73101..73105}, PredictionLog JSONL per seed, canonical derive_seed streams.
+- abstention: no threshold/bin/mapping tuning after the run; poor calibration everywhere is a negative-result finding, not a tuning trigger.
+- config hash: recorded in receipt at run time.
+
+**RESULT: pending — battery not yet run at registry time.**
+
+**RESULT (2026-10-07, battery run complete — 5 fresh seeds, 1950 ticks/domain, receipt receipts/EXP-FP-CALIB-01.json)**
+- D1 next_obs: MISCALIBRATED (fails to beat climatology; Brier 0.2532 vs climo 0.2508; ECE 0.048, MCE 0.909; corr(sigma,|err|)=0.02)
+- D2 action_consequence: MISCALIBRATED (under-confident; Brier 0.2866 vs climo 0.2505; S=-0.19; corr=0.17)
+- D3 competence_failure: MISCALIBRATED (over-confident; Brier 0.1025 vs climo 0.0734; S=+0.17; corr=0.02)
+- D4 retrieval_usefulness: MISCALIBRATED (dispersion error; Brier 0.2610 vs climo 0.2472; observed benefit rate flat ~0.40-0.47 across predicted 0.08-0.64)
+- Finding: B's stated uncertainties are essentially uncoupled from actual error magnitude; not decision-usable as probabilities. No post-run tuning per preregistered abstention rule. Full table: benchmarks/calibration_battery_results.json.

@@ -1,0 +1,464 @@
+{
+  "config": {
+    "affect": "none",
+    "agent": "arch_b",
+    "bins": 10,
+    "contract_version": "1.0.0",
+    "env": "changing_rule",
+    "env_version": "1.0.0",
+    "episodes_per_seed": 10,
+    "experiment_id": "EXP-FP-CALIB-01",
+    "primary_seeds": [
+      73101,
+      73102,
+      73103,
+      73104,
+      73105
+    ],
+    "thresholds": {
+      "EPS_OBS": 0.2682,
+      "EPS_RW": 0.2067,
+      "TAU_FAIL": 0.4156
+    }
+  },
+  "config_hash": "f1adacd4748e3d8a4feada40b6a5e433d72c9af9becb2626d81cfce66ad85a87",
+  "domains": {
+    "action_consequence": {
+      "base_rate": 0.4897435897435897,
+      "brier_B": 0.28663550612275784,
+      "brier_climo": 0.25054870533057744,
+      "brier_const05": 0.25,
+      "corr_sigma_err": 0.16919814626941884,
+      "ece": 0.19487592572974446,
+      "mce": 0.6603036885548645,
+      "n": 1950,
+      "reliability_bins": [
+        {
+          "bin": [
+            0.0,
+            0.1
+          ],
+          "mean_p": 0.0905431822926599,
+          "n": 4,
+          "obs_rate": 0.0
+        },
+        {
+          "bin": [
+            0.1,
+            0.2
+          ],
+          "mean_p": 0.16543901809377967,
+          "n": 114,
+          "obs_rate": 0.37719298245614036
+        },
+        {
+          "bin": [
+            0.2,
+            0.3
+          ],
+          "mean_p": 0.24650941690022202,
+          "n": 382,
+          "obs_rate": 0.45287958115183247
+        },
+        {
+          "bin": [
+            0.3,
+            0.4
+          ],
+          "mean_p": 0.31950342248078906,
+          "n": 1437,
+          "obs_rate": 0.5086986778009742
+        },
+        {
+          "bin": [
+            0.4,
+            0.5
+          ],
+          "mean_p": 0.41819651983639383,
+          "n": 10,
+          "obs_rate": 0.7
+        },
+        {
+          "bin": [
+            0.5,
+            0.6
+          ],
+          "mean_p": null,
+          "n": 0,
+          "obs_rate": null
+        },
+        {
+          "bin": [
+            0.6,
+            0.7
+          ],
+          "mean_p": null,
+          "n": 0,
+          "obs_rate": null
+        },
+        {
+          "bin": [
+            0.7,
+            0.8
+          ],
+          "mean_p": null,
+          "n": 0,
+          "obs_rate": null
+        },
+        {
+          "bin": [
+            0.8,
+            0.9
+          ],
+          "mean_p": null,
+          "n": 0,
+          "obs_rate": null
+        },
+        {
+          "bin": [
+            0.9,
+            1.0
+          ],
+          "mean_p": 0.9936370218881979,
+          "n": 3,
+          "obs_rate": 0.3333333333333333
+        }
+      ],
+      "signed_error": -0.19247276286324683,
+      "skill_vs_climo": -0.14403108068176596,
+      "verdict": "MISCALIBRATED (fails to beat climatology; under-confident)"
+    },
+    "competence_failure": {
+      "base_rate": 0.07897435897435898,
+      "brier_B": 0.10254352574528713,
+      "brier_climo": 0.07336005083832148,
+      "brier_const05": 0.25,
+      "corr_sigma_err": 0.02098926153823181,
+      "ece": 0.17324719606139746,
+      "mce": 0.42654236639290155,
+      "n": 1950,
+      "reliability_bins": [
+        {
+          "bin": [
+            0.0,
+            0.1
+          ],
+          "mean_p": 1e-09,
+          "n": 11,
+          "obs_rate": 0.36363636363636365
+        },
+        {
+          "bin": [
+            0.1,
+            0.2
+          ],
+          "mean_p": 0.19146843866584473,
+          "n": 34,
+          "obs_rate": 0.029411764705882353
+        },
+        {
+          "bin": [
+            0.2,
+            0.3
+          ],
+          "mean_p": 0.24206496408253786,
+          "n": 1689,
+          "obs_rate": 0.07400828892835998
+        },
+        {
+          "bin": [
+            0.3,
+            0.4
+          ],
+          "mean_p": 0.3165015754152884,
+          "n": 215,
+          "obs_rate": 0.11162790697674418
+        },
+        {
+          "bin": [
+            0.4,
+            0.5
+          ],
+          "mean_p": 0.42654236639290155,
+          "n": 1,
+          "obs_rate": 0.0
+        },
+        {
+          "bin": [
+            0.5,
+            0.6
+          ],
+          "mean_p": null,
+          "n": 0,
+          "obs_rate": null
+        },
+        {
+          "bin": [
+            0.6,
+            0.7
+          ],
+          "mean_p": null,
+          "n": 0,
+          "obs_rate": null
+        },
+        {
+          "bin": [
+            0.7,
+            0.8
+          ],
+          "mean_p": null,
+          "n": 0,
+          "obs_rate": null
+        },
+        {
+          "bin": [
+            0.8,
+            0.9
+          ],
+          "mean_p": null,
+          "n": 0,
+          "obs_rate": null
+        },
+        {
+          "bin": [
+            0.9,
+            1.0
+          ],
+          "mean_p": null,
+          "n": 0,
+          "obs_rate": null
+        }
+      ],
+      "signed_error": 0.16914463197011542,
+      "skill_vs_climo": -0.39781154147893427,
+      "verdict": "MISCALIBRATED (fails to beat climatology; over-confident)"
+    },
+    "next_obs": {
+      "base_rate": 0.498974358974359,
+      "brier_B": 0.2532019739680925,
+      "brier_climo": 0.2508327441168928,
+      "brier_const05": 0.25,
+      "corr_sigma_err": 0.02098926153823181,
+      "ece": 0.04799395785968025,
+      "mce": 0.9090909080909091,
+      "n": 1950,
+      "reliability_bins": [
+        {
+          "bin": [
+            0.0,
+            0.1
+          ],
+          "mean_p": null,
+          "n": 0,
+          "obs_rate": null
+        },
+        {
+          "bin": [
+            0.1,
+            0.2
+          ],
+          "mean_p": null,
+          "n": 0,
+          "obs_rate": null
+        },
+        {
+          "bin": [
+            0.2,
+            0.3
+          ],
+          "mean_p": null,
+          "n": 0,
+          "obs_rate": null
+        },
+        {
+          "bin": [
+            0.3,
+            0.4
+          ],
+          "mean_p": 0.39213114981336844,
+          "n": 1,
+          "obs_rate": 0.0
+        },
+        {
+          "bin": [
+            0.4,
+            0.5
+          ],
+          "mean_p": 0.4839101604669843,
+          "n": 243,
+          "obs_rate": 0.35802469135802467
+        },
+        {
+          "bin": [
+            0.5,
+            0.6
+          ],
+          "mean_p": 0.5514420126372015,
+          "n": 1682,
+          "obs_rate": 0.5208085612366231
+        },
+        {
+          "bin": [
+            0.6,
+            0.7
+          ],
+          "mean_p": 0.6091959662836096,
+          "n": 13,
+          "obs_rate": 0.6923076923076923
+        },
+        {
+          "bin": [
+            0.7,
+            0.8
+          ],
+          "mean_p": null,
+          "n": 0,
+          "obs_rate": null
+        },
+        {
+          "bin": [
+            0.8,
+            0.9
+          ],
+          "mean_p": null,
+          "n": 0,
+          "obs_rate": null
+        },
+        {
+          "bin": [
+            0.9,
+            1.0
+          ],
+          "mean_p": 0.999999999,
+          "n": 11,
+          "obs_rate": 0.09090909090909091
+        }
+      ],
+      "signed_error": 0.04688580151269252,
+      "skill_vs_climo": -0.009445456810437847,
+      "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+    },
+    "retrieval_usefulness": {
+      "base_rate": 0.43948717948717947,
+      "brier_B": 0.26102666070810676,
+      "brier_climo": 0.24720547939848184,
+      "brier_const05": 0.25,
+      "corr_sigma_err": 0.05236459251327304,
+      "ece": 0.11211457127455264,
+      "mce": 0.3335417732207422,
+      "n": 1950,
+      "reliability_bins": [
+        {
+          "bin": [
+            0.0,
+            0.1
+          ],
+          "mean_p": 0.07554913587016693,
+          "n": 66,
+          "obs_rate": 0.4090909090909091
+        },
+        {
+          "bin": [
+            0.1,
+            0.2
+          ],
+          "mean_p": 0.15458886576349917,
+          "n": 190,
+          "obs_rate": 0.3684210526315789
+        },
+        {
+          "bin": [
+            0.2,
+            0.3
+          ],
+          "mean_p": 0.2536032900740616,
+          "n": 255,
+          "obs_rate": 0.4
+        },
+        {
+          "bin": [
+            0.3,
+            0.4
+          ],
+          "mean_p": 0.35132746373497087,
+          "n": 375,
+          "obs_rate": 0.4026666666666667
+        },
+        {
+          "bin": [
+            0.4,
+            0.5
+          ],
+          "mean_p": 0.44741916018694605,
+          "n": 366,
+          "obs_rate": 0.41530054644808745
+        },
+        {
+          "bin": [
+            0.5,
+            0.6
+          ],
+          "mean_p": 0.5448117195618196,
+          "n": 308,
+          "obs_rate": 0.45454545454545453
+        },
+        {
+          "bin": [
+            0.6,
+            0.7
+          ],
+          "mean_p": 0.6432105229889516,
+          "n": 228,
+          "obs_rate": 0.4692982456140351
+        },
+        {
+          "bin": [
+            0.7,
+            0.8
+          ],
+          "mean_p": 0.7406431406086373,
+          "n": 94,
+          "obs_rate": 0.648936170212766
+        },
+        {
+          "bin": [
+            0.8,
+            0.9
+          ],
+          "mean_p": 0.8406908418781667,
+          "n": 54,
+          "obs_rate": 0.7037037037037037
+        },
+        {
+          "bin": [
+            0.9,
+            1.0
+          ],
+          "mean_p": 0.9407855102711938,
+          "n": 14,
+          "obs_rate": 0.6428571428571429
+        }
+      ],
+      "signed_error": -0.010167720692631327,
+      "skill_vs_climo": -0.05590968834208532,
+      "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+    }
+  },
+  "experiment_id": "EXP-FP-CALIB-01",
+  "logs": [
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-CALIB-01.seed73101.predictions.jsonl",
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-CALIB-01.seed73102.predictions.jsonl",
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-CALIB-01.seed73103.predictions.jsonl",
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-CALIB-01.seed73104.predictions.jsonl",
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-CALIB-01.seed73105.predictions.jsonl"
+  ],
+  "seeds": [
+    73101,
+    73102,
+    73103,
+    73104,
+    73105
+  ],
+  "started_utc": "2026-10-07T08:23:00.452989+00:00",
+  "written_utc": "2026-10-07T08:23:11.280004+00:00"
+}
