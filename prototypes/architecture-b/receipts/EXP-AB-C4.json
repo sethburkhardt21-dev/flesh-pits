@@ -1,0 +1,39 @@
+{
+  "architecture": "B",
+  "config_hash": "474cf3a05f7f924516ff3e4ae2f8b68614d827fcbfffc9638ee9950c843a8ebe",
+  "contract_version": "1.0.0",
+  "experiment_id": "EXP-AB-C4",
+  "interpretation": "KILL \u2014 label comes off: IG ai=0.0275 rand=-0.1406 greedy=0.0502; returns {'active_inference': -3.8, 'random': -3.952, 'greedy': -5.979}.",
+  "limitations": "Same world model in all conditions; only act() policy differs. IG measured as within-run error decline. Single seed.",
+  "preregistered": {
+    "baseline": "arch_b with action_mode random / greedy.",
+    "conditions": {
+      "affect": "none (world-model isolation; affect in K4)",
+      "agent": "arch_b v1",
+      "env": "pomaze v1.0.0",
+      "episodes": 15,
+      "primary_seed": 108
+    },
+    "hypothesis": "Active-inference action selection beats random and greedy baselines on information-gain metrics (same world model, only the action policy differs).",
+    "metric": "IG = mean|e0| first 15% ticks minus mean|e0| last 15% ticks; secondary: mean_return. 15 episodes on pomaze.",
+    "null": "No IG gap ('active inference' is a label on a heuristic)."
+  },
+  "result": {
+    "active_inference": {
+      "IG": 0.027474248436084925,
+      "mean_return": -3.799999999999983,
+      "n_ticks": 2827
+    },
+    "greedy": {
+      "IG": 0.050208232363784654,
+      "mean_return": -5.978666666666672,
+      "n_ticks": 2985
+    },
+    "random": {
+      "IG": -0.1405728342702517,
+      "mean_return": -3.9519999999999835,
+      "n_ticks": 2881
+    }
+  },
+  "written_utc": "2026-10-07T06:44:21.440027+00:00"
+}

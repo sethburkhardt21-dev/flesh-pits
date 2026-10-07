@@ -1,0 +1,44 @@
+{
+  "baseline": {
+    "attention_update": 118,
+    "consolidation_eligible": 88,
+    "memory_admit": 88,
+    "planner_input": 30,
+    "report": 88,
+    "self_model_update": 88
+  },
+  "experiment": "K2_broadcast_lesion",
+  "internal_admissions_during_total_lesion": 90,
+  "internal_ignitions_during_total_lesion": 90,
+  "pass": true,
+  "recovery_deltas": {
+    "attention_update": 115,
+    "consolidation_eligible": 85,
+    "memory_admit": 85,
+    "planner_input": 30,
+    "report": 85,
+    "self_model_update": 85
+  },
+  "recovery_ok": true,
+  "seed": 20261007,
+  "selective_lesion_deltas": {
+    "attention_update": 119,
+    "consolidation_eligible": 89,
+    "memory_admit": 0,
+    "planner_input": 30,
+    "report": 89,
+    "self_model_update": 89
+  },
+  "selective_ok": true,
+  "ticks_per_phase": 30,
+  "total_lesion_deltas": {
+    "attention_update": 0,
+    "consolidation_eligible": 0,
+    "memory_admit": 0,
+    "planner_input": 0,
+    "report": 0,
+    "self_model_update": 0
+  },
+  "total_ok": true,
+  "verdict": "PASS \u2014 selective lesion is selective; total lesion silences all consumers at once; internal processing continues; recovery complete; no side channels detected"
+}

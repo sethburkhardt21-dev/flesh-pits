@@ -1,0 +1,31 @@
+{
+  "architecture": "B",
+  "config_hash": "a21c6225fd871b614049126ad9cb6357297259cbe81da727ac959e2d72ca68ac",
+  "contract_version": "1.0.0",
+  "experiment_id": "EXP-AB-K5",
+  "interpretation": "Survives: shuffled-trained error 0.8606 > ordered-trained 0.8575 (delta +0.0030).",
+  "limitations": "learn_transition path (no retrieval correction/affect); the held-out stream uses the phase-1 rule (same as the end of the ordered training stream) from an independent seed. The ordered-trained model must track the rule flip to win; the shuffled-trained model sees mixed rules. Single seed pair.",
+  "preregistered": {
+    "baseline": "arch_b trained on shuffled transition order.",
+    "conditions": {
+      "affect": "none (world-model isolation; affect in K4)",
+      "agent": "arch_b v1",
+      "env": "changing_rule v1.0.0",
+      "heldout": "episodes 5-9 (phase 1 rule) seed 205",
+      "primary_seed": 105,
+      "train": "episodes 0-9 (phases 0,1) seed 105"
+    },
+    "hypothesis": "A predictive model trained on temporally shuffled transitions predicts a held-out ORDERED stream worse than one trained on the ordered stream (it learned the temporally-tracked rule, not bag-of-features marginals).",
+    "kill": "Identical -> demote the temporal-prediction claim.",
+    "metric": "mean |e0| on held-out phase-1-rule transitions.",
+    "null": "Identical performance (bag-of-features, not temporal)."
+  },
+  "result": {
+    "delta": 0.0030491225346894746,
+    "mean_abs_e0_ordered_train": 0.8575167902565636,
+    "mean_abs_e0_shuffled_train": 0.860565912791253,
+    "n_heldout": 200,
+    "n_train": 400
+  },
+  "written_utc": "2026-10-07T06:44:32.831769+00:00"
+}

@@ -1,0 +1,38 @@
+=== EXP-AB-BAR ===
+BAR: BAR NOT CLEARED: intact decline=-0.0432 (reward-chan -0.1478), lesioned decline=+0.1059 (reward-chan +0.0931), intact return=24.40 vs chance 20.0, lesioned return=21.40.
+  /home/hatch/workspace/chambers/emergent-mind/brothel/prototypes/architecture-b/receipts/EXP-AB-BAR.json
+=== EXP-AB-C1 ===
+C1: Holds: delayed_reward 0.4066->0.3975; grid_world 0.4725->0.3443
+  /home/hatch/workspace/chambers/emergent-mind/brothel/prototypes/architecture-b/receipts/EXP-AB-C1.json
+=== EXP-AB-C2 ===
+C2: prec=26.300 uniform=32.100 kill=True
+  /home/hatch/workspace/chambers/emergent-mind/brothel/prototypes/architecture-b/receipts/EXP-AB-C2.json
+=== EXP-AB-C4 ===
+C4: KILL — label comes off: IG ai=0.0275 rand=-0.1406 greedy=0.0502; returns {'active_inference': -3.8, 'random': -3.952, 'greedy': -5.979}.
+  /home/hatch/workspace/chambers/emergent-mind/brothel/prototypes/architecture-b/receipts/EXP-AB-C4.json
+=== EXP-AB-K1 ===
+K1: learn=26.200 frozen=21.600 delta=+4.600 kill=False
+  /home/hatch/workspace/chambers/emergent-mind/brothel/prototypes/architecture-b/receipts/EXP-AB-K1.json
+=== EXP-AB-K2 ===
+K2: learn_err=0.9806 frozen_err=1.3221 kill=False
+  /home/hatch/workspace/chambers/emergent-mind/brothel/prototypes/architecture-b/receipts/EXP-AB-K2.json
+=== EXP-AB-K3 ===
+K3: struct d=+0.0032 wn d=-0.0012 kill=False
+  /home/hatch/workspace/chambers/emergent-mind/brothel/prototypes/architecture-b/receipts/EXP-AB-K3.json
+=== EXP-AB-K4 ===
+K4: err_aff=-0.787 pad=-0.762 kill=True
+  /home/hatch/workspace/chambers/emergent-mind/brothel/prototypes/architecture-b/receipts/EXP-AB-K4.json
+=== EXP-AB-K5 ===
+K5: ordered=0.8575 shuffled=0.8606 kill=False
+  /home/hatch/workspace/chambers/emergent-mind/brothel/prototypes/architecture-b/receipts/EXP-AB-K5.json
+
+=== SUMMARY ===
+EXP-AB-BAR: {'kill_or_fail': True}
+EXP-AB-C1: {'kill_or_fail': False}
+EXP-AB-C2: {'kill_or_fail': True}
+EXP-AB-C4: {'kill_or_fail': True}
+EXP-AB-K1: {'kill_or_fail': False}
+EXP-AB-K2: {'kill_or_fail': False}
+EXP-AB-K3: {'kill_or_fail': False}
+EXP-AB-K4: {'kill_or_fail': True}
+EXP-AB-K5: {'kill_or_fail': False}

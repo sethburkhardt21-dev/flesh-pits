@@ -1,0 +1,61 @@
+{
+  "architecture": "B",
+  "config_hash": "03b2830c3d980b8f7053c10c42c4810bc0a6050fcabe1088103ed574bd0b467b",
+  "contract_version": "1.0.0",
+  "experiment_id": "EXP-AB-K4",
+  "interpretation": "KILL TRIGGERED \u2014 PAD wins/ties; error-derived affect story dropped, PAD kept as cheaper baseline.",
+  "limitations": "Both controllers drive identical knobs (explore/learn/persist); only the affect source differs. resource_world is foraging + death-avoidance. Single seed, 15 episodes.",
+  "preregistered": {
+    "baseline": "arch_b with affect='pad' (donor-exact PAD mapping).",
+    "conditions": {
+      "agent": "arch_b v1",
+      "env": "resource_world v1.0.0",
+      "episodes": 15,
+      "primary_seed": 104
+    },
+    "hypothesis": "The error-derived affect controller achieves higher mean return than the PAD-dictionary controller on resource_world (foraging + death avoidance).",
+    "kill": "PAD >= error-derived -> keep PAD, drop the story.",
+    "metric": "mean_return over 15 episodes.",
+    "null": "PAD wins or ties (error-dynamic affect is unnecessary)."
+  },
+  "result": {
+    "delta": -0.024826666666666775,
+    "episodes_error": [
+      -0.8500000000000001,
+      -0.8400000000000001,
+      -0.7700000000000001,
+      -0.79,
+      -0.6632000000000002,
+      -0.7700000000000001,
+      -0.8200000000000002,
+      -0.7900000000000001,
+      -0.8000000000000002,
+      -0.7900000000000001,
+      -0.7800000000000001,
+      -0.7920000000000001,
+      -0.8,
+      -0.7696000000000002,
+      -0.7804000000000002
+    ],
+    "episodes_pad": [
+      -0.7900000000000001,
+      -0.8200000000000002,
+      -0.7900000000000001,
+      -0.8300000000000001,
+      -0.8000000000000002,
+      -0.8700000000000001,
+      -0.7948000000000002,
+      -0.7800000000000001,
+      -0.7600000000000001,
+      -0.7800000000000001,
+      -0.7968000000000002,
+      -0.7700000000000001,
+      -0.7600000000000001,
+      -0.5272000000000003,
+      -0.5640000000000003
+    ],
+    "mean_return_error_affect": -0.7870133333333336,
+    "mean_return_pad": -0.7621866666666668
+  },
+  "written_utc": "2026-10-07T06:44:30.249260+00:00"
+}

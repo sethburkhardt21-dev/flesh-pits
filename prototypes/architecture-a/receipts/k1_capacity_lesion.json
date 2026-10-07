@@ -1,0 +1,27 @@
+{
+  "experiment": "K1_capacity_lesion",
+  "monotonic": true,
+  "pass": true,
+  "resident_bid": 0.9,
+  "results": {
+    "0.5": {
+      "interference": 0.0,
+      "p_lost_K3": 0.0,
+      "p_lost_Kinf": 0.0
+    },
+    "0.85": {
+      "interference": 0.5075,
+      "p_lost_K3": 0.5075,
+      "p_lost_Kinf": 0.0
+    },
+    "0.95": {
+      "interference": 1.0,
+      "p_lost_K3": 1.0,
+      "p_lost_Kinf": 0.0
+    }
+  },
+  "seed": 20261007,
+  "target_bid": 0.85,
+  "trials": 400,
+  "verdict": "PASS \u2014 interference present at K=3, absent at K=inf; monotonic in distractor bid (competitive)"
+}

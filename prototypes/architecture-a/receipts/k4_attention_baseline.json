@@ -1,0 +1,119 @@
+{
+  "experiment": "K4_attention_baseline",
+  "limitation": "at theta=0.6 the architecture perseverates under stationary signals (no ignition -> no planner proposals -> action holds); both conditions ran at theta=0.45",
+  "margin": 1.3,
+  "need": 3,
+  "pass": true,
+  "results": {
+    "11": {
+      "fixed_p2": 27.1,
+      "fixed_total": 79.18,
+      "learned_final_actions": [
+        "c",
+        "c",
+        "c",
+        "c",
+        "c",
+        "c",
+        "c",
+        "c",
+        "c",
+        "c"
+      ],
+      "learned_gains": {
+        "a": 0.924,
+        "b": 0.934,
+        "c": 2.0
+      },
+      "learned_p2": 57.9,
+      "learned_total": 127.58,
+      "ratio": 1.611,
+      "win": true
+    },
+    "22": {
+      "fixed_p2": 24.85,
+      "fixed_total": 63.17,
+      "learned_final_actions": [
+        "c",
+        "c",
+        "c",
+        "c",
+        "c",
+        "c",
+        "c",
+        "c",
+        "c",
+        "c"
+      ],
+      "learned_gains": {
+        "a": 0.932,
+        "b": 0.914,
+        "c": 2.0
+      },
+      "learned_p2": 57.3,
+      "learned_total": 128.07,
+      "ratio": 2.027,
+      "win": true
+    },
+    "33": {
+      "fixed_p2": 26.63,
+      "fixed_total": 65.5,
+      "learned_final_actions": [
+        "c",
+        "c",
+        "c",
+        "c",
+        "c",
+        "c",
+        "c",
+        "c",
+        "c",
+        "c"
+      ],
+      "learned_gains": {
+        "a": 0.884,
+        "b": 1.0,
+        "c": 2.0
+      },
+      "learned_p2": 57.98,
+      "learned_total": 127.65,
+      "ratio": 1.949,
+      "win": true
+    },
+    "44": {
+      "fixed_p2": 33.29,
+      "fixed_total": 82.67,
+      "learned_final_actions": [
+        "c",
+        "c",
+        "c",
+        "c",
+        "c",
+        "c",
+        "c",
+        "c",
+        "c",
+        "c"
+      ],
+      "learned_gains": {
+        "a": 0.979,
+        "b": 1.0,
+        "c": 2.0
+      },
+      "learned_p2": 59.14,
+      "learned_total": 129.42,
+      "ratio": 1.565,
+      "win": true
+    }
+  },
+  "seeds": [
+    11,
+    22,
+    33,
+    44
+  ],
+  "theta": 0.45,
+  "ticks": 200,
+  "verdict": "PASS \u2014 learned attention beats fixed salience rules (4/4 seeds at R>=1.3); the learning loop is load-bearing",
+  "wins": 4
+}

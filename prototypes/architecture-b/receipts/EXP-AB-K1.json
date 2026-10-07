@@ -1,0 +1,52 @@
+{
+  "architecture": "B",
+  "config_hash": "2de304370d4833da3c5ef3620d91a701d062c2dd7340e98c41d98ba9b1404566",
+  "contract_version": "1.0.0",
+  "experiment_id": "EXP-AB-K1",
+  "interpretation": "Survives: learning improves post-flip return by 4.600 (learn 26.20 vs frozen 21.60).",
+  "limitations": "Frozen agent still does mu0 state tracking and active-inference selection with frozen weights; only parameter learning is zeroed. Single seed; 10 episodes.",
+  "preregistered": {
+    "baseline": "arch_b frozen (all eta = 0), same action selection.",
+    "conditions": {
+      "affect": "none (world-model isolation; affect in K4)",
+      "agent": "arch_b v1",
+      "env": "changing_rule v1.0.0",
+      "episodes": 10,
+      "primary_seed": 101
+    },
+    "hypothesis": "On changing_rule, zeroing all update rates degrades post-flip performance vs the learning version.",
+    "kill": "No degradation -> REJECT the architecture as a world model.",
+    "metric": "mean_return over episodes 5-9 (post-first-flip), 10 episodes.",
+    "null": "No performance difference (the 'model' is a static function)."
+  },
+  "result": {
+    "delta": 4.599999999999998,
+    "episodes_frozen": [
+      21.0,
+      19.0,
+      21.0,
+      15.0,
+      14.0,
+      21.0,
+      24.0,
+      20.0,
+      21.0,
+      22.0
+    ],
+    "episodes_learn": [
+      30.0,
+      32.0,
+      31.0,
+      25.0,
+      24.0,
+      21.0,
+      15.0,
+      24.0,
+      38.0,
+      33.0
+    ],
+    "mean_return_postflip_frozen": 21.6,
+    "mean_return_postflip_learn": 26.2
+  },
+  "written_utc": "2026-10-07T06:44:22.582506+00:00"
+}

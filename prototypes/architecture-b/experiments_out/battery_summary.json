@@ -1,0 +1,29 @@
+{
+  "BAR": {
+    "kill_or_fail": true
+  },
+  "C1": {
+    "kill_or_fail": false
+  },
+  "C2": {
+    "kill_or_fail": true
+  },
+  "C4": {
+    "kill_or_fail": true
+  },
+  "K1": {
+    "kill_or_fail": false
+  },
+  "K2": {
+    "kill_or_fail": false
+  },
+  "K3": {
+    "kill_or_fail": false
+  },
+  "K4": {
+    "kill_or_fail": true
+  },
+  "K5": {
+    "kill_or_fail": false
+  }
+}

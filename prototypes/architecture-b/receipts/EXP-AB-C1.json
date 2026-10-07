@@ -1,0 +1,39 @@
+{
+  "architecture": "B",
+  "config_hash": "8fe824532f0de922254edfc64fbc15e3cf0231f91c45f8618894ea18506c0374",
+  "contract_version": "1.0.0",
+  "experiment_id": "EXP-AB-C1",
+  "interpretation": "Holds: delayed_reward 0.4066->0.3975; grid_world 0.4725->0.3443",
+  "limitations": "Within-run comparison; single seed per env; 10 episodes.",
+  "preregistered": {
+    "baseline": "first-quintile self (within-run).",
+    "conditions": {
+      "affect": "none (world-model isolation; affect in K4)",
+      "agent": "arch_b v1",
+      "envs": [
+        "delayed_reward v1.0.0",
+        "grid_world v1.0.0"
+      ],
+      "episodes": 10,
+      "primary_seed": 106
+    },
+    "hypothesis": "Mean |e0| declines from the first to the last quintile of a run on stationary tasks (delayed_reward, grid_world).",
+    "metric": "mean |e0| ticks[0:20%] vs ticks[80:100%].",
+    "null": "No decline (nothing is being learned)."
+  },
+  "result": {
+    "delayed_reward": {
+      "decline": 0.009146351216572368,
+      "early": 0.4066375848047837,
+      "late": 0.3974912335882113,
+      "n_ticks": 140
+    },
+    "grid_world": {
+      "decline": 0.12820327124281655,
+      "early": 0.47254484467071,
+      "late": 0.34434157342789345,
+      "n_ticks": 516
+    }
+  },
+  "written_utc": "2026-10-07T06:43:38.831669+00:00"
+}

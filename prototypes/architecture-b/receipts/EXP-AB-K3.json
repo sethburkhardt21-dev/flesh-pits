@@ -1,0 +1,31 @@
+{
+  "architecture": "B",
+  "config_hash": "cc5320a07f76dc1821a0b549706add676e5fbac7630a70380e0dd6c92aba6392",
+  "contract_version": "1.0.0",
+  "experiment_id": "EXP-AB-K3",
+  "interpretation": "Survives: structured lesion delta=+0.0032 (intact 0.8525 vs lesioned 0.8558); white-noise delta=-0.0012 (flat as predicted: True).",
+  "limitations": "Open-loop transition training (no retrieval correction/affect); isolates the weight/precision machinery by design. Single seed.",
+  "preregistered": {
+    "baseline": "arch_b with lesion_l1=True (L0-only).",
+    "conditions": {
+      "affect": "none (world-model isolation; affect in K4)",
+      "agent": "arch_b v1",
+      "env": "changing_rule v1.0.0",
+      "primary_seed": 103,
+      "train_transitions": 300
+    },
+    "hypothesis": "Disabling L1 raises L0 prediction errors on structured tasks (changing_rule) but not on white noise.",
+    "kill": "Identical on structured -> collapse to one level.",
+    "metric": "mean |e0| on held-out ordered transitions after training on 300 transitions; structured vs white-noise streams.",
+    "null": "Identical performance with/without L1 (hierarchy adds nothing)."
+  },
+  "result": {
+    "structured_delta": 0.00323988086494309,
+    "structured_intact": 0.8525405304839443,
+    "structured_lesioned": 0.8557804113488874,
+    "whitenoise_delta": -0.001218934161888452,
+    "whitenoise_intact": 1.4028807535225825,
+    "whitenoise_lesioned": 1.401661819360694
+  },
+  "written_utc": "2026-10-07T06:44:25.965094+00:00"
+}

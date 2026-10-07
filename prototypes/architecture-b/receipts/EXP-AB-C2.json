@@ -1,0 +1,27 @@
+{
+  "architecture": "B",
+  "config_hash": "7e18f7e14b153317504be9a0395820792186ceee086b01c69b844460e093053a",
+  "contract_version": "1.0.0",
+  "experiment_id": "EXP-AB-C2",
+  "interpretation": "KILL \u2014 precision adds nothing; treat as numerology.",
+  "limitations": "Single seed; 10 episodes; 10% label noise in env.",
+  "preregistered": {
+    "baseline": "arch_b with uniform_precision=True (all pi = 1).",
+    "conditions": {
+      "affect": "none (world-model isolation; affect in K4)",
+      "agent": "arch_b v1",
+      "env": "changing_rule v1.0.0",
+      "episodes": 10,
+      "primary_seed": 107
+    },
+    "hypothesis": "Estimated precision (pi from error statistics) beats uniform pi=1 on the noisy changing_rule task (10% noise).",
+    "metric": "mean_return over 10 episodes.",
+    "null": "No decision-quality gap (precision is numerology)."
+  },
+  "result": {
+    "delta": -5.800000000000001,
+    "mean_return_precision": 26.3,
+    "mean_return_uniform": 32.1
+  },
+  "written_utc": "2026-10-07T06:47:56.842463+00:00"
+}

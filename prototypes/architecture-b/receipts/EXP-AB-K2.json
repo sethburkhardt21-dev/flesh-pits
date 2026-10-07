@@ -1,0 +1,29 @@
+{
+  "architecture": "B",
+  "config_hash": "ec94f983a3c629f7d24e9a018f04d2c74cff280b3e345095be91ecaa89033ded",
+  "contract_version": "1.0.0",
+  "experiment_id": "EXP-AB-K2",
+  "interpretation": "Survives: learned mean|e0|=0.9806 < fixed 1.3221 (gap 0.3415).",
+  "limitations": "One env instance reused across replay episodes so the phase schedule matches the learned run exactly; cue order and noise draws are action-independent in the env, so observation streams are identical and only rewards differ. Prediction quality only \u2014 control is factored out by design.",
+  "preregistered": {
+    "baseline": "arch_b frozen replaying the learned agent's actions.",
+    "conditions": {
+      "affect": "none (world-model isolation; affect in K4)",
+      "agent": "arch_b v1",
+      "env": "changing_rule v1.0.0",
+      "episodes": 10,
+      "primary_seed": 102
+    },
+    "hypothesis": "A learned predictor has lower prediction error than a fixed (random-init, frozen) predictor on the IDENTICAL action stream.",
+    "kill": "No gap -> ship the fixed predictor; learning is decorative.",
+    "metric": "mean |e0| over all ticks of 10 changing_rule episodes, identical actions replayed.",
+    "null": "No prediction-error gap (learning machinery is decorative)."
+  },
+  "result": {
+    "delta": 0.34149933913742303,
+    "mean_abs_e0_frozen": 1.3221019167470447,
+    "mean_abs_e0_learn": 0.9806025776096217,
+    "n_ticks": 390
+  },
+  "written_utc": "2026-10-07T06:44:24.418793+00:00"
+}
