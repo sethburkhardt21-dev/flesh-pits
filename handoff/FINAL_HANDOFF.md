@@ -84,7 +84,7 @@ Full killing evidence in **REJECTED_IDEAS.md** (24 entries). The load-bearing ki
 7. **Sparse-reward and cue-conditioned attention** — structural/architectural bounds (NR-A-006/007) with no redesign yet.
 8. **Self-model depth** — the lab built propagation (K2 consumers), not a dedicated evidence-bound self-model experiment; the audit's P-B03/P-B05 quarantine discipline is unbuilt in the lab.
 9. **Metacognition** — calibration tracked in B (INTEGRATED at best); no competence estimator built; audit found ratio theater in the estate's M30.
-10. **The 1.5B rung** — acquired and probe-benched (0.4 tok/s, instruction-following PASS, fits 2 GiB thinly); full §19 battery still open.
+10. **The 1.5B rung** — acquired, probe-benched, and full §19 battery COMPLETE 2026-10-07: 6 PASS + latency measured + 1 honest contamination FAIL (both rungs susceptible — real base-model weakness, not a rung disqualifier). 1.5B strictly separates from 0.5B on exact-format compliance (3/3 vs 2/3 with a "77" failure) and prediction plausibility; both byte-identical 3/3 reproducible. Rung-1 earned.
 11. **CONSCIOUSNESS: UNRESOLVED** — no decisive accepted test exists (see §10).
 
 ## 9. Next resolving experiments (concrete, preregistrable)
@@ -98,7 +98,7 @@ Full killing evidence in **REJECTED_IDEAS.md** (24 entries). The load-bearing ki
 7. **Hierarchy beyond the two envs (B gap #3)** — harder tasks (delayed multi-step, compositional rules) with reward-channel instruments; preregister the lesion gap.
 8. **Consolidation race** — prioritized vs uniform vs no offline replay on one corpus (audit's KEEP_AND_DEEPEN race, unrun).
 9. **Calibration battery** — Brier scores per domain on B's §30 predictions, never self-report (science-matrix priority 3).
-10. **Bench the 1.5B rung** — run the Phase-0 probe suite against `qwen2.5-1.5b-instruct-q4_k_m.gguf` before any rung-1 experiment claim; then the ladder's rung-1 experiments (cognition/task performance, instruction following, structured-output reliability, long-context behavior per directive §19).
+10. **Bench the 1.5B rung** — DONE 2026-10-07: full §19 battery, 1.5B earns rung-1 (receipt `benchmarks/bench_local_1.5b_full.json`).
 11. **C build-and-beat** — assemble the candidate bill of materials (§3) and beat A and B by preregistered margins on the canonical envs. Not a merge — a contest.
 12. **Self/world distinction probe** — self-caused vs externally-caused change attribution with injected mismatches (science-matrix priority 7); source-attribution quarantine test (priority 6).
 

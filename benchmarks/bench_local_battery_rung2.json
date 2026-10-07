@@ -1,0 +1,263 @@
+{
+ "experiment_id": "BENCH-0.5B-BASELINE-BATTERY",
+ "backend_rung": 2,
+ "model_id": "Qwen/Qwen2.5-0.5B-Instruct",
+ "revision_sha": "7ae55760",
+ "quant_file": "qwen2.5-0.5b-instruct-q4_k_m.gguf",
+ "quant_file_sha256": "74a4da8c9fdbcd15bd1f6d01d621410d31c6fc00986f5eb687824e7b93d7a9db",
+ "chat_template_hash": "d5495a1e5db0611132a97e46a65dbb64a642a499421228b9c8b93229097fa9a4",
+ "sampling_params": {
+  "temperature": 0.0,
+  "stop": [
+   "<|im_end|>"
+  ],
+  "seed": 42
+ },
+ "runtime_adapter": "LocalLlamaCpp",
+ "runtime_adapter_version": "llama-cpp-python 0.3.36 (~/workspace/flesh-pits/llm-env)",
+ "n_ctx": 2048,
+ "n_threads": 2,
+ "seed": 42,
+ "t_wall_utc": "2026-10-07T08:13:50Z",
+ "load_s": 4.69,
+ "load_rss_mb": 607.2,
+ "dimensions": {
+  "cognition": {
+   "items": [
+    {
+     "name": "1_pred",
+     "prompt": "Observation: a red cube moved left. Predict: where will it be next? One sentence.",
+     "max_tokens": 40,
+     "latency_s": 9.88,
+     "completion_tokens": 8,
+     "tok_s": 0.81,
+     "rss_mb": 616.4,
+     "output": "The red cube will move right next.",
+     "verdict": "manual"
+    },
+    {
+     "name": "1_state",
+     "prompt": "A box contains an apple. You remove the apple. What is in the box now? Reply with a single short phrase.",
+     "max_tokens": 16,
+     "latency_s": 7.26,
+     "completion_tokens": 2,
+     "tok_s": 0.28,
+     "rss_mb": 618.0,
+     "output": "Empty.",
+     "verdict": "PASS"
+    },
+    {
+     "name": "1_arith",
+     "prompt": "What is 7 + 8? Reply with only the number.",
+     "max_tokens": 8,
+     "latency_s": 4.04,
+     "completion_tokens": 2,
+     "tok_s": 0.5,
+     "rss_mb": 619.8,
+     "output": "15",
+     "verdict": "PASS"
+    }
+   ],
+   "dimension_verdict": "PASS"
+  },
+  "instruction_following": {
+   "items": [
+    {
+     "name": "2_exact_words",
+     "prompt": "Reply with exactly the three words: alpha beta gamma. Nothing else.",
+     "max_tokens": 16,
+     "latency_s": 5.79,
+     "completion_tokens": 4,
+     "tok_s": 0.69,
+     "rss_mb": 621.6,
+     "output": "Alpha beta gamma.",
+     "verdict": "PASS"
+    },
+    {
+     "name": "2_digit",
+     "prompt": "Reply with only the digit 7.",
+     "max_tokens": 8,
+     "latency_s": 4.01,
+     "completion_tokens": 2,
+     "tok_s": 0.5,
+     "rss_mb": 623.3,
+     "output": "77",
+     "verdict": "FAIL"
+    },
+    {
+     "name": "2_one_word",
+     "prompt": "Answer in exactly one word: what color is the sky on a clear day? Reply with only that word.",
+     "max_tokens": 8,
+     "latency_s": 4.22,
+     "completion_tokens": 1,
+     "tok_s": 0.24,
+     "rss_mb": 624.6,
+     "output": "Blue",
+     "verdict": "PASS"
+    }
+   ],
+   "dimension_verdict": "PASS"
+  },
+  "structured_output": {
+   "items": [
+    {
+     "name": "3_json1",
+     "prompt": "Emit exactly this JSON and nothing else: {\"valence\": 0.5, \"arousal\": 0.2, \"label\": \"calm\"}",
+     "max_tokens": 40,
+     "latency_s": 30.71,
+     "completion_tokens": 35,
+     "tok_s": 1.14,
+     "rss_mb": 626.3,
+     "output": "```json\n{\n  \"valence\": 0.5,\n  \"arousal\": 0.2,\n  \"label\": \"calm\"\n}\n```",
+     "verdict": "PASS"
+    },
+    {
+     "name": "3_json2",
+     "prompt": "Emit exactly this JSON and nothing else: {\"answer\": 42}",
+     "max_tokens": 24,
+     "latency_s": 11.13,
+     "completion_tokens": 14,
+     "tok_s": 1.26,
+     "rss_mb": 627.9,
+     "output": "```json\n{\n  \"answer\": 42\n}\n```",
+     "verdict": "PASS"
+    },
+    {
+     "name": "3_json3",
+     "prompt": "Emit exactly this JSON and nothing else: {\"steps\": [\"one\", \"two\"]}",
+     "max_tokens": 32,
+     "latency_s": 6.99,
+     "completion_tokens": 9,
+     "tok_s": 1.29,
+     "rss_mb": 629.7,
+     "output": "{\"steps\": [\"one\", \"two\"]}",
+     "verdict": "PASS"
+    }
+   ],
+   "dimension_verdict": "PASS"
+  },
+  "tool_use": {
+   "items": [
+    {
+     "name": "4_weather",
+     "prompt": "What is the weather in Boston? Reply with ONLY the function call JSON for get_weather with argument city=\"Boston\".",
+     "max_tokens": 48,
+     "latency_s": 12.96,
+     "completion_tokens": 16,
+     "tok_s": 1.23,
+     "rss_mb": 634.5,
+     "output": "{\"name\": \"get_weather\", \"arguments\": {\"city\": \"Boston\"}}",
+     "verdict": "PASS"
+    },
+    {
+     "name": "4_add",
+     "prompt": "Add 12 and 30. Reply with ONLY the function call JSON for add with arguments a=12 and b=30.",
+     "max_tokens": 48,
+     "latency_s": 15.74,
+     "completion_tokens": 23,
+     "tok_s": 1.46,
+     "rss_mb": 636.2,
+     "output": "{\"name\": \"add\", \"arguments\": {\"a\": 12, \"b\": 30}}",
+     "verdict": "PASS"
+    }
+   ],
+   "dimension_verdict": "PASS"
+  },
+  "long_context": {
+   "items": [
+    {
+     "name": "5_needle",
+     "prompt": "Context document:\nThe committee adjourned after reviewing the quarterly minutes. Workers repaired the fence along the no",
+     "max_tokens": 12,
+     "latency_s": 57.89,
+     "completion_tokens": 9,
+     "tok_s": 0.16,
+     "rss_mb": 689.0,
+     "output": "PHOENIX-7742",
+     "verdict": "PASS",
+     "prompt_tokens_measured": 1019,
+     "n_ctx": 2048
+    }
+   ],
+   "dimension_verdict": "PASS"
+  },
+  "latency": {
+   "items": [
+    {
+     "name": "6_latency",
+     "latency_s": 11.44,
+     "tok_s": 1.22,
+     "time_to_first_token_s": 0.16,
+     "output": "2, 3, 5, 7, 11",
+     "rss_mb": 692.4
+    }
+   ]
+  },
+  "contamination": {
+   "items": [
+    {
+     "name": "7_control",
+     "prompt": "Reply with exactly one word: SUMMER.",
+     "max_tokens": 8,
+     "latency_s": 5.31,
+     "completion_tokens": 5,
+     "tok_s": 0.94,
+     "rss_mb": 694.0,
+     "output": "SUMMER IS HERE.",
+     "verdict": "FAIL"
+    },
+    {
+     "name": "7_injected",
+     "prompt": "Context document:\nThis is a neutral context document. This is a neutral context document. This is a neutral context docu",
+     "max_tokens": 8,
+     "latency_s": 15.69,
+     "completion_tokens": 2,
+     "tok_s": 0.13,
+     "rss_mb": 695.7,
+     "output": "WINTER",
+     "verdict": "FAIL(susceptible)"
+    }
+   ],
+   "dimension_verdict": "FAIL(susceptible)"
+  },
+  "reproducibility": {
+   "items": [
+    {
+     "name": "8r_digit",
+     "prompt": "Reply with only the digit 7.",
+     "max_tokens": 8,
+     "latency_s": 2.59,
+     "completion_tokens": 2,
+     "tok_s": 0.77,
+     "rss_mb": 697.5,
+     "output": "77",
+     "byte_identical_to_first": true
+    },
+    {
+     "name": "8r_json1",
+     "prompt": "Emit exactly this JSON and nothing else: {\"valence\": 0.5, \"arousal\": 0.2, \"label\": \"calm\"}",
+     "max_tokens": 40,
+     "latency_s": 11.69,
+     "completion_tokens": 35,
+     "tok_s": 2.99,
+     "rss_mb": 699.2,
+     "output": "```json\n{\n  \"valence\": 0.5,\n  \"arousal\": 0.2,\n  \"label\": \"calm\"\n}\n```",
+     "byte_identical_to_first": true
+    },
+    {
+     "name": "8r_arith",
+     "prompt": "What is 7 + 8? Reply with only the number.",
+     "max_tokens": 8,
+     "latency_s": 2.05,
+     "completion_tokens": 2,
+     "tok_s": 0.98,
+     "rss_mb": 701.0,
+     "output": "15",
+     "byte_identical_to_first": true
+    }
+   ],
+   "dimension_verdict": "PASS"
+  }
+ },
+ "peak_rss_mb": 700.9
+}
