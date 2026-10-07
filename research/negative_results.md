@@ -178,3 +178,19 @@ evidence in receipts/.
 - Mechanism: the z-score bid habituates per channel to 0.5 regardless of cause, erasing even unmatched change statistics; ignition's bistable gate then admits nothing. A has no efference copy — nothing in the tick conditions perception on the agent's own action. The measurement chain is not vacuous: a unit test proves the specialist→bid chain discriminates a large unilateral deviation (test_chain_can_discriminate).
 - Rules out: "A's workspace machinery implicitly tracks which observation changes it caused." Any future self-model for A needs an explicit action-conditioned path; the current self_model_update consumer (broadcast counts, ignition EMA, last channel) cannot represent causal attribution.
 - Receipt: receipts/EXP-SW-01-A.json (hash-chained).
+
+## 2026-10-07 — EXP-FP-0008: precision explosion does NOT systematize on intact models (C2 pathology family BOUNDED)
+
+- Expectation (preregistered): the estimated-precision reward head would systematically misbehave on rare high-reward events — explosion signature (held-out terminal mean|rerr|_est ≥ 3× uniform AND > 0.3) on ≥3/4 seeds on at least 2 of 3 tasks (pomaze, delayed_reward; changing_rule as dense-reward negative control). Background: the EXP-AB-K3C task-1 pilot saw the lesioned model's reward head explode on rare terminal +1.0 spikes (b_r=0.31, max|w_r|=0.73, rhat=1.27 on a 0.02 tick; 0.83 vs 0.10 vs uniform) — a second independent sighting of the C2 precision pathology family.
+- Observed (4 fresh seeds {74301..74304}, intact ArchB, open-loop K3B-faithful instrument): **ABSENT** — 0/3 tasks reach the ≥3/4 bar (pomaze 1/4, delayed_reward 0/4, changing_rule 0/4). The weight-inflation half of the pathology DOES operate (b_r/max|w_r| inflate vs uniform on spike tasks), but the R_ctx context tables absorb it — estimated piR on terminal trials sits at 3.3–5.4, not pinned at pi_max=20 — so held-out terminal |rerr| does not systematically explode.
+- Rules out: "estimated precision misbehaves on rare spikes, generally." The C2 pathology family is BOUNDED to lesioned/no-absorber configurations (consistent with C2's FRAGILE 3/5 kill). Characterization, not a kill — recorded as arch-b NR-B-010.
+- Methods note: first run voided pre-interpretation per frozen G0c (rounded-vs-unrounded gate bug; arm verified bit-identical; numbers discarded, gate fixed, rerun same seeds).
+- Receipt: receipts/EXP-FP-0008.json (hash-chained; full per-task/per-seed detail in summary).
+
+## 2026-10-07 — addendum to EXP-FP-0006: the "future experiment" ran (EXP-FP-0007, H SUPPORTED)
+
+- The 0006 entry above closed gap #2 "by rejection of the policy" and named the needed future experiment: a non-degenerate instrument for the ranking signal. That experiment is EXP-FP-0007 (shadow-trained predictor — the gate reads a second UsefulnessPredictor trained on counterfactual unconditional benefit; `predictions.py` untouched).
+- Observed (4 fresh seeds {73501..73504}, 15 pomaze episodes/arm/seed, preregistered): the shadow instrument is non-degenerate (application rate 0.79–0.80, 4/4 seeds) and the preregistered win rule FIRES — seed-mean ΔGU=+0.3023 (3/4 seeds agree), seed-mean ΔGR=+0.2532 (4/4 agree). The ranking signal (corr +0.40…+0.53 across 8 seeds) carries decision-usable value once the cold-start degeneracy is removed.
+- Status change: gap #2's gate policy is PROMOTED to INTEGRATED (wired, measured behavioral value vs no-gate and chance-gate). Bounds: pomaze only, 4 seeds, ~+0.30 on a −3.5 baseline; CAUSAL withheld pending replication breadth. The 0006 rejection stands as the correct verdict on the sign-gate *policy*; it was never a verdict on the ranking signal.
+- First 0007 run voided pre-interpretation per frozen G2 (same rounded-vs-unrounded gate-bug class; arm verified bit-identical; rerun same seeds).
+- Receipt: receipts/EXP-FP-0007.json (hash-chained).

@@ -35,7 +35,7 @@
 
 - A's workspace machinery (bounded buffer, sole-path broadcast, bistable ignition, learned-gain attention, R1 exploratory path) is the only part of either architecture that has survived a 5-seed replication on its original code paths. The evidence is single-lab; no independent replication yet. That is the precise sense of "strongest."
 - B contributes what A lacks: a robust learned predictor (K2 5/5) and a CAUSAL episodic store (M1 3/3), plus the longer-horizon hierarchy signal (K3B). B's *adaptive machinery* (precision, active-inference selector, error-affect) is rejected, not its learning.
-- **No coronation beyond the evidence:** the C-merge (A's workspace machinery + B's learned predictor + B's episodic store + PAD baseline) is a build-and-beat task against A and B by preregistered margins — it is not a merge order, and it is not built. A's learned-attention bounds (sparse reward, cue-conditioning) are exactly the places a C-build would need new machinery. D remains the characterized floor.
+- **No coronation beyond the evidence:** the C-merge (A's workspace machinery + B's learned predictor + B's episodic store) was built 2026-10-07 (`prototypes/architecture-c/`, A/B untouched) and beaten against A and B by preregistered margins — EXP-FP-C-BUILD-AND-BEAT: **clean negative**, C_BEATS_A False (0/5 envs), C_BEATS_B False (0/5). Ablation: the gain loop is the only load-bearing surface in C; predictor and memory contribute nothing measurable; on pomaze C is substantially worse than both parents. It was a contest, not a merge — and the hybrid lost honestly. The parts keep their individual dispositions.
 
 ## 4. Best local/HF runtime
 
@@ -66,7 +66,7 @@ Full §49 entries (source, hash, mechanism, baseline, result, ablation, generali
 
 - **HARVEST_NOW:** H1 A's learned-gain attention loop (with NR-A-005/006/007 bounds); H2 bounded buffer + sole-path broadcast (REPRODUCED 5/5); H3 ignition gate + R1 exploratory path (wired, post-wire byte-identical); H4 change_bid; H5 consolidation_cycle (Phase-4 battery evidence, HISTORICAL); H6 memory_provenance (already live); H7 preregistration + hash-chained harness; H8 K8 wire-by-decision-receipt discipline; H9–H11 donor adoptions (chroma @ `f36d9bba`, cleanrl @ `fe8d8a03`, MAPIE @ `3b84b82d`).
 - **EXPERIMENT_ON_PRIMARY:** B's learned predictor core; B's episodic store port (M1 CAUSAL, scope-bounded); learned_valence TD estimator (decision-bite test pending); A's sparse-reward gain redesign; A's cue-indexed gain adapter; donor experiment group (mem0/graphrag/cognee/graphiti/LightRAG race; avalanche EWC; cleanrl RND baseline; uncertainty-toolbox + MAPIE calibration).
-- **KEEP_PARALLEL:** full A prototype (independent replication pending); B's longer-horizon program; shelved precision research; the §11 transfer test; (b)-class zero-consumer modules; Architecture C (unbuilt).
+- **KEEP_PARALLEL:** full A prototype (independent replication pending); B's longer-horizon program; shelved precision research; the §11 transfer test; (b)-class zero-consumer modules; Architecture C (BUILT 2026-10-07, honestly beaten — stays parallel as a negative result, §9 item 11 closed).
 - **REJECT / INCONCLUSIVE:** see §7 and HARVEST_CANDIDATES.md.
 
 ## 7. Rejected mechanisms — summary
@@ -99,7 +99,7 @@ Full killing evidence in **REJECTED_IDEAS.md** (24 entries). The load-bearing ki
 8. **Consolidation race** — DONE 2026-10-07 (EXP-FP-0005, receipts `receipts/EXP-FP-0005-S.json`, `-D.json`): prioritized vs uniform vs no offline replay on one corpus (audit's KEEP_AND_DEEPEN race, now CLOSED). Negative result — neither implementation beats no-replay (P1 2/4, P2 1/4 per-seed wins); uniform beats both prioritized arms 4/4 (seed-mean IG +0.323 vs +0.049 / −0.064); implementation race: S-01 beats memory_port 4/4. Battery "CAUSAL" claim gets a BOUND; PE-magnitude prioritization contraindicated on this evidence.
 9. **Calibration battery** — Brier scores per domain on B's §30 predictions, never self-report (science-matrix priority 3).
 10. **Bench the 1.5B rung** — DONE 2026-10-07: full §19 battery, 1.5B earns rung-1 (receipt `benchmarks/bench_local_1.5b_full.json`).
-11. **C build-and-beat** — assemble the candidate bill of materials (§3) and beat A and B by preregistered margins on the canonical envs. Not a merge — a contest.
+11. **C build-and-beat** — DONE 2026-10-07 (EXP-FP-C-BUILD-AND-BEAT): assembled the candidate bill of materials (§3) in `prototypes/architecture-c/` and contested it against A and B by preregistered margins on the 5-env battery (pomaze, delayed_reward, changing_rule, compositional_rule, cue_delayed_reward; 4 fresh seeds; 97 hash-chained receipt records, chain verified). **Clean negative: C_BEATS_A False (0/5), C_BEATS_B False (0/5).** Not a merge — a contest, and the hybrid lost honestly. Ablation attribution: gain loop load-bearing; predictor and memory contribute nothing measurable in C; pomaze substantially worse than both parents. Item closed.
 12. **Self/world distinction probe** — self-caused vs externally-caused change attribution with injected mismatches (science-matrix priority 7); source-attribution quarantine test (priority 6).
 
 ## 10. Consciousness — standing position

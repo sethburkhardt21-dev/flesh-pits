@@ -374,6 +374,40 @@ Negative results preserved in research/negative_results.md.
 - Rerun on the same preregistered seeds {73501–73504} (deterministic;
   voided numbers discarded).
 
+**RESULT (2026-10-07, rerun complete — 4 fresh seeds {73501..73504}, 15
+pomaze episodes/arm/seed, receipt receipts/EXP-FP-0007.json, hash-chained;
+own hash verifies, prev linkage correct; historical chain issues
+(pre-chain receipts, K3C old-convention prev) preserved untouched per lab
+law)**
+- The shadow instrument is NON-DEGENERATE: G application rate
+  0.791–0.800 on all 4 seeds (n_available 2675–2941, discriminating
+  decisions throughout). G0 passes 4/4. G2 determinism spot-check PASSES
+  (unrounded compare at 1e-12). G1 tripwire clean, G3 receipt chained.
+- Per-seed: U −3.189/−3.875/−3.537/−3.144; G −2.459/−3.567/−3.550/−2.959;
+  R −3.029/−3.581/−3.616/−3.321. ΔGU +0.729/+0.308/−0.013/+0.185
+  (seed-mean +0.3023, 3/4 agree); ΔGR +0.570/+0.015/+0.066/+0.362
+  (seed-mean +0.2532, 4/4 agree).
+- Preregistered win rule FIRES: **H SUPPORTED** — the shadow-ûhat gate
+  beats unconditional retrieval-correction AND beats random gating at the
+  matched rate. The learned ranking signal carries decision-usable value
+  once the cold-start degeneracy is removed.
+- Shadow diagnostics: corr(uhat_shadow, benefit_shadow) on the G arm =
+  +0.399…+0.533 (n≈2700–2940) — the shadow predictor learns the same
+  ranking the live one does, on uncontaminated data. U-arm replication of
+  the EXP-FP-0006 ranking check: corr(uhat, benefit) = +0.405…+0.464 —
+  the signal is stable across 8 seeds total.
+- Honest bounds: all returns remain negative (pomaze unsolved by all
+  arms, as in EXP-FP-0006) — the gate improves return by ~+0.30 on a
+  −3.5 baseline, a real but modest effect; seed 73503 ΔGU is −0.013
+  (essentially zero, not a loss). Single env (pomaze), 4 seeds.
+- Maturity: gate policy PROMOTED to INTEGRATED (wired, non-degenerate,
+  measured behavioral value vs no-gate and chance-gate). CAUSAL label
+  withheld pending replication breadth — the evidence is causal-shaped
+  but single-env.
+- Predictor stays EXECUTED (unchanged class); the gate is the integrated
+  consumer of its ranking signal. B gap #2 now has a working instrument
+  and a positive result, replacing the EXP-FP-0006 rejection-of-policy.
+
 ---
 
 ## EXP-FP-0008 — precision-explosion characterization: estimated vs uniform reward head on rare terminal spikes (C2 pathology family follow-up)
@@ -436,6 +470,51 @@ experiments/preregistration_EXP-FP-0008.json)**
 
 **RESULT: pending — preregistered before implementation.**
 
+**AMENDMENT (2026-10-07, pre-interpretation — first run declared VOID per G0c)**
+- What happened: the first run completed all 3 tasks × 4 seeds but the
+  G0c determinism spot-check FIRED on the seed-74301 pomaze arm-E
+  recompute.
+- Root cause (verified, not assumed): the G0c gate compared the
+  recompute's UNROUNDED b_r against the per-seed dict's 6-decimal-ROUNDED
+  b_r — a gate implementation bug (the same rounded-vs-unrounded class
+  of bug as EXP-FP-0007's voided first run), not experimental
+  nondeterminism. Direct check: two fresh arm-E runs give bit-identical
+  b_r (0.3653066432560002 == 0.3653066432560002).
+- Ruling: run VOID per the frozen gate. No numbers from the voided run
+  were interpreted or retained for any claim.
+- Fix (code only, preregistration untouched): the per-seed dict now
+  carries E_b_r_raw (unrounded) and G0c compares unrounded at 1e-12.
+- Rerun on the same preregistered seeds {74301–74304} (deterministic;
+  voided numbers discarded).
+
+**RESULT (2026-10-07, rerun complete — 4 fresh seeds {74301..74304}, 3
+tasks × 2 arms, receipt receipts/EXP-FP-0008.json, hash-chained; own hash
+verifies, chained to EXP-FP-0007; G0a/G0c/G0d pass, no voided tasks)**
+- Verdict per the preregistered mapping: **ABSENT** — 0/3 tasks reach the
+  ≥3/4-seed task-signature bar. pomaze 1/4 (seed 74303: E_term=3.4191 vs
+  F_term=0.7807, ratio 4.38 — single-seed outlier, not a pattern; other
+  seeds ratios 0.30–1.24); delayed_reward 0/4 (ratios 0.82–1.36);
+  changing_rule 0/4 (ratios 1.00–1.16 — negative control behaves as
+  expected).
+- Mechanism secondaries: the weight-inflation half of the pathology DOES
+  operate on intact models — b_r / max|w_r| inflate vs uniform on the
+  spike tasks (pomaze max|w_r| E 0.75–1.61 vs F 0.33–0.35; delayed_reward
+  E 0.73–1.17 vs F 0.17–0.25). But R_ctx context tables absorb it:
+  estimated piR on terminal training trials sits at 3.3–5.4 (well below
+  pi_max=20, not pinned), and held-out terminal |rerr| does not
+  systematically explode. Realized spike rates: pomaze ~0.023–0.028,
+  delayed_reward ~0.033–0.043, changing_rule ~0.78–0.80 (dense, as
+  designed).
+- Interpretation: the C2 pathology family is BOUNDED — the pilot's full
+  explosion needed the lesion's missing R_ctx absorber (or the
+  delayed_multistep structure). Estimated precision misbehaves in
+  specific configurations, not universally; consistent with C2's FRAGILE
+  3/5 kill. Recorded as NR-B-010 (characterization bound, not a kill).
+- Limitations: intact models only (preregistered boundary); open-loop
+  training isolates weight/precision machinery; symbolic reference
+  streams; delayed_reward held-out terminal trials thin (4–8/seed) but
+  nonzero — G0a passes.
+
 ---
 
 ## EXP-AB-5SEED — 5-seed multi-seed replication of Phase-4 (M1, C2B, C4B, K3B) (§9 item #3)
@@ -475,3 +554,87 @@ experiments/preregistration_EXP-FP-0008.json)**
 - A: **NO DISTINCTION (null holds — expected negative)** — seed-mean Delta_bid = +0.0009, Delta_ign = 0.000 (nothing ever ignited: habituated bids sit below the ignition threshold on both channels). Gains floored symmetric (0.01/0.01). Interpretation: no internal variable of A distinguishes matched self/world changes — A's specialists/arbitrator/ignition have no action-conditioned path (no efference copy) and the z-score bid habituates per channel to 0.5 regardless of cause. Instrument validated by unit test (chain discriminates unequal stimuli). Receipt: receipts/EXP-SW-01-A.json (hash-chained, self-verified).
 - limitations: B trained open-loop (K3C precedent) — closed-loop attribution untested; D_adj per-seed variance large (frozen-noise dominated on 2/4 seeds); single env (self_world); A probe used constant-zero reward (gain dynamics symmetric by construction).
 - CONSCIOUSNESS: UNRESOLVED — a prediction-error gap is a mechanism, not a subject.
+
+---
+
+## EXP-FP-C-BUILD-AND-BEAT — C build-and-beat vs A and B (§9 item 11)
+
+**PREREGISTERED (2026-10-07, before implementation/run; canonical copy:
+experiments/preregistration_ARCH_C.json, sha256 recorded in the receipt)**
+- hypothesis: Architecture C (A's workspace machinery driven by B's learned
+  predictor + B's episodic store) beats current arch-A (R1 default) AND
+  intact arch-B by frozen per-env margins on a fixed 5-env battery.
+- null: C does not beat A and B by the margins. A clean negative is a
+  first-class result: the hybrid's added complexity is not justified.
+- preregistered metric: per env, per seed: mean episode return.
+  Delta_CA(s) = mean_C(s) - mean_A(s); Delta_CB(s) = mean_C(s) - mean_B(s).
+- win rule per env: C beats X iff seed-mean Delta_CX > margin_E AND
+  Delta_CX(s) > 0 on >= 3/4 seeds.
+- frozen margins: changing_rule 20, compositional_rule 20, pomaze 0.5,
+  delayed_reward 0.15, cue_delayed_reward 0.15 (absolute; set from prior
+  lab scale data, not tuned post-hoc).
+- overall: C_BEATS iff wins >= 4/5 envs vs A AND >= 4/5 vs B.
+- battery: pomaze (15 eps), delayed_reward (20), changing_rule (12),
+  compositional_rule (12), cue_delayed_reward (20). One driver loop, paired
+  seeds {80101..80104} (fresh, no overlap with any prior lab seed set).
+- baselines: current arch-A (R1 default tick, neutral specialists,
+  cue-indexed arbitrator where the env exposes a cue) and intact arch-B
+  (action_mode='active_inference', affect='none' per NR-B-002) — neither
+  modified; both run on the same seeds through the same driver.
+- C assembly: A's WorkspaceTick imported unchanged + predictor-driven
+  specialists (stimulus_a = rhat_a + 0.1 * mem_bonus_a; B's
+  HierarchicalGenerativeModel imported unchanged) + B's EpisodicStore
+  imported unchanged (surprise-gated encoding, per-action error bonus) +
+  A's learned-gain loop (cue-indexed where applicable) + R1 default.
+  Excluded with reasons: PAD (no genuine consumer), error-affect
+  (rejected), ActiveInferenceSelector (IG label killed),
+  UsefulnessPredictor/RetrievalGate (uncalibrated + degenerate),
+  precision variants (rejected/shelved), consolidation (no online surface).
+- ablation arms (descriptive, changing_rule + pomaze): C-frozen-predictor,
+  C-no-memory (DisabledStore), C-frozen-gains.
+- gates: G0a tripwire CLEAN (pre-run); G0b hash-chained receipts +
+  verify_chain; G0c determinism spot-check 1e-9; G0d paired seeds/driver;
+  G0e A/B unmodified by this lane (concurrent additive edit to B's
+  agent.py at 09:10:56 UTC by another lane — gate_uhat_source kwarg,
+  default path behavior-identical — noted, did not touch the benchmarked
+  path).
+- frozen config: gain_lr=0.15, theta=0.45, capacity=n_channels,
+  reward_baseline=0.5, kappa=0.1, predictor B-defaults
+  (eta0=0.005, etaD=0.002, eta_r=0.05, etaR=0.10, estimated precision),
+  memory threshold 0.7.
+
+**RESULT (2026-10-07, run complete — 4 fresh seeds, 97 hash-chained
+receipt records, chain verified, G0c determinism MATCH)**
+- changing_rule (margin 20): A 32.50/32.08/30.00/29.83; B
+  21.42/23.33/23.33/21.50; C 31.50/29.67/29.25/29.75.
+  C_vs_A: mean d=-1.06, 0/4 seeds positive -> FAIL.
+  C_vs_B: mean d=+7.65, 4/4 positive but < 20 -> FAIL.
+  Ablations: C-frozen-predictor 32.00/31.25/29.42/29.92 (mean 30.65, >= C);
+  C-no-memory mean 29.85; C-frozen-gains mean 22.00 (collapses to B-level).
+- compositional_rule (margin 20): A mean 35.46; B mean 27.00; C mean 35.08.
+  C_vs_A: mean d=-0.38, 0/4 -> FAIL. C_vs_B: mean d=+8.08, 4/4 but < 20
+  -> FAIL.
+- pomaze (margin 0.5): A mean -3.95; B mean -3.62; C mean -5.80.
+  C_vs_A: d=-1.85 -> FAIL. C_vs_B: d=-2.18 -> FAIL. All three C ablations
+  ~= -5.9 (architectural failure, not component-specific).
+- delayed_reward (margin 0.15): A mean 0.0628; B mean 0.0773; C mean 0.1925.
+  C_vs_A: d=+0.130, 3/4 seeds positive but < 0.15 -> FAIL (closest miss).
+  C_vs_B: d=+0.115, 3/4 positive but < 0.15 -> FAIL.
+- cue_delayed_reward (margin 0.15): A mean 0.0668; B mean 0.0548; C mean
+  0.0325. C_vs_A: d=-0.034 -> FAIL. C_vs_B: d=-0.022 -> FAIL.
+- **Overall: C_BEATS_A = False (0/5 env wins). C_BEATS_B = False (0/5).
+  C_BEATS = False. The preregistered verdict is FAIL — a clean negative.**
+- Interpretation: (1) On the bandit envs the gain loop carries everything —
+  C-frozen-gains collapses to B-level while C-frozen-predictor >= C: the
+  predictor contributes nothing measurable and slightly perturbs A's K4
+  mechanism through the habituated bids. (2) On pomaze C is substantially
+  worse than both (-5.80 vs -3.95/-3.62): flat predictor outputs habituate
+  the bids, gains decay to floor under sparse negative reward (the
+  NR-A-006 structural decay, inherited), arbitration degenerates to
+  tie-break. (3) delayed_reward is the only suggestive env (+0.130/+0.115,
+  3/4 seeds) but misses the frozen margin — not a win. (4) cue_delayed_reward
+  shows the parts do not compose (echoes K11 non-complementarity).
+- Receipts: prototypes/architecture-c/receipts/EXP-FP-C-BUILD-AND-BEAT.ndjson
+  (97 records, chain verified) + .summary.json.
+- Limitations: single lab; kappa=0.1 frozen not tuned; ablations only on 2
+  envs; B baseline affect='none' per NR-B-002; 5 envs only.

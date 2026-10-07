@@ -187,6 +187,7 @@ def run_task(task, n_train_eps, n_held_eps):
             "seed": s,
             "E": {k: (round(v, 6) if isinstance(v, float) else v)
                   for k, v in arm_e.items()},
+            "E_b_r_raw": arm_e["b_r"],  # unrounded, G0c gate
             "F": {k: (round(v, 6) if isinstance(v, float) else v)
                   for k, v in arm_f.items()},
             "ratio_term": round(est / unif, 4) if unif > 0 else None,
@@ -217,7 +218,10 @@ def main():
                            "task_signature": n_sig >= 3,
                            "seeds_with_signature": n_sig}
 
-    # G0c determinism spot-check: seed 74301 pomaze arm E recomputed.
+    # G0c determinism spot-check: seed 74301 pomaze arm E recomputed,
+    # compared UNROUNDED (the voided first run compared a 6-decimal-rounded
+    # value - gate bug, fixed 2026-10-07; the arm itself was verified
+    # bit-identical across recomputes).
     if "pomaze" in tasks_out:
         ref = SymbolicBaselineAgent()
         train_t = collect_transitions("pomaze", TASKS["pomaze"][0],
@@ -227,9 +231,9 @@ def main():
         e_re = _train_eval_precision(
             train_t, held_t, False, derive_seed(SEEDS[0], 0, "agent"),
             "pomaze")
-        e_orig = next(p for p in tasks_out["pomaze"]["per_seed"]
-                      if p["seed"] == SEEDS[0])["E"]
-        if abs(e_re["b_r"] - e_orig["b_r"]) > 1e-12:
+        e_orig_raw = next(p for p in tasks_out["pomaze"]["per_seed"]
+                          if p["seed"] == SEEDS[0])["E_b_r_raw"]
+        if abs(e_re["b_r"] - e_orig_raw) > 1e-12:
             print("G0c FAIL: determinism spot-check mismatch. VOID.")
             return 2
         print(f"G0c determinism spot-check PASS "

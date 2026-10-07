@@ -126,3 +126,37 @@ not reconstructed — inventing entries would be fabrication.
 - Rules out: "K3B's +0.0602 reward-channel gap is a robust property of the hierarchy on longer horizons." The +0.0602 was seed-fragile. The hierarchy's longer-horizon contribution is, at best, a thin dynamics-channel effect; its locus and magnitude are not stable across seeds.
 - Verdict note: REPRODUCES per the frozen gate (4/5) — this is a substantive weakening, not a verdict change. The two-env phenomenon (K3C) stands; the scope bound tightens further.
 - Receipts: receipts/repro5_EXP-AB-K3B.json (arch-b detail, chain-linked to EXP-AB-K3B); ../../receipts/repro5_EXP-AB-K3B.json (lane summary, harness chain).
+
+## 2026-10-07 — NR-B-010: precision explosion does NOT systematize on intact models (C2 pathology family BOUNDED)
+
+- Expectation (preregistered; EXP-FP-0008): the estimated-precision
+  reward head would systematically misbehave on rare high-reward events —
+  explosion signature (held-out terminal mean|rerr|_est ≥ 3× uniform AND
+  > 0.3) on ≥3/4 seeds on at least 2 of 3 tasks (pomaze, delayed_reward;
+  changing_rule as dense-reward negative control).
+- Observed (4 fresh seeds {74301–74304}, intact ArchB, open-loop
+  K3B-faithful instrument, symbolic reference streams): **ABSENT** — 0/3
+  tasks reach the ≥3/4 bar. pomaze 1/4 (seed 74303: E_term=3.42 vs
+  F_term=0.78, ratio 4.38 — a single-seed outlier, not a pattern);
+  delayed_reward 0/4 (ratios 0.82–1.36); changing_rule 0/4 (ratios
+  1.00–1.16, negative control behaves as expected).
+- Mechanism secondaries (the informative half): the weight-inflation half
+  of the pathology DOES operate on intact models — post-training b_r and
+  max|w_r| inflate vs uniform on the spike tasks (pomaze: b_r E
+  +0.37/+0.15/−0.52/−0.07 vs F ≈ 0.00; max|w_r| E 0.75–1.61 vs F
+  0.33–0.35; delayed_reward: max|w_r| E 0.73–1.17 vs F 0.17–0.25). But the
+  R_ctx context tables absorb it: estimated piR on terminal training
+  trials sits at 3.3–5.4 (well below pi_max=20, not pinned), and held-out
+  terminal |rerr| does not systematically explode.
+- Rules out: "estimated precision misbehaves on rare spikes, generally."
+  The pilot's full explosion needed the lesion's missing R_ctx absorber
+  (or the delayed_multistep structure). The C2 pathology family is
+  BOUNDED to lesioned/no-absorber configurations — consistent with C2's
+  FRAGILE 3/5 kill (estimated precision misbehaves in specific
+  configurations, not universally).
+- Methods note: first run voided pre-interpretation per frozen G0c (gate
+  compared 6-decimal-rounded b_r against unrounded — implementation bug;
+  arm verified bit-identical across recomputes; numbers discarded, gate
+  fixed, rerun same seeds).
+- Receipt: ../../receipts/EXP-FP-0008.json (lane receipt, harness
+  hash-chained; full per-task/per-seed detail in summary).

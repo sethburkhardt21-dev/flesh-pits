@@ -367,7 +367,7 @@ def check_level_justification(arch, row, level, evidence):
                  "REPRODUCED requires a cited multi-seed reproduction "
                  "receipt (repro_*); none found on disk")
     elif level == "CAUSAL":
-        lesion_sig = re.search(r'lesion|ablat|kill|freeze|disabl|no-memory',
+        lesion_sig = re.search(r'lesion|ablat|kill|frozen|freeze|disabl|no-memory',
                                low)
         cited_lesion = any(
             re.search(r'\b' + e + r'\b', evidence) for e in cfg["lesion_exps"])

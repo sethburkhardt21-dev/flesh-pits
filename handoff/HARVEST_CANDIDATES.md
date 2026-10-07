@@ -132,7 +132,7 @@
 - B's precision/shift-robustness research — SHELVED: precision weighting rejected in both tested forms (C2, C2B); no further variants preregistered. Stays parallel as a negative research record, not a deployment candidate.
 - The §11 transfer test (in flight with another worker — verdict pending; FINAL_HANDOFF model-dependence section PENDING).
 - (b)-class modules that execute but have zero consumers (affective_modulation, coherence_gated_attention, oscillatory_binding) — research objects only, NOT tick-path members (Phase-4 cross-cutting finding #6 stands).
-- Architecture C (unbuilt by design — candidate bill of materials in ARCHITECTURE_FINDINGS.md).
+- Architecture C — BUILT 2026-10-07 (`prototypes/architecture-c/`, A/B untouched) and contested in EXP-FP-C-BUILD-AND-BEAT: **clean negative** (C_BEATS_A False 0/5, C_BEATS_B False 0/5 by preregistered margins; 97 hash-chained receipt records). Ablation: the gain loop is the only load-bearing surface in C; the predictor (frozen-predictor >= C) and memory (no-memory ~= C) contribute nothing measurable; pomaze substantially worse than both parents. The hybrid is NOT recommended; the parts keep their individual dispositions. Stays KEEP_PARALLEL as a negative result (the contest is closed).
 
 ## REJECT
 
@@ -140,7 +140,9 @@ See REJECTED_IDEAS.md for the full killing evidence. Phase-5 additions: precisio
 
 ## INCONCLUSIVE
 
-- Architecture C (unbuilt by design).
+- Architecture C — no longer inconclusive: BUILT and beaten 2026-10-07
+  (EXP-FP-C-BUILD-AND-BEAT, clean negative); moved to KEEP_PARALLEL as a
+  negative result.
 - Tag-at-encoding via replay/PE; PE-gated retrieval update (unimplemented — build targets from Phase 4).
 - 'agent' provenance genesis path (design gap — needs architect attention).
 - Model dependence — **PENDING** the §11 transfer results (FINAL_HANDOFF §PENDING).

@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-10-07T07:30:37.932104+00:00",
+  "generated_utc": "2026-10-07T09:31:04.171774+00:00",
   "scope": [
     "prototypes/architecture-a/MATURITY.md",
     "prototypes/architecture-b/MATURITY.md"
@@ -55,6 +55,11 @@
         "component": "identity symmetry (\u00a7\u00a714\u201315)",
         "level": "CAUSAL",
         "level_raw": "**CAUSAL** (test)"
+      },
+      {
+        "component": "self/world distinction (EXP-SW-01-A, \u00a79 item 12)",
+        "level": "EXECUTED",
+        "level_raw": "**EXECUTED (negative result)**"
       }
     ],
     "b": [
@@ -74,14 +79,19 @@
         "level_raw": "**CAUSAL**"
       },
       {
+        "component": "consolidation_cycle race (S-01 vs memory_port, EXP-FP-0005)",
+        "level": "EXECUTED",
+        "level_raw": "**EXECUTED (negative result)**"
+      },
+      {
         "component": "\u00a730 next-obs / action-consequence predictions",
         "level": "INTEGRATED",
         "level_raw": "**INTEGRATED**"
       },
       {
         "component": "\u00a730 retrieval-usefulness prediction",
-        "level": "EXECUTED",
-        "level_raw": "**EXECUTED**"
+        "level": "INTEGRATED",
+        "level_raw": "**INTEGRATED**"
       },
       {
         "component": "ActiveInferenceSelector",
@@ -97,14 +107,19 @@
         "component": "PadController (donor-exact baseline)",
         "level": "CAUSAL",
         "level_raw": "**CAUSAL**"
+      },
+      {
+        "component": "self/world distinction (EXP-SW-01-B, \u00a79 item 12)",
+        "level": "CAUSAL",
+        "level_raw": "**CAUSAL**"
       }
     ]
   },
   "findings": [],
   "summary": {
     "rows_checked": {
-      "a": 10,
-      "b": 8
+      "a": 11,
+      "b": 10
     },
     "STALE": 0,
     "OVERCLAIMED": 0,
