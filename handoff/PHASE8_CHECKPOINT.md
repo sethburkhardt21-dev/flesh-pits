@@ -102,7 +102,9 @@ Live Being (`~/workspace/mneumora`) never touched. Chamber 16 never touched (swe
 - Push 1 (Phase 8 cycle): FAILED with HTTP 400 during blob upload (~10 min in). All 612 staged blobs individually verified uploadable via debug script — the 400 was not a file-content issue.
 - Push 2 (retry): FAILED with HTTP 400 again (~2 min in). Debug re-run hit RemoteDisconnected. Diagnosis: intermittent GitHub Data API / egress instability under sustained sequential POST bursts, not a content problem.
 - Push 3 (instrumented, per-blob progress): SUCCEEDED — 612 blobs, tree faa769a8, commit f4bafce7f3a2fc1bae74cedf4849dcfbaa80b86d, HEAD verified by read-back. (This push predated the checkpoint document.)
-- Push 4 (final, with checkpoint + 0126/0127): [outcome + HEAD sha recorded below on completion].
+- Push 4 (final, with checkpoint + 0126/0127): SUCCEEDED after two attempts. Attempt A hit HTTP 502 at tree creation (all 674 blobs had uploaded fine — 502 was transient server-side). Completed via local-SHA tree assembly: tree 16b865088f358339ab769955a7961ab9e31e02eb, commit af51f5f3ee83dd7561bb86ec69e8b1bfc0734244, HEAD verified by read-back, 6/6 sample files byte-identical (incl. this checkpoint).
+- Push 5 (cleanup): removed 38 stale `.pytest_cache` blobs carried from an earlier push (test-runner junk, not lab artifacts). HEAD f052556ef208adb30a4eb9d14b9e2d9e54fcd091. Final verification: 643 blobs, 0 pytest_cache, 4/4 samples byte-identical.
+- Push-infrastructure note for the next coordinator: the Data API is intermittently flaky under sustained sequential POST bursts (HTTP 400s and RemoteDisconnected seen across attempts; not content-related — all blobs individually verified uploadable). If a push fails mid-loop, resume via local-SHA tree assembly (`/tmp/push_finish.py` pattern) instead of re-uploading blobs. Never modify `~/workspace/push_flesh_pits.py` itself without owner approval.
 
 ## 7. Standing orders carried forward
 
