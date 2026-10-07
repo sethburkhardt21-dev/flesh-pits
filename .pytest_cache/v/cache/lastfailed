@@ -1,1 +1,3 @@
-{}
+{
+  "experiments/tests/test_neutrality.py::TestNeutrality::test_no_privileged_identity_tokens": true
+}
