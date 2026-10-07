@@ -160,3 +160,50 @@ not reconstructed — inventing entries would be fabrication.
   fixed, rerun same seeds).
 - Receipt: ../../receipts/EXP-FP-0008.json (lane receipt, harness
   hash-chained; full per-task/per-seed detail in summary).
+
+## 2026-10-07 — NR-B-011: the branch-channel |e0| advantage is prediction-only decoration (EXP-AB-K3E)
+
+- Expectation (preregistered; EXP-AB-K3E): the K3D branch-channel |e0|
+  advantage on delayed_reward (D_e0 +0.0986 seed-mean, 4/4, CI excludes 0 —
+  the program's strongest hierarchy signal, living in the branch channel
+  +0.0504 4/4) would translate into closed-loop control advantage: (Arm A)
+  intact ArchB beats L1-lesioned ArchB closed-loop; (Arm B, sharper) a
+  frozen controller planning with per-branch reward predictions beats the
+  same controller planning with the L0 global map. LOAD-BEARING gate:
+  seed-mean return gap > +0.05 AND positive on >= 3/4 seeds (4 fresh seeds
+  {77101..77104}).
+- Observed: **PREDICTION-ONLY DECORATION — neither gate fires.** Arm A:
+  per-seed gaps +0.0013/+0.0167/+0.1247/+0.0360, seed-mean +0.0447 (misses
+  the +0.05 bar by 0.0053), 4/4 positive. Both arms dither (shaping-only
+  returns); intact reached the terminal +1.0 on 2/30 episodes on one seed
+  vs 0/120 lesioned episodes — suggestive but sub-threshold, not
+  significant. Arm B: per-seed gaps +0.0453/−0.0033/−0.2773/−0.0013,
+  seed-mean −0.0592, 1/4 positive. On the two seeds where the frozen
+  planners walk the corridor, per-branch and global-map planners tie
+  (~40% terminal episodes each); on seed 77103 the global map wins by
+  +0.28 — the per-branch R_ctx tables overfit branch-conditioned reward
+  noise (the correct branch is hidden 50/50, so pooling across branches
+  is more robust).
+- Rules out: "the hierarchy's strongest |e0| signal is load-bearing for
+  control on delayed_reward." The |e0| advantage is real as prediction but
+  disconnected from action selection: verified in agent.py _select_action,
+  ArchB's selector NEVER queries predict_next (vhat = predict_reward,
+  ehat = memory/selector error tables) — the |e0| channel is decoration by
+  architecture. The only per-branch path into the selector (R_ctx) cannot
+  carry signal where the branch-contingent outcome is unpredictable.
+- What this does NOT rule out: a controller that actually plans with state
+  predictions (e.g. multi-step lookahead over predict_next) could in
+  principle exploit the |e0| advantage — ArchB has no such planner, so
+  that is a different architecture's question, not a missing measurement
+  here.
+- Methods note: all frozen gates PASS (G0a tripwire CLEAN incl. the new
+  plan_global_map knob + driver; G0b determinism recompute 1e-12; G0c
+  hash-chained receipts, own hashes verify, chained to EXP-AB-K3D;
+  G0d never triggered). New additive instrument:
+  HierarchicalGenerativeModel.predict_reward_global +
+  ArchB.plan_global_map (snapshot/restore round-trips; pre-knob snapshots
+  default False).
+- Receipts: ../../receipts/EXP-AB-K3E.json (lane, harness chain) +
+  receipts/EXP-AB-K3E.json (arch-b detail, chain-linked to EXP-AB-K3D).
+  Preregistration: experiments/preregistration_BRANCH_LOAD.json (sealed
+  before run). Executor: prototypes/architecture-b/experiments_k3e.py.

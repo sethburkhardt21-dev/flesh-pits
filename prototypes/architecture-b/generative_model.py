@@ -190,6 +190,16 @@ class HierarchicalGenerativeModel:
         return (sum(w * x for w, x in zip(self.w_r, f)) + self.b_r
                 + R[action])
 
+    def predict_reward_global(self, state_vec: List[float],
+                              action: int) -> float:
+        """L0-only reward prediction (the 'global map'): w_r.f + b_r with
+        the per-context R_ctx tables zeroed. EXP-AB-K3E: lets a planner
+        query what the global map alone predicts, isolating the control
+        value of the per-branch (per-context) reward experts. Additive;
+        the trained R_ctx tables are untouched."""
+        f = self.feat(state_vec, action)
+        return sum(w * x for w, x in zip(self.w_r, f)) + self.b_r
+
     # -- observation + belief update -------------------------------------------
     def observe(self, state_vec: List[float], action: int,
                 ctx: Tuple[int, ...], obs_next: List[float], reward: float,

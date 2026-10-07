@@ -52,6 +52,13 @@ Configuration knobs (all honest ablations):
                   counterfactual UNCONDITIONAL benefit, so gating never
                   contaminates its training data; the live predictor keeps
                   training on realized benefit and is not read by the gate)
+  plan_global_map: False (default; the selector's vhat query uses the full
+                  per-branch predict_reward incl. R_ctx) | True (EXP-AB-K3E:
+                  the selector's vhat query uses predict_reward_global —
+                  the L0 global map with R_ctx zeroed — isolating whether
+                  the per-branch reward experts carry control value; the
+                  trained R_ctx tables, beliefs, memory, and (non-)learning
+                  are otherwise identical)
 """
 
 from __future__ import annotations
@@ -96,7 +103,8 @@ class ArchB(Agent):
                  gate_threshold: float = 0.0,
                  gate_rate: float = 1.0,
                  gate_seed: int = 0,
-                 gate_uhat_source: str = "live") -> None:
+                 gate_uhat_source: str = "live",
+                 plan_global_map: bool = False) -> None:
         self.observation_space = dict(observation_space)
         self.n_actions = n_actions
         self.env_name = env_name
@@ -138,6 +146,11 @@ class ArchB(Agent):
             raise ValueError(
                 f"unknown gate_uhat_source: {gate_uhat_source!r}")
         self.gate_uhat_source = gate_uhat_source
+        # EXP-AB-K3E: prediction-only planning lesion. When True, the
+        # selector's vhat query uses the L0 global map (predict_reward_global)
+        # instead of the per-branch predict_reward. Everything else —
+        # weights, R_ctx tables, beliefs, memory, learning — is identical.
+        self.plan_global_map = bool(plan_global_map)
         # EXP-FP-0007 shadow predictor: a second UsefulnessPredictor used
         # ONLY as the gate's uhat source in shadow mode. It trains on the
         # counterfactual unconditional benefit every available-correction
@@ -259,7 +272,10 @@ class ArchB(Agent):
         ctx = self.context_key(obs_vec)
 
         def vhat(a: int) -> float:
-            v = self.model.predict_reward(state_vec, a, ctx)
+            if self.plan_global_map:
+                v = self.model.predict_reward_global(state_vec, a)
+            else:
+                v = self.model.predict_reward(state_vec, a, ctx)
             if last is not None and a == last:
                 v += persist
             return v
@@ -453,6 +469,7 @@ class ArchB(Agent):
                 "precision_kind": self.precision_kind,
                 "surprise_k": self.surprise_k,
                 "frozen": self.frozen, "seed": self.seed,
+                "plan_global_map": self.plan_global_map,
             },
             "model": self.model.snapshot(),
             "memory": self.memory.snapshot(),
@@ -474,6 +491,9 @@ class ArchB(Agent):
         if (cfg["n_actions"] != self.n_actions
                 or cfg["observation_space"] != self.observation_space):
             raise ValueError("agent config mismatch on restore")
+        # Tolerant of pre-plan_global_map snapshots (defaults False).
+        self.plan_global_map = bool(state["config"].get("plan_global_map",
+                                                         False))
         self.model.restore(state["model"])
         self.memory.restore(state["memory"])
         self.selector.restore(state["selector"])

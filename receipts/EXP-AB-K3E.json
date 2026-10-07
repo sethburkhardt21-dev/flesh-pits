@@ -1,0 +1,63 @@
+{
+  "baseline": "Arm A: lesion_l1=True closed-loop. Arm B: plan_global_map=True frozen planner.",
+  "conditions": "{\"action_mode\": \"active_inference\", \"affect\": \"none\", \"agent\": \"arch_b v1\", \"agent_init_base\": \"77120+si (paired)\", \"arm_B_ref_base\": \"77210+si; 60-episode ref stream, train first 600\", \"env\": \"delayed_reward v1.0.0, 30 closed-loop episodes/arm/seed\"}",
+  "config": {
+    "arms": [
+      "A: intact vs lesion_l1 closed-loop",
+      "B: per-branch vs global-map frozen planner"
+    ],
+    "env": "delayed_reward v1.0.0",
+    "instrument": "run_closed_loop verbatim (A); K3D-faithful open-loop train + frozen planners (B)",
+    "n_episodes": 30,
+    "seeds": [
+      77101,
+      77102,
+      77103,
+      77104
+    ]
+  },
+  "config_hash": "c656d75f62c0dfd4ce35f813c1246453f9c3ce26133a46ca09720f852628606f",
+  "episodes": {
+    "n_seeds": 4,
+    "voided": []
+  },
+  "experiment_id": "EXP-AB-K3E",
+  "hypothesis": "The K3D branch-channel |e0| advantage translates into closed-loop control advantage: (A) intact beats L1-lesioned closed-loop; (B) per-branch planner beats global-map planner on a frozen trained model.",
+  "interpretation": "EXP-AB-K3E branch-channel load-bearing test (4 fresh seeds, preregistered). Arm A (closed-loop lesion): per-seed G_A = [0.0013333333333333253, 0.016666666666666677, 0.12466666666666665, 0.036]; seed-mean +0.0447, positive 4/4 -> does not fire. Arm B (frozen planner): per-seed G_B = [0.04533333333333333, -0.0033333333333332993, -0.27733333333333327, -0.0013333333333333335]; seed-mean -0.0592, positive 1/4 -> does not fire. PREDICTION-ONLY DECORATION: the hierarchy's strongest |e0| signal does not convert into closed-loop control advantage on delayed_reward.",
+  "limitations": "delayed_reward only (the env where the K3D signal lives). Closed-loop ArchB (active_inference, affect='none') dithers on delayed_reward \u2014 neither arm reaches the terminal +1.0 in 30 episodes (returns are shaping-only); the return gap measures control in the dithering regime. Arm B planners are frozen; learning effects factored out by design. ArchB's selector never queries predict_next (verified in agent.py _select_action) \u2014 the |e0| channel is disconnected from action selection by architecture. G0b determinism: PASS.",
+  "null_hypothesis": "G_A ~= 0 and G_B ~= 0 \u2014 prediction-only decoration.",
+  "preregistered_metric": "Per-seed mean episode return gap; seed-mean over 4 fresh seeds; LOAD-BEARING iff seed-mean > +0.05 AND positive on >= 3/4 seeds (both arms).",
+  "prev_receipt_hash": "eb072c62674b04b244b24ec9dd7ca2b2d33125f6b85813fc71b610fd958372a3",
+  "primary_seed": "77101-77104",
+  "receipt_hash": "b7432141323ba6bbb9ea261793fcebaf0a8e71daa8e1697a267da1dd0b19c6b3",
+  "started_utc": "2026-10-07T10:53:03.335452+00:00",
+  "summary": {
+    "G0b_determinism": true,
+    "arm_A": {
+      "fires_A": false,
+      "n_positive_A": 4,
+      "n_valid": 4,
+      "per_seed_G_A": [
+        0.0013333333333333253,
+        0.016666666666666677,
+        0.12466666666666665,
+        0.036
+      ],
+      "seed_mean_G_A": 0.04466666666666666
+    },
+    "arm_B": {
+      "fires_B": false,
+      "n_positive_B": 1,
+      "per_seed_G_B": [
+        0.04533333333333333,
+        -0.0033333333333332993,
+        -0.27733333333333327,
+        -0.0013333333333333335
+      ],
+      "seed_mean_G_B": -0.059166666666666645
+    },
+    "detail_receipt": "prototypes/architecture-b/receipts/EXP-AB-K3E.json",
+    "verdict": "PREDICTION-ONLY DECORATION: the hierarchy's strongest |e0| signal does not convert into closed-loop control advantage on delayed_reward."
+  },
+  "written_utc": "2026-10-07T10:54:16.579483+00:00"
+}
