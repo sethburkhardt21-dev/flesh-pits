@@ -1,22 +1,37 @@
 {
   "schema": "emergent-mind/runtime-ladder/1",
-  "directive": "PARALLEL_RESEARCH_DIRECTIVE.md §§42-44",
+  "directive": "PARALLEL_RESEARCH_DIRECTIVE.md \u00a7\u00a742-44",
   "created": "2026-10-07",
   "author": "Phase-0 runtime worker",
-  "status": "configuration — not execution authority",
+  "status": "configuration \u2014 not execution authority",
   "law": {
     "backend_change_rule": "A backend change ENDS the current experiment and mints a new run ID. No silent switching mid-experiment. Recorded as a run-ending event in the experiment header; the new run ID opens with the new backend recorded.",
     "contamination_dimensions": [
-      "model_id", "revision_sha", "quant_file", "quant_file_sha",
-      "chat_template_hash", "sampling_params", "runtime_adapter",
-      "runtime_adapter_version", "n_ctx", "seed"
+      "model_id",
+      "revision_sha",
+      "quant_file",
+      "quant_file_sha",
+      "chat_template_hash",
+      "sampling_params",
+      "runtime_adapter",
+      "runtime_adapter_version",
+      "n_ctx",
+      "seed"
     ],
     "run_header_required": [
-      "model_id", "revision_sha", "quant_file", "quant_file_sha256",
-      "chat_template_hash", "sampling_params", "runtime_adapter",
-      "runtime_adapter_version", "n_ctx", "seed", "backend_rung"
+      "model_id",
+      "revision_sha",
+      "quant_file",
+      "quant_file_sha256",
+      "chat_template_hash",
+      "sampling_params",
+      "runtime_adapter",
+      "runtime_adapter_version",
+      "n_ctx",
+      "seed",
+      "backend_rung"
     ],
-    "fallback_rule": "Adapter failure raises; the experiment harness — never the model layer — decides whether to end the run and descend the ladder. Descending never ascends on its own: a rung change is always a new run ID.",
+    "fallback_rule": "Adapter failure raises; the experiment harness \u2014 never the model layer \u2014 decides whether to end the run and descend the ladder. Descending never ascends on its own: a rung change is always a new run ID.",
     "rung5_mandatory": "Every experiment claiming an architectural effect must include a rung-5 (deterministic symbolic baseline) run. If the loop's cognition vanishes under rung 5, the contribution was the foundation model, not the machinery."
   },
   "rungs": [
@@ -30,7 +45,7 @@
       "gguf_repo": "Qwen/Qwen2.5-1.5B-Instruct-GGUF",
       "gguf_repo_sha": "91cad511",
       "quant_file": "qwen2.5-1.5b-instruct-q4_k_m.gguf",
-      "quant_file_sha256": null,
+      "quant_file_sha256": "6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e",
       "license": "Apache-2.0",
       "params_actual": 1540000000,
       "ctx": 32768,
@@ -38,8 +53,14 @@
       "runtime_adapter": "LocalLlamaCpp",
       "runtime_adapter_version": "llama-cpp-python 0.3.36 (source build)",
       "expected_tok_s": "0.3-1.0 (INFERRED, not yet measured on this VM)",
-      "verified_status": "NOT YET DOWNLOADED — acquisition pending; do not claim proven",
-      "descend_when": "OOM / load failure / throughput below experiment minimum"
+      "verified_status": "NOT YET DOWNLOADED \u2014 acquisition pending; do not claim proven",
+      "descend_when": "OOM / load failure / throughput below experiment minimum",
+      "status": "ACQUIRED 2026-10-07 (probe-benched; full \u00a719 battery open)",
+      "quant_file_bytes": 1117320736,
+      "chat_template_sha256": "d5495a1e5db0611132a97e46a65dbb64a642a499421228b9c8b93229097fa9a4",
+      "fit_test": "PASS (thin): peak RSS 1807.2 MB < 2048 MB at n_ctx=2048, 2 threads; load 7.3s; probe 0.4 tok/s; instruction-following PASS; n_ctx=4096 would risk budget",
+      "bench_receipt": "benchmarks/bench_local_1.5b_results.json",
+      "local_path": "var/models/qwen2.5-1.5b-instruct-q4_k_m.gguf (excluded from GitHub stage; var/ not pushed)"
     },
     {
       "rung": 2,
@@ -58,7 +79,7 @@
       "runtime_adapter": "LocalLlamaCpp",
       "runtime_adapter_version": "llama-cpp-python 0.3.36 (source build)",
       "expected_tok_s": "0.3-1.5 (VERIFIED: Phase-0 re-run 2026-10-07)",
-      "verified_status": "VERIFIED — bench_local_results.json (Phase 1) + bench_local_results_phase0.json (Phase-0 re-run): IF PASS, JSON PASS, sensible probe, 606.8 MB RSS load",
+      "verified_status": "VERIFIED \u2014 bench_local_results.json (Phase 1) + bench_local_results_phase0.json (Phase-0 re-run): IF PASS, JSON PASS, sensible probe, 606.8 MB RSS load",
       "descend_when": "load failure / model file missing"
     },
     {
@@ -70,7 +91,7 @@
       "license": "Apache-2.0",
       "runtime_adapter": "ForgeLlamaCpp",
       "transport": "Desktop Commander -> Machine A (SethsPC) / Machine B (SethPC)",
-      "verified_status": "NOT YET VERIFIED — needs a DC check on the Forge; until then rung 1 remains the top PROVEN rung",
+      "verified_status": "NOT YET VERIFIED \u2014 needs a DC check on the Forge; until then rung 1 remains the top PROVEN rung",
       "descend_when": "DC unreachable / machine unavailable / run needs reproducibility on this VM"
     },
     {
@@ -79,14 +100,14 @@
       "description": "Hugging Face Serverless Inference API.",
       "model_id": "same selection as rung 1 (Qwen/Qwen2.5-1.5B-Instruct preferred)",
       "runtime_adapter": "HFInferenceAPI",
-      "auth": "HF_TOKEN — status UNVERIFIED on this VM (whoami probe timed out 2026-10-07; presence of a secret-bearing variable confirmed by runtime redaction, usability not established)",
-      "verified_status": "UNVERIFIED — stays UNVERIFIED until an authenticated call succeeds",
+      "auth": "HF_TOKEN \u2014 status UNVERIFIED on this VM (whoami probe timed out 2026-10-07; presence of a secret-bearing variable confirmed by runtime redaction, usability not established)",
+      "verified_status": "UNVERIFIED \u2014 stays UNVERIFIED until an authenticated call succeeds",
       "descend_when": "auth failure / rate limits / outage"
     },
     {
       "rung": 4,
       "name": "hosted_provider",
-      "description": "Approved hosted provider — the current agent runtime. Last resort; rate limits or outages move DOWN the ladder, never up.",
+      "description": "Approved hosted provider \u2014 the current agent runtime. Last resort; rate limits or outages move DOWN the ladder, never up.",
       "runtime_adapter": "HostedProvider",
       "verified_status": "available this session; standing last-resort rung",
       "descend_when": "rate limits / outages"
@@ -97,13 +118,29 @@
       "description": "Deterministic non-LLM baseline: symbolic cognitive loop, fixed rules, no model. Architecture-only control.",
       "model_id": null,
       "runtime_adapter": "SymbolicBaseline",
-      "verified_status": "MANDATORY control — must exist before any architectural-effect claim",
-      "descend_when": "n/a — bottom rung; if nothing runs here, the experiment is BLOCKED"
+      "verified_status": "MANDATORY control \u2014 must exist before any architectural-effect claim",
+      "descend_when": "n/a \u2014 bottom rung; if nothing runs here, the experiment is BLOCKED"
     }
   ],
   "specialists": {
-    "reasoning": {"model_id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B", "revision_sha": "ad9f0ae0", "quant_note": "bartowski GGUF IQ4_XS/Q4_K_M ladder, repo sha 9cc28b17", "license": "MIT", "status": "SELECTED, not yet acquired"},
-    "tool_use": {"model_id": "Salesforce/xLAM-2-1b-fc-r", "revision_sha": "6870fcf1", "license": "CC-BY-NC-4.0 (lab-internal only)", "status": "SELECTED, not yet acquired"},
-    "retrieval_embedding": {"model_id": "BAAI/bge-m3", "revision_sha": "5617a9f6", "license": "MIT", "status": "SELECTED, not yet acquired"}
+    "reasoning": {
+      "model_id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+      "revision_sha": "ad9f0ae0",
+      "quant_note": "bartowski GGUF IQ4_XS/Q4_K_M ladder, repo sha 9cc28b17",
+      "license": "MIT",
+      "status": "SELECTED, not yet acquired"
+    },
+    "tool_use": {
+      "model_id": "Salesforce/xLAM-2-1b-fc-r",
+      "revision_sha": "6870fcf1",
+      "license": "CC-BY-NC-4.0 (lab-internal only)",
+      "status": "SELECTED, not yet acquired"
+    },
+    "retrieval_embedding": {
+      "model_id": "BAAI/bge-m3",
+      "revision_sha": "5617a9f6",
+      "license": "MIT",
+      "status": "SELECTED, not yet acquired"
+    }
   }
 }

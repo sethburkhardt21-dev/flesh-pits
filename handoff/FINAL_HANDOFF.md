@@ -1,6 +1,6 @@
 # FINAL HANDOFF — Flesh Pits parallel research lane, Phase 5 (directive §54)
 
-*Dark Lord's directive, owner orders. 2026-10-07. Status: **DRAFT** — the model-dependence section is **PENDING** the §11 transfer results (in flight with another worker); do NOT declare complete until finalized.*
+*Dark Lord's directive, owner orders. 2026-10-07. Status: **FINAL** — all sections complete, including §5 model dependence (transfer verdict delivered 2026-10-07).*
 
 *Every claim cites a receipt, a maturity-ledger row, or an NR entry. Where evidence is thin, that is stated. Where Phase 4's coordinator verified something by its own hand, that is marked. Killed mechanisms are not resurrected. B's downgrades are not softened. CONSCIOUSNESS: UNRESOLVED — mechanisms, not narratives.*
 
@@ -44,18 +44,21 @@
 - Fallback ladder pinned (`flesh-pits/research/runtime_ladder.json`, schema `emergent-mind/runtime-ladder/1`): local_1.5b (rung 1, candidate) → local_0.5b (VERIFIED) → forge_local via DC (NOT YET VERIFIED — DC probe pending) → hf_inference (UNVERIFIED — auth probe timed out 2026-10-07) → hosted_provider (last resort; rate limits move DOWN, never up) → symbolic_baseline (mandatory for any architectural-effect claim). A backend change ENDS the experiment and mints a new run ID — encoded in the config.
 - License corrections (verified against live Hub API 2026-10-07): Qwen2.5-3B is `license:other` (NOT Apache-2.0) — rejected for this VM (too big + license flag); Qwen3-1.7B is actually 2.03B params; Qwen3-0.6B/1.7B official GGUF repos carry Q8_0 only (community Q4 required). Specialists (R1-distill-1.5B reasoning, xLAM-2-1b-fc-r tool-use, bge-m3 retrieval) are SELECTED, not acquired.
 
-## 5. Model dependence — **PENDING** (transfer test in flight)
+## 5. Model dependence — FINAL (transfer verdict delivered 2026-10-07)
 
-*This section is a DRAFT. The §11 transfer results have not landed; no verdict is entered. Do not cite this section as evidence until finalized.*
+**Rung 1 acquired.** Qwen2.5-1.5B-Instruct Q4_K_M downloaded 2026-10-07: 1,117,320,736 bytes, valid GGUF v3, SHA256 `6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e`, model revision `989aa7980e4cf806f80c7fef2b1adb7bc71aa306`, chat-template SHA256 `d5495a1e5db0611132a97e46a65dbb64a642a499421228b9c8b93229097fa9a4`. Fit test: PASS but thin — peak RSS 1807.2 MB < 2048 MB (240 MB headroom at n_ctx=2048, 2 threads); probe 0.4 tok/s; instruction-following PASS. n_ctx=4096 would risk the budget. Receipt: `flesh-pits/benchmarks/bench_local_1.5b_results.json`.
 
-**What this section must answer:**
-1. Which findings are architecture-level (survive model replacement) vs foundation-model-dependent (move with the model).
-2. The §11 protocol verdict: train on rung A (0.5B), persist the permitted state, replace the model with rung B (1.5B), measure whether learned behavior survives — with the contamination dimensions (model_id, revision_sha, quant file + sha, template hash, sampling params, adapter + version, n_ctx, seed) in every run header, and a backend change ending the run ID per the ladder law.
-3. The honest-variant verdict (TRANSFER-K4-RESTORE, run 2026-10-07): transfer ONLY the persisted gains JSON across a loop restart into a fresh loop (fresh z-score estimators, fresh ignition strength, fresh reward EMA, fresh RNG envs), freeze the transferred gains, and measure: G1 — reproduction gate R_learned ≥ 1.30 on ≥ 3/4 seeds (else the verdict is UNINTERPRETABLE, report BLOCKED); G2 — transfer gate R_transfer ≥ 1.30 on ≥ 3/4 seeds → learned behavior survives in external persistent gains alone; G3 — flag whether R_transfer ≥ R_learned on ≥ 3/4 seeds (endpoint gains suffice; online learning adds nothing). Receipts: `flesh-pits/prototypes/architecture-a/receipts/transfer/TRANSFER-K4-RESTORE.ndjson`, `transferred_gains.json`.
-4. The established (non-pending) part: **A's K4 loop is model-free by construction** — verified by own hand, documented in `experiments/transfer_k4_restore.py`'s header: no foundation-model call anywhere (specialists are pure functions; arbitrate()/update_gains() touch only floats; feedback utility is {action: reward}). Its architecture/model-dependence is nil by construction; the transfer question for it is persisted-state-across-restart, not model replacement. The literal 0.5B↔1.5B arm was refused as pretend machinery (nothing-ever-fake law).
-5. Backend dependence for the remaining mechanisms (B's predictor, episodic store, PAD): all ran model-free in the K-series; any LLM-backed deployment would need its own transfer test.
+**The literal 0.5B↔1.5B arm was refused — correctly.** Verified by the worker's own hand: no foundation-model call exists anywhere in the K4 loop (specialists are pure functions; `arbitrate()`/`update_gains()` touch only floats; feedback utility is `{action: reward}`). None of the ladder's contamination dimensions exist in the loop. Loading two models and never calling them, then reporting "behavior survives replacement," would be fake telemetry — refused under the Dark Lord's nothing-ever-fake law, with the refusal preregistered. (A genuine LLM-in-the-loop variant at 0.3–1.5 tok/s would need ~27–89 hours per condition — infeasible *and* vacuous.)
 
-**Verdict: PENDING.** *(To be filled when the parent delivers the transfer results.)*
+**Honest variant: TRANSFER-K4-RESTORE (preregistered, 4 fresh seeds).** Train gains online on canonical changing_rule, persist ONLY the gains JSON, restore into a fresh loop (fresh z-score estimators, ignition strength, reward EMA, RNG envs), freeze transferred gains, measure R_transfer vs frozen-at-1.0 baseline:
+- G1 reproduction gate: **PASS 4/4** — R_learned = 1.500 / 1.548 / 1.469 / 1.605 (canonical rerun was 1.44–1.70; adapter faithful).
+- G2 transfer gate: **FAIL 0/4** — R_transfer = 0.990 / 0.990 / 0.962 / 0.985 (needed ≥ 1.30).
+- G3 endpoint-sufficiency: 0/4.
+- Phase-split (exploratory, labeled): transferred gains encode the post-flip world — help phase 1 (R≈1.7), hurt phase 0 (T≈18–26 vs F≈98–104), net ≈ 1.0. The online learner re-adapts across the flip; the frozen endpoint cannot. Warm-start behaved identically to frozen.
+
+**Verdict: H0 — learned behavior does NOT survive in transferred gains alone.** The K4 win is a *process* (online gain-adaptation trajectory through the broadcast feedback loop), not a *state* (endpoint gains). Reverse direction not run: nothing to reverse, and the model-replacement arm is inapplicable regardless of direction. For model-free mechanisms, directive §11 reduces to persistence-across-restart — answered H0 here. A genuine model-in-the-loop transfer test first requires building and proving an LLM-coupled cognitive loop (new architecture, not an application of K4). Receipts: `flesh-pits/prototypes/architecture-a/receipts/transfer/TRANSFER-K4-RESTORE.ndjson` (7 hash-chained records), `transferred_gains.json`.
+
+**Backend dependence, mechanism by mechanism:** all K-series mechanisms ran model-free (pure Python); the summary table's Backend-dependent? column stays No. Any future LLM-backed deployment needs its own transfer test per the ladder law.
 
 ## 6. Harvest candidates — summary
 
@@ -72,21 +75,21 @@ Full killing evidence in **REJECTED_IDEAS.md** (24 entries). The load-bearing ki
 
 ## 8. Remaining uncertainty
 
-1. **Model dependence** — PENDING (§5).
+1. **Model dependence** — RESOLVED (§5): H0, the K4 win is a process not a state; literal model-swap refused as inapplicable.
 2. **Independent replication** — A's 5/5 is single-lab; the lane's REPRODUCED bar wants a second lane.
 3. **B's hierarchy scope** — K3B stands on changing_rule/delayed_reward only; harder tasks and sharper instruments untested.
 4. **Retrieval-usefulness prediction** — EXECUTED in B, not wired to gate retrieval (gap).
-5. **Gains across restart** — the honest §11 variant's question (pending).
+5. **Gains across restart** — answered H0 (§5): endpoint gains do not carry adaptive behavior; transfer the learning dynamics or run long enough to re-adapt.
 6. **Consolidation on primary-like workloads** — Phase-4 battery evidence only; the two-implementation race unrun.
 7. **Sparse-reward and cue-conditioned attention** — structural/architectural bounds (NR-A-006/007) with no redesign yet.
 8. **Self-model depth** — the lab built propagation (K2 consumers), not a dedicated evidence-bound self-model experiment; the audit's P-B03/P-B05 quarantine discipline is unbuilt in the lab.
 9. **Metacognition** — calibration tracked in B (INTEGRATED at best); no competence estimator built; audit found ratio theater in the estate's M30.
-10. **The 1.5B rung** — acquired, not benched; all rung-1 experiment claims wait on the bench.
+10. **The 1.5B rung** — acquired and probe-benched (0.4 tok/s, instruction-following PASS, fits 2 GiB thinly); full §19 battery still open.
 11. **CONSCIOUSNESS: UNRESOLVED** — no decisive accepted test exists (see §10).
 
 ## 9. Next resolving experiments (concrete, preregistrable)
 
-1. **Transfer verdict** — finalize §5 when the §11 results land (gates G1/G2/G3 already preregistered in `transfer_k4_restore.py`).
+1. **Transfer verdict** — DONE (§5): H0, process-not-state. Follow-up: design a transfer-of-learning-dynamics experiment (not endpoint gains).
 2. **A second-lane K1–K4** — independent replication of A's workspace machinery (the REPRODUCED bar's missing half). Preregister the same gates, different implementer.
 3. **M1/C2B/C4B/K3B at 5 seeds** — Phase-4 ran 3; promote to the 5-seed standard.
 4. **Sparse-reward gain redesign (NR-A-006)** — replace the constant-baseline delta rule with a return-conditioned or baseline-free update; preregister R ≥ 1.30 learned/frozen on canonical delayed_reward, 4 seeds. On success the harvest scope widens.
@@ -120,4 +123,4 @@ CONSCIOUSNESS: UNRESOLVED. The Phase-2 independent literature review (`research/
 
 ---
 
-*Draft ends. Finalization requires the §11 transfer results (§5 PENDING). All artifacts local under `~/workspace/chambers/emergent-mind/`; live Being and chamber 16 untouched throughout (per PROVEN_BASELINE.md isolation proof and Phase-0 constraint compliance).*
+*Finalized 2026-10-07: §5 model-dependence verdict delivered (H0 — process, not state). All artifacts local under `~/workspace/chambers/emergent-mind/`; live Being and chamber 16 untouched throughout (per PROVEN_BASELINE.md isolation proof and Phase-0 constraint compliance).*
