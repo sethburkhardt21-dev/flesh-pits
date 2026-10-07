@@ -375,9 +375,11 @@ def run_arm(arm, primary_seed, alias_collect):
         eps = run_symbolic(POMaze, primary_seed)
         return {"episodes": eps, "goal_probes": []}
     arch, variant = arm.split("-", 1)
-    env_cls = {"STD": POMaze, "DENSE": POMazeDense, "NEAR": POMazeNear}[variant]
     if variant == "DEMO":
-        env_cls = POMazeNear
+        env_cls = None  # DEMO runs NEAR then STD explicitly below
+    else:
+        env_cls = {"STD": POMaze, "DENSE": POMazeDense,
+                   "NEAR": POMazeNear}[variant]
     if arch == "B":
         if variant == "DEMO":
             agent, near_eps, near_probes = run_B_arm(

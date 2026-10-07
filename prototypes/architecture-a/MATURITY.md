@@ -131,3 +131,29 @@ Maturity changes from this second-lane replication (2026-10-07):
   separately claimed).
 - No demotions. The "single-lab" qualifier on the workspace machinery's
   REPRODUCED claims is now RESOLVED.
+
+## 2026-10-07 — EXP-FP-0010 pomaze diagnosis: A = REPRESENTATION (extends NR-A-006)
+
+Cross-architecture pomaze diagnostic (6 fresh seeds 91001–91006; receipt
+receipts/EXP-FP-0010-POMAZE-DIAG.ndjson). A-STD: mean −4.05, p_goal 0.044 —
+indistinguishable from uniform random (−4.15, 0.006). Measured:
+- State-blind by construction, confirmed: mean |corr(stimulus, beacon)| =
+  0.046 across 360 channel-episodes (the preregistered max rule at 0.222
+  was over-strict; the mean is the informative statistic).
+- NR-A-006 decay on pomaze: gains at the 0.01 floor in 98.9% of
+  channel-episodes; the constant −0.01/−0.02 punishment sits below the
+  0.5 baseline so the delta rule can only punish.
+- With gains floored, arbitration = argmax of habituated noise bids
+  (NOT tie-break: tie frac 0.000) → behavior ≈ random walk
+  (stuck 0.535 vs random 0.540).
+- Dense shaping (+0.02×beacon): NO navigation gain (p_goal 0.033 vs
+  0.044); the +1.64 return lift is the shaping term collected while
+  wandering — a state-blind policy cannot exploit a state gradient.
+- NEAR (p_goal 0.744): gains leave the floor (0.789), goal rate
+  0.711→0.778 second-half — the delta rule responds to frequent reward.
+  But DEMO (5 NEAR then 15 canonical): ZERO transfer (p_goal 0.056 vs
+  0.044; gains re-floor 0.986). A bandit cannot retain maze-navigation
+  policy across maze seeds.
+- Bound: on pomaze-class tasks A's failure is REPRESENTATION, not
+  exploration or credit assignment. `attention.py` stays GENERALIZING;
+  the NR-A-006 STRUCTURAL bound now covers pomaze explicitly.

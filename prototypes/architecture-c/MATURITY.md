@@ -54,3 +54,47 @@ Gates: G0a tripwire CLEAN, G0b chain verified, G0c determinism MATCH
 (1e-9), G0d paired seeds/driver, G0e A/B unmodified by this lane.
 
 *The "PENDING" note above is now closed.*
+
+## 2026-10-07 — EXP-FP-0010 pomaze diagnosis: C = CREDIT ASSIGNMENT (CORRECTS the build-and-beat autopsy)
+
+Cross-architecture pomaze diagnostic (6 fresh seeds 91001–91006; receipt
+receipts/EXP-FP-0010-POMAZE-DIAG.ndjson). C-STD: mean −5.88, p_goal 0.011 —
+WORSE than uniform random (−4.15, 0.006).
+
+**Correction to the EXP-FP-C-BUILD-AND-BEAT autopsy** ("flat predictor
+outputs habituate the bids, gains decay to floor under sparse negative
+reward, arbitration degenerates to tie-break"): two of the three claims
+are DISPROVEN by direct per-tick measurement. Per-episode stimulus
+(mean over channels) std is 0.51–1.55 (mean 0.97) — NOT flat. Arbitration
+margin <1e-9 on 0.001 of ticks (margins 0.001–0.006) — NOT tie-break.
+What holds: gains decay to the 0.01 floor (0.997 of channel-episodes on
+STD) — the inherited NR-A-006 structural decay, confirmed.
+
+**Measured mechanism (replaces the autopsy story):** with gains floored,
+arbitration = argmax of habituated raw bids, and raw bids respond only
+to stimulus CHANGES (RunningZScoreBid). A wall-bumping loop produces
+static obs → static stimuli → a frozen winner → a self-reinforcing bump
+attractor: stuck fraction 0.972, sub-ignition path 0.996 of ticks. The
+predictor's stimulus variation (largely memory-error bonus / belief
+dynamics, not goal gradient — stim⊥beacon mean |r| = 0.053) cannot steer
+the policy because the gain loop floors. C is worse than random because
+random at least wanders; C pins itself against a wall.
+
+- DENSE (+0.02×beacon): NO navigation gain (p_goal 0.011 = STD); the
+  +1.51 return lift is the shaping term collected while bumping.
+- NEAR (p_goal 0.556): gains partially leave floor (0.769 vs 0.997),
+  stuck 0.71→0.56 second-half, p_goal 0.467→0.644 — the machinery
+  responds weakly to frequent reward.
+- DEMO (5 NEAR then 15 canonical): ZERO transfer (p_goal 0.000, −5.92).
+- Failure class: CREDIT ASSIGNMENT — the architecture finds rewards (in
+  NEAR) and its predictor varies with state, but the A-half's
+  habituation + gain-floor destroys the B-half's signal before it can
+  reach action selection: an integration failure, not an exploration
+  failure (on canonical the policy is pinned in a bump attractor of its
+  own making).
+- Maturity impact: no level changes (C stays a clean negative); the
+  "What failed" section's mechanism story is superseded by the above.
+  Design lead: the B→A surface needs a non-habituated, non-gain-gated
+  path for value information, or the gain loop needs a baseline that
+  doesn't floor under sparse punishment — both are new experiments, not
+  retrofits.

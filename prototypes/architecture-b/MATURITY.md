@@ -160,3 +160,32 @@ Tripwire CLEAN; gate suite green at close.
   seed-fragile. Verdict stands per the frozen gate; the hierarchy's
   longer-horizon contribution is substantively weakened (scope bound
   tightened; see kill table and research/negative_results.md).
+
+## 2026-10-07 — EXP-FP-0010 pomaze diagnosis: B = EXPLORATION + REPRESENTATION bound + weak credit retention
+
+Cross-architecture pomaze diagnostic (6 fresh seeds 91001–91006; receipt
+receipts/EXP-FP-0010-POMAZE-DIAG.ndjson). B-STD: mean −3.58, p_goal 0.133
+(22× uniform random's 0.006, still rare). Measured:
+- EXPLORATION: IG-driven exploration moves (stuck 0.505 ≈ random) but
+  does not systematically search the tree maze; reward is genuinely
+  sparse under random play (1/180).
+- REPRESENTATION: n_contexts == 1 confirmed (no categorical obs fields
+  → single global context; position must ride mu0≈obs). Obs aliasing
+  0.667 — the 5-channel position signature (wall bits + beacon, 28 keys
+  observed) collides across positions with disagreeing BFS-optimal
+  actions in 14/21 multi-position keys. The linear reward head cannot
+  resolve position (same function-class lesson as EXP-FP-0002 on D).
+- CREDIT (transient, not retained): goal-trial |rerr| declines where
+  rewards are frequent (NEAR probes 1.124→0.984; 88 pooled probes
+  1.227→0.985) but only 41% of probes are closer to 1.0 when
+  re-evaluated at run end (mean drift +0.077 — washed out by the flood
+  of −0.01 trials). Dense shaping is NOT learned: mean|rerr| flat across
+  B-DENSE episodes; p_goal 0.100 vs 0.133 — no navigation gain from dense
+  reward. So B's failure is NOT pure exploration.
+- DEMO (5 NEAR then 15 canonical): ZERO transfer (B-DEMO ≡ B-STD:
+  −3.62, p_goal 0.133).
+- Maturity impact: none of the component levels move (no new causal
+  claim); the pomaze bound is now characterized as a compound failure,
+  not a single-mechanism one. Follow-up lead: separate head-learning
+  from selector-use on the dense variant (does rhat learn the beacon
+  gradient while the IG selector ignores it?).

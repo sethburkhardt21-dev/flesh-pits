@@ -55,3 +55,36 @@
   B-NEAR     seed=91001: mean=+0.0847 p_goal=14/15
   B-NEAR     seed=91002: mean=-1.8953 p_goal=8/15
   B-NEAR     seed=91003: mean=-1.1587 p_goal=9/15
+  B-NEAR     seed=91004: mean=-0.9387 p_goal=10/15
+  B-NEAR     seed=91005: mean=+0.1133 p_goal=13/15
+  B-NEAR     seed=91006: mean=+0.0273 p_goal=13/15
+  C-NEAR     seed=91001: mean=-3.8833 p_goal=5/15
+  C-NEAR     seed=91002: mean=-2.0507 p_goal=9/15
+  C-NEAR     seed=91003: mean=-2.6620 p_goal=7/15
+  C-NEAR     seed=91004: mean=-0.7520 p_goal=12/15
+  C-NEAR     seed=91005: mean=-2.1960 p_goal=9/15
+  C-NEAR     seed=91006: mean=-2.5540 p_goal=8/15
+  A-DEMO     seed=91001: mean=-4.1547 p_goal=0/15
+  A-DEMO     seed=91002: mean=-4.1147 p_goal=0/15
+  A-DEMO     seed=91003: mean=-3.9487 p_goal=1/15
+  A-DEMO     seed=91004: mean=-4.0353 p_goal=1/15
+  A-DEMO     seed=91005: mean=-3.9467 p_goal=1/15
+  A-DEMO     seed=91006: mean=-3.8047 p_goal=2/15
+  B-DEMO     seed=91001: mean=-3.6253 p_goal=2/15
+  B-DEMO     seed=91002: mean=-3.8147 p_goal=1/15
+  B-DEMO     seed=91003: mean=-3.4847 p_goal=3/15
+  B-DEMO     seed=91004: mean=-3.7247 p_goal=2/15
+  B-DEMO     seed=91005: mean=-3.4947 p_goal=2/15
+  B-DEMO     seed=91006: mean=-3.5713 p_goal=2/15
+  C-DEMO     seed=91001: mean=-5.8280 p_goal=0/15
+  C-DEMO     seed=91002: mean=-5.9533 p_goal=0/15
+  C-DEMO     seed=91003: mean=-5.9080 p_goal=0/15
+  C-DEMO     seed=91004: mean=-5.9653 p_goal=0/15
+  C-DEMO     seed=91005: mean=-5.9187 p_goal=0/15
+  C-DEMO     seed=91006: mean=-5.9200 p_goal=0/15
+  aliasing: rate=0.6667 (n_multi=21)
+  verdict: {"A": ["REPRESENTATION:gains_at_floor"], "B": ["EXPLORATION:sparse_not_found_dense_learnable", "REPRESENTATION:obs_aliasing"], "C": ["EXPLORATION:sparse_habituation_loop_dense_lifts"]}
+  G2 determinism: -3.510667 vs -3.510667 -> MATCH
+  chain verify: True (92 records chained)
+  receipt: /home/hatch/workspace/chambers/emergent-mind/flesh-pits/receipts/EXP-FP-0010-POMAZE-DIAG.ndjson (92 records, 459.8s)
+EXIT=0
