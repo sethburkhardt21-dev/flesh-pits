@@ -1,0 +1,119 @@
+{
+  "design": {
+    "independent_lane": true,
+    "note": "Drivers are rewritten from the K1-K4 spec; only the architecture modules under test are imported (workspace_buffer, broadcast, ignition, tick, envs). No import of the original k1..k4 or repro_multiseed_a experiment scripts.",
+    "prior_seeds_all": {
+      "K1": [
+        20261007,
+        71001,
+        71002,
+        71003,
+        71004,
+        71005
+      ],
+      "K2": [
+        20261007,
+        71101,
+        71102,
+        71103,
+        71104,
+        71105
+      ],
+      "K3": [
+        20261007,
+        71201,
+        71202,
+        71203,
+        71204,
+        71205
+      ],
+      "K4": [
+        11,
+        22,
+        33,
+        44,
+        71301,
+        71302,
+        71303,
+        71304,
+        71305
+      ]
+    },
+    "r1_wiring": {
+      "decision_receipt": "flesh-pits/prototypes/architecture-a/receipts/k8_r1_wiring_decision.json",
+      "expectations": {
+        "K1": "Does not use WorkspaceTick at all (buffer-only). R1 cannot fire; zero behavioral difference possible. Same verdict mechanics as original.",
+        "K2": "Runs the CURRENT default WorkspaceTick (R1 wired default). theta=0.45, signal-tracking env: ignitions occur on most ticks; the sub-ignition path may fire on some trials but adds ZERO consumer deliveries by construction (K8: zero non-feedback consumer deliveries on all sub-ignition trials). Delivery-based gates are mechanism-identical. Sub-ignition action counts per phase are RECORDED as a behavioral check, not gated. Any nonzero count is reported openly.",
+        "K3": "Does not use WorkspaceTick (RecurrentIgnition probe only). R1 cannot fire; identical verdict mechanics.",
+        "K4": "Runs the CURRENT default WorkspaceTick in BOTH conditions (learned and frozen), so the comparison is apples-to-apples. Expected: R >= 1.30 on >=4/5 seeds, matching the original gate. Per-seed sub-ignition fractions are RECORDED. Post-wire K1-K4 reruns were byte-identical (K8): at theta=0.45 the exploratory path fires only in the sub-ignition regime and did not alter any verdict. If R1 fires heavily in either condition, it is reported as an observation; the gate is unchanged."
+      },
+      "mechanism": "R1 sub-ignition exploratory path is the DEFAULT _select_action (no-proposal -> act on graded arbitration winner, zero consumer propagation; gate still decides ALL propagation).",
+      "reference": "K8 wiring confirmation, seeds 51501-51503, 5/5 gates PASS; post-wire K1-K4 reruns byte-identical.",
+      "status": "WIRED_DEFAULT_TICK"
+    }
+  },
+  "experiment_id": "REPRO-SECOND-LANE-A-K1K4",
+  "gates": {
+    "K1": {
+      "gate": "I@0.85 > 0.40 AND monotonic non-decreasing P(target lost | K=3) over distractor bids {0.50, 0.85, 0.95}",
+      "per_seed_fail": "FAIL",
+      "spec": "2 residents bid 0.90; target bid 0.85; distractor bid in {0.50, 0.85, 0.95}; target+distractor arrive in random order (seeded); target lost if its item_id is not in buffer contents after both admitted. 400 trials per (capacity, bid) condition. Conditions at capacity=3 and capacity=None (unbounded) with identical sub-seed seed+int(d_bid*100). I = P(lost|K=3) - P(lost|K=inf)."
+    },
+    "K2": {
+      "gate": "selective_ok AND total_ok AND recovery_ok, all on the same WorkspaceTick+env instance through the phase sequence",
+      "per_seed_fail": "FAIL",
+      "spec": "Channels a/b/c; capacity=3; ignition theta=0.45; ChangingRelevanceEnv 400 ticks; 30-tick phases: baseline (assert all consumers > 0 deliveries) -> lesion_consumer(memory_admit) -> restore -> lesion_all -> restore_all -> recovery. (a) selective: memory_admit delta == 0 exactly AND every other consumer delta within +/-15% of baseline (approx tol 0.15). (b) total: every consumer delta == 0 AND buffer admitted_total still grows AND ignition history still grows. Recovery: every consumer within +/-15% of baseline. No side channels."
+    },
+    "K3": {
+      "gate": "W < 0.12 AND P(x <= theta-0.25) == 0.0 AND P(x >= theta+0.25) == 1.0 AND graded-control mean|P(x)-x| < 0.08",
+      "per_seed_fail": "FAIL",
+      "spec": "theta=0.6. Sweep x in [0,1] step 0.02 (51 points), 200 trials/point, jitter ~ N(0,0.03) from seeded RNG, fresh RecurrentIgnition per trial (strength reset, no cross-trial smear). Propagation p = 1.0 if ignited else 0.0 (real gate); p = strength (graded control). W = x(P>=0.95) - x(P>=0.05) on the real-gate curve. Real sweep seed S; graded control seed S+1."
+    },
+    "K4": {
+      "gate": "per-seed WIN iff R = total(learned)/total(fixed) >= 1.30",
+      "per_seed_fail": "LOSS",
+      "spec": "3 channels; 200 ticks; theta=0.45; stationary_signals=True (salience carries no relevance info; latent weights a for ticks 1-100 then reverse to c for 101-200). Learned: gain_lr=0.15, gains free. Frozen: frozen_gains=True (gains pinned at 1.0). Both run the current default tick."
+    }
+  },
+  "hypothesis": "Architecture A's K1-K4 verdicts replicate on fresh seeds with independently written drivers against the current R1-default tick.",
+  "method": "Rewrite all four experiment drivers independently from the K1-K4 spec (no copy-paste of the original scripts). Import only the architecture modules under test (workspace_buffer, broadcast, ignition, tick, envs). Run on 5 FRESH seeds per experiment, distinct from every prior seed (originals + first reproduction). Apply the ORIGINAL preregistered gates per seed. Hash-chained receipts repro_second_lane_k{1,2,3,4}.json.",
+  "null_hypothesis": "One or more K1-K4 verdicts fail to hold on fresh seeds with an independent driver (single-lab artifact, overfit seed, or R1-wiring interaction).",
+  "preregistered_utc": "2026-10-07T07:49:00Z",
+  "receipt_hash": "756966a5ed8948c866e43d721b888a78aafac01d05666fc08430bb35da567728",
+  "reproduction_rule": {
+    "fails_to_reproduce": "verdict fails on >= 2/5 seeds",
+    "note": "Any experiment failing on >=2/5 seeds is a NON-REPRODUCTION: reported as such, not explained away. No post-hoc gate changes.",
+    "reproduces": "verdict holds on >= 4/5 seeds"
+  },
+  "seeds": {
+    "K1": [
+      72001,
+      72002,
+      72003,
+      72004,
+      72005
+    ],
+    "K2": [
+      72101,
+      72102,
+      72103,
+      72104,
+      72105
+    ],
+    "K3": [
+      72201,
+      72202,
+      72203,
+      72204,
+      72205
+    ],
+    "K4": [
+      72301,
+      72302,
+      72303,
+      72304,
+      72305
+    ]
+  },
+  "type": "preregistration"
+}

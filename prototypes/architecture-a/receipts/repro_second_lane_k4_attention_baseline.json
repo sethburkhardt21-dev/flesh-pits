@@ -1,0 +1,108 @@
+{
+  "experiment": "K4_attention_baseline",
+  "lane": "second",
+  "margin": 1.3,
+  "original_seeds": [
+    11,
+    22,
+    33,
+    44
+  ],
+  "per_seed": {
+    "72301": {
+      "fixed_total": 78.9,
+      "learned_gains": {
+        "a": 0.933,
+        "b": 0.948,
+        "c": 2.0
+      },
+      "learned_total": 127.85,
+      "ratio": 1.62,
+      "sub_ignition_actions": {
+        "frozen": 0,
+        "learned": 0
+      },
+      "win": true
+    },
+    "72302": {
+      "fixed_total": 68.27,
+      "learned_gains": {
+        "a": 0.833,
+        "b": 0.888,
+        "c": 2.0
+      },
+      "learned_total": 126.57,
+      "ratio": 1.854,
+      "sub_ignition_actions": {
+        "frozen": 0,
+        "learned": 0
+      },
+      "win": true
+    },
+    "72303": {
+      "fixed_total": 88.87,
+      "learned_gains": {
+        "a": 1.008,
+        "b": 1.0,
+        "c": 2.0
+      },
+      "learned_total": 129.57,
+      "ratio": 1.458,
+      "sub_ignition_actions": {
+        "frozen": 0,
+        "learned": 0
+      },
+      "win": true
+    },
+    "72304": {
+      "fixed_total": 71.89,
+      "learned_gains": {
+        "a": 0.967,
+        "b": 0.945,
+        "c": 2.0
+      },
+      "learned_total": 126.82,
+      "ratio": 1.764,
+      "sub_ignition_actions": {
+        "frozen": 0,
+        "learned": 0
+      },
+      "win": true
+    },
+    "72305": {
+      "fixed_total": 67.95,
+      "learned_gains": {
+        "a": 0.957,
+        "b": 0.879,
+        "c": 2.0
+      },
+      "learned_total": 127.87,
+      "ratio": 1.882,
+      "sub_ignition_actions": {
+        "frozen": 0,
+        "learned": 0
+      },
+      "win": true
+    }
+  },
+  "prereg": {
+    "path": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-a/receipts/prereg_repro_second_lane.json",
+    "preregistered_utc": "2026-10-07T07:49:00Z",
+    "receipt_hash": "756966a5ed8948c866e43d721b888a78aafac01d05666fc08430bb35da567728"
+  },
+  "prev_receipt_hash": "73e1f9da160feac67e70016998db823601a3614ae668da2f9046bae5f71097d1",
+  "receipt_hash": "da8f7885e3c01545cec39a7ddf7296fe517994afc8a90a54dc51960c7f3a90ea",
+  "reproduces": true,
+  "reproduction": true,
+  "seeds": [
+    72301,
+    72302,
+    72303,
+    72304,
+    72305
+  ],
+  "theta": 0.45,
+  "ticks": 200,
+  "verdict": "REPRODUCES 5/5 seeds",
+  "wins": 5
+}

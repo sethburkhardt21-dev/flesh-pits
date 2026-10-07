@@ -1,0 +1,131 @@
+{
+  "experiment": "K1_capacity_lesion",
+  "lane": "second",
+  "original_seed": 20261007,
+  "passes": 5,
+  "per_seed": {
+    "72001": {
+      "conditions": {
+        "0.5": {
+          "interference": 0.0,
+          "p_lost_K3": 0.0,
+          "p_lost_Kinf": 0.0
+        },
+        "0.85": {
+          "interference": 0.52,
+          "p_lost_K3": 0.52,
+          "p_lost_Kinf": 0.0
+        },
+        "0.95": {
+          "interference": 1.0,
+          "p_lost_K3": 1.0,
+          "p_lost_Kinf": 0.0
+        }
+      },
+      "monotonic": true,
+      "pass": true
+    },
+    "72002": {
+      "conditions": {
+        "0.5": {
+          "interference": 0.0,
+          "p_lost_K3": 0.0,
+          "p_lost_Kinf": 0.0
+        },
+        "0.85": {
+          "interference": 0.52,
+          "p_lost_K3": 0.52,
+          "p_lost_Kinf": 0.0
+        },
+        "0.95": {
+          "interference": 1.0,
+          "p_lost_K3": 1.0,
+          "p_lost_Kinf": 0.0
+        }
+      },
+      "monotonic": true,
+      "pass": true
+    },
+    "72003": {
+      "conditions": {
+        "0.5": {
+          "interference": 0.0,
+          "p_lost_K3": 0.0,
+          "p_lost_Kinf": 0.0
+        },
+        "0.85": {
+          "interference": 0.5225,
+          "p_lost_K3": 0.5225,
+          "p_lost_Kinf": 0.0
+        },
+        "0.95": {
+          "interference": 1.0,
+          "p_lost_K3": 1.0,
+          "p_lost_Kinf": 0.0
+        }
+      },
+      "monotonic": true,
+      "pass": true
+    },
+    "72004": {
+      "conditions": {
+        "0.5": {
+          "interference": 0.0,
+          "p_lost_K3": 0.0,
+          "p_lost_Kinf": 0.0
+        },
+        "0.85": {
+          "interference": 0.5225,
+          "p_lost_K3": 0.5225,
+          "p_lost_Kinf": 0.0
+        },
+        "0.95": {
+          "interference": 1.0,
+          "p_lost_K3": 1.0,
+          "p_lost_Kinf": 0.0
+        }
+      },
+      "monotonic": true,
+      "pass": true
+    },
+    "72005": {
+      "conditions": {
+        "0.5": {
+          "interference": 0.0,
+          "p_lost_K3": 0.0,
+          "p_lost_Kinf": 0.0
+        },
+        "0.85": {
+          "interference": 0.4575,
+          "p_lost_K3": 0.4575,
+          "p_lost_Kinf": 0.0
+        },
+        "0.95": {
+          "interference": 1.0,
+          "p_lost_K3": 1.0,
+          "p_lost_Kinf": 0.0
+        }
+      },
+      "monotonic": true,
+      "pass": true
+    }
+  },
+  "prereg": {
+    "path": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-a/receipts/prereg_repro_second_lane.json",
+    "preregistered_utc": "2026-10-07T07:49:00Z",
+    "receipt_hash": "756966a5ed8948c866e43d721b888a78aafac01d05666fc08430bb35da567728"
+  },
+  "prev_receipt_hash": "756966a5ed8948c866e43d721b888a78aafac01d05666fc08430bb35da567728",
+  "receipt_hash": "0c4cee1f02bf9e8364813586cb49de0db1c291a8f59e43c6422d1eaf9d93762c",
+  "reproduces": true,
+  "reproduction": true,
+  "seeds": [
+    72001,
+    72002,
+    72003,
+    72004,
+    72005
+  ],
+  "trials_per_condition": 400,
+  "verdict": "REPRODUCES 5/5 seeds"
+}

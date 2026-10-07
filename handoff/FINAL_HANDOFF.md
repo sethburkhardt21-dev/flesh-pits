@@ -76,7 +76,7 @@ Full killing evidence in **REJECTED_IDEAS.md** (24 entries). The load-bearing ki
 ## 8. Remaining uncertainty
 
 1. **Model dependence** — RESOLVED (§5): H0, the K4 win is a process not a state; literal model-swap refused as inapplicable.
-2. **Independent replication** — A's 5/5 is single-lab; the lane's REPRODUCED bar wants a second lane.
+2. **Independent replication** — RESOLVED 2026-10-07: second independent lane replicated K1–K4 5/5 each on fresh seeds with independently written drivers, against the R1-default tick (preregistered; hash-chained receipts `repro_second_lane_k{1,2,3,4}_*.json`). The "single-lab" qualifier is closed; K5 generalization legs remain single-lab.
 3. **B's hierarchy scope** — K3B stands on changing_rule/delayed_reward only; harder tasks and sharper instruments untested.
 4. **Retrieval-usefulness prediction** — EXECUTED in B, not wired to gate retrieval (gap).
 5. **Gains across restart** — answered H0 (§5): endpoint gains do not carry adaptive behavior; transfer the learning dynamics or run long enough to re-adapt.

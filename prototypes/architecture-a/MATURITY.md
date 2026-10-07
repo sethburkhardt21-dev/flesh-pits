@@ -67,3 +67,57 @@ Maturity changes from this reproduction:
 - `attention_update` consumer, `tick.py`, `bids.py`, `envs.py`, identity
   symmetry: unchanged by this reproduction (not re-run, or already at earned
   levels via concurrent work).
+
+## REPRODUCIBILITY — second-lane independent replication (2026-10-07)
+
+The REPRODUCED bar's missing half, closed. An independent lane
+(preregistered 2026-10-07T07:49:00Z, sealed BEFORE the run —
+`receipts/prereg_repro_second_lane.json`, hash `756966a5...567728`)
+rewrote all four experiment drivers from the K1–K4 spec (no import of
+the original experiment scripts or the first-lane repro driver; only
+the architecture modules under test) and ran them against the CURRENT
+default tick (R1 sub-ignition exploratory path wired as default since
+K8). 5 fresh seeds per experiment, all distinct from every prior seed
+(K1: 72001–72005; K2: 72101–72105; K3: 72201–72205; K4: 72301–72305).
+Driver: `experiments/repro_second_lane_a.py`. Receipts:
+`receipts/repro_second_lane_k{1,2,3,4}_*.json`, hash-chained
+prereg → k1 → k2 → k3 → k4 (chain verified intact).
+
+| Experiment | Fresh seeds | Per-seed verdicts | Result |
+|---|---|---|---|
+| K1 capacity lesion | 72001–72005 | 5/5 PASS (I@0.85 = 0.458–0.522, monotonic every seed) | **REPRODUCES** |
+| K2 broadcast lesion | 72101–72105 | 5/5 PASS (selective + total + recovery every seed) | **REPRODUCES** |
+| K3 ignition probe | 72201–72205 | 5/5 PASS (W = 0.10 < 0.12; p_below=0, p_above=1; lin_err ≈ 0.0015–0.0018 every seed) | **REPRODUCES** |
+| K4 attention baseline | 72301–72305 | 5/5 WIN (R = 1.46–1.88 ≥ 1.30 every seed) | **REPRODUCES** |
+
+R1-active observations (recorded, not gated — preregistered):
+- K1/K3 do not use the tick; R1 cannot fire. No behavioral difference
+  possible, none observed.
+- K2: sub-ignition path fired 0/30 in baseline, selective-lesion, and
+  recovery phases, and 30/30 in the total-lesion phase on every seed —
+  during the total lesion the planner queue stays empty (lesioned), so
+  action selection falls back to the graded arbitration winner. Zero
+  consumer deliveries in that phase on every seed: the R1 default
+  behaves exactly as wired (K8) — action without propagation.
+- K4: 0 sub-ignition actions in learned AND frozen conditions on all
+  seeds (at theta=0.45 ignition occurs every tick); learned gains
+  converged with 'c' at the 2.0 cap on all 5 seeds after the reversal.
+
+Maturity changes from this second-lane replication (2026-10-07):
+- `workspace_buffer.py`: stays **REPRODUCED** — now confirmed by two
+  independent lanes (first: 71001–71005; second: 72001–72005).
+- `broadcast.py` + all six consumers: stay **REPRODUCED** — confirmed
+  by two independent lanes (71101–71105; 72101–72105), including the
+  R1-active total-lesion behavior.
+- `ignition.py`: stays **REPRODUCED** — confirmed by two independent
+  lanes (71201–71205; 72201–72205).
+- `attention.py`: K4 leg now independently replicated TWICE
+  (first lane R 1.71–2.13; second lane R 1.46–1.88) — stays
+  **GENERALIZING** because the K5 generalization legs (P2/P3) remain
+  single-lab; bounds unchanged (NR-A-006/NR-A-007/NR-A-005).
+- `tick.py`: the K8 R1-default wiring survived a second independent
+  replication intact (K2/K4 verdicts unchanged; sub-ignition behavior
+  matches the wired spec) — stays INTEGRATED (whole-tick CAUSAL not
+  separately claimed).
+- No demotions. The "single-lab" qualifier on the workspace machinery's
+  REPRODUCED claims is now RESOLVED.

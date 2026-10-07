@@ -1,0 +1,64 @@
+{
+  "experiment": "K3_ignition_linearity_probe",
+  "jitter_sd": 0.03,
+  "lane": "second",
+  "original_seed": 20261007,
+  "passes": 5,
+  "per_seed": {
+    "72201": {
+      "graded_control_linearity_error": 0.0015252087611236293,
+      "p_above": 1.0,
+      "p_below": 0.0,
+      "pass": true,
+      "transition_width": 0.09999999999999998
+    },
+    "72202": {
+      "graded_control_linearity_error": 0.001473144033198193,
+      "p_above": 1.0,
+      "p_below": 0.0,
+      "pass": true,
+      "transition_width": 0.09999999999999998
+    },
+    "72203": {
+      "graded_control_linearity_error": 0.001538762223171723,
+      "p_above": 1.0,
+      "p_below": 0.0,
+      "pass": true,
+      "transition_width": 0.09999999999999998
+    },
+    "72204": {
+      "graded_control_linearity_error": 0.001849175184881976,
+      "p_above": 1.0,
+      "p_below": 0.0,
+      "pass": true,
+      "transition_width": 0.09999999999999998
+    },
+    "72205": {
+      "graded_control_linearity_error": 0.0016401002146582617,
+      "p_above": 1.0,
+      "p_below": 0.0,
+      "pass": true,
+      "transition_width": 0.09999999999999998
+    }
+  },
+  "points": 51,
+  "prereg": {
+    "path": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-a/receipts/prereg_repro_second_lane.json",
+    "preregistered_utc": "2026-10-07T07:49:00Z",
+    "receipt_hash": "756966a5ed8948c866e43d721b888a78aafac01d05666fc08430bb35da567728"
+  },
+  "prev_receipt_hash": "142b130681eb633147518bcd3d4a2cddf2b22be6bb3216b2fc9c1f7582e928cd",
+  "receipt_hash": "73e1f9da160feac67e70016998db823601a3614ae668da2f9046bae5f71097d1",
+  "reproduces": true,
+  "reproduction": true,
+  "seeds": [
+    72201,
+    72202,
+    72203,
+    72204,
+    72205
+  ],
+  "theta": 0.6,
+  "trials_per_point": 200,
+  "verdict": "REPRODUCES 5/5 seeds"
+}
