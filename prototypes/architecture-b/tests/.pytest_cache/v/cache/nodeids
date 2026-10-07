@@ -1,9 +1,0 @@
-[
-  "test_retention_guard.py::test_agent_swap_config_parity",
-  "test_retention_guard.py::test_determinism",
-  "test_retention_guard.py::test_etaR_restored_no_leak",
-  "test_retention_guard.py::test_nonpositive_trial_scaled_rate",
-  "test_retention_guard.py::test_positive_trial_full_rate",
-  "test_retention_guard.py::test_snapshot_restore_roundtrip",
-  "test_retention_guard.py::test_zero_reward_counts_as_nonpositive"
-]
