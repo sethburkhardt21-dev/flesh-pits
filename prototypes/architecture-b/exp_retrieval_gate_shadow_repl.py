@@ -29,7 +29,7 @@ FP = os.path.dirname(os.path.dirname(os.path.dirname(HERE)))
 sys.path.insert(0, os.path.join(FP, "flesh-pits", "experiments"))
 
 import exp_retrieval_gate_shadow as base  # noqa: E402 — the instrument, verbatim
-from env_interface import derive_seed  # noqa: E402
+from env_interface import derive_seed, config_hash  # noqa: E402
 
 RECEIPTS_DIR = os.path.join(HERE, "..", "..", "receipts")
 OUT_DIR = os.path.join(HERE, "experiments_out")
@@ -144,15 +144,16 @@ def main():
                   "The shadow-gate advantage is pomaze-local at this "
                   "evidence level.")
 
+    cfg = {"envs": ENVS, "agent": "arch_b v1", "affect": "none",
+           "action_mode": "active_inference",
+           "episodes_per_arm_per_seed": N_EPISODES,
+           "gate_threshold": GATE_THRESHOLD,
+           "gate_uhat_source": "shadow",
+           "parent_experiment": "EXP-FP-0007"}
     result = {
         "experiment_id": EXP_ID,
-        "config": {"envs": ENVS, "agent": "arch_b v1", "affect": "none",
-                   "action_mode": "active_inference",
-                   "episodes_per_arm_per_seed": N_EPISODES,
-                   "gate_threshold": GATE_THRESHOLD,
-                   "gate_uhat_source": "shadow",
-                   "parent_experiment": "EXP-FP-0007"},
-        "config_hash": base.config_hash if hasattr(base, "config_hash") else None,
+        "config": cfg,
+        "config_hash": config_hash(cfg),
         "primary_seed": SEEDS,
         "started_utc": started,
         "episodes": [],

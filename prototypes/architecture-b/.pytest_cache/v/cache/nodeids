@@ -19,5 +19,11 @@
   "tests/test_arch_b.py::TestPrecision::test_estimated_not_handset",
   "tests/test_arch_b.py::TestPrecision::test_uniform_ablation_hook",
   "tests/test_arch_b.py::TestSelector::test_modes",
+  "tests/test_arch_b.py::TestShadowGate::test_gate_reads_shadow_not_live",
+  "tests/test_arch_b.py::TestShadowGate::test_invalid_source_raises",
+  "tests/test_arch_b.py::TestShadowGate::test_live_is_default_and_shadow_zero_init",
+  "tests/test_arch_b.py::TestShadowGate::test_restore_tolerates_pre_shadow_snapshot",
+  "tests/test_arch_b.py::TestShadowGate::test_shadow_snapshot_restore",
+  "tests/test_arch_b.py::TestShadowGate::test_shadow_trains_on_counterfactual",
   "tests/test_arch_b.py::TestUsefulness::test_learns_benefit"
 ]

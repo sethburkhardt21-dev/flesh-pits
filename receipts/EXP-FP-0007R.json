@@ -1,0 +1,797 @@
+{
+  "baseline": "arm U = ungated retrieval-correction.",
+  "conditions": "{\"action_mode\": \"active_inference\", \"affect\": \"none\", \"agent\": \"arch_b v1\", \"envs\": [\"pomaze\", \"delayed_reward\", \"changing_rule\"], \"episodes_per_arm_per_seed\": 15, \"gate_threshold\": 0.0, \"gate_uhat_source\": \"shadow\", \"parent_experiment\": \"EXP-FP-0007\"}",
+  "config": {
+    "action_mode": "active_inference",
+    "affect": "none",
+    "agent": "arch_b v1",
+    "envs": [
+      "pomaze",
+      "delayed_reward",
+      "changing_rule"
+    ],
+    "episodes_per_arm_per_seed": 15,
+    "gate_threshold": 0.0,
+    "gate_uhat_source": "shadow",
+    "parent_experiment": "EXP-FP-0007"
+  },
+  "config_hash": "d91291f4e03410c825e3fce92cfc7fb972008cb19d6f1170267805f85602c445",
+  "episodes": [],
+  "experiment_id": "EXP-FP-0007R",
+  "hypothesis": "The shadow-\u00fbhat gate advantage replicates on pomaze at the 5-seed bar and generalizes to at least one of two new environments.",
+  "interpretation": "NEGATIVE on replication: pomaze win rule does NOT fire at 5 fresh seeds (bar envs: []). The EXP-FP-0007 result is bounded to its 4 seeds. Predictor stays EXECUTED. Recorded in negative_results.md.",
+  "limitations": "Closed-loop policy test; gated trajectory diverges from ungated; shadow trains on counterfactual benefit but lives on the gated trajectory; all arms may stay negative if env unsolved; 5 fresh seeds, no multiple-comparison correction.",
+  "null_hypothesis": "On pomaze the win rule fails at the 5-seed bar, or it fires on pomaze but on neither new env.",
+  "preregistered_metric": "per env per seed, mean episode return over 15 closed-loop episodes; dGU/G vs U, dGR G vs R; win = seed-mean dGU>0 AND dGR>0 with >=4/5 seeds agreeing on both; bar = pomaze win AND >=1 of delayed_reward/changing_rule win.",
+  "prev_receipt_hash": "e89c29ee125592ed166959dce9af00c91ffb3c221f31bdd5e4c8c4d0e36f66a4",
+  "primary_seed": [
+    80001,
+    80002,
+    80003,
+    80004,
+    80005
+  ],
+  "receipt_hash": "f99169e12de64b84bad00eabaa1079602544e9437f4a3c52e3896a2b5dccc050",
+  "started_utc": "2026-10-07T09:56:09.618492+00:00",
+  "summary": {
+    "bar_envs": [],
+    "envs": {
+      "changing_rule": {
+        "g0_discriminating_seeds": 5,
+        "per_seed": [
+          {
+            "G_gate_stats": {
+              "application_rate": 0.3606010016694491,
+              "mean_uhat": -0.054934166621588364,
+              "mean_uhat_applied": 0.1055347747334556,
+              "mean_uhat_blocked": -0.14543362179832345,
+              "n_applied": 216,
+              "n_available": 599,
+              "n_blocked": 383,
+              "policy": "uhat",
+              "rate_param": 1.0,
+              "threshold": 0.0
+            },
+            "G_mean_return": 22.4667,
+            "G_mean_return_raw": 22.466666666666665,
+            "G_shadow_b": 0.022152,
+            "G_shadow_corr": {
+              "corr_uhat_benefit": 0.13669797313176002,
+              "n": 584
+            },
+            "G_shadow_w": [
+              0.003236,
+              0.035722,
+              0.014484,
+              -0.100443
+            ],
+            "R_gate_stats": {
+              "application_rate": 0.37061769616026713,
+              "mean_uhat": -0.022411604531573273,
+              "mean_uhat_applied": -0.02361249492149402,
+              "mean_uhat_blocked": -0.02170444891734938,
+              "n_applied": 222,
+              "n_available": 599,
+              "n_blocked": 377,
+              "policy": "random",
+              "rate_param": 0.3606010016694491,
+              "threshold": 0.0
+            },
+            "R_mean_return": 23.8,
+            "U_mean_return": 20.6,
+            "U_ranking": {
+              "corr_uhat_benefit": 0.05875237011159547,
+              "n": 585
+            },
+            "delta_GR": -1.3333,
+            "delta_GU": 1.8667,
+            "seed": 80001
+          },
+          {
+            "G_gate_stats": {
+              "application_rate": 0.3121869782971619,
+              "mean_uhat": -0.07176523984000314,
+              "mean_uhat_applied": 0.0827815618835508,
+              "mean_uhat_blocked": -0.14191148236986864,
+              "n_applied": 187,
+              "n_available": 599,
+              "n_blocked": 412,
+              "policy": "uhat",
+              "rate_param": 1.0,
+              "threshold": 0.0
+            },
+            "G_mean_return": 21.8667,
+            "G_mean_return_raw": 21.866666666666667,
+            "G_shadow_b": 0.009939,
+            "G_shadow_corr": {
+              "corr_uhat_benefit": 0.11318186876346466,
+              "n": 584
+            },
+            "G_shadow_w": [
+              -0.02711,
+              0.063195,
+              0.010595,
+              -0.01438
+            ],
+            "R_gate_stats": {
+              "application_rate": 0.3121869782971619,
+              "mean_uhat": -0.01834129490822302,
+              "mean_uhat_applied": -0.015235221696232747,
+              "mean_uhat_blocked": -0.01975109027385939,
+              "n_applied": 187,
+              "n_available": 599,
+              "n_blocked": 412,
+              "policy": "random",
+              "rate_param": 0.3121869782971619,
+              "threshold": 0.0
+            },
+            "R_mean_return": 20.4667,
+            "U_mean_return": 22.3333,
+            "U_ranking": {
+              "corr_uhat_benefit": 0.20985930984920537,
+              "n": 585
+            },
+            "delta_GR": 1.4,
+            "delta_GU": -0.4667,
+            "seed": 80002
+          },
+          {
+            "G_gate_stats": {
+              "application_rate": 0.328881469115192,
+              "mean_uhat": -0.0722784231828182,
+              "mean_uhat_applied": 0.08868832244553253,
+              "mean_uhat_blocked": -0.15116013683651244,
+              "n_applied": 197,
+              "n_available": 599,
+              "n_blocked": 402,
+              "policy": "uhat",
+              "rate_param": 1.0,
+              "threshold": 0.0
+            },
+            "G_mean_return": 19.8,
+            "G_mean_return_raw": 19.8,
+            "G_shadow_b": -0.003896,
+            "G_shadow_corr": {
+              "corr_uhat_benefit": 0.1161406162904542,
+              "n": 584
+            },
+            "G_shadow_w": [
+              -0.02547,
+              -0.032319,
+              0.003749,
+              -0.055161
+            ],
+            "R_gate_stats": {
+              "application_rate": 0.34724540901502504,
+              "mean_uhat": -0.03805266810924562,
+              "mean_uhat_applied": -0.04311270003489198,
+              "mean_uhat_blocked": -0.03536088641989926,
+              "n_applied": 208,
+              "n_available": 599,
+              "n_blocked": 391,
+              "policy": "random",
+              "rate_param": 0.328881469115192,
+              "threshold": 0.0
+            },
+            "R_mean_return": 19.4,
+            "U_mean_return": 21.8667,
+            "U_ranking": {
+              "corr_uhat_benefit": 0.07058877736280351,
+              "n": 585
+            },
+            "delta_GR": 0.4,
+            "delta_GU": -2.0667,
+            "seed": 80003
+          },
+          {
+            "G_gate_stats": {
+              "application_rate": 0.2687813021702838,
+              "mean_uhat": -0.09293918084362272,
+              "mean_uhat_applied": 0.08485144957672348,
+              "mean_uhat_blocked": -0.1582914445369462,
+              "n_applied": 161,
+              "n_available": 599,
+              "n_blocked": 438,
+              "policy": "uhat",
+              "rate_param": 1.0,
+              "threshold": 0.0
+            },
+            "G_mean_return": 23.0667,
+            "G_mean_return_raw": 23.066666666666666,
+            "G_shadow_b": 0.017149,
+            "G_shadow_corr": {
+              "corr_uhat_benefit": 0.08611663062382116,
+              "n": 584
+            },
+            "G_shadow_w": [
+              0.003792,
+              -0.131316,
+              -0.069404,
+              0.115518
+            ],
+            "R_gate_stats": {
+              "application_rate": 0.29549248747913187,
+              "mean_uhat": -0.020387113515585274,
+              "mean_uhat_applied": -0.03048331263447533,
+              "mean_uhat_blocked": -0.01615245179984231,
+              "n_applied": 177,
+              "n_available": 599,
+              "n_blocked": 422,
+              "policy": "random",
+              "rate_param": 0.2687813021702838,
+              "threshold": 0.0
+            },
+            "R_mean_return": 21.6667,
+            "U_mean_return": 22.0,
+            "U_ranking": {
+              "corr_uhat_benefit": 0.24569796031734306,
+              "n": 585
+            },
+            "delta_GR": 1.4,
+            "delta_GU": 1.0667,
+            "seed": 80004
+          },
+          {
+            "G_gate_stats": {
+              "application_rate": 0.41903171953255425,
+              "mean_uhat": -0.042032929092276246,
+              "mean_uhat_applied": 0.10416931825196048,
+              "mean_uhat_blocked": -0.14748340059630916,
+              "n_applied": 251,
+              "n_available": 599,
+              "n_blocked": 348,
+              "policy": "uhat",
+              "rate_param": 1.0,
+              "threshold": 0.0
+            },
+            "G_mean_return": 20.0667,
+            "G_mean_return_raw": 20.066666666666666,
+            "G_shadow_b": 0.0246,
+            "G_shadow_corr": {
+              "corr_uhat_benefit": 0.09144996208175164,
+              "n": 584
+            },
+            "G_shadow_w": [
+              -0.067885,
+              -0.010577,
+              0.013924,
+              -0.02099
+            ],
+            "R_gate_stats": {
+              "application_rate": 0.44073455759599334,
+              "mean_uhat": -0.03279005402458649,
+              "mean_uhat_applied": -0.03428238737520728,
+              "mean_uhat_blocked": -0.031614006249768914,
+              "n_applied": 264,
+              "n_available": 599,
+              "n_blocked": 335,
+              "policy": "random",
+              "rate_param": 0.41903171953255425,
+              "threshold": 0.0
+            },
+            "R_mean_return": 20.6,
+            "U_mean_return": 22.8,
+            "U_ranking": {
+              "corr_uhat_benefit": 0.10077046920939048,
+              "n": 585
+            },
+            "delta_GR": -0.5333,
+            "delta_GU": -2.7333,
+            "seed": 80005
+          }
+        ],
+        "seed_mean_delta_GR": 0.2667,
+        "seed_mean_delta_GU": -0.4667,
+        "seeds_agree_GR": 3,
+        "seeds_agree_GU": 2,
+        "verdict": "NO_WIN",
+        "win_rule_fires": false
+      },
+      "delayed_reward": {
+        "g0_discriminating_seeds": 5,
+        "per_seed": [
+          {
+            "G_gate_stats": {
+              "application_rate": 0.8035714285714286,
+              "mean_uhat": 0.06869262245125593,
+              "mean_uhat_applied": 0.09834284083018358,
+              "mean_uhat_blocked": -0.05260372546253924,
+              "n_applied": 180,
+              "n_available": 224,
+              "n_blocked": 44,
+              "policy": "uhat",
+              "rate_param": 1.0,
+              "threshold": 0.0
+            },
+            "G_mean_return": 0.0747,
+            "G_mean_return_raw": 0.07466666666666667,
+            "G_shadow_b": 0.07303,
+            "G_shadow_corr": {
+              "corr_uhat_benefit": 0.39085645752360026,
+              "n": 209
+            },
+            "G_shadow_w": [
+              0.016911,
+              -0.048414,
+              -0.01429,
+              0.03228
+            ],
+            "R_gate_stats": {
+              "application_rate": 0.8272727272727273,
+              "mean_uhat": 0.06393274145167566,
+              "mean_uhat_applied": 0.06427446044444995,
+              "mean_uhat_blocked": 0.062296087328388254,
+              "n_applied": 182,
+              "n_available": 220,
+              "n_blocked": 38,
+              "policy": "random",
+              "rate_param": 0.8035714285714286,
+              "threshold": 0.0
+            },
+            "R_mean_return": 0.1587,
+            "U_mean_return": 0.0867,
+            "U_ranking": {
+              "corr_uhat_benefit": 0.25206377313332207,
+              "n": 208
+            },
+            "delta_GR": -0.084,
+            "delta_GU": -0.012,
+            "seed": 80001
+          },
+          {
+            "G_gate_stats": {
+              "application_rate": 0.8348214285714286,
+              "mean_uhat": 0.0708477716693819,
+              "mean_uhat_applied": 0.09026382426173572,
+              "mean_uhat_blocked": -0.027282007648730535,
+              "n_applied": 187,
+              "n_available": 224,
+              "n_blocked": 37,
+              "policy": "uhat",
+              "rate_param": 1.0,
+              "threshold": 0.0
+            },
+            "G_mean_return": 0.06,
+            "G_mean_return_raw": 0.060000000000000005,
+            "G_shadow_b": 0.103528,
+            "G_shadow_corr": {
+              "corr_uhat_benefit": 0.23010357166009038,
+              "n": 209
+            },
+            "G_shadow_w": [
+              -0.045,
+              -0.025496,
+              -0.015898,
+              0.037859
+            ],
+            "R_gate_stats": {
+              "application_rate": 0.8303571428571429,
+              "mean_uhat": 0.05085420011580151,
+              "mean_uhat_applied": 0.04686700608636129,
+              "mean_uhat_blocked": 0.07037046562832461,
+              "n_applied": 186,
+              "n_available": 224,
+              "n_blocked": 38,
+              "policy": "random",
+              "rate_param": 0.8348214285714286,
+              "threshold": 0.0
+            },
+            "R_mean_return": 0.0493,
+            "U_mean_return": 0.0627,
+            "U_ranking": {
+              "corr_uhat_benefit": 0.12323161449049433,
+              "n": 210
+            },
+            "delta_GR": 0.0107,
+            "delta_GU": -0.0027,
+            "seed": 80002
+          },
+          {
+            "G_gate_stats": {
+              "application_rate": 0.9285714285714286,
+              "mean_uhat": 0.07061467772047701,
+              "mean_uhat_applied": 0.0770469216951539,
+              "mean_uhat_blocked": -0.0130044939503222,
+              "n_applied": 208,
+              "n_available": 224,
+              "n_blocked": 16,
+              "policy": "uhat",
+              "rate_param": 1.0,
+              "threshold": 0.0
+            },
+            "G_mean_return": 0.0547,
+            "G_mean_return_raw": 0.05466666666666667,
+            "G_shadow_b": 0.083216,
+            "G_shadow_corr": {
+              "corr_uhat_benefit": 0.21518997365004527,
+              "n": 209
+            },
+            "G_shadow_w": [
+              -0.020419,
+              -0.033811,
+              -0.010698,
+              -0.028178
+            ],
+            "R_gate_stats": {
+              "application_rate": 0.9107142857142857,
+              "mean_uhat": 0.09992624040109954,
+              "mean_uhat_applied": 0.10074528219564587,
+              "mean_uhat_blocked": 0.09157201409672647,
+              "n_applied": 204,
+              "n_available": 224,
+              "n_blocked": 20,
+              "policy": "random",
+              "rate_param": 0.9285714285714286,
+              "threshold": 0.0
+            },
+            "R_mean_return": 0.0587,
+            "U_mean_return": 0.04,
+            "U_ranking": {
+              "corr_uhat_benefit": 0.17903605285719093,
+              "n": 210
+            },
+            "delta_GR": -0.004,
+            "delta_GU": 0.0147,
+            "seed": 80003
+          },
+          {
+            "G_gate_stats": {
+              "application_rate": 0.8482142857142857,
+              "mean_uhat": 0.08215887019212509,
+              "mean_uhat_applied": 0.10283754908974636,
+              "mean_uhat_blocked": -0.033398453059287625,
+              "n_applied": 190,
+              "n_available": 224,
+              "n_blocked": 34,
+              "policy": "uhat",
+              "rate_param": 1.0,
+              "threshold": 0.0
+            },
+            "G_mean_return": 0.024,
+            "G_mean_return_raw": 0.024,
+            "G_shadow_b": 0.08958,
+            "G_shadow_corr": {
+              "corr_uhat_benefit": 0.2800540707370935,
+              "n": 209
+            },
+            "G_shadow_w": [
+              -0.030078,
+              -0.024497,
+              -0.012936,
+              0.073446
+            ],
+            "R_gate_stats": {
+              "application_rate": 0.8571428571428571,
+              "mean_uhat": 0.06938259530760385,
+              "mean_uhat_applied": 0.06955121271237802,
+              "mean_uhat_blocked": 0.06837089087895913,
+              "n_applied": 192,
+              "n_available": 224,
+              "n_blocked": 32,
+              "policy": "random",
+              "rate_param": 0.8482142857142857,
+              "threshold": 0.0
+            },
+            "R_mean_return": 0.0213,
+            "U_mean_return": 0.0213,
+            "U_ranking": {
+              "corr_uhat_benefit": 0.31939526189842044,
+              "n": 210
+            },
+            "delta_GR": 0.0027,
+            "delta_GU": 0.0027,
+            "seed": 80004
+          },
+          {
+            "G_gate_stats": {
+              "application_rate": 0.7937219730941704,
+              "mean_uhat": 0.05828005883061213,
+              "mean_uhat_applied": 0.08321102819635894,
+              "mean_uhat_blocked": -0.03764997546802236,
+              "n_applied": 177,
+              "n_available": 223,
+              "n_blocked": 46,
+              "policy": "uhat",
+              "rate_param": 1.0,
+              "threshold": 0.0
+            },
+            "G_mean_return": 0.104,
+            "G_mean_return_raw": 0.104,
+            "G_shadow_b": 0.107673,
+            "G_shadow_corr": {
+              "corr_uhat_benefit": 0.28469861154375964,
+              "n": 208
+            },
+            "G_shadow_w": [
+              0.024813,
+              -0.007709,
+              -0.015461,
+              0.035735
+            ],
+            "R_gate_stats": {
+              "application_rate": 0.7857142857142857,
+              "mean_uhat": 0.07552742238391279,
+              "mean_uhat_applied": 0.07380587741939199,
+              "mean_uhat_blocked": 0.08183975392048902,
+              "n_applied": 176,
+              "n_available": 224,
+              "n_blocked": 48,
+              "policy": "random",
+              "rate_param": 0.7937219730941704,
+              "threshold": 0.0
+            },
+            "R_mean_return": 0.0453,
+            "U_mean_return": 0.1533,
+            "U_ranking": {
+              "corr_uhat_benefit": 0.4185335106193563,
+              "n": 209
+            },
+            "delta_GR": 0.0587,
+            "delta_GU": -0.0493,
+            "seed": 80005
+          }
+        ],
+        "seed_mean_delta_GR": -0.0032,
+        "seed_mean_delta_GU": -0.0093,
+        "seeds_agree_GR": 3,
+        "seeds_agree_GU": 2,
+        "verdict": "NO_WIN",
+        "win_rule_fires": false
+      },
+      "pomaze": {
+        "g0_discriminating_seeds": 5,
+        "per_seed": [
+          {
+            "G_gate_stats": {
+              "application_rate": 0.7045681893964655,
+              "mean_uhat": 0.08450114279255685,
+              "mean_uhat_applied": 0.14103029624976515,
+              "mean_uhat_blocked": -0.05031386991069459,
+              "n_applied": 2113,
+              "n_available": 2999,
+              "n_blocked": 886,
+              "policy": "uhat",
+              "rate_param": 1.0,
+              "threshold": 0.0
+            },
+            "G_mean_return": -4.124,
+            "G_mean_return_raw": -4.123999999999983,
+            "G_shadow_b": 0.00481,
+            "G_shadow_corr": {
+              "corr_uhat_benefit": 0.47880993685516604,
+              "n": 2984
+            },
+            "G_shadow_w": [
+              -0.12125,
+              -0.190051,
+              -0.017913,
+              0.446069
+            ],
+            "R_gate_stats": {
+              "application_rate": 0.7040632865875585,
+              "mean_uhat": 0.06323561322649415,
+              "mean_uhat_applied": 0.06287858763364156,
+              "mean_uhat_blocked": 0.06408501311811664,
+              "n_applied": 1958,
+              "n_available": 2781,
+              "n_blocked": 823,
+              "policy": "random",
+              "rate_param": 0.7045681893964655,
+              "threshold": 0.0
+            },
+            "R_mean_return": -3.5053,
+            "U_mean_return": -3.4133,
+            "U_ranking": {
+              "corr_uhat_benefit": 0.43465366813344336,
+              "n": 2819
+            },
+            "delta_GR": -0.6187,
+            "delta_GU": -0.7107,
+            "seed": 80001
+          },
+          {
+            "G_gate_stats": {
+              "application_rate": 0.7886435331230284,
+              "mean_uhat": 0.10884259106912061,
+              "mean_uhat_applied": 0.1513505695538402,
+              "mean_uhat_blocked": -0.04976926894849061,
+              "n_applied": 2250,
+              "n_available": 2853,
+              "n_blocked": 603,
+              "policy": "uhat",
+              "rate_param": 1.0,
+              "threshold": 0.0
+            },
+            "G_mean_return": -3.4827,
+            "G_mean_return_raw": -3.4826666666666513,
+            "G_shadow_b": 0.123018,
+            "G_shadow_corr": {
+              "corr_uhat_benefit": 0.45332389516257127,
+              "n": 2838
+            },
+            "G_shadow_w": [
+              0.048257,
+              -0.119682,
+              -0.030379,
+              0.4057
+            ],
+            "R_gate_stats": {
+              "application_rate": 0.7859286428809603,
+              "mean_uhat": 0.06436509694948189,
+              "mean_uhat_applied": 0.06358264439226688,
+              "mean_uhat_blocked": 0.06723774597963064,
+              "n_applied": 2357,
+              "n_available": 2999,
+              "n_blocked": 642,
+              "policy": "random",
+              "rate_param": 0.7886435331230284,
+              "threshold": 0.0
+            },
+            "R_mean_return": -3.84,
+            "U_mean_return": -3.9053,
+            "U_ranking": {
+              "corr_uhat_benefit": 0.4305164500974342,
+              "n": 2973
+            },
+            "delta_GR": 0.3573,
+            "delta_GU": 0.4227,
+            "seed": 80002
+          },
+          {
+            "G_gate_stats": {
+              "application_rate": 0.8207480592801694,
+              "mean_uhat": 0.12837144019420854,
+              "mean_uhat_applied": 0.1683117428376309,
+              "mean_uhat_blocked": -0.05450482742114666,
+              "n_applied": 2326,
+              "n_available": 2834,
+              "n_blocked": 508,
+              "policy": "uhat",
+              "rate_param": 1.0,
+              "threshold": 0.0
+            },
+            "G_mean_return": -3.6367,
+            "G_mean_return_raw": -3.636666666666649,
+            "G_shadow_b": 0.065401,
+            "G_shadow_corr": {
+              "corr_uhat_benefit": 0.40151183842379556,
+              "n": 2819
+            },
+            "G_shadow_w": [
+              -0.165815,
+              -0.102816,
+              0.05397,
+              0.51171
+            ],
+            "R_gate_stats": {
+              "application_rate": 0.8181818181818182,
+              "mean_uhat": 0.0763959999294131,
+              "mean_uhat_applied": 0.07613906483625295,
+              "mean_uhat_blocked": 0.07755220784863372,
+              "n_applied": 2295,
+              "n_available": 2805,
+              "n_blocked": 510,
+              "policy": "random",
+              "rate_param": 0.8207480592801694,
+              "threshold": 0.0
+            },
+            "R_mean_return": -3.5107,
+            "U_mean_return": -3.2933,
+            "U_ranking": {
+              "corr_uhat_benefit": 0.43002472414298526,
+              "n": 2755
+            },
+            "delta_GR": -0.126,
+            "delta_GU": -0.3433,
+            "seed": 80003
+          },
+          {
+            "G_gate_stats": {
+              "application_rate": 0.8118279569892473,
+              "mean_uhat": 0.10939800106250627,
+              "mean_uhat_applied": 0.14731761755661812,
+              "mean_uhat_blocked": -0.05419805866923421,
+              "n_applied": 2416,
+              "n_available": 2976,
+              "n_blocked": 560,
+              "policy": "uhat",
+              "rate_param": 1.0,
+              "threshold": 0.0
+            },
+            "G_mean_return": -3.7167,
+            "G_mean_return_raw": -3.7166666666666495,
+            "G_shadow_b": 0.094751,
+            "G_shadow_corr": {
+              "corr_uhat_benefit": 0.38323501373866053,
+              "n": 2961
+            },
+            "G_shadow_w": [
+              -0.03642,
+              -0.149432,
+              -0.00371,
+              0.5455
+            ],
+            "R_gate_stats": {
+              "application_rate": 0.8099366455485162,
+              "mean_uhat": 0.09560762018858236,
+              "mean_uhat_applied": 0.09493779562871421,
+              "mean_uhat_blocked": 0.09846201291826773,
+              "n_applied": 2429,
+              "n_available": 2999,
+              "n_blocked": 570,
+              "policy": "random",
+              "rate_param": 0.8118279569892473,
+              "threshold": 0.0
+            },
+            "R_mean_return": -3.8027,
+            "U_mean_return": -3.69,
+            "U_ranking": {
+              "corr_uhat_benefit": 0.4021689326926473,
+              "n": 2906
+            },
+            "delta_GR": 0.086,
+            "delta_GU": -0.0267,
+            "seed": 80004
+          },
+          {
+            "G_gate_stats": {
+              "application_rate": 0.7919233401779603,
+              "mean_uhat": 0.11455943001431586,
+              "mean_uhat_applied": 0.16101592236052298,
+              "mean_uhat_blocked": -0.062250312237530636,
+              "n_applied": 2314,
+              "n_available": 2922,
+              "n_blocked": 608,
+              "policy": "uhat",
+              "rate_param": 1.0,
+              "threshold": 0.0
+            },
+            "G_mean_return": -3.6353,
+            "G_mean_return_raw": -3.6353333333333167,
+            "G_shadow_b": 0.007724,
+            "G_shadow_corr": {
+              "corr_uhat_benefit": 0.43989292468529273,
+              "n": 2907
+            },
+            "G_shadow_w": [
+              -0.005602,
+              -0.137212,
+              0.025445,
+              0.546897
+            ],
+            "R_gate_stats": {
+              "application_rate": 0.7905968656218739,
+              "mean_uhat": 0.07850406483311641,
+              "mean_uhat_applied": 0.07821073542701995,
+              "mean_uhat_blocked": 0.07961152346664264,
+              "n_applied": 2371,
+              "n_available": 2999,
+              "n_blocked": 628,
+              "policy": "random",
+              "rate_param": 0.7919233401779603,
+              "threshold": 0.0
+            },
+            "R_mean_return": -3.8333,
+            "U_mean_return": -3.3907,
+            "U_ranking": {
+              "corr_uhat_benefit": 0.4390446603872554,
+              "n": 2769
+            },
+            "delta_GR": 0.198,
+            "delta_GU": -0.2447,
+            "seed": 80005
+          }
+        ],
+        "seed_mean_delta_GR": -0.0207,
+        "seed_mean_delta_GU": -0.1805,
+        "seeds_agree_GR": 3,
+        "seeds_agree_GU": 1,
+        "verdict": "NO_WIN",
+        "win_rule_fires": false
+      }
+    },
+    "preregistered_bar_met": false,
+    "verdict": "NEGATIVE"
+  },
+  "written_utc": "2026-10-07T10:01:34.337277+00:00"
+}

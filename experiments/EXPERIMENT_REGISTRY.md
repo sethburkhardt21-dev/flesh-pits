@@ -17,6 +17,7 @@ appended beneath, never edited into the preregistration.
 | EXP-FP-0005 | pomaze | S-01 vs memory_port prioritized vs uniform vs no replay | IG_probe (offline replay improvement), 4 seeds | PREREGISTERED |
 | EXP-FP-0007 | pomaze | ungated vs shadow-ûhat-gated vs random-gated | mean_return, 15 eps; ΔGU, ΔGR; win: seed-mean>0 both, ≥3/4 agree | PREREGISTERED |
 | EXP-FP-0008 | pomaze/delayed_reward/changing_rule | estimated vs uniform precision heads | terminal-spike mean\|rerr\| ratio ≥3× AND est>0.3; ≥3/4 seeds | PREREGISTERED |
+| EXP-FP-0007R | pomaze/delayed_reward/changing_rule | ungated vs shadow-ûhat-gated vs random-gated (0007 replication) | mean_return, 15 eps; win per env: seed-mean>0 both, ≥4/5 agree; bar: pomaze win AND ≥1 new env win | COMPLETE (NEGATIVE — no promotion) |
 | EXP-AB-K3B | changing_rule + delayed_reward | arch_b intact vs lesion_l1 | lesion gap (lesioned − intact) mean|e0|, mean|rerr|, 3 seeds | COMPLETE (result below) |
 | EXP-AB-K3C | delayed_multistep + compositional_rule | arch_b intact vs lesion_l1 | lesion gap D_e0 (task 1), D_rerr (task 2), 4 seeds | COMPLETE (result below) |
 | EXP-AB-5SEED | pomaze/changing_rule/delayed_reward | Phase-4 replication (M1, C2B, C4B, K3B) | original per-seed decision rules, ≥4/5 seeds | COMPLETE (result below) |
@@ -662,3 +663,28 @@ receipt records, chain verified, G0c determinism MATCH)**
   (97 records, chain verified) + .summary.json.
 - Limitations: single lab; kappa=0.1 frozen not tuned; ablations only on 2
   envs; B baseline affect='none' per NR-B-002; 5 envs only.
+
+---
+
+## EXP-FP-0007R — replication breadth for the shadow-ûhat gate (EXP-FP-0007 INTEGRATED promotion follow-up)
+
+**PREREGISTERED (2026-10-07, before run; canonical copy: experiments/preregistration_EXP-FP-0007R.json; seeds checked fresh before sealing)**
+- background: EXP-FP-0007 promoted the shadow-gate ûhat policy to INTEGRATED (H SUPPORTED: seed-mean ΔGU +0.3023, ΔGR +0.2532, 4 seeds, pomaze) with the CAUSAL label explicitly withheld pending replication breadth. The EXP-FP-0006 sign-gate policy remains REJECTED (degenerate).
+- hypothesis: the shadow-ûhat gate advantage replicates on pomaze at a 5-seed bar AND generalizes to at least one of two new envs (delayed_reward, changing_rule).
+- null: pomaze win rule fails at the 5-seed bar, or fires on pomaze but on neither new env — the 0007 result is seed-luck and/or pomaze-local.
+- preregistered metric (EXACT): per env per seed, mean episode return over 15 closed-loop episodes; ΔGU = mean(G)−mean(U); ΔGR = mean(G)−mean(R). Per-env win rule: seed-mean ΔGU > 0 AND seed-mean ΔGR > 0, with ≥4/5 seeds agreeing on the sign of BOTH comparisons. Promotion bar: pomaze win fires AND ≥1 new env fires → INTEGRATED→CAUSAL; otherwise no promotion.
+- arms: U = ungated; G = gate_policy='uhat', threshold=0.0 FROZEN, gate_uhat_source='shadow' (instrument reused VERBATIM via import from exp_retrieval_gate_shadow.py — additive only, original untouched); R = random gate at per-seed measured G rate, gate_seed=derive_seed(s,0,'gate').
+- conditions: pomaze/delayed_reward/changing_rule v1.0.0, arch_b v1, affect='none', action_mode='active_inference', 15 eps/arm/seed, identical primary seeds across arms (paired), R after U and G.
+- seeds: {80001, 80002, 80003, 80004, 80005} — fresh, zero occurrences in the registry, receipts/*.json, and prototypes/architecture-b/receipts/*.json (checked before run).
+- frozen gates: G0 instrument-validity (≥4/5 seeds strictly in (0,1) application rate per env, else that env VOID); G1 fabrication-tripwire CLEAN (pre-run); G2 determinism spot-check (per env, first-seed G arm recomputed, unrounded compare at 1e-12); G3 hash-chained receipt + verify_chain.
+
+**RESULT (2026-10-07, run complete — 5 fresh seeds, 3 envs × 3 arms × 15 eps; all frozen gates PASS; receipt receipts/EXP-FP-0007R.json, hash-chained)**
+- Verdict: **NEGATIVE** — bar envs: none. The preregistered promotion bar is NOT met; no promotion.
+- pomaze: U −3.413/−3.905/−3.293/−3.690/−3.391; G −4.124/−3.483/−3.637/−3.717/−3.635; R −3.505/−3.840/−3.511/−3.803/−3.833. ΔGU −0.711/+0.423/−0.343/−0.027/−0.245 (seed-mean −0.1805, 1/5 agree); ΔGR −0.619/+0.357/−0.126/+0.086/+0.198 (seed-mean −0.0207, 3/5 agree). Win rule does NOT fire on the replication env.
+- delayed_reward: ΔGU −0.012/−0.003/+0.015/+0.003/−0.049 (seed-mean −0.0093, 2/5); ΔGR −0.084/+0.011/−0.004/+0.003/+0.059 (seed-mean −0.0032, 3/5). Deltas essentially zero — no retrieval leverage in the env (all arms ≈ 0.02–0.15).
+- changing_rule: U 20.600/22.333/21.867/22.000/22.800; G 22.467/21.867/19.800/23.067/20.067; R 23.800/20.467/19.400/21.667/20.600. ΔGU +1.867/−0.467/−2.067/+1.067/−2.733 (seed-mean −0.4667, 2/5); ΔGR −1.333/+1.400/+0.400/+1.400/−0.533 (seed-mean +0.2667, 3/5 — positive seed-mean but 3/5 misses the ≥4/5 bar).
+- The ranking signal ITSELF replicates as a correlate: pomaze corr(ûhat, benefit) = +0.38…+0.48 (shadow) and +0.40…+0.44 (clean U-arm) — now 13 seeds total. On changing_rule the signal is genuinely weaker (+0.09…+0.14 shadow, +0.06…+0.25 clean) and the gate applies far less often (rate 0.27–0.42 vs 0.71–0.82 pomaze) — env-dependent signal quality, a mechanism lead for gap #2.
+- Bounds: the EXP-FP-0007 INTEGRATED promotion is BOUNDED to its 4-seed pomaze result (5-against-4 seeds now; combined 9-seed seed-mean ≈ +0.09 dGU, +0.13 dGR — below any promotion-worthy magnitude). The ranking correlates; the decision value does not replicate.
+- Methods note: one executor bug caught at receipt-write (config_hash function object passed instead of its output — executor crash, no data interpreted before the fix; deterministic rerun reproduced every arm number bit-identically). First launch interrupted by a runtime restart mid-run (partial logs discarded, rerun from the preregistered seeds).
+- G0 5/5 discriminating on all envs; G1 tripwire CLEAN; G2 determinism bit-identical 1e-12 all envs; G3 own hash verifies, chained to EXP-SW-02-B (the most recent chained lane receipt); historical chain anomalies (pre-chain receipts, EXP-AB-K3C old-convention prev) preserved untouched per lab law.
+- Negative result: research/negative_results.md (2026-10-07, EXP-FP-0007R section). MATURITY retrieval row stays INTEGRATED, annotated with the failed replication.
