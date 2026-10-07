@@ -15,6 +15,8 @@ appended beneath, never edited into the preregistration.
 | EXP-FP-0003 | delayed_reward | symbolic vs arch_d | mean_return, 20 eps | PREREGISTERED |
 | EXP-FP-0004 | pomaze | arch_d vs fixed_predictor | mean_return, 20 eps | PREREGISTERED |
 | EXP-FP-0005 | pomaze | S-01 vs memory_port prioritized vs uniform vs no replay | IG_probe (offline replay improvement), 4 seeds | PREREGISTERED |
+| EXP-AB-K3B | changing_rule + delayed_reward | arch_b intact vs lesion_l1 | lesion gap (lesioned − intact) mean|e0|, mean|rerr|, 3 seeds | COMPLETE (result below) |
+| EXP-AB-K3C | delayed_multistep + compositional_rule | arch_b intact vs lesion_l1 | lesion gap D_e0 (task 1), D_rerr (task 2), 4 seeds | COMPLETE (result below) |
 
 ---
 
@@ -240,3 +242,45 @@ Negative results preserved in research/negative_results.md.
 - G3 (implementation race): **P1 (S-01) beats P2 (memory_port)** — seed-mean IG +0.049 vs −0.064 (Δ=+0.113); P1 > P2 on 4/4 seeds. S-01's "promote ids, replay raw" outperforms memory_port's "replay compressed summaries" here.
 - Interpretation: the Phase-4 battery "consolidation CAUSAL" claim gets a BOUND — the consolidation mechanism behaves per docs (mechanism CAUSAL, per brothel EXP-MEMORY-001), but offline replay shows NO measured probe improvement vs no-replay on the pomaze corpus, and prioritization is actively worse than uniform replay. Recorded as a negative result (research/negative_results.md). Mechanistic note: both implementations merge ~4600 transitions into ~17–21 groups at threshold 0.9 — pomaze obs vectors are highly mutually similar.
 - Limitations: pomaze only; priority function is prediction-error magnitude (deployment-specific); budget K=200 updates (~4% of corpus); probe measures model prediction error, not closed-loop return.
+
+## EXP-AB-K3B — hierarchy earns its keep on longer structured tasks (§H5)
+
+**PREREGISTERED (2026-10-07, before run; spec sealed in the detail receipt's `preregistered` block)**
+- hypothesis: With longer training on structured tasks, the intact-vs-L1-lesioned prediction gap GROWS beyond K3's +0.0032: the top-down context experts earn their keep where predictable structure spans longer horizons.
+- null: Gaps stay tiny/absent — the hierarchy effect is bounded at K3's weak level.
+- preregistered metric: Arm A (changing_rule, 1500 train transitions, held-out 200 from a stable phase): mean|e0| and mean|rerr| intact vs lesioned. Arm B (delayed_reward, 600 train / 120 held-out): same metrics; preregistered expectation: terminal |rerr| gap ≈ 0 because the correct branch is hidden (50/50 unpredictable from obs) — arm B bounds the test, arm A carries it.
+- ablation: L1 top-down path (lesion_l1) — same lesion as K3.
+- baseline: arch_b lesion_l1=True (L0-only), identical transitions.
+- conditions: affect 'none', arch_b v1; open-loop transition training via learn_transition (no retrieval correction/affect — isolates the weight/precision machinery, as in K3).
+- seeds: {331, 332, 333} (fresh; 3 seeds).
+- decision rule: Arm-A |e0| or |rerr| lesion gap clearly larger than K3's +0.0032 (seed-mean) -> hierarchy earns its keep. Gaps at K3 scale or smaller -> effect stays weak; note as a bound.
+- config hash: a0ef664d58f69009f3527abe88e56e474b31dae85c705ac1f8f577d076859e72 (recorded in receipt at run time).
+
+**RESULT (2026-10-07, receipt prototypes/architecture-b/receipts/EXP-AB-K3B.json; written 2026-10-07T07:00:35Z)**
+- Arm A (changing_rule), lesion gaps = lesioned − intact (seed-means over 3 seeds):
+  |e0| +0.0054 (per-seed: −0.0109, +0.0104, +0.0168); |rerr| +0.0602 (per-seed: +0.0791, +0.0483, +0.0532). n_train=1500, n_heldout=200 per seed.
+- Arm B (delayed_reward), seed-means: |e0| +0.0437 (per-seed: +0.0352, +0.0451, +0.0508); |rerr| −0.0002 (≈0, as expected); terminal |rerr| +0.0073 (per-seed: +0.0220, 0.0, 0.0 — seeds 332/333 had n_terminal=0). n_train=600, n_heldout=120.
+- Decision rule applied: Arm-A |rerr| gap +0.0602 is ~19x K3's +0.0032 — **hierarchy earns its keep** on structured tasks with longer horizons.
+- Interpretation (from receipt): "HIERARCHY EARNS ITS KEEP: arm-A lesion gaps grew vs K3's +0.0032 — |e0| gap +0.0054, |rerr| gap +0.0602 (seed-means). Arm B: |e0| +0.0437, terminal |rerr| +0.0073 (expected ≈0 — hidden branch bounds it)."
+- Limitations (from receipt): "Open-loop training isolates the weight/precision machinery (as K3); closed-loop control effects are factored out by design. Arm-B terminal ticks flagged by reward >= 0.5. 3 seeds."
+- Receipts: prototypes/architecture-b/receipts/EXP-AB-K3B.json (detail only — no lane-summary receipt was written to receipts/). The detail receipt is pre-chain (no receipt_hash) as of this writing.
+
+## EXP-AB-K3C — does the hierarchy effect generalize to harder tasks (§H5)
+
+**PREREGISTERED (2026-10-07, before run; from the lane-summary receipt)**
+- hypothesis: B's hierarchy (L1 context-expert top-down path) earns its keep beyond the two K3B envs: (task 1) on a longer multi-stage delayed task the intact-vs-L1-lesioned |e0| gap stays positive; (task 2) on a compositional XOR contingency the intact-vs-lesioned |rerr| gap stays positive.
+- null: Lesion gaps vanish (<= 0) on the harder tasks — the hierarchy effect is a two-env phenomenon.
+- preregistered metric: Per task: lesion gap D = lesioned − intact on held-out transitions. Task 1 (delayed_multistep) carrying: D_e0. Task 2 (compositional_rule) carrying: D_rerr.
+- baseline: arch_b lesion_l1=True (L0-only), identical transitions.
+- conditions: affect 'none', arch_b v1, contract 1.0.0. Task 1: delayed_multistep v1.0.0, 30 episodes (train eps 0–19, held-out eps 20–29), scripted reference policy. Task 2: compositional_rule v1.0.0, 45 episodes (train eps 0–39, 1600 transitions; held-out eps 40–44, 200 transitions), ArchB closed-loop reference.
+- primary_seed: '74101-74104' (4 fresh seeds).
+- config hash: a922e3e25ce3cf55850b006cc8f4954d9f38abe8ecae3289d1d30e789adcdded (recorded in receipt at run time).
+
+**RESULT (2026-10-07, lane-summary receipt receipts/EXP-AB-K3C.json, written 2026-10-07T08:49:50Z; detail receipt prototypes/architecture-b/receipts/EXP-AB-K3C.json, written 2026-10-07T08:49:49Z)**
+- Task 1 (delayed_multistep), D_e0 seed-mean −0.0470 (per-seed: −0.0587, −0.0503, −0.0426, −0.0363); D_rerr seed-mean −0.2134; terminal D_rerr +0.0999. passes_gate: false.
+- Task 2 (compositional_rule), D_rerr seed-mean −0.2684 (per-seed: −0.2172, −0.3406, −0.2473, −0.2686); D_e0 seed-mean −0.0097. passes_gate: false.
+- Verdict: **NO EFFECT** — lesion gaps vanish on both new tasks.
+- Interpretation (from receipt): "NO EFFECT on harder tasks: lesion gaps vanish on both new tasks (task1 D_e0 seed-mean -0.0470, task2 D_rerr seed-mean -0.2684). The hierarchy effect is a two-env phenomenon — K3B's gaps do not generalize."
+- Limitations (from receipt): "Open-loop training isolates the weight/precision machinery (as K3/K3B); closed-loop control effects are factored out by design. Task-1 reference is a scripted policy (ArchB/random references stall pe..." (verbatim, truncated in receipt).
+- Negative result: recorded as a bound on the K3B claim — the K3B hierarchy effect does not generalize beyond the two K3B envs.
+- Receipts: receipts/EXP-AB-K3C.json (lane summary, chained) + prototypes/architecture-b/receipts/EXP-AB-K3C.json (detail, pre-chain as of this writing). Note: the lane-summary receipt was written while the old harness write/verify convention was in force (prev_receipt_hash=None); this historical byte state is preserved untouched per lab law.

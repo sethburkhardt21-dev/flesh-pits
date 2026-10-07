@@ -1,0 +1,131 @@
+{
+  "abstention": "No threshold/metric/arm tuning after the run. Poor replication everywhere is a finding, not a tuning trigger. Negatives preserved in research/negative_results.md.",
+  "experiments": {
+    "repro5_EXP-AB-C2B": {
+      "ablation": "arch_b precision_kind='shift_reset', surprise_k=4.0 (ONE variant, k frozen).",
+      "baseline": "arch_b uniform pi=1; arch_b estimated pi.",
+      "hypothesis": "On 5 fresh seeds the shift-aware precision variant still fails the revival rule, replicating the C2B KILL.",
+      "metric": "Identical to C2B: mean_return seed-meaned; per-seed revival = (shift: shift_reset >= estimated \u2212 1e-9 AND shift_reset > uniform + 1e-9) AND (stationary: shift_reset >= uniform \u2212 1e-9).",
+      "null": "Uniform >= shift-reset on both tasks \u2014 the precision idea is dead even in shift-aware form (this IS the recorded verdict; the null is the hypothesis here).",
+      "pass_fail": "KILL REPLICATES iff per-seed revival fails on >= 4/5 seeds (revival holds on <= 1/5). Revival holds on >= 4/5 -> precision REVIVED (rejection overturned \u2014 the kill was seed-fragile).",
+      "procedure": "Identical to C2B: shift arm 10 episodes changing_rule (1 flip); stationary arm 5 episodes phase-0 (10% noise); affect='none'; paired seeds; reset-count diagnostic recorded.",
+      "recorded_verdict": "KILL: shift_reset 23.97 < estimated 24.10 < uniform 28.47 (shift arm); 24.40 < 34.00 (stationary). Revival failed; shift-aware precision joins the rejected list.",
+      "replicates": "EXP-AB-C2B (Phase 4, seeds 311-313)",
+      "seeds": [
+        75201,
+        75202,
+        75203,
+        75204,
+        75205
+      ]
+    },
+    "repro5_EXP-AB-C4B": {
+      "ablation": "The action policy (active_inference vs greedy vs random).",
+      "baseline": "arch_b action_mode greedy / random (identical init across modes).",
+      "hypothesis": "On 5 fresh seeds AI still fails to beat greedy/random on the probe-error uncertainty-reduction metric, replicating the permanent C4B kill.",
+      "metric": "Identical to C4B: IG_probe = mean|e0| on the FIXED 400-transition probe before \u2212 after 15-episode pomaze training; per-seed kill-holds = AI IG_probe <= max(greedy, random) + 1e-9.",
+      "null": "AI probe-error reduction <= greedy/random \u2014 the IG term is not causal; the 'active inference' label stays off permanently (this IS the recorded verdict).",
+      "pass_fail": "KILL REPLICATES iff per-seed kill-holds on >= 4/5 seeds. AI beats greedy AND random on >= 4/5 -> kill OVERTURNED (re-opens with caveats).",
+      "procedure": "Identical to C4B: probe 400 transitions from random-policy pomaze rollouts (fixed seeds 42/901, policy-independent); per (seed, mode) fresh agent with identical init across modes; eval_transition probe; affect='none'.",
+      "recorded_verdict": "KILL CONFIRMED PERMANENTLY: AI IG_probe 0.5443 < greedy 0.7124 \u2248 random 0.5497. Label stays off.",
+      "replicates": "EXP-AB-C4B (Phase 4, seeds 321-323)",
+      "seeds": [
+        75301,
+        75302,
+        75303,
+        75304,
+        75305
+      ]
+    },
+    "repro5_EXP-AB-K3B": {
+      "ablation": "L1 top-down path (lesion_l1) \u2014 same lesion as K3/K3B.",
+      "baseline": "arch_b lesion_l1=True (L0-only), identical transitions.",
+      "hypothesis": "On 5 fresh seeds the arm-A lesion gaps still grow beyond K3's +0.0032 scale, replicating the K3B hierarchy signal.",
+      "metric": "Identical to K3B: per-seed grown = (delta_e0 > 0.0032 + 1e-9) OR (delta_rerr > 0.0032 + 1e-9) on arm A (changing_rule, 1500 train / 200 held-out). Arm B recorded descriptively.",
+      "null": "Gaps stay tiny/absent \u2014 the hierarchy effect is bounded at K3's weak level.",
+      "pass_fail": "REPRODUCES iff per-seed grown holds on >= 4/5 seeds. < 4/5 -> hierarchy signal FRAGILE on longer horizons (bound tightened). Gaps at/below K3 scale on >= 4/5 -> effect stays weak / OVERTURNED.",
+      "procedure": "Identical to K3B: open-loop learn_transition training (no retrieval correction/affect); arm A changing_rule 45 episodes (train first 1500, held-out 1600-1800); arm B delayed_reward 60 episodes (train first 600, held-out last 120); identical init seeds within seed; terminal |rerr| flagged by reward >= 0.5.",
+      "recorded_verdict": "SURVIVES, STRENGTHENED: arm-A reward-channel gap +0.0602 (3/3 seeds, ~19\u00d7 K3's +0.0032); arm-A |e0| gap +0.0054 (1/3 reversed, seed-unstable); arm-B |e0| gap +0.0437 (3/3).",
+      "replicates": "EXP-AB-K3B (Phase 4, seeds 331-333)",
+      "seeds": [
+        75401,
+        75402,
+        75403,
+        75404,
+        75405
+      ]
+    },
+    "repro5_EXP-AB-M1": {
+      "ablation": "arch_b memory_enabled=False (DisabledStore) \u2014 identical to M1.",
+      "baseline": "arch_b memory_enabled=True (intact store).",
+      "hypothesis": "On 5 fresh seeds, disabling episodic memory selectively degrades pomaze vs delayed_reward, replicating EXP-AB-M1.",
+      "metric": "Identical to M1: mean_return per task; per-seed delta = intact \u2212 no_memory; per-seed selective = (delta_pom > 0) AND (delta_pom > delta_drw + 1e-9).",
+      "null": "Seed-mean deltas \u2248 0 on both tasks \u2014 the EpisodicStore is decorative in B (NR-B-007).",
+      "pass_fail": "REPRODUCES iff per-seed selective deficit holds on >= 4/5 seeds. Seed-mean deltas \u2248 0 on both tasks -> DECORATIVE (memory demoted to EXECUTED). Mixed (< 4/5, > 0/5 selective) -> FRAGILE.",
+      "procedure": "Identical to M1: pomaze 15 episodes, delayed_reward 10 episodes, affect='none', action_mode='active_inference', paired primary seeds.",
+      "recorded_verdict": "SELECTIVE DEFICIT: pomaze seed-mean delta +2.200 (3/3 seeds +1.83...+2.39) vs delayed_reward +0.046. EpisodicStore CAUSAL on the partial-observability task.",
+      "replicates": "EXP-AB-M1 (Phase 4, seeds 301-303)",
+      "seeds": [
+        75101,
+        75102,
+        75103,
+        75104,
+        75105
+      ]
+    }
+  },
+  "fresh_seed_inventory": {
+    "fresh_for_this_wave": {
+      "C2B": [
+        75201,
+        75202,
+        75203,
+        75204,
+        75205
+      ],
+      "C4B": [
+        75301,
+        75302,
+        75303,
+        75304,
+        75305
+      ],
+      "K3B": [
+        75401,
+        75402,
+        75403,
+        75404,
+        75405
+      ],
+      "M1": [
+        75101,
+        75102,
+        75103,
+        75104,
+        75105
+      ]
+    },
+    "note": "All previously used PRIMARY seeds, checked across experiments/EXPERIMENT_REGISTRY.md, all receipts, and all driver files (2026-10-07). Derived init seeds (1000+s, 1100+s, 500+si, 900+si, 910+si, 920+si, 930+si) inherit freshness from the primaries.",
+    "used": {
+      "FP_0001-0004": "7, 11, 13, 17",
+      "K3C": "74101-74104 (throwaway 99901/99902; reference 74210+si; train/eval init 74220+si)",
+      "K4_canonical_rerun": "11, 22, 33, 44",
+      "calibration": "73101-73105",
+      "consolidation": "61701-61704 (probe seed 901; corpus 900+s; init 7000+s; uniform-PRNG 4242+s)",
+      "phase3_battery": "101-109",
+      "phase4_originals": "M1 {301,302,303}; C2B {311,312,313}; C4B {321,322,323}; K3B {331,332,333}",
+      "repro_multiseed": "72001-72005 (K1), 72101-72105 (K2), 72201-72205 (K3), 72301-72305 (K5), 72401-72405 (C1), 72501-72505 (C2), 72601-72605 (C4), 72701-72705 (BAR)",
+      "retrieval_gate": "73401-73404"
+    }
+  },
+  "gates_void": {
+    "G0a": "Determinism spot-check: re-running one seed through the instrument must reproduce its numbers to 1e-12 (same-seed, same-code). Mismatch -> VOID, driver bug, investigate before any interpretation.",
+    "G0b": "Any run crashing or producing non-finite metrics on a seed -> that seed is VOID; replication requires >= 4/5 VALID seeds (rerun voided seeds on fresh throwaway seeds is NOT permitted \u2014 the seed list is frozen).",
+    "G0c": "fabrication-tripwire CLEAN on the new driver before the run; gate suite (experiments/tests + arch-b tests + research/test_var_budget) green before close."
+  },
+  "instrument": "VERBATIM reuse of prototypes/architecture-b/experiments_phase4.py (exp_m1, exp_c2b, exp_c4b, exp_k3b). No redefinition, no parameter changes, no logic changes. The ONLY change is the seed-list parameter (3 original fresh seeds -> 5 NEW fresh seeds) and the receipt ID (repro5_EXP-AB-* so original receipts are byte-untouched). Driver: prototypes/architecture-b/repro_phase4_5seed.py (additive; patches only the seed list and receipt-ID mapping in module namespace, restores after each run).",
+  "preregistered_utc": "2026-10-07T09:06:20+00:00",
+  "replication_rule": "Verdict REPRODUCES (or KILL REPLICATES) iff the original verdict's per-seed decision holds on >= 4/5 fresh seeds. The per-seed decision is the original experiment's own decision rule evaluated per seed, frozen below. < 4/5 -> verdict does NOT replicate (FRAGILE if 3/5, OVERTURNED if <= 2/5).",
+  "task": "\u00a79 item #3: extend the architecture-B multi-seed replication to 5 fresh seeds for M1, C2B, C4B, K3B",
+  "title": "EXP-AB-5SEED preregistration \u2014 5-seed multi-seed replication of Phase-4 (M1, C2B, C4B, K3B)"
+}

@@ -12,6 +12,18 @@ Conventions:
 - Per-episode seeds derive deterministically from (primary_seed, run_index)
   via env_interface.derive_seed; agent seeds use the "agent" stream.
 - Stdlib only.
+CHAIN CONVENTION (2026-10-07, bug fix):
+- write_receipt and verify_chain both operate on the *chained subsequence*:
+  only receipts that carry a receipt_hash link into the chain, in mtime order.
+  Pre-chain (hashless, legacy) receipts are ignored by BOTH when computing
+  linkage, so write and verify always agree.
+- Rationale: verify_chain is the checker, so write must conform to it; a
+  prev_receipt_hash of None is only legitimate when no chained receipt
+  precedes the new one. Chaining to a hashless file anchors to nothing
+  (there is no receipt_hash to bind to), so excluding pre-chain files loses
+  no integrity and removes the old write/verify disagreement (the EXP-AB-K3C
+  lane confirmed the old mismatch live).
+- Existing receipts are never rewritten; only future writes use this rule.
 """
 
 import argparse
@@ -114,14 +126,41 @@ def run_experiment(env_name, agent_name, n_episodes, primary_seed,
     }
 
 
+def _chained_receipt_files(receipts_dir, exclude_path=None):
+    """mtime-sorted .json files that carry a receipt_hash.
+
+    The chain lives on this subsequence (see CHAIN CONVENTION at top).
+    Files that are unreadable, invalid JSON, or hashless are not chained.
+    """
+    files = sorted(
+        (q for q in os.listdir(receipts_dir) if q.endswith(".json")),
+        key=lambda q: os.path.getmtime(os.path.join(receipts_dir, q)))
+    chained = []
+    for fn in files:
+        p = os.path.join(receipts_dir, fn)
+        if exclude_path is not None and p == exclude_path:
+            continue
+        try:
+            with open(p) as f:
+                rec = json.load(f)
+        except (json.JSONDecodeError, OSError):
+            continue
+        if rec.get("receipt_hash") is None:
+            continue
+        chained.append(fn)
+    return chained
+
+
 def write_receipt(result, receipts_dir, hypothesis="", null="",
                   preregistered_metric="", baseline="", conditions="",
                   interpretation="", limitations=""):
     """Write the §38/§46 receipt JSON. Returns the file path.
 
     Receipts are hash-chained: each receipt carries prev_receipt_hash (sha256
-    of the most recently written *other* receipt in receipts_dir, None for the
-    first) and its own receipt_hash. verify_chain() checks the chain.
+    of the most recently written *chained* receipt in receipts_dir, None when
+    no chained receipt precedes it) and its own receipt_hash. verify_chain()
+    checks the chain. Pre-chain (hashless) receipts are skipped when choosing
+    prev — see CHAIN CONVENTION at module top.
     """
     import hashlib
     os.makedirs(receipts_dir, exist_ok=True)
@@ -144,14 +183,10 @@ def write_receipt(result, receipts_dir, hypothesis="", null="",
     }
     path = os.path.join(receipts_dir, f"{result['experiment_id']}.json")
     prev = None
-    candidates = sorted(
-        (q for q in os.listdir(receipts_dir) if q.endswith(".json")),
-        key=lambda q: os.path.getmtime(os.path.join(receipts_dir, q)))
-    candidates = [c for c in candidates
-                  if os.path.join(receipts_dir, c) != path]
-    if candidates:
-        # chain to the previous receipt's content hash (None if pre-chain)
-        with open(os.path.join(receipts_dir, candidates[-1])) as f:
+    chained = _chained_receipt_files(receipts_dir, exclude_path=path)
+    if chained:
+        # chain to the previous chained receipt's content hash
+        with open(os.path.join(receipts_dir, chained[-1])) as f:
             try:
                 prev = json.load(f).get("receipt_hash")
             except (json.JSONDecodeError, OSError):
@@ -169,9 +204,10 @@ def verify_chain(receipts_dir):
 
     Returns (ok, problems). A receipt verifies iff its stored receipt_hash
     matches the hash of its body minus receipt_hash, and its
-    prev_receipt_hash matches the previous receipt's stored receipt_hash
-    (None for the first). Pre-chain receipts (no receipt_hash) are reported,
-    not failed.
+    prev_receipt_hash matches the previous *chained* receipt's stored
+    receipt_hash (None for the first chained receipt). Pre-chain receipts
+    (no receipt_hash) are reported, not failed, and are excluded from the
+    linkage sequence — matching write_receipt (CHAIN CONVENTION, module top).
     """
     import hashlib
     files = sorted(
