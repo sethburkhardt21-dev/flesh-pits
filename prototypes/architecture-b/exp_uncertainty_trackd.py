@@ -866,6 +866,7 @@ def run_du1(seed, out_dir, tag, family, gated):
     if family == "stratified":
         agent = make_agent(env_cls, seed=seed, log_path=logp, affect="none")
         est = {"D3": PhaseStratified()}
+        open(logp, "a").close()  # PredictionLog is created lazily in reset()
         tailer = JSONLTailer(logp)
         lag_p = 0.5
         for run_index in range(N_EPISODES):
@@ -961,6 +962,7 @@ def run_du2(seed, out_dir, tag, family, gated):
         agent = make_agent(env_cls, seed=seed, log_path=logp, affect="none",
                            gate_policy=policy, gate_threshold=0.5)
         est = {"D4": PhaseStratified()}
+        open(logp, "a").close()  # PredictionLog is created lazily in reset()
         tailer = JSONLTailer(logp)
         for run_index in range(N_EPISODES):
             episode_seed = derive_seed(seed, run_index, "env")

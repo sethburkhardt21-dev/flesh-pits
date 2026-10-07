@@ -1,0 +1,115 @@
+{
+  "baseline": "Sequential Laplace-smoothed climatology on the same o sequence (the CALIB-01 baseline, recomputed on fresh-seed data).",
+  "conditions": "changing_rule v1.0.0, arch_b, affect='none', action_mode default (as in CALIB-01), 10 episodes x 5 fresh seeds {73601,73602,73603,73604,73605}, PredictionLog JSONL per seed, pooled in seed order (73601..73605, tick order) = 1950 ticks/domain. Estimator runs over the pooled stream with NO reset at seed boundaries (same information structure as the sequential-climatology baseline). Deterministic; stdlib only.",
+  "config": {
+    "experiment_id": "EXP-FP-0111",
+    "family": "(b) rolling",
+    "protocol": "1950-tick CALIB-01 protocol (5 fresh seeds x 10 eps, changing_rule v1.0.0, arch_b, affect=none)",
+    "seeds": [
+      73601,
+      73602,
+      73603,
+      73604,
+      73605
+    ],
+    "track": "D (metacognition hazard program)"
+  },
+  "config_hash": "99160188ee07f70c17a158a110c11bf5d999a8def5177c4bfa3cc71ec879a8f8",
+  "episodes": {
+    "n_ticks_pooled": {
+      "D1": 1950,
+      "D2": 1950,
+      "D3": 1950,
+      "D4": 1950
+    },
+    "note": "tick-level protocol; no episode arms",
+    "seeds": [
+      73601,
+      73602,
+      73603,
+      73604,
+      73605
+    ]
+  },
+  "experiment_id": "EXP-FP-0111",
+  "hypothesis": "A rolling-window empirical event rate (W=200, Laplace-smoothed) beats sequential climatology on >=3/4 calibration domains: Brier_roll < Brier_climo.",
+  "interpretation": "REJECTED. Rolling-window (W=200) empirical rate beats climatology on 2/4 domains (D2 +0.002, D4 +0.003; D1/D3 fail) \u2014 below the preregistered >=3/4 bar. The W=50 ablation beats on 1/4 (D4 CALIBRATED). Recency carries almost no information beyond the running average on this stream: the event rates are too stable for windowing to help. Full NR entry.",
+  "limitations": "Single env (changing_rule); the window's edge, if any, comes from adapting to flip-induced nonstationarity.; Pooled-stream estimator sees seed-boundary discontinuities (same order as baseline).; affect='none' matches CALIB-01.",
+  "null_hypothesis": "Brier_roll >= Brier_climo on >=2/4 domains (fails the >=3/4 bar): recency carries no probabilistic information beyond the running base rate.",
+  "preregistered_metric": "Per-domain Brier_roll vs Brier_climo (sequential Laplace-smoothed climatology), scored by benchmarks/calibration_battery.py score_domain on the pooled tick stream. PASS iff Brier_roll < Brier_climo on >=3/4 domains. A domain scoring UNMEASURABLE under CALIB-01's gates counts as not-beaten. corr(sigma,|err|) reported per domain (Pearson, pooled scored ticks); no threshold (supplementary, per program step 1).",
+  "prev_receipt_hash": "8ff9e6b7cbb2462b87b6ab9eb31fa447abfa8f11c926259f325f7d3f22de36d0",
+  "primary_seed": [
+    73601,
+    73602,
+    73603,
+    73604,
+    73605
+  ],
+  "receipt_hash": "0c4098ed66ebeca6058c90e0a80005deca54684e5292f5c7470dd71efc6fc5cd",
+  "started_utc": "2026-10-07T13:43:46.206251+00:00",
+  "summary": {
+    "ablation_W50": {
+      "domains_beaten": 1,
+      "verdict": "REJECT"
+    },
+    "domains": {
+      "action_consequence": {
+        "base_rate": 0.5112820512820513,
+        "brier_B": 0.2499736658780361,
+        "brier_climo": 0.250517926574669,
+        "brier_const05": 0.25,
+        "corr_sigma_err": 0.09898946826509464,
+        "ece": 0.027841877569172512,
+        "mce": 0.37050434431047663,
+        "n": 1950,
+        "signed_error": -0.019164548297783777,
+        "skill_vs_climo": 0.0021725419177563987,
+        "verdict": "MISCALIBRATED (beats climatology but reliability off-diagonal; dispersion error)"
+      },
+      "competence_failure": {
+        "base_rate": 0.09538461538461539,
+        "brier_B": 0.08742408975771683,
+        "brier_climo": 0.0869864266436259,
+        "brier_const05": 0.25,
+        "corr_sigma_err": 0.021381176512003608,
+        "ece": 0.023289094162968517,
+        "mce": 0.41222222222222227,
+        "n": 1950,
+        "signed_error": 0.013301787740018526,
+        "skill_vs_climo": -0.005031395482929746,
+        "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+      },
+      "next_obs": {
+        "base_rate": 0.5030769230769231,
+        "brier_B": 0.25120688415741504,
+        "brier_climo": 0.25087920802774016,
+        "brier_const05": 0.25,
+        "corr_sigma_err": 0.021381176512003608,
+        "ece": 0.01694124757006895,
+        "mce": 0.1656150068929318,
+        "n": 1950,
+        "signed_error": -0.008091635305376741,
+        "skill_vs_climo": -0.0013061111450840546,
+        "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+      },
+      "retrieval_usefulness": {
+        "base_rate": 0.4451282051282051,
+        "brier_B": 0.24711960449918471,
+        "brier_climo": 0.24785342714500413,
+        "brier_const05": 0.25,
+        "corr_sigma_err": 0.06072699130134896,
+        "ece": 0.02667757953111091,
+        "mce": 0.8,
+        "n": 1950,
+        "signed_error": 0.014513747763318732,
+        "skill_vs_climo": 0.002960712120353759,
+        "verdict": "MISCALIBRATED (beats climatology but reliability off-diagonal; dispersion error)"
+      }
+    },
+    "gate": {
+      "domains_beaten": 2,
+      "verdict": "REJECT"
+    }
+  },
+  "written_utc": "2026-10-07T13:54:04.104804+00:00"
+}

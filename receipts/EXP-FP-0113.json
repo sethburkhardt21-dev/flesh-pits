@@ -1,0 +1,453 @@
+{
+  "baseline": "Sequential Laplace-smoothed climatology on the same o sequence (the CALIB-01 baseline, recomputed on fresh-seed data). Note: the unstratified pooled rate IS the baseline's functional form; the family differs only by stratification.",
+  "conditions": "changing_rule v1.0.0, arch_b, affect='none', action_mode default (as in CALIB-01), 10 episodes x 5 fresh seeds {73601,73602,73603,73604,73605}, PredictionLog JSONL per seed, pooled in seed order (73601..73605, tick order) = 1950 ticks/domain. Estimator runs over the pooled stream with NO reset at seed boundaries (same information structure as the sequential-climatology baseline). Phase position is observable (episode counter); rule identities are NOT used (info['rule'] never read). Deterministic; stdlib only.",
+  "config": {
+    "experiment_id": "EXP-FP-0113",
+    "family": "(d) phase-stratified",
+    "protocol": "1950-tick CALIB-01 protocol (5 fresh seeds x 10 eps, changing_rule v1.0.0, arch_b, affect=none)",
+    "seeds": [
+      73601,
+      73602,
+      73603,
+      73604,
+      73605
+    ],
+    "track": "D (metacognition hazard program)"
+  },
+  "config_hash": "29ada85a8acc839e056b5b92ea79b0649589da6bbb01e803b99a64cf9d2c9781",
+  "episodes": {
+    "n_ticks_pooled": {
+      "D1": 1950,
+      "D2": 1950,
+      "D3": 1950,
+      "D4": 1950
+    },
+    "note": "tick-level protocol; no episode arms",
+    "seeds": [
+      73601,
+      73602,
+      73603,
+      73604,
+      73605
+    ]
+  },
+  "experiment_id": "EXP-FP-0113",
+  "hypothesis": "Phase-stratified empirical rates (episode_idx mod 5 strata) beat sequential climatology on >=3/4 calibration domains: Brier_strat < Brier_climo.",
+  "interpretation": "GATE PASS (3/4: D1 +0.003, D2 +0.005, D4 +0.019; D3 fails). Margins are thin; the mod-2 nonsense-stratification ablation fails 0/4, supporting that the flip-cycle structure (not stratification per se) is the active ingredient. DECISION-USE: DU1 (defer on p_D3>0.5) NO-WIN \u2014 fires on <1.5% of ticks (0.013/0.000/0.000/0.003), seed-mean delta -1.425, 0/4 positive; the rare deferrals hurt. DU2 (retrieval gate on p_D4>0.5) NO-WIN \u2014 apply rate 0.000 on all 4 seeds: cold-start collapse (p_init=0.5 not > 0.5 -> block -> realized benefit 0 -> p->0 -> never apply), the EXP-FP-0006 degeneracy recurring with an external p. VERDICT: calibrated-ish but decision-inert. Per the program rule, INTEGRATED at best \u2014 NOT decision-useful. No retrofit (no shadow/warm-start fix smuggled in post hoc).",
+  "limitations": "Single env (changing_rule); the family exploits known env structure (flip cycle length) and will not transfer to unstructured envs -- the bound is stated, not hidden.; Pooled-stream estimator sees seed-boundary discontinuities (same order as baseline).; affect='none' matches CALIB-01.",
+  "null_hypothesis": "Brier_strat >= Brier_climo on >=2/4 domains (fails the >=3/4 bar): phase structure carries no probabilistic information beyond the running base rate.",
+  "preregistered_metric": "Per-domain Brier_strat vs Brier_climo (sequential Laplace-smoothed climatology), scored by benchmarks/calibration_battery.py score_domain on the pooled tick stream. PASS iff Brier_strat < Brier_climo on >=3/4 domains. A domain scoring UNMEASURABLE under CALIB-01's gates counts as not-beaten. corr(sigma,|err|) reported per domain (Pearson, pooled scored ticks); no threshold (supplementary, per program step 1).",
+  "prev_receipt_hash": "db39aa30a6d5d3adfc9fae82e9345e62f941d97766b79c58caba548696bd6a18",
+  "primary_seed": [
+    73601,
+    73602,
+    73603,
+    73604,
+    73605
+  ],
+  "receipt_hash": "8183ca69772abab88365c45a63a097c35996269ca0671cd9ebbe6dac32e80208",
+  "started_utc": "2026-10-07T13:43:46.206251+00:00",
+  "summary": {
+    "ablation_mod2": {
+      "domains_beaten": 0,
+      "verdict": "REJECT"
+    },
+    "decision_use": {
+      "DU1_defer": {
+        "mean_delta": -1.4250000000000007,
+        "rule": "NO-WIN: seed-mean delta -1.4250, 0/4 seeds positive",
+        "seeds_agree": 0,
+        "win": false
+      },
+      "DU1_detail": {
+        "73701": {
+          "blind": {
+            "fire_rate": 0.0,
+            "fired": 0,
+            "returns": [
+              29.0,
+              34.0,
+              30.0,
+              28.0,
+              19.0,
+              24.0,
+              25.0,
+              22.0,
+              24.0,
+              20.0
+            ],
+            "ticks": 400
+          },
+          "blind_mean": 25.5,
+          "delta": -1.6000000000000014,
+          "gated": {
+            "fire_rate": 0.0125,
+            "fired": 5,
+            "returns": [
+              31.0,
+              26.0,
+              30.0,
+              20.0,
+              19.0,
+              18.0,
+              25.0,
+              31.0,
+              22.0,
+              17.0
+            ],
+            "ticks": 400
+          },
+          "gated_mean": 23.9
+        },
+        "73702": {
+          "blind": {
+            "fire_rate": 0.0,
+            "fired": 0,
+            "returns": [
+              28.0,
+              35.0,
+              33.0,
+              20.0,
+              26.0,
+              16.0,
+              20.0,
+              12.0,
+              16.0,
+              27.0
+            ],
+            "ticks": 400
+          },
+          "blind_mean": 23.3,
+          "delta": 0.0,
+          "gated": {
+            "fire_rate": 0.0,
+            "fired": 0,
+            "returns": [
+              28.0,
+              35.0,
+              33.0,
+              20.0,
+              26.0,
+              16.0,
+              20.0,
+              12.0,
+              16.0,
+              27.0
+            ],
+            "ticks": 400
+          },
+          "gated_mean": 23.3
+        },
+        "73703": {
+          "blind": {
+            "fire_rate": 0.0,
+            "fired": 0,
+            "returns": [
+              29.0,
+              32.0,
+              35.0,
+              26.0,
+              20.0,
+              23.0,
+              27.0,
+              27.0,
+              25.0,
+              14.0
+            ],
+            "ticks": 400
+          },
+          "blind_mean": 25.8,
+          "delta": 0.0,
+          "gated": {
+            "fire_rate": 0.0,
+            "fired": 0,
+            "returns": [
+              29.0,
+              32.0,
+              35.0,
+              26.0,
+              20.0,
+              23.0,
+              27.0,
+              27.0,
+              25.0,
+              14.0
+            ],
+            "ticks": 400
+          },
+          "gated_mean": 25.8
+        },
+        "73704": {
+          "blind": {
+            "fire_rate": 0.0,
+            "fired": 0,
+            "returns": [
+              31.0,
+              29.0,
+              33.0,
+              22.0,
+              25.0,
+              19.0,
+              26.0,
+              18.0,
+              25.0,
+              35.0
+            ],
+            "ticks": 400
+          },
+          "blind_mean": 26.3,
+          "delta": -4.100000000000001,
+          "gated": {
+            "fire_rate": 0.0025,
+            "fired": 1,
+            "returns": [
+              30.0,
+              27.0,
+              34.0,
+              19.0,
+              24.0,
+              9.0,
+              18.0,
+              23.0,
+              19.0,
+              19.0
+            ],
+            "ticks": 400
+          },
+          "gated_mean": 22.2
+        }
+      },
+      "DU2_detail": {
+        "73701": {
+          "blind": {
+            "apply_rate": 1.0,
+            "available": 399,
+            "fired": 399,
+            "returns": [
+              29.0,
+              34.0,
+              30.0,
+              28.0,
+              19.0,
+              24.0,
+              25.0,
+              22.0,
+              24.0,
+              20.0
+            ],
+            "ticks": 400
+          },
+          "blind_mean": 25.5,
+          "delta": 0.0,
+          "gated": {
+            "apply_rate": 0.0,
+            "available": 399,
+            "fired": 0,
+            "returns": [
+              29.0,
+              34.0,
+              30.0,
+              28.0,
+              19.0,
+              24.0,
+              25.0,
+              22.0,
+              24.0,
+              20.0
+            ],
+            "ticks": 400
+          },
+          "gated_mean": 25.5
+        },
+        "73702": {
+          "blind": {
+            "apply_rate": 1.0,
+            "available": 399,
+            "fired": 399,
+            "returns": [
+              28.0,
+              35.0,
+              33.0,
+              20.0,
+              26.0,
+              16.0,
+              20.0,
+              12.0,
+              16.0,
+              27.0
+            ],
+            "ticks": 400
+          },
+          "blind_mean": 23.3,
+          "delta": 0.0,
+          "gated": {
+            "apply_rate": 0.0,
+            "available": 399,
+            "fired": 0,
+            "returns": [
+              28.0,
+              35.0,
+              33.0,
+              20.0,
+              26.0,
+              16.0,
+              20.0,
+              12.0,
+              16.0,
+              27.0
+            ],
+            "ticks": 400
+          },
+          "gated_mean": 23.3
+        },
+        "73703": {
+          "blind": {
+            "apply_rate": 1.0,
+            "available": 399,
+            "fired": 399,
+            "returns": [
+              29.0,
+              32.0,
+              35.0,
+              26.0,
+              20.0,
+              23.0,
+              27.0,
+              27.0,
+              25.0,
+              14.0
+            ],
+            "ticks": 400
+          },
+          "blind_mean": 25.8,
+          "delta": 0.0,
+          "gated": {
+            "apply_rate": 0.0,
+            "available": 399,
+            "fired": 0,
+            "returns": [
+              29.0,
+              32.0,
+              35.0,
+              26.0,
+              20.0,
+              23.0,
+              27.0,
+              27.0,
+              25.0,
+              14.0
+            ],
+            "ticks": 400
+          },
+          "gated_mean": 25.8
+        },
+        "73704": {
+          "blind": {
+            "apply_rate": 1.0,
+            "available": 399,
+            "fired": 399,
+            "returns": [
+              31.0,
+              29.0,
+              33.0,
+              22.0,
+              25.0,
+              19.0,
+              26.0,
+              18.0,
+              25.0,
+              35.0
+            ],
+            "ticks": 400
+          },
+          "blind_mean": 26.3,
+          "delta": 0.0,
+          "gated": {
+            "apply_rate": 0.0,
+            "available": 399,
+            "fired": 0,
+            "returns": [
+              31.0,
+              29.0,
+              33.0,
+              22.0,
+              25.0,
+              19.0,
+              26.0,
+              18.0,
+              25.0,
+              35.0
+            ],
+            "ticks": 400
+          },
+          "gated_mean": 26.3
+        }
+      },
+      "DU2_retrieval_gate": {
+        "mean_delta": 0.0,
+        "rule": "NO-WIN: seed-mean delta +0.0000, 0/4 seeds positive",
+        "seeds_agree": 0,
+        "win": false
+      }
+    },
+    "domains": {
+      "action_consequence": {
+        "base_rate": 0.5112820512820513,
+        "brier_B": 0.2498823934868468,
+        "brier_climo": 0.250517926574669,
+        "brier_const05": 0.25,
+        "corr_sigma_err": 0.09898946826509464,
+        "ece": 0.0454127081479156,
+        "mce": 0.22388826579693338,
+        "n": 1950,
+        "signed_error": -0.03611445922503944,
+        "skill_vs_climo": 0.0025368766878755,
+        "verdict": "CALIBRATED"
+      },
+      "competence_failure": {
+        "base_rate": 0.09538461538461539,
+        "brier_B": 0.0875657534605464,
+        "brier_climo": 0.0869864266436259,
+        "brier_const05": 0.25,
+        "corr_sigma_err": 0.021381176512003608,
+        "ece": 0.024019370326180844,
+        "mce": 0.41222222222222227,
+        "n": 1950,
+        "signed_error": 0.01653976640545081,
+        "skill_vs_climo": -0.006659967988959403,
+        "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+      },
+      "next_obs": {
+        "base_rate": 0.5030769230769231,
+        "brier_B": 0.24953323554188256,
+        "brier_climo": 0.25087920802774016,
+        "brier_const05": 0.25,
+        "corr_sigma_err": 0.021381176512003608,
+        "ece": 0.03362606076253374,
+        "mce": 0.31805615526843145,
+        "n": 1950,
+        "signed_error": -0.017490758183183307,
+        "skill_vs_climo": 0.005365022061568303,
+        "verdict": "MISCALIBRATED (beats climatology but reliability off-diagonal; dispersion error)"
+      },
+      "retrieval_usefulness": {
+        "base_rate": 0.4451282051282051,
+        "brier_B": 0.2431014130368816,
+        "brier_climo": 0.24785342714500413,
+        "brier_const05": 0.25,
+        "corr_sigma_err": 0.06072699130134896,
+        "ece": 0.026006452742656627,
+        "mce": 0.8,
+        "n": 1950,
+        "signed_error": 0.018553438271775104,
+        "skill_vs_climo": 0.01917267863858274,
+        "verdict": "MISCALIBRATED (beats climatology but reliability off-diagonal; dispersion error)"
+      }
+    },
+    "gate": {
+      "domains_beaten": 3,
+      "verdict": "PASS"
+    }
+  },
+  "written_utc": "2026-10-07T13:54:04.145425+00:00"
+}

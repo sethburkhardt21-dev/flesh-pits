@@ -1,0 +1,113 @@
+{
+  "baseline": "Sequential Laplace-smoothed climatology computed on THIS family's own o sequence (member-0 realized events). The baseline must face the same outcomes the estimator is scored on.",
+  "conditions": "changing_rule v1.0.0, arch_b, affect='none', action_mode default, 10 episodes x 5 fresh seeds {73601,73602,73603,73604,73605}. Per env-seed: N=5 ArchB members, member m agent seed = derive_seed(s, m, 'ensemble-member'); each member runs run_closed_loop independently (deterministic, equivalent to lockstep) with its own env instance and the SAME env episode seeds (identical env dynamics; trajectories diverge only via agent init). PredictionLog JSONL per member per seed. Per env-seed, truncate all members to the minimum tick count across members; any truncation reported. Pooled over seeds in seed order = 1950 ticks/domain expected. Deterministic; stdlib only.",
+  "config": {
+    "experiment_id": "EXP-FP-0112",
+    "family": "(c) ensemble, as-run (VOID)",
+    "protocol": "1950-tick CALIB-01 protocol (5 fresh seeds x 10 eps, changing_rule v1.0.0, arch_b, affect=none)",
+    "seeds": [
+      73601,
+      73602,
+      73603,
+      73604,
+      73605
+    ],
+    "track": "D (metacognition hazard program)"
+  },
+  "config_hash": "a290ebffa519fd4ed031bde35eb9e6221474862d35ec81c43e15b6feb463937f",
+  "episodes": {
+    "n_ticks_pooled": {
+      "D1": 1950,
+      "D2": 1950,
+      "D3": 1950,
+      "D4": 1950
+    },
+    "note": "tick-level protocol; no episode arms",
+    "seeds": [
+      73601,
+      73602,
+      73603,
+      73604,
+      73605
+    ]
+  },
+  "experiment_id": "EXP-FP-0112",
+  "hypothesis": "Ensemble vote fractions over N=5 predictor seeds beat sequential climatology on >=3/4 calibration domains: Brier_ens < Brier_climo.",
+  "interpretation": "VOID \u2014 INSTRUMENT INVALID, no claim. The preregistered estimator computed p_t from members' REALIZED errors at tick t (vote fraction over contemporaneous outcomes). Sibling members' outcomes are correlated with the primary's (same env dynamics), so p_t peeked at the answer: contemporaneous-outcome leakage. The 4/4 'PASS' (skills +0.36..+0.49) is an artifact of the leak, not a property of ensemble disagreement. Caught at interpretation before any claim was absorbed. Redesignated as EXP-FP-0114 (shadow-mode, pre-outcome predictions only). Methodological negative result: a preregistered design can still be invalid; interpretation-time instrument audit is load-bearing.",
+  "limitations": "Single env (changing_rule); ensemble diversity comes only from agent init seeds (same architecture, same env dynamics).; o_t is member 0's outcome, not the ensemble-mean prediction's outcome (limitation of the vote-fraction design; preregistered).; affect='none' matches CALIB-01.",
+  "null_hypothesis": "Brier_ens >= Brier_climo on >=2/4 domains (fails the >=3/4 bar): ensemble disagreement carries no probabilistic information beyond the running base rate.",
+  "preregistered_metric": "Per-domain Brier_ens vs Brier_climo (sequential Laplace-smoothed climatology on member-0's o sequence), scored by benchmarks/calibration_battery.py score_domain on the pooled tick stream. PASS iff Brier_ens < Brier_climo on >=3/4 domains. A domain scoring UNMEASURABLE under CALIB-01's gates counts as not-beaten. corr(sigma,|err|) reported per domain (Pearson, pooled scored ticks); no threshold (supplementary, per program step 1).",
+  "prev_receipt_hash": "0c4098ed66ebeca6058c90e0a80005deca54684e5292f5c7470dd71efc6fc5cd",
+  "primary_seed": [
+    73601,
+    73602,
+    73603,
+    73604,
+    73605
+  ],
+  "receipt_hash": "db39aa30a6d5d3adfc9fae82e9345e62f941d97766b79c58caba548696bd6a18",
+  "started_utc": "2026-10-07T13:43:46.206251+00:00",
+  "summary": {
+    "domains": {
+      "action_consequence": {
+        "base_rate": 0.5,
+        "brier_B": 0.12754871794871797,
+        "brier_climo": 0.2506427427091555,
+        "brier_const05": 0.25,
+        "corr_sigma_err": 0.2891732388590411,
+        "ece": 0.023589744006153834,
+        "mce": 0.06890756302521017,
+        "n": 1950,
+        "signed_error": 0.0016410256789743717,
+        "skill_vs_climo": 0.4911134606569286,
+        "verdict": "CALIBRATED"
+      },
+      "competence_failure": {
+        "base_rate": 0.12307692307692308,
+        "brier_B": 0.06974358974358975,
+        "brier_climo": 0.10864069502380513,
+        "brier_const05": 0.25,
+        "corr_sigma_err": 0.15313325481744441,
+        "ece": 0.03282051354358974,
+        "mce": 0.39375000000000004,
+        "n": 1950,
+        "signed_error": -0.014769230087179485,
+        "skill_vs_climo": 0.35803439283679406,
+        "verdict": "MISCALIBRATED (beats climatology but reliability off-diagonal; dispersion error)"
+      },
+      "next_obs": {
+        "base_rate": 0.44461538461538463,
+        "brier_B": 0.15113846153846155,
+        "brier_climo": 0.24782304013803888,
+        "brier_const05": 0.25,
+        "corr_sigma_err": 0.15313325481744441,
+        "ece": 0.04635897470923074,
+        "mce": 0.13944954128440368,
+        "n": 1950,
+        "signed_error": 0.028512820567692318,
+        "skill_vs_climo": 0.3901355521493217,
+        "verdict": "CALIBRATED"
+      },
+      "retrieval_usefulness": {
+        "base_rate": 0.418974358974359,
+        "brier_B": 0.14112820512820515,
+        "brier_climo": 0.24429707343944396,
+        "brier_const05": 0.25,
+        "corr_sigma_err": 0.25529276153976294,
+        "ece": 0.038769231146666666,
+        "mce": 0.13179723502304164,
+        "n": 1950,
+        "signed_error": 0.02030769237948719,
+        "skill_vs_climo": 0.4223090635459953,
+        "verdict": "CALIBRATED"
+      }
+    },
+    "gate": {
+      "domains_beaten": 4,
+      "verdict": "PASS"
+    },
+    "note": "Numbers below are NOT interpreted for any claim.",
+    "status": "VOID \u2014 instrument invalid (see interpretation)"
+  },
+  "written_utc": "2026-10-07T13:54:04.122933+00:00"
+}

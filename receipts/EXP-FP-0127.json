@@ -1,0 +1,137 @@
+{
+  "baseline": "frozen = same class (D3 + guard), frozen=True, gains pinned 1.0, paired per seed",
+  "conditions": "grid_world v1.0.0; arch_a WorkspaceTick, neutral specialists, capacity=4, gain_lr=0.15, theta=0.45, gain_cap=2.0; branch prior = all movement channels; detector D3 (FLOOR=0.1, REL=0.5) + progress_guard=True; canonical files UNTOUCHED; prereg experiments/preregistration_EXP-FP-0127.json",
+  "config": {
+    "arbitrator": "AdaptiveTerminalECR detector=relmax progress_guard=True (EXP-FP-0126 module, additive extension; canonical files UNTOUCHED)",
+    "bit_identity_seeds": [
+      88201,
+      88202
+    ],
+    "branch_channels": [
+      "east",
+      "north",
+      "south",
+      "west"
+    ],
+    "capacity": 4,
+    "detector_params": {
+      "FLOOR": 0.1,
+      "REL": 0.5
+    },
+    "env": "grid_world v1.0.0",
+    "episodes_per_arm": 8,
+    "floor": 0.01,
+    "gain_cap": 2.0,
+    "gain_lr": 0.15,
+    "gate": "learned_goal_episodes >= frozen_goal_episodes on 4/4 (no-harm)",
+    "max_steps": 100,
+    "seeds": [
+      88301,
+      88302,
+      88303,
+      88304
+    ],
+    "specialists": "neutral (K5 P1 identical)",
+    "theta": 0.45
+  },
+  "config_hash": "338d51e6e7948a5d3c194806ff2e1af6bcfcdfb49812603fde8a0df9a87bcb13",
+  "episodes": [],
+  "experiment_id": "EXP-FP-0127",
+  "hypothesis": "H1: disarming the arbitrary progress cap-set (branch-only lock-in when the episode contains zero shaping receipts) removes the harm measured in EXP-FP-0126: D3+guard learned gains show no arbitrary-channel pinning, and learned is no longer worse than frozen on grid_world",
+  "interpretation": "H0 -- HARM-PERSISTS (3/4 no-harm). Per-seed (learned/frozen goals): 1/1, 1/2, 0/0, 0/0. The guard works as designed (terminal ticks record progress_credit=None; no arbitrary channel capped), but on seed 88302 the branch pin alone (north=2.0, the first-branch winner) recreated the one-direction attractor: goals 1 vs frozen 2. On 88301 the branch pin (south=2.0) was goal-neutral (1/11 = 1/11); 88303/88304 never reached a goal so the guard is trivially identical to frozen. The tie-break is NOT the sole harmful half: pinning ANY single movement channel at the gain cap on a navigation task builds an attractor, because (a) every movement tick counts as a 'branch' decision under the given prior, and (b) no unlearning path exists for negative/zero ticks. Bit-identity check: D3+guard == D3 exactly on delayed_reward (3.080000 / 1.980000 MATCH) -- the guard is provably inert where shaping exists. No further follow-up in this lane (preregistered stop). The refined ECR bound: the episodic lock-in is a corridor-task mechanism; on navigation tasks it is not merely inert but actively harmful.",
+  "limitations": "4 seeds; neutral specialists; the no-harm gate is weaker than a win gate by design -- this experiment characterizes which half of the lock-in carries the harm; it does not promise ECR wins on navigation.",
+  "null_hypothesis": "H0: the harm persists under the guard (learned goals < frozen goals on >= 1 seed) -- the branch pin alone recreates the attractor, and the lock-in is inherently mismatched to navigation tasks",
+  "preregistered_metric": "grid_world: goal_episodes(learned) vs goal_episodes(frozen) per seed; NO-HARM iff learned >= frozen (not strict) on 4/4 fresh seeds {88301..88304}, 8 eps x <=100 steps. Bit-identity check: delayed_reward seeds 88201/88202 reused -- D3+guard learned totals must equal the EXP-FP-0126 D3 totals exactly (guard inert where shaping exists).",
+  "prev_receipt_hash": "3c4d4b5cb9de205fc3d46a5761df301e9043f788b5bbddfdc655347dea7e70cb",
+  "primary_seed": 88301,
+  "receipt_hash": "0b07895dd14d6986b8ff6ccb52b777d1eca29bc2cfeee1c9d83ee519d8dfb09b",
+  "started_utc": "2026-10-07T13:58:12.652253+00:00",
+  "summary": {
+    "bit_identity": {
+      "88201": {
+        "bit_identical": true,
+        "d3_total": 3.08,
+        "guard_total": 3.08
+      },
+      "88202": {
+        "bit_identical": true,
+        "d3_total": 1.98,
+        "guard_total": 1.98
+      }
+    },
+    "need": 4,
+    "no_harm_count": 3,
+    "per_seed": [
+      {
+        "frozen_env_episodes": 11,
+        "frozen_goal_episodes": 1,
+        "frozen_total": -28.05,
+        "learned_env_episodes": 11,
+        "learned_gains": {
+          "east": 1.0,
+          "north": 1.0,
+          "south": 2.0,
+          "stay": 1.0,
+          "west": 1.0
+        },
+        "learned_goal_episodes": 1,
+        "learned_total": -29.6,
+        "no_harm": true,
+        "seed": 88301
+      },
+      {
+        "frozen_env_episodes": 18,
+        "frozen_goal_episodes": 2,
+        "frozen_total": -30.35,
+        "learned_env_episodes": 10,
+        "learned_gains": {
+          "east": 1.0,
+          "north": 2.0,
+          "south": 1.0,
+          "stay": 1.0,
+          "west": 1.0
+        },
+        "learned_goal_episodes": 1,
+        "learned_total": -40.5,
+        "no_harm": false,
+        "seed": 88302
+      },
+      {
+        "frozen_env_episodes": 15,
+        "frozen_goal_episodes": 0,
+        "frozen_total": -32.6,
+        "learned_env_episodes": 15,
+        "learned_gains": {
+          "east": 1.0,
+          "north": 1.0,
+          "south": 1.0,
+          "stay": 1.0,
+          "west": 1.0
+        },
+        "learned_goal_episodes": 0,
+        "learned_total": -32.6,
+        "no_harm": true,
+        "seed": 88303
+      },
+      {
+        "frozen_env_episodes": 10,
+        "frozen_goal_episodes": 0,
+        "frozen_total": -30.55,
+        "learned_env_episodes": 10,
+        "learned_gains": {
+          "east": 1.0,
+          "north": 1.0,
+          "south": 1.0,
+          "stay": 1.0,
+          "west": 1.0
+        },
+        "learned_goal_episodes": 0,
+        "learned_total": -30.55,
+        "no_harm": true,
+        "seed": 88304
+      }
+    ],
+    "verdict": "HARM-PERSISTS"
+  },
+  "written_utc": "2026-10-07T13:59:12.703182+00:00"
+}

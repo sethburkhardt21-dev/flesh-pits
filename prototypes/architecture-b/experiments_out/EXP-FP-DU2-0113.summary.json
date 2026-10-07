@@ -1,0 +1,184 @@
+{
+  "du": "du2",
+  "experiment": "EXP-FP-DU2-0113",
+  "family": "stratified",
+  "seeds": [
+    73701,
+    73702,
+    73703,
+    73704
+  ],
+  "summary": {
+    "73701": {
+      "blind": {
+        "apply_rate": 1.0,
+        "available": 399,
+        "fired": 399,
+        "returns": [
+          29.0,
+          34.0,
+          30.0,
+          28.0,
+          19.0,
+          24.0,
+          25.0,
+          22.0,
+          24.0,
+          20.0
+        ],
+        "ticks": 400
+      },
+      "blind_mean": 25.5,
+      "delta": 0.0,
+      "gated": {
+        "apply_rate": 0.0,
+        "available": 399,
+        "fired": 0,
+        "returns": [
+          29.0,
+          34.0,
+          30.0,
+          28.0,
+          19.0,
+          24.0,
+          25.0,
+          22.0,
+          24.0,
+          20.0
+        ],
+        "ticks": 400
+      },
+      "gated_mean": 25.5
+    },
+    "73702": {
+      "blind": {
+        "apply_rate": 1.0,
+        "available": 399,
+        "fired": 399,
+        "returns": [
+          28.0,
+          35.0,
+          33.0,
+          20.0,
+          26.0,
+          16.0,
+          20.0,
+          12.0,
+          16.0,
+          27.0
+        ],
+        "ticks": 400
+      },
+      "blind_mean": 23.3,
+      "delta": 0.0,
+      "gated": {
+        "apply_rate": 0.0,
+        "available": 399,
+        "fired": 0,
+        "returns": [
+          28.0,
+          35.0,
+          33.0,
+          20.0,
+          26.0,
+          16.0,
+          20.0,
+          12.0,
+          16.0,
+          27.0
+        ],
+        "ticks": 400
+      },
+      "gated_mean": 23.3
+    },
+    "73703": {
+      "blind": {
+        "apply_rate": 1.0,
+        "available": 399,
+        "fired": 399,
+        "returns": [
+          29.0,
+          32.0,
+          35.0,
+          26.0,
+          20.0,
+          23.0,
+          27.0,
+          27.0,
+          25.0,
+          14.0
+        ],
+        "ticks": 400
+      },
+      "blind_mean": 25.8,
+      "delta": 0.0,
+      "gated": {
+        "apply_rate": 0.0,
+        "available": 399,
+        "fired": 0,
+        "returns": [
+          29.0,
+          32.0,
+          35.0,
+          26.0,
+          20.0,
+          23.0,
+          27.0,
+          27.0,
+          25.0,
+          14.0
+        ],
+        "ticks": 400
+      },
+      "gated_mean": 25.8
+    },
+    "73704": {
+      "blind": {
+        "apply_rate": 1.0,
+        "available": 399,
+        "fired": 399,
+        "returns": [
+          31.0,
+          29.0,
+          33.0,
+          22.0,
+          25.0,
+          19.0,
+          26.0,
+          18.0,
+          25.0,
+          35.0
+        ],
+        "ticks": 400
+      },
+      "blind_mean": 26.3,
+      "delta": 0.0,
+      "gated": {
+        "apply_rate": 0.0,
+        "available": 399,
+        "fired": 0,
+        "returns": [
+          31.0,
+          29.0,
+          33.0,
+          22.0,
+          25.0,
+          19.0,
+          26.0,
+          18.0,
+          25.0,
+          35.0
+        ],
+        "ticks": 400
+      },
+      "gated_mean": 26.3
+    },
+    "_verdict": {
+      "mean_delta": 0.0,
+      "rule": "NO-WIN: seed-mean delta +0.0000, 0/4 seeds positive",
+      "seeds_agree": 0,
+      "win": false
+    }
+  },
+  "written_utc": "2026-10-07T13:53:22.292645+00:00"
+}

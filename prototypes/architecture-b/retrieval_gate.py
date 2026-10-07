@@ -16,6 +16,10 @@ This module decides per tick whether to APPLY an available correction:
                     The chance control: random gating at the same
                     application rate as the uhat arm (does uhat beat
                     chance?).
+  policy "p_ext":   apply iff the driver-supplied external probability
+                    gate._p_ext > threshold. The driver sets _p_ext before
+                    each act() (Track D decision-use tests: gate the
+                    correction on an external uncertainty estimator).
 
 The gate NEVER touches the predictor: it only READS uhat, exactly as
 predicted by predictions.UsefulnessPredictor. No learning-rate changes,
@@ -77,6 +81,8 @@ class RetrievalGate:
             apply = uhat > self.threshold
         elif self.policy == self.POLICY_RANDOM:
             apply = self._rng.random() < self.rate
+        elif self.policy == self.POLICY_P_EXT:
+            apply = self._p_ext > self.threshold
         else:  # "ungated"
             apply = True
         self.n_available += 1

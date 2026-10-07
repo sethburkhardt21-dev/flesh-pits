@@ -1,0 +1,157 @@
+{
+  "baseline": "Sequential Laplace-smoothed climatology on the same o sequence (the CALIB-01 baseline, recomputed on fresh-seed data). The o sequence is the primary's realized events: identical to families (a)/(b)/(d), directly comparable.",
+  "conditions": "changing_rule v1.0.0, arch_b, affect='none', action_mode default, 10 episodes x 5 seeds {73601,73602,73603,73604,73605}. Primary ArchB drives the env (constructor seed = s; per-episode reset seeds identical to the reference runs). 4 shadow members (m=1..4, constructor seed = derive_seed(s, m, 'ensemble-member')) shadow the primary: per tick, shadow.replay_actions=[a_primary]; shadow.act(obs); env.step(a_primary); primary.update; shadow.update(obs, a_primary, r, done, info). Shadows learn from the primary's transitions; their predictions differ only by init seed. Primary's new JSONL must be byte-identical to the reference EXP-FP-011X log (consistency check); o_t comes from the reference stream. Deterministic; stdlib only.",
+  "config": {
+    "experiment_id": "EXP-FP-0114",
+    "family": "(c) ensemble, shadow-mode (honest)",
+    "n_members": 5,
+    "protocol": "1950-tick CALIB-01 protocol (5 fresh seeds x 10 eps, changing_rule v1.0.0, arch_b, affect=none)",
+    "seeds": [
+      73601,
+      73602,
+      73603,
+      73604,
+      73605
+    ],
+    "track": "D (metacognition hazard program)"
+  },
+  "config_hash": "82dba598cb6c6fcb4ce08c93de6c568ba9add03cb62d698f2b056fbe760e9ee8",
+  "episodes": {
+    "n_ticks_pooled": {
+      "D1": 1950,
+      "D2": 1950,
+      "D3": 1950,
+      "D4": 1950
+    },
+    "note": "tick-level protocol; no episode arms",
+    "seeds": [
+      73601,
+      73602,
+      73603,
+      73604,
+      73605
+    ]
+  },
+  "experiment_id": "EXP-FP-0114",
+  "hypothesis": "Pre-outcome ensemble disagreement (shadow-mode, N=5) as the sigma in the CALIB-01 Gaussian bridge beats sequential climatology on >=3/4 calibration domains: Brier_ens < Brier_climo.",
+  "interpretation": "REJECTED 0/4 (D3 UNMEASURABLE counts as not-beaten). Honest pre-outcome ensemble disagreement over init seeds does NOT beat climatology: members converge to near-identical predictions (init-seed diversity washes out), so disagreement is ~25x too small for the Gaussian bridge and p saturates. The residual disagreement does couple to error magnitude (corr 0.29 on D1, the strongest coupling seen in this program) but the scale is wrong \u2014 a scale-calibrated mapping is a future experiment, not a retrofit. The ablation (B's stated sigma on the same fresh seeds) replicates CALIB-01: 0/4, corr 0.04-0.18. Full NR entry.",
+  "limitations": "Single env (changing_rule); ensemble diversity comes only from predictor init seeds (same architecture).; Shadow members learn from the primary's trajectory (their training data is the primary's); disagreement reflects init-conditional model uncertainty, not data uncertainty.; affect='none' matches CALIB-01.",
+  "null_hypothesis": "Brier_ens >= Brier_climo on >=2/4 domains (fails the >=3/4 bar): pre-outcome ensemble disagreement carries no probabilistic information beyond the running base rate.",
+  "preregistered_metric": "Per-domain Brier_ens vs Brier_climo (sequential Laplace-smoothed climatology), scored by benchmarks/calibration_battery.py score_domain on the pooled tick stream (primary's o, ensemble's p). PASS iff Brier_ens < Brier_climo on >=3/4 domains. A domain scoring UNMEASURABLE under CALIB-01's gates counts as not-beaten. corr(sigma_ens,|err|) reported per domain (Pearson, pooled scored ticks); no threshold (supplementary, per program step 1).",
+  "prev_receipt_hash": "8183ca69772abab88365c45a63a097c35996269ca0671cd9ebbe6dac32e80208",
+  "primary_seed": [
+    73601,
+    73602,
+    73603,
+    73604,
+    73605
+  ],
+  "receipt_hash": "07aad5bff43c15072ded9cfab662f85cf8094a90b86908aefa2d0367c53a2a05",
+  "started_utc": "2026-10-07T13:49:57.645714+00:00",
+  "summary": {
+    "ablation_stated_sigma": {
+      "domains": {
+        "action_consequence": {
+          "base_rate": 0.5112820512820513,
+          "brier_B": 0.2967013580320654,
+          "brier_climo": 0.250517926574669,
+          "corr_sigma_err": 0.17829144664865992,
+          "n": 1950,
+          "skill_vs_climo": -0.18435180303805931,
+          "verdict": "MISCALIBRATED (fails to beat climatology; under-confident)"
+        },
+        "competence_failure": {
+          "base_rate": 0.09538461538461539,
+          "brier_B": 0.11156882610102985,
+          "brier_climo": 0.0869864266436259,
+          "corr_sigma_err": 0.04578765373834995,
+          "n": 1950,
+          "skill_vs_climo": -0.28260040567151257,
+          "verdict": "MISCALIBRATED (fails to beat climatology; over-confident)"
+        },
+        "next_obs": {
+          "base_rate": 0.5030769230769231,
+          "brier_B": 0.2526217365530653,
+          "brier_climo": 0.25087920802774016,
+          "corr_sigma_err": 0.04578765373834995,
+          "n": 1950,
+          "skill_vs_climo": -0.006945687285223157,
+          "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+        },
+        "retrieval_usefulness": {
+          "base_rate": 0.4451282051282051,
+          "brier_B": 0.2518939600289365,
+          "brier_climo": 0.24785342714500413,
+          "corr_sigma_err": 0.03768420429688444,
+          "n": 1950,
+          "skill_vs_climo": -0.016302106170065223,
+          "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+        }
+      },
+      "gate": {
+        "domains_beaten": 0,
+        "verdict": "REJECT"
+      }
+    },
+    "domains": {
+      "action_consequence": {
+        "base_rate": 0.5112820512820513,
+        "brier_B": 0.48905781516137453,
+        "brier_climo": 0.250517926574669,
+        "brier_const05": 0.25,
+        "corr_sigma_err": 0.026818640261428706,
+        "ece": 0.4891476791814193,
+        "mce": 0.48939948392233557,
+        "n": 1950,
+        "signed_error": 0.48312596221095405,
+        "skill_vs_climo": -0.9521869027428931,
+        "verdict": "MISCALIBRATED (fails to beat climatology; over-confident)"
+      },
+      "competence_failure": {
+        "base_rate": null,
+        "brier_B": null,
+        "brier_climo": null,
+        "brier_const05": null,
+        "corr_sigma_err": null,
+        "ece": null,
+        "mce": null,
+        "n": 1950,
+        "signed_error": null,
+        "skill_vs_climo": null,
+        "verdict": "UNMEASURABLE"
+      },
+      "next_obs": {
+        "base_rate": 0.5030769230769231,
+        "brier_B": 0.49692307581059264,
+        "brier_climo": 0.25087920802774016,
+        "brier_const05": 0.25,
+        "corr_sigma_err": 0.28807332911101013,
+        "ece": 0.49692307586357587,
+        "mce": 0.49692307586357587,
+        "n": 1950,
+        "signed_error": 0.49692307586357587,
+        "skill_vs_climo": -0.9807264209621029,
+        "verdict": "MISCALIBRATED (fails to beat climatology; over-confident)"
+      },
+      "retrieval_usefulness": {
+        "base_rate": 0.4451282051282051,
+        "brier_B": 0.41098262012377007,
+        "brier_climo": 0.24785342714500413,
+        "brier_const05": 0.25,
+        "corr_sigma_err": 0.04523076759922504,
+        "ece": 0.4076148491351829,
+        "mce": 0.5526144360322705,
+        "n": 1950,
+        "signed_error": -0.08032376709490431,
+        "skill_vs_climo": -0.6581679941158485,
+        "verdict": "MISCALIBRATED (fails to beat climatology; under-confident)"
+      }
+    },
+    "gate": {
+      "domains_beaten": 0,
+      "verdict": "REJECT"
+    },
+    "mechanism": "median sigma_ens D1/D3 ~0.011 vs error scale ~0.27 (members agree ~25x too closely); p saturates at 1.0/0.0 -> D1/D2 massively over-confident, D3 UNMEASURABLE (degenerate p). corr(sigma_ens,|err|) D1 = 0.29: ranking signal present, scale catastrophically wrong for the Gaussian bridge."
+  },
+  "written_utc": "2026-10-07T13:54:04.188254+00:00"
+}

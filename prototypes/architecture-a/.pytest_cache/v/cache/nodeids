@@ -29,5 +29,20 @@
   "tests/test_attention_ecr_repro.py::TestSuccessCredit::test_first_branch_win_is_credited",
   "tests/test_attention_ecr_repro.py::TestSuccessCredit::test_ledger_clears_on_success",
   "tests/test_attention_ecr_repro.py::TestSuccessCredit::test_success_sets_branch_choice_and_progress_to_cap",
-  "tests/test_attention_ecr_repro.py::TestSuccessCredit::test_truncation_clears_without_cap_sets"
+  "tests/test_attention_ecr_repro.py::TestSuccessCredit::test_truncation_clears_without_cap_sets",
+  "tests/test_ecr_detector.py::test_d0_fires_at_10",
+  "tests/test_ecr_detector.py::test_d0_gain_equivalence_with_parent",
+  "tests/test_ecr_detector.py::test_d0_hardcoded_misfires_on_098",
+  "tests/test_ecr_detector.py::test_d1_floor_fires_on_098",
+  "tests/test_ecr_detector.py::test_d1_shaping_stays_shaping",
+  "tests/test_ecr_detector.py::test_d2_baseline_k_times_mean",
+  "tests/test_ecr_detector.py::test_d3_delayed_reward_stream",
+  "tests/test_ecr_detector.py::test_d3_relmax_fires_on_098",
+  "tests/test_ecr_detector.py::test_d3_second_goal_still_terminal",
+  "tests/test_ecr_detector.py::test_detector_stats_post_classification",
+  "tests/test_ecr_detector.py::test_frozen_touches_nothing",
+  "tests/test_ecr_detector.py::test_guard_inert_with_shaping",
+  "tests/test_ecr_detector.py::test_guard_off_matches_parent",
+  "tests/test_ecr_detector.py::test_guard_skips_progress_without_shaping",
+  "tests/test_ecr_detector.py::test_invalid_detector_rejected"
 ]

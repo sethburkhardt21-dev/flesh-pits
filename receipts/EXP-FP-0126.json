@@ -1,0 +1,358 @@
+{
+  "baseline": "frozen = identical AdaptiveTerminalECR class, frozen=True, gains pinned 1.0, paired per seed",
+  "conditions": "grid_world v1.0.0 + delayed_reward v1.0.0; arch_a WorkspaceTick, neutral specialists, capacity=4, gain_lr=0.15, theta=0.45, gain_cap=2.0; branch priors given (grid_world: all movement channels; delayed_reward: {branch_a,branch_b}); ECR canonical module UNTOUCHED (additive subclass only); prereg experiments/preregistration_EXP-FP-0126.json",
+  "config": {
+    "ablations": [
+      "baseline",
+      "floor",
+      "hardcoded"
+    ],
+    "arbitrator": "AdaptiveTerminalECR (EXP-FP-0126 additive subclass of ReturnConditionedEpisodicArbitrator; canonical module UNTOUCHED)",
+    "arbitrator_params": {
+      "branch_channels": [
+        "east",
+        "north",
+        "south",
+        "west"
+      ],
+      "corridor_boost": 0.01,
+      "max_steps": 100,
+      "prebranch_demote": 0.05,
+      "shape_punish": 0.02
+    },
+    "branch_channels": [
+      "east",
+      "north",
+      "south",
+      "west"
+    ],
+    "capacity": 4,
+    "channels": [
+      "north",
+      "south",
+      "east",
+      "west",
+      "stay"
+    ],
+    "detector_params": {
+      "ALPHA": 0.1,
+      "FLOOR": 0.1,
+      "K": 2.0,
+      "REL": 0.5
+    },
+    "env": "grid_world v1.0.0",
+    "episodes_per_arm": 8,
+    "floor": 0.01,
+    "frozen": "same class, frozen=True, gains pinned 1.0",
+    "gain_cap": 2.0,
+    "gain_lr": 0.15,
+    "gate": "learned_goal_episodes > frozen_goal_episodes on 4/4 (nav: negative per-tick rewards invert the R ratio)",
+    "main_detector": "relmax",
+    "max_steps": 100,
+    "seeds": [
+      88101,
+      88102,
+      88103,
+      88104
+    ],
+    "specialists": "neutral (K5 P1 identical)",
+    "theta": 0.45
+  },
+  "config_hash": "487f5377ec4d5d21a5a3c8f177ce04b1c77a6b139f5512bd3ccd757f44313441",
+  "episodes": [],
+  "experiment_id": "EXP-FP-0126",
+  "hypothesis": "H1: replacing ECR's hardcoded terminal detector (r >= 1.0) with a scale-relative detector -- terminal iff r > 0 AND r >= max(0.1, 0.5 * r_big), r_big = running max of positive per-tick rewards -- restores the episodic lock-in on grid_world (goal tick 0.98 >= 0.1 fires, where 0.98 < 1.0 never fired) AND preserves the home-env behavior on canonical delayed_reward (shaping 0.02 < 0.1 stays shaping; terminal 1.0 fires)",
+  "interpretation": "H0 -- CLEAN KILL. grid_world: BREAKS 0/4. D3 learned goals 1/0/1/1 vs frozen 2/0/3/1 (per-seed totals: -31.20/-23.45, -26.05/-26.05, -48.15/-28.70, -46.25/-29.95). The detector fix works MECHANICALLY: gain-history inspection (seed 88101) shows the 0.98 goal tick flagged terminal=True, firing the lock-in -- branch_credit=north (first branch winner) + progress_credit=north (canonical tie-break, zero shaping receipts). Final gains {north: 2.0, rest 1.0}: the agent became a north-attractor with no unlearning path (non-goal ticks are negative/zero and change no gains); learned totals more negative than frozen on 3/4 seeds. The lock-in is actively harmful where the progress channel is unidentifiable from the reward stream. delayed_reward: HOLDS 4/4, R = 4.28/2.06/7.82/12.33 -- the home env is NOT regressed (no tick falls in (0.1, 1.0), so D3 is behaviorally identical to D0 there). Ablations (descriptive, first 2 seeds): D0 learned is bit-identical to frozen on grid_world (reproduces the 0120 failure exactly); D1 and D2 are gain-identical to D3 on both envs -- the floor does all the work, relativity adds nothing on these reward streams. The 0120 bound is REFINED, not lifted: even with a working terminal detector, ECR's episodic lock-in requires a reward stream from which the progress channel is identifiable.",
+  "limitations": "4 seeds/env; neutral specialists (bandit isolation); branch_channels priors given; the floor 0.1 is a scale prior, not learned; first 0126 run declared VOID on a G2 driver bug (tuple unpack) and rerun deterministically -- G2 exact-match confirms the numbers.",
+  "null_hypothesis": "H0: the adaptive detector does not produce a seed-consistent learned>frozen goal-episode advantage on grid_world on 4/4 seeds, OR it regresses the home env (R < 1.30 on >= 1 delayed_reward seed)",
+  "preregistered_metric": "grid_world: goal_episodes(learned_D3) vs goal_episodes(frozen_D3) per seed, WIN iff learned > frozen (strict), 4/4 fresh seeds {88101..88104}, 8 eps x <=100 steps (R-gate invalid: negative per-tick rewards invert the ratio -- preregistered adaptation). delayed_reward: R = total(learned_D3)/total(frozen_D3) >= 1.30 per seed, 4/4 fresh seeds {88201..88204}, 8 eps x <=15 steps. H1 SUPPORTED iff both gates fire.",
+  "prev_receipt_hash": "07aad5bff43c15072ded9cfab662f85cf8094a90b86908aefa2d0367c53a2a05",
+  "primary_seed": 88101,
+  "receipt_hash": "3c4d4b5cb9de205fc3d46a5761df301e9043f788b5bbddfdc655347dea7e70cb",
+  "started_utc": "2026-10-07T13:55:56.738524+00:00",
+  "summary": {
+    "ablations": {
+      "baseline": {
+        "note": "descriptive, not gated; frozen totals reused from the D3 main run",
+        "seeds": {
+          "88101": {
+            "frozen_goal_episodes": 2,
+            "frozen_total": -23.450000000000003,
+            "learned_gains": {
+              "east": 1.0,
+              "north": 2.0,
+              "south": 1.0,
+              "stay": 1.0,
+              "west": 1.0
+            },
+            "learned_goal_episodes": 1,
+            "learned_total": -31.200000000000003,
+            "n_gain_updates": 800,
+            "ratio": null,
+            "win": false
+          },
+          "88102": {
+            "frozen_goal_episodes": 0,
+            "frozen_total": -26.05,
+            "learned_gains": {
+              "east": 1.0,
+              "north": 1.0,
+              "south": 1.0,
+              "stay": 1.0,
+              "west": 1.0
+            },
+            "learned_goal_episodes": 0,
+            "learned_total": -26.05,
+            "n_gain_updates": 800,
+            "ratio": null,
+            "win": false
+          }
+        },
+        "wins": 0
+      },
+      "floor": {
+        "note": "descriptive, not gated; frozen totals reused from the D3 main run",
+        "seeds": {
+          "88101": {
+            "frozen_goal_episodes": 2,
+            "frozen_total": -23.450000000000003,
+            "learned_gains": {
+              "east": 1.0,
+              "north": 2.0,
+              "south": 1.0,
+              "stay": 1.0,
+              "west": 1.0
+            },
+            "learned_goal_episodes": 1,
+            "learned_total": -31.200000000000003,
+            "n_gain_updates": 800,
+            "ratio": null,
+            "win": false
+          },
+          "88102": {
+            "frozen_goal_episodes": 0,
+            "frozen_total": -26.05,
+            "learned_gains": {
+              "east": 1.0,
+              "north": 1.0,
+              "south": 1.0,
+              "stay": 1.0,
+              "west": 1.0
+            },
+            "learned_goal_episodes": 0,
+            "learned_total": -26.05,
+            "n_gain_updates": 800,
+            "ratio": null,
+            "win": false
+          }
+        },
+        "wins": 0
+      },
+      "hardcoded": {
+        "note": "descriptive, not gated; frozen totals reused from the D3 main run",
+        "seeds": {
+          "88101": {
+            "frozen_goal_episodes": 2,
+            "frozen_total": -23.450000000000003,
+            "learned_gains": {
+              "east": 1.0,
+              "north": 1.0,
+              "south": 1.02,
+              "stay": 0.96,
+              "west": 1.0
+            },
+            "learned_goal_episodes": 2,
+            "learned_total": -23.450000000000003,
+            "n_gain_updates": 800,
+            "ratio": null,
+            "win": false
+          },
+          "88102": {
+            "frozen_goal_episodes": 0,
+            "frozen_total": -26.05,
+            "learned_gains": {
+              "east": 1.0,
+              "north": 1.0,
+              "south": 1.0,
+              "stay": 1.0,
+              "west": 1.0
+            },
+            "learned_goal_episodes": 0,
+            "learned_total": -26.05,
+            "n_gain_updates": 800,
+            "ratio": null,
+            "win": false
+          }
+        },
+        "wins": 0
+      }
+    },
+    "delayed_reward_gate": {
+      "per_seed": [
+        {
+          "frozen_env_episodes": 8,
+          "frozen_goal_episodes": null,
+          "frozen_total": 0.72,
+          "learned_env_episodes": 8,
+          "learned_gains": {
+            "branch_a": 2.0,
+            "branch_b": 1.0,
+            "forward": 2.0,
+            "stay": 0.01
+          },
+          "learned_goal_episodes": null,
+          "learned_total": 3.08,
+          "n_gain_updates": 120,
+          "ratio": 4.277777777777778,
+          "seed": 88201,
+          "win": true
+        },
+        {
+          "frozen_env_episodes": 8,
+          "frozen_goal_episodes": null,
+          "frozen_total": 0.96,
+          "learned_env_episodes": 8,
+          "learned_gains": {
+            "branch_a": 2.0,
+            "branch_b": 1.0,
+            "forward": 2.0,
+            "stay": 0.04
+          },
+          "learned_goal_episodes": null,
+          "learned_total": 1.98,
+          "n_gain_updates": 120,
+          "ratio": 2.0625,
+          "seed": 88202,
+          "win": true
+        },
+        {
+          "frozen_env_episodes": 8,
+          "frozen_goal_episodes": null,
+          "frozen_total": 0.56,
+          "learned_env_episodes": 8,
+          "learned_gains": {
+            "branch_a": 2.0,
+            "branch_b": 1.0,
+            "forward": 2.0,
+            "stay": 0.01
+          },
+          "learned_goal_episodes": null,
+          "learned_total": 4.38,
+          "n_gain_updates": 120,
+          "ratio": 7.82142857142857,
+          "seed": 88203,
+          "win": true
+        },
+        {
+          "frozen_env_episodes": 8,
+          "frozen_goal_episodes": null,
+          "frozen_total": 0.12,
+          "learned_env_episodes": 8,
+          "learned_gains": {
+            "branch_a": 1.0,
+            "branch_b": 2.0,
+            "forward": 2.0,
+            "stay": 0.54
+          },
+          "learned_goal_episodes": null,
+          "learned_total": 1.48,
+          "n_gain_updates": 120,
+          "ratio": 12.333333333333334,
+          "seed": 88204,
+          "win": true
+        }
+      ],
+      "verdict": "HOLDS",
+      "wins": 4
+    },
+    "margin": 1.3,
+    "max_return": 0.0,
+    "mean_return": 0.0,
+    "min_return": 0.0,
+    "n_episodes": 0,
+    "need": 4,
+    "passed": false,
+    "per_seed": [
+      {
+        "frozen_env_episodes": 10,
+        "frozen_goal_episodes": 2,
+        "frozen_total": -23.450000000000003,
+        "learned_env_episodes": 10,
+        "learned_gains": {
+          "east": 1.0,
+          "north": 2.0,
+          "south": 1.0,
+          "stay": 1.0,
+          "west": 1.0
+        },
+        "learned_goal_episodes": 1,
+        "learned_total": -31.200000000000003,
+        "n_gain_updates": 800,
+        "ratio": null,
+        "seed": 88101,
+        "win": false
+      },
+      {
+        "frozen_env_episodes": 9,
+        "frozen_goal_episodes": 0,
+        "frozen_total": -26.05,
+        "learned_env_episodes": 9,
+        "learned_gains": {
+          "east": 1.0,
+          "north": 1.0,
+          "south": 1.0,
+          "stay": 1.0,
+          "west": 1.0
+        },
+        "learned_goal_episodes": 0,
+        "learned_total": -26.05,
+        "n_gain_updates": 800,
+        "ratio": null,
+        "seed": 88102,
+        "win": false
+      },
+      {
+        "frozen_env_episodes": 13,
+        "frozen_goal_episodes": 3,
+        "frozen_total": -28.700000000000003,
+        "learned_env_episodes": 10,
+        "learned_gains": {
+          "east": 2.0,
+          "north": 2.0,
+          "south": 1.0,
+          "stay": 1.0,
+          "west": 1.0
+        },
+        "learned_goal_episodes": 1,
+        "learned_total": -48.150000000000006,
+        "n_gain_updates": 800,
+        "ratio": null,
+        "seed": 88103,
+        "win": false
+      },
+      {
+        "frozen_env_episodes": 12,
+        "frozen_goal_episodes": 1,
+        "frozen_total": -29.950000000000003,
+        "learned_env_episodes": 10,
+        "learned_gains": {
+          "east": 1.0,
+          "north": 2.0,
+          "south": 1.0,
+          "stay": 1.0,
+          "west": 2.0
+        },
+        "learned_goal_episodes": 1,
+        "learned_total": -46.25000000000001,
+        "n_gain_updates": 800,
+        "ratio": null,
+        "seed": 88104,
+        "win": false
+      }
+    ],
+    "stdev_return": 0.0,
+    "verdict": "BREAKS",
+    "wins": 0
+  },
+  "written_utc": "2026-10-07T13:59:12.446744+00:00"
+}

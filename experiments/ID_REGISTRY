@@ -316,6 +316,20 @@
       "lane": "ecr-generalization",
       "source": "claimed"
     },
+    "EXP-FP-0126": {
+      "claimed_utc": "2026-10-07T13:52:31.788925+00:00",
+      "family": "EXP-FP-012x",
+      "file": null,
+      "lane": "ecr-generalization",
+      "source": "claimed"
+    },
+    "EXP-FP-0127": {
+      "claimed_utc": "2026-10-07T13:57:00.375524+00:00",
+      "family": "EXP-FP-012x",
+      "file": null,
+      "lane": "ecr-generalization",
+      "source": "claimed"
+    },
     "EXP-FP-C-BUILD-AND-BEAT": {
       "family": null,
       "file": "experiments/preregistration_ARCH_C.json",

@@ -1,0 +1,115 @@
+{
+  "ablation_stated_sigma": {
+    "domains": {
+      "action_consequence": {
+        "base_rate": 0.5112820512820513,
+        "brier_B": 0.2967013580320654,
+        "brier_climo": 0.250517926574669,
+        "corr_sigma_err": 0.17829144664865992,
+        "n": 1950,
+        "skill_vs_climo": -0.18435180303805931,
+        "verdict": "MISCALIBRATED (fails to beat climatology; under-confident)"
+      },
+      "competence_failure": {
+        "base_rate": 0.09538461538461539,
+        "brier_B": 0.11156882610102985,
+        "brier_climo": 0.0869864266436259,
+        "corr_sigma_err": 0.04578765373834995,
+        "n": 1950,
+        "skill_vs_climo": -0.28260040567151257,
+        "verdict": "MISCALIBRATED (fails to beat climatology; over-confident)"
+      },
+      "next_obs": {
+        "base_rate": 0.5030769230769231,
+        "brier_B": 0.2526217365530653,
+        "brier_climo": 0.25087920802774016,
+        "corr_sigma_err": 0.04578765373834995,
+        "n": 1950,
+        "skill_vs_climo": -0.006945687285223157,
+        "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+      },
+      "retrieval_usefulness": {
+        "base_rate": 0.4451282051282051,
+        "brier_B": 0.2518939600289365,
+        "brier_climo": 0.24785342714500413,
+        "corr_sigma_err": 0.03768420429688444,
+        "n": 1950,
+        "skill_vs_climo": -0.016302106170065223,
+        "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+      }
+    },
+    "gate": {
+      "domains_beaten": 0,
+      "verdict": "REJECT"
+    }
+  },
+  "domains": {
+    "action_consequence": {
+      "base_rate": 0.5112820512820513,
+      "brier_B": 0.48905781516137453,
+      "brier_climo": 0.250517926574669,
+      "brier_const05": 0.25,
+      "corr_sigma_err": 0.026818640261428706,
+      "ece": 0.4891476791814193,
+      "mce": 0.48939948392233557,
+      "n": 1950,
+      "signed_error": 0.48312596221095405,
+      "skill_vs_climo": -0.9521869027428931,
+      "verdict": "MISCALIBRATED (fails to beat climatology; over-confident)"
+    },
+    "competence_failure": {
+      "base_rate": null,
+      "brier_B": null,
+      "brier_climo": null,
+      "brier_const05": null,
+      "corr_sigma_err": null,
+      "ece": null,
+      "mce": null,
+      "n": 1950,
+      "signed_error": null,
+      "skill_vs_climo": null,
+      "verdict": "UNMEASURABLE"
+    },
+    "next_obs": {
+      "base_rate": 0.5030769230769231,
+      "brier_B": 0.49692307581059264,
+      "brier_climo": 0.25087920802774016,
+      "brier_const05": 0.25,
+      "corr_sigma_err": 0.28807332911101013,
+      "ece": 0.49692307586357587,
+      "mce": 0.49692307586357587,
+      "n": 1950,
+      "signed_error": 0.49692307586357587,
+      "skill_vs_climo": -0.9807264209621029,
+      "verdict": "MISCALIBRATED (fails to beat climatology; over-confident)"
+    },
+    "retrieval_usefulness": {
+      "base_rate": 0.4451282051282051,
+      "brier_B": 0.41098262012377007,
+      "brier_climo": 0.24785342714500413,
+      "brier_const05": 0.25,
+      "corr_sigma_err": 0.04523076759922504,
+      "ece": 0.4076148491351829,
+      "mce": 0.5526144360322705,
+      "n": 1950,
+      "signed_error": -0.08032376709490431,
+      "skill_vs_climo": -0.6581679941158485,
+      "verdict": "MISCALIBRATED (fails to beat climatology; under-confident)"
+    }
+  },
+  "experiment_id": "EXP-FP-0114",
+  "gate": {
+    "domains_beaten": 0,
+    "verdict": "REJECT"
+  },
+  "n_members": 5,
+  "seeds": [
+    73601,
+    73602,
+    73603,
+    73604,
+    73605
+  ],
+  "started_utc": "2026-10-07T13:49:57.645714+00:00",
+  "written_utc": "2026-10-07T13:50:02.819678+00:00"
+}
