@@ -1,0 +1,30 @@
+  B-BASE       seed=94007: mean=-3.6853 p_goal=0.0667 probes=1
+  B-BASE       seed=94008: mean=-3.4213 p_goal=0.2000 probes=3
+  B-BASE       seed=94009: mean=-3.9820 p_goal=0.1333 probes=2
+  B-BASE       seed=94010: mean=-3.7000 p_goal=0.0667 probes=1
+  B-BASE       seed=94011: mean=-3.8393 p_goal=0.0667 probes=1
+  B-BASE       seed=94012: mean=-3.8927 p_goal=0.0667 probes=1
+  B-AUG        seed=94007: mean=-2.9487 p_goal=0.2667 probes=4
+  B-AUG        seed=94008: mean=-3.4000 p_goal=0.1333 probes=2
+  B-AUG        seed=94009: mean=-3.3073 p_goal=0.1333 probes=2
+  B-AUG        seed=94010: mean=-3.7240 p_goal=0.0000 probes=0
+  B-AUG        seed=94011: mean=-3.5467 p_goal=0.0667 probes=1
+  B-AUG        seed=94012: mean=-3.8747 p_goal=0.0000 probes=0
+  B-SEARCH     seed=94007: mean=-3.7400 p_goal=0.0667 probes=1
+  B-SEARCH     seed=94008: mean=-3.4360 p_goal=0.1333 probes=2
+  B-SEARCH     seed=94009: mean=-3.2927 p_goal=0.2000 probes=3
+  B-SEARCH     seed=94010: mean=-3.8440 p_goal=0.0667 probes=1
+  B-SEARCH     seed=94011: mean=-4.1587 p_goal=0.0000 probes=0
+  B-SEARCH     seed=94012: mean=-3.7473 p_goal=0.1333 probes=2
+  B-AUGSEARCH  seed=94007: mean=-3.1540 p_goal=0.2667 probes=4
+  B-AUGSEARCH  seed=94008: mean=-3.6240 p_goal=0.0667 probes=1
+  B-AUGSEARCH  seed=94009: mean=-3.1140 p_goal=0.2000 probes=3
+  B-AUGSEARCH  seed=94010: mean=-3.8293 p_goal=0.0000 probes=0
+  B-AUGSEARCH  seed=94011: mean=-3.3127 p_goal=0.1333 probes=2
+  B-AUGSEARCH  seed=94012: mean=-3.6880 p_goal=0.0667 probes=1
+  verdict: NULL_HOLDS (int_p=+0.0222>=0.15? False int_r=-0.0371>=0.5? False)
+  main effects: search p +0.0111 / ret +0.0317; aug p +0.0111 / ret +0.2679
+  G0 post: MATCH; G2 determinism: -3.154000 vs -3.154000 -> MATCH
+  chain verify: True (28 records chained)
+  receipt: /home/hatch/workspace/chambers/emergent-mind/flesh-pits/receipts/EXP-FP-0012-2X2-SEARCH.ndjson (28 records, 390.5s)
+EXIT: 0

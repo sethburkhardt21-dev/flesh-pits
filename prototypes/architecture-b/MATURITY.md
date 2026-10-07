@@ -229,3 +229,73 @@ receipts/EXP-FP-0011-ALIASING.ndjson (35 records, hash-chained, verified).
   reward is found repeatedly — combine disambiguation with a
   systematic-search exploration intervention. Recorded as a negative in
   research/negative_results.md.
+  **2026-10-07 — EXP-FP-0012 2x2 factorial (disambiguation x systematic
+  search): the mechanism lead does NOT resolve (NULL_HOLDS).** The
+  resolving experiment the 0011 lead called for: 2x2 on pomaze (B-BASE /
+  B-AUG / B-SEARCH / B-AUGSEARCH; 6 fresh paired seeds 94007–94012, 15
+  eps/arm/seed, preregistered before run —
+  experiments/preregistration_2X2_SEARCH.json; receipt
+  `../../receipts/EXP-FP-0012-2X2-SEARCH.ndjson`, 28 records, hash-chained,
+  G0/G1/G2/G3/G4 all pass). SEARCH = driver-side count bonus
+  b(a)=0.3/sqrt(1+c[(key,a)]) on the 5-field canonical obs key, added to
+  the selector's vhat via per-instance wrap (never reads the odom channel —
+  the AUG x SEARCH interaction is unconfounded); odom_wrapper.py reused
+  verbatim (sha matches the 0011 receipt). 6-seed aggregates: BASE p_goal
+  0.1000 / −3.7534; AUG 0.1000 / −3.4669; SEARCH 0.1000 / −3.7031;
+  AUG+SEARCH 0.1222 / −3.4537. Interaction gates: +0.0222 on p_goal (needed
+  ≥ 0.15), −0.0371 on return (needed ≥ 0.5) — neither fires. Main effects
+  ~zero (search +0.011 p_goal; aug +0.011 p_goal / +0.27 return — the same
+  sub-gate noise 0011's shuffle arm explained). The bonus was behaviorally
+  active (mean 0.072/tick vs |vhat| ~0.28; ~65 (key,action) pairs covered)
+  but p_goal_SEARCH == p_goal_BASE: a count bonus on the *aliased* obs-key
+  space covers aliased keys without frontier-seeking toward unvisited
+  positions, and the tree-maze hitting time under any undirected policy ≫
+  200 steps. Binding diagnostics: goal-probe retention WORSE in AUG+SEARCH
+  than AUG alone (36% vs 67% closer at end); late−early p_goal flat
+  everywhere. Maturity impact: no component level moves — the 0010
+  characterization (exploration-dominant + representation-bound +
+  transient credit) stands, and B's pomaze failure remains
+  EXPLORATION-dominant with neither tested lever moving it. Recorded as a
+  negative in research/negative_results.md.
+
+## 2026-10-07 — EXP-FP-0013 retention causal test: slowing the R-table erasure does NOT fix the goal-trial washout (NULL_HOLDS, NR-B-012)
+
+Causal follow-up to the EXP-FP-0010 B diagnosis (credit-RETENTION: 88 goal
+probes, only 0.41 closer at run end). Intervention: RetentionGuardModel
+(prototypes/architecture-b/retention_guard.py, additive — agent.py,
+generative_model.py, memory.py, precision.py untouched, G0 MATCH), an
+asymmetric R-table rate (full etaR on reward > 0 trials, etaR/20 on
+reward <= 0 trials). 4 fresh paired seeds 96001–96004, 15
+episodes/arm/seed, preregistered before run
+(experiments/preregistration_RETENTION.json); receipt
+receipts/EXP-FP-0013-RETENTION.ndjson (28 records, hash-chained, verified).
+- H required retention fraction >= 0.70 vs 0.41 baseline. Observed:
+  B-BASE 0.091 (1/11) vs B-RETENTION 0.154 (2/13). Gate: NO.
+  mean|1.0-rhat_at_end|: 1.34 BASE / 1.14 RET (baseline 1.18) — the head
+  still ends ~the full reward magnitude from the goal value. p_goal:
+  11/60 vs 13/60 — exploration unchanged. **Verdict: NULL_HOLDS.**
+- Mechanism of the null (measured): the guard preserved R[a*]
+  (0.7448 -> 0.6946 across 400 -0.01 trials), but rhat = w_r.f + b_r +
+  R[a] is a SUM — the full-rate global head learned negative weights on
+  the goal state's features (linear component +2.27 -> -0.46), exactly
+  canceling the retained R credit. The washout has TWO legs; the R-table
+  erasure is A leg, not the binding one.
+- Control: changing_rule 23.22 -> 20.33 (0.88x >= 0.7x PASS);
+  delayed_reward 0.052 -> 0.098 (better, PASS). Intervention safe, not
+  effective.
+- Frozen gates all pass: G0 MATCH, G1 tripwire CLEAN pre-run, G2
+  determinism -3.260000 vs -3.260000 MATCH at 1e-9, G3 chain verified,
+  G4 nothing pushed, G5 controls pass.
+- Unit tests: prototypes/architecture-b/tests/test_retention_guard.py
+  (7 tests) green.
+- Maturity impact: no component level moves. The 0010 credit-retention
+  diagnosis stands; its mechanism is refined: retention requires
+  guarding the SUMMED reward prediction, not the R-table leg alone.
+  Recorded as a negative in research/negative_results.md (NR-B-012).
+  Next resolving experiment: slow eta_r alongside etaR on non-positive
+  trials, or a slow consolidated reward-mean tracker read via
+  max(fast, slow).
+- Incidental (pre-existing, NOT fixed per additivity — flagged):
+  HierarchicalGenerativeModel.snapshot()/restore() raises ValueError on
+  the empty-context key ("" -> int("")), breaking ArchB.snapshot()/
+  restore() on single-context envs.

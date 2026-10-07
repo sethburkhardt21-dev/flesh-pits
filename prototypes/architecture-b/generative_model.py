@@ -58,6 +58,16 @@ def _matvec(m: List[List[float]], v: List[float]) -> List[float]:
     return [sum(row[j] * v[j] for j in range(len(v))) for row in m]
 
 
+def _decode_ctx_key(k: str) -> tuple:
+    """Inverse of snapshot()'s \",\".join(map(str, key)) encoding.
+
+    The empty context key () serializes to \"\" — splitting that would give
+    [\"\"] and int(\"\") raises ValueError (broke restore on single-context
+    envs like pomaze). Empty string decodes back to ().
+    """
+    return tuple(map(int, k.split(","))) if k else ()
+
+
 class HierarchicalGenerativeModel:
     """Two-level predictive-coding world model with persistent beliefs."""
 
@@ -315,9 +325,9 @@ class HierarchicalGenerativeModel:
         self.precision_kind = state.get("precision_kind", "estimated")
         self.surprise_k = float(state.get("surprise_k", 4.0))
         self.W = state["W"]; self.w_r = state["w_r"]; self.b_r = state["b_r"]
-        self.ctx_D = {tuple(map(int, k.split(","))): v
+        self.ctx_D = {_decode_ctx_key(k): v
                       for k, v in state["ctx_D"].items()}
-        self.ctx_R = {tuple(map(int, k.split(","))): v
+        self.ctx_R = {_decode_ctx_key(k): v
                       for k, v in state["ctx_R"].items()}
         self.mu0 = state["mu0"]
         self.prec0.restore(state["prec0"]); self.prec1.restore(state["prec1"])

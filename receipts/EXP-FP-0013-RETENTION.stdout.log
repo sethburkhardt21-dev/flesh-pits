@@ -1,0 +1,30 @@
+  pomaze         B-BASE      seed=96001: mean=-3.8613 p_goal=1/15 probes=1
+  pomaze         B-BASE      seed=96002: mean=-3.1547 p_goal=3/15 probes=3
+  pomaze         B-BASE      seed=96003: mean=-3.3080 p_goal=3/15 probes=3
+  pomaze         B-BASE      seed=96004: mean=-3.0967 p_goal=4/15 probes=4
+  pomaze         B-RETENTION seed=96001: mean=-3.2600 p_goal=4/15 probes=4
+  pomaze         B-RETENTION seed=96002: mean=-3.2040 p_goal=3/15 probes=3
+  pomaze         B-RETENTION seed=96003: mean=-3.4733 p_goal=2/15 probes=2
+  pomaze         B-RETENTION seed=96004: mean=-3.3167 p_goal=4/15 probes=4
+  changing_rule  B-BASE      seed=96001: mean=+23.8667 p_goal=0/15 probes=0
+  changing_rule  B-BASE      seed=96002: mean=+22.2000 p_goal=0/15 probes=0
+  changing_rule  B-BASE      seed=96003: mean=+21.9333 p_goal=0/15 probes=0
+  changing_rule  B-BASE      seed=96004: mean=+24.8667 p_goal=0/15 probes=0
+  changing_rule  B-RETENTION seed=96001: mean=+18.6000 p_goal=0/15 probes=0
+  changing_rule  B-RETENTION seed=96002: mean=+18.8667 p_goal=0/15 probes=0
+  changing_rule  B-RETENTION seed=96003: mean=+22.0000 p_goal=0/15 probes=0
+  changing_rule  B-RETENTION seed=96004: mean=+21.8667 p_goal=0/15 probes=0
+  delayed_reward B-BASE      seed=96001: mean=+0.0493 p_goal=0/15 probes=0
+  delayed_reward B-BASE      seed=96002: mean=+0.0280 p_goal=0/15 probes=0
+  delayed_reward B-BASE      seed=96003: mean=+0.1067 p_goal=0/15 probes=0
+  delayed_reward B-BASE      seed=96004: mean=+0.0253 p_goal=0/15 probes=0
+  delayed_reward B-RETENTION seed=96001: mean=+0.2627 p_goal=0/15 probes=0
+  delayed_reward B-RETENTION seed=96002: mean=+0.0307 p_goal=0/15 probes=0
+  delayed_reward B-RETENTION seed=96003: mean=+0.0347 p_goal=0/15 probes=0
+  delayed_reward B-RETENTION seed=96004: mean=+0.0653 p_goal=0/15 probes=0
+  verdict: {"primary_gate_pass": false, "controls_pass": true, "decision": "NULL_HOLDS"}
+  G2 determinism: -3.260000 vs -3.260000 -> MATCH
+  G0 additivity: MATCH
+  chain verify: True (28 records chained)
+  receipt: /home/hatch/workspace/chambers/emergent-mind/flesh-pits/receipts/EXP-FP-0013-RETENTION.ndjson (28 records, 170.5s)
+EXIT:0
