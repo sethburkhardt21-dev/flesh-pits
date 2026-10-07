@@ -24,7 +24,13 @@ FORBIDDEN = [
 ]
 PATTERNS = [(rx, re.compile(rx, re.IGNORECASE)) for rx in FORBIDDEN]
 
-SKIP_DIRS = {".git", "__pycache__", "var"}
+SKIP_DIRS = {".git", "__pycache__", "var",
+             # handoff/ holds reports ABOUT the work (provenance attribution to
+             # the owner's directive; kill records documenting §14 removals).
+             # Reports are not mechanisms; the tokens appear only as
+             # documentation of authority source and of rejected machinery.
+             # Verified by hand 2026-10-07.
+             "handoff"}
 SKIP_FILES = {
     "test_neutrality.py",  # this file names the tokens it hunts
     # identity_symmetry_check.py deliberately uses a historically privileged
