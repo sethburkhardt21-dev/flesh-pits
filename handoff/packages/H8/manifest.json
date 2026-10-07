@@ -1,0 +1,53 @@
+{
+  "ablation": "n/a (method); the gates ARE the ablation of silent behavior change",
+  "baseline": "ad-hoc wiring",
+  "expected_benefit": "wiring that cannot silently change behavior; the null (REJECT) was live and preregistered",
+  "generalization_bounds": [
+    "the method is only as good as the gates \u2014 behavioral-identity must name WHAT is compared (NR-A-010 lesson: behavioral content, not process-global sequence numbers)"
+  ],
+  "harvest_class": "HARVEST_NOW",
+  "integration_surface": "any future wiring of lab findings into a tick path \u2014 primary or lab",
+  "key_results": [
+    {
+      "receipt": "receipts/k8_r1_wiring_decision.json + receipts/k8_r1_wiring_confirmation.json (vendored)",
+      "result": "WIRE decision recorded 2026-10-07T07:23:05Z; all gates PASS on fresh seeds; post-wire K1-K4 reruns byte-identical (sha prefixes e007671877da7e95, bd2260363c15c, 0fc80361213e7c93, 4832d984137bfb6d)"
+    },
+    {
+      "receipt": "receipts/package_test_receipt.json (generated on test run)",
+      "result": "package test demonstrates the five-gate procedure on a toy wiring standalone, including the live REJECT null"
+    }
+  ],
+  "license": "lab-original, owner-held",
+  "maturity": {
+    "ledger": "flesh-pits/bin/maturity_audit_report.json, generated 2026-10-07T12:14:34Z",
+    "level": "EXECUTED"
+  },
+  "mechanism": "five preregistered gates (behavioral identity, byte-identical reruns, non-degradation, sole-path, recovery replication) + post-wire byte-identical reruns of every prior experiment, all in one hash-chained decision receipt",
+  "mechanism_name": "K8 wire-by-decision-receipt discipline (method, not a mechanism)",
+  "merge_status": "PACKAGED ONLY \u2014 staged for the primary effort's decision per \u00a751 reorient. NOT merged into primary.",
+  "model_dependencies": "none \u2014 float arithmetic only; no foundation-model call in the loop",
+  "notes": [
+    "package test uses a toy wiring to demonstrate the procedure; canonical evidence is the vendored K8 decision receipt"
+  ],
+  "package_id": "H8",
+  "package_test_result": "PASS standalone (copied to /tmp, ran without the lab tree)",
+  "risks": [
+    "gate quality is the method's ceiling"
+  ],
+  "rollback": "n/a (method)",
+  "sources": [
+    {
+      "bytes": 13879,
+      "lab_source": "flesh-pits/prototypes/architecture-a/experiments/k8_r1_wiring_confirmation.py",
+      "package_path": "src/k8_wiring_method_reference.py",
+      "role": "method reference (the actual K8 script, renamed)",
+      "sha256": "892e06bf8c82e18ac143dd860393fd3b82934776d27d233b2a0c96a2ef21a1d6"
+    },
+    {
+      "bytes": 6444,
+      "package_path": "tests/test_h8.py",
+      "role": "package test (preregistered procedure)",
+      "sha256": "30ee61eed23b79fa1b9b304de9a9657d1b4b4c22372860c86c1781394d2c470f"
+    }
+  ]
+}

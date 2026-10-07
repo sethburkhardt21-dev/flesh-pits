@@ -1,0 +1,155 @@
+{
+  "baseline": "sequential climatology (running Laplace-smoothed base rate, per domain per seed); secondary constant 0.5.",
+  "conditions": "changing_rule v1.0.0, arch_b (unmodified), affect=none, 10 episodes x 4 fresh seeds {73201,73202,73203,73204}, PredictionLog JSONL per seed, canonical derive_seed streams. 1560 ticks pooled per domain. Estimator: prototypes/architecture-b/competence_estimator.py feature_mode='A' (causal prequential replay).",
+  "config": {
+    "affect": "none",
+    "agent": "arch_b",
+    "bins": 10,
+    "contract_version": "1.0.0",
+    "env": "changing_rule",
+    "env_version": "1.0.0",
+    "episodes_per_seed": 10,
+    "estimator": "competence_estimator.CompetenceEstimator variant A (online logistic + log-linear, climatology-anchored, normalized SGD eta_p=0.1/eta_e=0.05)",
+    "experiment_id": "EXP-FP-0070",
+    "primary_seeds": [
+      73201,
+      73202,
+      73203,
+      73204
+    ],
+    "thresholds": {
+      "EPS_OBS": 0.2682,
+      "EPS_RW": 0.2067,
+      "TAU_FAIL": 0.4156
+    }
+  },
+  "config_hash": "d549ec2434f28a8567692d74f3bc56ad795492edbc2c2e7090e1a8fc2896adb3",
+  "episodes": [
+    {
+      "prediction_log": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0070.seed73201.predictions.jsonl",
+      "seed": 73201
+    },
+    {
+      "prediction_log": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0070.seed73202.predictions.jsonl",
+      "seed": 73202
+    },
+    {
+      "prediction_log": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0070.seed73203.predictions.jsonl",
+      "seed": 73203
+    },
+    {
+      "prediction_log": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0070.seed73204.predictions.jsonl",
+      "seed": 73204
+    }
+  ],
+  "experiment_id": "EXP-FP-0070",
+  "hypothesis": "A causal online competence estimator (logistic recalibrator anchored on sequential climatology + error-history/surprise/churn features) predicts arch_b's own error magnitude: Brier beats sequential climatology on >=3/4 domains AND corr(predicted_uncertainty,|actual_error|)>=0.40 on >=3/4 domains.",
+  "interpretation": "NEGATIVE (NULL-adjacent): neither win gate fires. Brier beats climatology on 2/4 domains only (D2 action_consequence 0.2488 vs 0.2504; D4 retrieval_usefulness 0.2460 vs 0.2471 -- both marginal; D1 0.2533 vs 0.2507 and D3 0.0780 vs 0.0771 LOSE). Coupling corr(uncertainty,|err|): 0.055/0.112/0.069/0.036 -- 0/4 reach 0.40. Mechanism (measured): changing_rule |err| is nearly temporally i.i.d. (lag-1 autocorr 0.13, ~0 by lag 5; episode means flat, no post-flip transient), so error-HISTORY features carry almost no signal; the 2 marginal beats come from the fast event-rate feature, not error-magnitude tracking. Kill arms: anchor-only reproduces Brier_climo to 1e-9 (PASS -- improvements are learned); error-permutation shows intact<permuted on D2/D4 (error features add small independent signal there). Unit tests 5/5 green, tripwire clean. Estimator remains PROTOTYPE (replay only, not wired into act()). Next: variant B (EXP-FP-0071) adds prediction-time novelty context (mean_similarity, n_nbrs, retrieval_used, e1_ema).",
+  "limitations": "Single env (changing_rule), closed-loop; affect=none; prototype replay status; anchor means early ticks equal baseline by construction (pooled prequential Brier includes the transient honestly).",
+  "null_hypothesis": "Brier_est >= Brier_climo on every domain AND/OR corr < 0.40 on every domain -- the estimator carries no competence information beyond the base rate (theater).",
+  "preregistered_metric": "Per-domain Brier_est vs Brier_climo (sequential Laplace); corr(predicted_uncertainty,|actual_error|)>=0.40 gate; ECE/MCE reported. Preregistered: experiments/preregistration_EXP-FP-0070.json (sealed pre-run; two pre-run amendments documented therein, no battery data seen).",
+  "prev_receipt_hash": "75f474d1b045ef74a8570105a36d3e87b7cb0323970973729ea85c0cff29cf53",
+  "primary_seed": [
+    73201,
+    73202,
+    73203,
+    73204
+  ],
+  "receipt_hash": "05ed0296f6d465d95955aaeb830c0dc4bd9e0c45cb698f1641424cb0c7adccd6",
+  "started_utc": "2026-10-07T12:39:05.264331+00:00",
+  "summary": {
+    "domains": {
+      "action_consequence": {
+        "base_rate": 0.5262820512820513,
+        "brier_climo": 0.25036183227270964,
+        "brier_const05": 0.25,
+        "brier_est": 0.24875239877987557,
+        "corr_ehat_err": 0.12379233951951489,
+        "corr_uncertainty_err": 0.1120169948016946,
+        "ece": 0.04333342104156354,
+        "mce": 0.6845331511646591,
+        "n": 1560,
+        "signed_error": -0.004473376965502453,
+        "skill_vs_climo": 0.0064284299177079784,
+        "verdict": "MISCALIBRATED (beats climatology but reliability off-diagonal; dispersion error)"
+      },
+      "competence_failure": {
+        "base_rate": 0.08333333333333333,
+        "brier_climo": 0.07713224218057395,
+        "brier_const05": 0.25,
+        "brier_est": 0.07797291663349853,
+        "corr_ehat_err": 0.05150309393791989,
+        "corr_uncertainty_err": 0.06908558332980104,
+        "ece": 0.032957183904320876,
+        "mce": 0.6694386334204842,
+        "n": 1560,
+        "signed_error": 0.01281851572466934,
+        "skill_vs_climo": -0.010899131532524198,
+        "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+      },
+      "next_obs": {
+        "base_rate": 0.5205128205128206,
+        "brier_climo": 0.2506540081419076,
+        "brier_const05": 0.25,
+        "brier_est": 0.25327706723649157,
+        "corr_ehat_err": 0.03533617881735223,
+        "corr_uncertainty_err": 0.05487281044205946,
+        "ece": 0.05037739973740047,
+        "mce": 0.9085623354248478,
+        "n": 1560,
+        "signed_error": -0.008085575157830536,
+        "skill_vs_climo": -0.010464859963854822,
+        "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+      },
+      "retrieval_usefulness": {
+        "base_rate": 0.43653846153846154,
+        "brier_climo": 0.2470550870232435,
+        "brier_const05": 0.25,
+        "brier_est": 0.24597126507968797,
+        "corr_ehat_err": 0.08184306491347741,
+        "corr_uncertainty_err": 0.035722538581522745,
+        "ece": 0.01963671836730799,
+        "mce": 0.7500688373764632,
+        "n": 1560,
+        "signed_error": -0.00480547689740668,
+        "skill_vs_climo": 0.0043869646912130245,
+        "verdict": "MISCALIBRATED (beats climatology but reliability off-diagonal; dispersion error)"
+      }
+    },
+    "kill_arms": {
+      "anchor_reproduces_climatology_1e9": true,
+      "error_permutation_decomposition": {
+        "action_consequence": {
+          "brier_climo": 0.25036183227270964,
+          "brier_intact": 0.24875239877987557,
+          "brier_permuted": 0.25320085606708975,
+          "ordering_intact_lt_perm_lt_climo": false
+        },
+        "competence_failure": {
+          "brier_climo": 0.07713224218057395,
+          "brier_intact": 0.07797291663349853,
+          "brier_permuted": 0.07780798008610201,
+          "ordering_intact_lt_perm_lt_climo": false
+        },
+        "next_obs": {
+          "brier_climo": 0.2506540081419076,
+          "brier_intact": 0.25327706723649157,
+          "brier_permuted": 0.2521672810452705,
+          "ordering_intact_lt_perm_lt_climo": false
+        },
+        "retrieval_usefulness": {
+          "brier_climo": 0.2470550870232435,
+          "brier_intact": 0.24597126507968797,
+          "brier_permuted": 0.25023575793536273,
+          "ordering_intact_lt_perm_lt_climo": false
+        }
+      }
+    },
+    "win_gates": {
+      "brier_beats_x_of_4": 2,
+      "coupled_ge_040_x_of_4": 0,
+      "need": ">=3 each -> NEITHER FIRES"
+    }
+  },
+  "written_utc": "2026-10-07T12:41:49.769117+00:00"
+}

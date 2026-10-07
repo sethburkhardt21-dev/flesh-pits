@@ -1,0 +1,48 @@
+{
+  "ablation": "Phase-1 audit evidence; fail-open tick / fail-closed claims",
+  "baseline": "unchained writes",
+  "expected_benefit": "tamper-evident memory writes",
+  "generalization_bounds": [
+    "'agent' provenance origin unreachable via the public API (design gap \u2014 INCONCLUSIVE item; the test seeds the genesis record to exercise the retention rule)"
+  ],
+  "harvest_class": "HARVEST_NOW",
+  "integration_surface": "memory write paths",
+  "key_results": [
+    {
+      "receipt": "Phase-1 audit evidence",
+      "result": "CAUSAL, tick-fresh in live var/being (Phase-1 audit)"
+    },
+    {
+      "receipt": "receipts/package_test_receipt.json (generated on test run)",
+      "result": "package test proves the chaining standalone (bootstrap degrades, retention, tamper-breaks-chain, rollback, allowlist, store-tamper detection)"
+    }
+  ],
+  "license": "lab-original, owner-held",
+  "maturity": {
+    "ledger": "flesh-pits/bin/maturity_audit_report.json, generated 2026-10-07T12:14:34Z",
+    "level": "CAUSAL"
+  },
+  "mechanism": "hash-chained ProvenanceStore on memory writes (retention law, compare-and-set rollback, path allowlist)",
+  "mechanism_name": "memory_provenance hash-chaining",
+  "merge_status": "PACKAGED ONLY \u2014 staged for the primary effort's decision per \u00a751 reorient. NOT merged into primary.",
+  "model_dependencies": "none \u2014 float arithmetic only; no foundation-model call in the loop",
+  "notes": [
+    "harvest entry lists the source as the live tree (core/memory_port/memory_provenance.py, already live-wired); this package was built from the lab-local copy at flesh-pits/var/scratch-mneumora-main/mneumora/core/memory_port/memory_provenance.py (inside flesh-pits; the live Being tree was not touched). Canonical source remains the live tree.",
+    "listed for completeness per \u00a751 reorient"
+  ],
+  "package_id": "H6",
+  "package_test_result": "PASS standalone (copied to /tmp, ran without the lab tree)",
+  "risks": [
+    "'agent' provenance genesis path needs architect attention"
+  ],
+  "rollback": "n/a \u2014 already live",
+  "sources": [
+    {
+      "bytes": 10399,
+      "lab_source": "flesh-pits/var/scratch-mneumora-main/mneumora/core/memory_port/memory_provenance.py",
+      "package_path": "src/memory_provenance.py",
+      "role": "mechanism (lab-local copy; see notes)",
+      "sha256": "bff6f99c1d2548e7ba804b30eaf178558cc4bc661af45038af7fa5a9566e3041"
+    }
+  ]
+}

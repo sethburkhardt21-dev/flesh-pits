@@ -25,8 +25,14 @@ appended beneath, never edited into the preregistration.
 | EXP-FP-0010 | pomaze (+pomaze_dense, pomaze_near additive variants) | RANDOM/SYMBOLIC/A/B/C x STD/DENSE/NEAR/DEMO | diagnostic: D1-D11 discriminators, per-arch failure class | COMPLETE (CHARACTERIZED — result below) |
 | EXP-FP-0011 | pomaze / changing_rule | arch_b BASE vs odom-augmented vs shuffle-odom (kill) vs control | causal: p_goal doubles AND Δmean_return ≥ 0.5 (6 fresh seeds, paired) | COMPLETE (NEGATIVE — null holds, result below) |
 | EXP-FP-0012 | pomaze | arch_b 2x2 factorial: BASE vs odom-AUG vs count-bonus SEARCH vs AUG+SEARCH | interaction: (AS−S)−(A−B) ≥ 0.15 p_goal AND ≥ 0.5 mean return (6 fresh seeds, paired) | COMPLETE (NEGATIVE — null holds, result below) |
+| EXP-FP-0040 | pomaze | unconditional vs shadow-ûhat-gated vs no-correction retrieval | SELECTIVE deficit: seed-mean ΔGN>0.25, ΔUG/ΔUN<0.5, ≥3/4 seeds sign(ΔGN)>0 AND corr(Δe,L_e)>0; CEILING/UNIFORM/NO-DEFICIT nulls | COMPLETE (NO-DEFICIT — gate preserves retrieval value; mechanism of null in registry/negative_results) |
 | EXP-AB-K3D | changing_rule/delayed_reward/delayed_multistep/compositional_rule | arch_b intact vs lesion_l1 | lesion gap D_e0 per env/segment + per-channel D_c, 4 seeds, 95% CI | COMPLETE (characterized — |e0| a two-env phenomenon) |
 | EXP-AB-K3E | delayed_reward | arch_b intact vs lesion_l1 closed-loop (A); per-branch vs global-map frozen planner (B) | mean episode return gap (condition − control), 30 eps/arm, 4 seeds; LOAD-BEARING iff seed-mean > +0.05 AND positive ≥3/4 | COMPLETE (PREDICTION-ONLY DECORATION — bound recorded as NR-B-011) |
+| EXP-FP-0070 | changing_rule | arch_b + causal online competence estimator (variant A: error-history features) vs sequential climatology | Brier_est < Brier_climo on >=3/4 domains AND corr(uncertainty,|err|)>=0.40 on >=3/4 | COMPLETE (NEGATIVE — 2/4 Brier beats, 0/4 coupling; result below) |
+| EXP-FP-0071 | changing_rule | arch_b + estimator variant B (prediction-time novelty features) vs sequential climatology | Brier_est < Brier_climo on >=3/4 domains AND corr(uncertainty,|err|)>=0.40 on >=3/4 | COMPLETE (NEGATIVE — 2/4 Brier beats, 0/4 coupling; result below) |
+| EXP-FP-0072 | changing_rule | arch_b + estimator variant C (channel-decomposed REST error features) vs sequential climatology | Brier_est < Brier_climo on >=3/4 domains AND corr(uncertainty,|err|)>=0.40 on >=3/4 | COMPLETE (NEGATIVE — 2/4 Brier beats, 0/4 coupling; three-variant arc closed, result below) |
+| EXP-FP-0050 | delayed_multistep + compositional_rule | arch_b intact vs lesion_l1 closed-loop, learning on | control lesion gap G = mean_return(intact) − mean_return(lesioned), 30 eps/arm, 4 fresh seeds; EARNS_KEEP iff G>0 on 4/4 AND solvability sanity gate (SOLVE_BAR sealed pre-run) | COMPLETE (compositional_rule EARNS_KEEP 4/4; delayed_multistep VOID on sanity — result below) |
+| EXP-FP-0021 | delayed_reward | arch_a ECR (EpisodicContrastiveArbitrator) learned vs frozen | R = total(learned)/total(frozen) ≥ 1.30 on 4/4 fresh seeds {21001–21004}, 8 eps/seed | COMPLETE (POSITIVE — 4/4 wins, NR-A-006 conditionally lifted; result below) |
 
 ---
 
@@ -770,6 +776,26 @@ receipt records, chain verified, G0c determinism MATCH)**
 - Methods notes: (1) n_contexts formed closed-loop: 2–3 per seed (2 when the agent always picks the same t=0 branch — contexts (2) and (chosen) only). (2) Arm B R_ctx tables differ across branches by training-stream luck (e.g. seed 77103 ctx-(2) stay=+0.310), which is exactly the noise the global map pools away. (3) G0d never triggered (no voided seeds). (4) historical chain anomalies (pre-chain receipts, EXP-AB-K3C prev mismatch) preserved untouched per lab law; K3E's own linkage verifies clean.
 - MATURITY.md hierarchy row extended with the bound; maturity stays INTEGRATED (no upgrade — the effect is not load-bearing).
 
+---
+
+## EXP-FP-0050 — hierarchy beyond the two envs: closed-loop CONTROL lesion gaps on delayed_multistep + compositional_rule (FINAL_HANDOFF §9 item 7)
+
+**PREREGISTERED (2026-10-07, before run; canonical copy: experiments/preregistration_EXP-FP-0050.json; seeds {78101..78104} + agent inits {78120..78123}/{78130..78133} checked fresh — zero overlap with any prior lab seed set)**
+- background: FINAL_HANDOFF §9 item 7 (gap #3) — harder tasks (delayed multi-step, compositional rules) with reward-channel instruments; preregister the lesion gap. K3B's hierarchy signal stands only on changing_rule + delayed_reward. K3C tested the two harder tasks with prediction-error instruments (open-loop): NO EFFECT (task1 D_e0 −0.0470, task2 D_rerr −0.2684 seed-mean). K3E tested whether the surviving prediction signal converts into control on delayed_reward: prediction-only decoration. Remaining cell: the CLOSED-LOOP CONTROL lesion gap (performance) on the two harder tasks, with a preregistered solvability sanity gate.
+- hypothesis: intact beats L1-lesioned on closed-loop mean episode return, consistently across seeds, on both harder tasks.
+- null: no consistent control gap — K3C's prediction-error null extends to control.
+- preregistered metric: per task, per seed G = mean_return(intact) − mean_return(lesioned) (performance units; positive = hierarchy helps control), 30 closed-loop episodes/arm/seed, learning on, paired env streams + paired agent inits. EARNS_KEEP(task) iff G > 0 on ALL 4 seeds AND the sanity gate passes (seed-mean intact ≥ SOLVE_BAR: delayed_multistep 0.50 — requires genuine +1.0 hits; compositional_rule 24.0 — 60% correct; both sealed pre-run from the pilot). Sanity FAIL → task VOID for the lesion-gap question (bound, not null).
+- baseline/ablation: lesion_l1=True closed-loop, learning on (the K3B/K3C/K3D/K3E lesion — the reward-channel lesion as in K3B: L1 top-down path disabled, removing the L1 context-contingency / reward-channel tables).
+- conditions: arch_b v1, action_mode='active_inference', affect='none', learning on; delayed_multistep v1.0.0 / compositional_rule v1.0.0; additive driver prototypes/architecture-b/experiments_fp0050.py (run_closed_loop verbatim).
+- pilot (throwaway seeds 78111/78112, exact main-run config, 12 eps; extended 30-ep check on delayed_multistep seed 78111): delayed_multistep intact 0.148/0.045 with 0/30 +1.0 hits and a degrading late-run trend, random 0.217 → expected VOID. compositional_rule intact 28.75 (72% correct), lesioned 20.67, random 23.0, pilot G=+8.08 → gap test live. Pilot informed thresholds only; no main-run data before sealing.
+- frozen gates: G0a arm lengths checked in-driver; G0b determinism spot-check (first task, first seed, intact arm recomputed to 1e-12); G0c crash → VOID seed, no reseeding (4 valid seeds required); G0d hash-chained receipts + verify_chain.
+
+**RESULT (2026-10-07, run complete — 16 closed-loop arms, G0b PASS; lane receipt receipts/EXP-FP-0050.json hash-verified, chained; detail prototypes/architecture-b/receipts/EXP-FP-0050.json hash-verified, chain-linked to EXP-AB-K3E)**
+- compositional_rule: **EARNS_KEEP** — per-seed G = +4.9333 / +6.3000 / +6.1333 / +4.8333; seed-mean +5.5500, positive 4/4; sanity PASS (seed-mean intact 26.13 ≥ 24.0). The lesioned arm sits at chance (20.37–20.90 vs 20.0 analytic) on ALL 4 seeds — without L1, ArchB cannot learn the XOR contingency at all; the 12 L1 per-(cue_a,cue_b) context experts are load-bearing for control. This is the program's first load-bearing-for-control hierarchy result on a harder task, and it revises K3C's "two-env phenomenon" bound FOR THE CONTROL DEPENDENT VARIABLE: K3C's null was prediction error, where the same tables memorize stale contingencies under phase flips (a liability); for control within a run they are the mechanism that learns the 3-way interaction. Both true — liability for prediction under shift, load-bearing for control.
+- delayed_multistep: **VOID (sanity FAIL)** — per-seed G = −0.0493 / −0.0033 / −0.0447 / +0.0587; seed-mean −0.0097, positive 1/4; seed-mean intact 0.279 < 0.50 bar. All arms shaping-only on all 4 seeds; the hidden-conjunction +1.0 is never experienced by either arm, so no control lesion gap can be measured. Recorded as the bound (research/negative_results.md NR-B-013). Descriptive only (not a verdict): intact ≤ lesioned on 3/4 seeds.
+- Methods notes: (1) n_contexts closed-loop: compositional_rule 12/12 both arms (context key covers (cue_a, cue_b)); delayed_multistep 4–7. (2) G0d never triggered (no voided seeds). (3) The pilot's compositional_rule gap (+8.08) replicated in sign and rough magnitude (+5.55) on 4 fresh seeds. (4) Unit tests added for the three K3C-era envs (experiments/tests/test_envs.py: TestDelayedMultistep, TestCompositionalRule, TestCueDelayedReward — 13 new tests, 29/29 pass); the envs themselves (v1.0.0) were verified against the mandate spec and left byte-identical.
+- MATURITY.md hierarchy row extended; maturity stays INTEGRATED (real and load-bearing on one harder task for control, but narrow: VOID on the other, decoration on delayed_reward per K3E).
+
 ## EXP-FP-0010 — POMAZE cross-architecture failure diagnosis (DIAGNOSTIC)
 
 **PREREGISTERED (2026-10-07, before run; full JSON: experiments/preregistration_POMAZE_DIAG.json)**
@@ -876,3 +902,130 @@ receipt records, chain verified, G0c determinism MATCH)**
 - Unit tests: prototypes/architecture-b/tests/test_retention_guard.py (7 tests) green; existing test_arch_b.py suite re-run in the gate suite below.
 - Rules out: "R-table erasure is THE washout" (it is A leg, not the binding one). Next resolving experiment: guard the summed prediction (slow eta_r alongside etaR, or a slow consolidated reward-mean tracker read via max(fast, slow)).
 - Incidental: pre-existing HierarchicalGenerativeModel.snapshot()/restore() bug on the empty-context key ("" -> int("") ValueError) — affects ArchB.snapshot()/restore() on single-context envs; NOT fixed per additivity; flagged for the coordinator. Full detail: research/negative_results.md (NR-B-012).
+
+---
+
+## EXP-FP-0040 — retrieval-gate SELECTIVE deficit: unconditional vs shadow-ûhat-gated vs no-correction on pomaze (§9 item 6, B gap #2 mechanism follow-up)
+
+**PREREGISTERED (2026-10-07, before run — code not yet written; canonical copy: experiments/preregistration_EXP-FP-0040.json; seeds {90101..90104} checked fresh before sealing)**
+- background: EXP-FP-0006 (live sign gate collapsed; policy REJECTED) + EXP-FP-0007 (shadow gate H SUPPORTED, pomaze 4 seeds, INTEGRATED) + EXP-FP-0007R (replication NEGATIVE; combined 9-seed pomaze dGU ~+0.09). EXP-FP-0006 secondary: skipping vs applying the correction is return-neutral on pomaze (per-seed −0.33…+0.23) — in tension with M1's store lesion (+2.200/+2.158 selective deficit, pomaze, REPRODUCED 5/5).
+- hypothesis: the shadow-ûhat gate is a faithful selective filter: (b) gated performs BETWEEN (a) unconditional and (c) no-correction, with the deficit concentrated on episodes where retrieval mattered — NOT a uniform collapse (which would mean the gate is just broken).
+- nulls: CEILING (|seed-mean ΔUN| ≤ 0.25: correction carries no return leverage, deficit question vacuous); UNIFORM (seed-mean ΔGN ≤ 0.25 while seed-mean ΔUG > 0.25: gate ≈ no-correction, broken filter); NO-DEFICIT (seed-mean ΔUG ≤ 0: gated ≥ unconditional, the 0007/0007R direction).
+- preregistered metric (EXACT): R_e^arm per seed s, arm ∈ {U, G, N}, e=1..15 (paired by (seed, episode index); identical primary seeds across arms). dUG_s = mean_s^U − mean_s^G; dGN_s = mean_s^G − mean_s^N; dUN_s = mean_s^U − mean_s^N. L_e,s = mean realized benefit over correction-available ticks of episode e from the U-arm PredictionLog (target="retrieval_usefulness", field "actual"); De,s = R_e,s^U − R_e,s^G; corr_s = pearson(De, L_e) over 15 episodes.
+- verdict rule: CEILING first (guard): seed-mean |dUN| ≤ 0.25. Then UNIFORM: seed-mean dGN ≤ 0.25 AND seed-mean dUG > 0.25. Then SELECTIVE: seed-mean dGN > 0.25 AND seed-mean dUG/seed-mean dUN < 0.5 AND ≥3/4 seeds sign(dGN) > 0 AND ≥3/4 seeds corr_s > 0. Then NO-DEFICIT: seed-mean dUG ≤ 0.
+- arms: U = gate_policy="ungated" (live default, mirroring 0007). G = gate_policy="uhat", threshold=0.0 FROZEN, gate_uhat_source="shadow" (0007 instrument reused verbatim; UsefulnessPredictor NOT modified). N = gate_policy="uhat", gate_threshold=+inf, gate_uhat_source="shadow" (never-apply no-correction arm: store intact, shadow trains on counterfactual unconditional benefit; live trains on realized benefit=0 — the 0006 fixed point deployed deliberately). (c) is no-CORRECTION, distinct from M1's store-disabled lesion; everything held constant except correction application.
+- conditions: pomaze v1.0.0, arch_b v1, affect='none', action_mode='active_inference', 15 episodes, identical primary seeds across arms (paired). 4 fresh seeds {90101, 90102, 90103, 90104}.
+- honest prior (recorded, not used to decide): combined 0007/0007R 9-seed dGU ~+0.09 → dUG ~−0.09; 0006 secondary suggests dUN small. SELECTIVE needs correction leverage ≥0.25, which prior data does not promise.
+- frozen gates: G0 instrument-validity (G rate strictly in (0,1) on ≥3/4 seeds, else VOID); G1 fabrication-tripwire CLEAN pre-run; G2 determinism spot-check (first-seed G arm recomputed, unrounded 1e-12); G3 hash-chained receipt + verify_chain.
+- secondary diagnostics: G apply rate per seed; N gate stats (n_applied=0 expected); corr(uhat, benefit) from U logs (signal replication, currently 13 seeds); corr_s per seed; shadow corr from G arm; mean uhat applied vs blocked.
+
+**RESULT: pending — preregistered before implementation.**
+
+**RESULT (2026-10-07, run complete — 4 fresh seeds {90101..90104}, 15 pomaze episodes/arm/seed × 3 arms + G2 recompute; receipt receipts/EXP-FP-0040.json; own hash verifies)**
+- Verdict: **NO-DEFICIT** (preregistered branch; H's selective-deficit pattern does NOT materialize).
+- Per-seed (mean episode return): U −3.751/−3.528/−3.836/−3.511; G −3.646/−3.853/−3.273/−3.535; N −3.772/−4.172/−3.591/−4.139.
+- Seed-means: dUG = mean(U)−mean(G) = −0.0795 (gated ≥ unconditional); dGN = +0.3415 (gated > no-correction, 4/4 seeds sign>0); dUN = +0.2620 (just above the 0.25 CEILING bar). Priority: |dUN|=0.2620 > 0.25 → not CEILING; dGN=0.3415 > 0.25 → not UNIFORM; corr(deficit,leverage)>0 on only 1/4 seeds → not SELECTIVE; dUG ≤ 0 → **NO-DEFICIT**.
+- The task's H predicted gated BETWEEN unconditional and no-correction with a selective deficit; the data say gating sacrifices NO retrieval value — gated matches-or-beats unconditional and sits clearly above no-correction. Consistent with the EXP-FP-0007/0007R combined 9-seed direction (dUG ~−0.09 there).
+- Mechanism of the null (measured, answers the preregistered "write the mechanism" requirement):
+  - Is uhat uninformative? NO. corr(uhat, benefit) on the clean U-arm logs = +0.383/+0.409/+0.357/+0.452 (n≈2800–2924) — the ranking signal replicates (17 seeds total). Shadow predictor: +0.38…+0.46 on G and N arms alike.
+  - Is the threshold wrong? NO. G apply rate 0.732–0.811 (strictly in (0,1), discriminating throughout); mean uhat for applied (+0.13…+0.17) vs blocked (−0.05…−0.06) decisions separates cleanly.
+  - Then why no selective deficit? There is no deficit to be selective about: De = R_e^U − R_e^G is ≈0 or negative on most episodes (G ≥ U). The corr(deficit, leverage) criterion failed trivially — 3/4 seeds show NEGATIVE correlation, and on seed 90101 (the only seed with dUG>0, −0.105→+0.105? no: dUG=−0.105 means G>U; corr=+0.73 there is the one positive) the selective signature appeared only where a positive deficit existed. The deficit framing assumed gated < unconditional; the gate instead preserves the correction's value.
+  - Bonus resolution of the 0006 tension: the cleaner no-correction arm (N: store intact, shadow trains on counterfactual unconditional benefit, everything else held constant) shows the correction IS worth something — dUN = +0.26, dGN = +0.34. The 0006 secondary's "return-neutral" reading came from the degenerate never-apply gate whose predictor trained on realized benefit=0.
+- Frozen gates: G0 PASS (4/4 discriminating); G1 tripwire CLEAN pre-run; G2 PASS (recompute −3.646000 == −3.646000 at 1e-12); G3: own hash f95ade15… verifies; forward chain healthy (concurrent lane's EXP-FP-0060-ATTRIBUTION chained onto this receipt at 12:40). Backward-link anomaly (documented, preserved untouched per lab law): this receipt's prev pointed at the concurrent lane's EXP-FP-0050 first write (c55fdebe…); that lane rewrote its receipt at 12:40 (new hash 75f474d1…, now chaining to 0060), so the backward link resolves to a superseded version. verify_chain flags EXP-FP-0040 prev mismatch alongside the pre-existing pre-chain/K3C anomalies; own hash verifies.
+- Detail: prototypes/architecture-b/experiments_out/EXP-FP-0040.seed{90101..90104}.U.predictions.jsonl. Driver: prototypes/architecture-b/exp_retrieval_gate_selective.py (additive; imports from exp_retrieval_gate_shadow; retrieval_gate.py/predictions.py/agent.py untouched).
+- Recorded as a negative result (research/negative_results.md): the gate is NOT a broken filter (UNIFORM refuted) and NOT value-destroying — it is a non-harmful selective instrument whose decision value on pomaze return remains bounded by the 0007R replication failure. No maturity change (gate stays INTEGRATED).
+
+## EXP-FP-0060-ATTRIBUTION — self/world attribution probe + source-attribution quarantine (science-matrix priorities 7 + 6)
+
+**PREREGISTERED (2026-10-07, before run; full JSON: experiments/preregistration_SELF_WORLD_ATTRIB.json, with two pre-run amendments)**
+- question: can a comparator instrument (efference copy + learned forward model; Row 10 analogue) attribute each observed change as self- vs externally-caused under 15% injected mismatches — and does any predicted/simulated content leak into the evidence store as if observed (Row 16 / audit P-B03 quarantine)?
+- new additive env: experiments/envs/self_world_mismatch.py v1.0.0 (subclass of self_world; override/swap/delay modes, p=0.15, scoring-only ground-truth cause labels + coincides_hand flag; contract v1.0.0 §5 — agents never see info).
+- instrument: experiments/source_attributor.py — ComparatorAgent (per-channel learned action→delta coupling, EMA eta=0.1, residual > STEP/4 → "world"; deterministic alternation policy; forward predictions tagged "predicted" to an in-memory buffer) vs ChanceAgent null (paired streams).
+- store: experiments/episodic_store.py — tag-enforced quarantine (admit requires source=="observed"; chain-hashed records; restore re-admits through the gate).
+- amendments (pre-run, documented in JSON): (1) instrument rewrite — transition processing moved into act() (two-tick-delta bug fixed); PRIMARY metric changed from hit_mismatch≥0.80 to hit_visible≥0.90 because a coinciding exogenous move is informationally invisible to any efference-copy comparator (ceiling ~0.67); added H1b err_coincide (comparator-predicted misattribution); (2) seeds 96011–96014 → 96021–96024 (96011 touched by pilot).
+- unit tests: experiments/tests/test_attribution_probe.py (8) + test_episodic_store.py (6) — green pre-run.
+
+**RESULT (2026-10-07, run complete — receipt receipts/EXP-FP-0060-ATTRIBUTION.json, hash-chained, self-consistent)**
+- H1 PASS: comparator hit_visible = 1.00 on all 4 seeds (n=16–17 visible trials/seed; gate ≥0.90 seed-mean, ≥0.85 on ≥3/4) vs chance 0.37 (null ≈0.50). accept_normal seed-mean 0.896 ≥ 0.80 (swap-mode ball-self ticks are expected misses, ~5%). err_coincide = 1.00 on all seeds: coinciding exogenous moves are systematically misattributed to self — the comparator model's predicted failure mode, confirmed. hit_all (ungated) = 0.55–0.77, consistent with the ~0.67 informational ceiling.
+- H2 FAIL (honest, per prereg letter): 1 of 12 red-team attempts admitted — a prediction payload with a FORGED source='observed' tag. The store's contract is tag-enforced, so this is the documented boundary made measured: zero non-observed-tagged records were ever admitted (audit 0 violators, chain valid). Recorded in research/negative_results.md with the resolving experiment (content-aware quarantine via prediction-registry hash binding).
+- Post-run fix (documented): restore() wrongly rejected legitimate empty snapshots; fixed, unit tests re-green, definitive run re-executed (deterministic; Part A byte-identical across runs).
+- CONSCIOUSNESS: UNRESOLVED. Mechanism test only.
+
+## EXP-FP-0070 — causal online competence estimator, variant A (error-history features)
+
+**PREREGISTERED (2026-10-07, before run; experiments/preregistration_EXP-FP-0070.json)**
+- hypothesis: A causal online competence estimator (logistic recalibrator anchored on sequential climatology + error-history/surprise/churn features) predicts arch_b's own error magnitude: Brier beats sequential climatology on >=3/4 domains AND corr(predicted_uncertainty, |actual_error|) >= 0.40 on >=3/4 domains.
+- null: Brier_est >= Brier_climo on every domain AND/OR corr < 0.40 on every domain (theater).
+- preregistered metric: per-domain Brier_est vs Brier_climo; corr coupling gate >=0.40; ECE/MCE reported. Thresholds frozen from history (EPS_OBS=0.2682, EPS_RW=0.2067, TAU_FAIL=0.4156).
+- baseline: sequential climatology (Laplace running base rate, per domain per seed).
+- conditions: changing_rule v1.0.0, arch_b unmodified, affect=none, 10 eps x 4 fresh seeds {73201,73202,73203,73204}.
+- Two pre-run amendments documented in the preregistration (normalized-SGD stability fix; kill-arm redefinition) — no battery data seen.
+
+**RESULT (2026-10-07) — COMPLETE (NEGATIVE, NULL-adjacent)**
+- Brier beats: 2/4 (D2 0.2488 vs 0.2504; D4 0.2460 vs 0.2471 — marginal; D1 and D3 lose). Coupling: 0.055/0.112/0.069/0.036 — 0/4 reach 0.40. Neither win gate fires.
+- Mechanism: changing_rule |err| nearly temporally i.i.d. (lag-1 autocorr 0.13); error-history features near-useless. Full negative entry in research/negative_results.md.
+- Kill arms: anchor-only reproduces climatology to 1e-9 (PASS); error-permutation intact<permuted on D2/D4.
+- Receipt: receipts/EXP-FP-0070.json (hash-chained).
+
+## EXP-FP-0071 — competence estimator variant B (prediction-time novelty features)
+
+**PREREGISTERED (2026-10-07, before run; experiments/preregistration_EXP-FP-0071.json)**
+- hypothesis: Adding the agent's prediction-time novelty/state context (mean_similarity, n_nbrs, retrieval_used, e1_ema) via the additive InstrumentedArchB sidecar couples the estimator to error magnitude: Brier beats climatology on >=3/4 AND corr >= 0.40 on >=3/4.
+- null: novelty features carry no competence information (variant B is theater too).
+- preregistered metric / baseline / gates: identical to EXP-FP-0070.
+- conditions: changing_rule v1.0.0, InstrumentedArchB (additive subclass; behavior-equivalence vs ArchB checked pre-run), affect=none, 10 eps x 4 fresh seeds {73205,73206,73208,73209}.
+
+## EXP-FP-0071 — competence estimator variant B (prediction-time novelty features)
+
+**PREREGISTERED (2026-10-07, before run; experiments/preregistration_EXP-FP-0071.json)**
+- hypothesis: novelty/state context (mean_similarity, n_nbrs, retrieval_used, e1_ema) couples the estimator to error magnitude: Brier win on >=3/4 AND corr>=0.40 on >=3/4.
+- null: novelty features carry no competence information.
+- conditions: changing_rule v1.0.0, InstrumentedArchB (equiv-checked), affect=none, 10 eps x 4 fresh seeds {73205,73206,73208,73209}.
+
+**RESULT (2026-10-07) — COMPLETE (NEGATIVE)**
+- Brier beats: 2/4 (D2 CALIBRATED but razor-thin 0.25028 vs 0.25081; D4 marginal). Coupling: 0.049/0.089/0.048/-0.040 — 0/4 reach 0.40.
+- Mechanism: novelty features load-bearing but tiny; binding constraint is irreducible cue RNG (60.5% of |err| variance). Batch-oracle ceiling R²=0.029 (corr 0.17) on total error.
+- Receipt: receipts/EXP-FP-0071.json (hash-chained).
+
+## EXP-FP-0072 — competence estimator variant C (channel-decomposed REST error features)
+
+**PREREGISTERED (2026-10-07, before run; experiments/preregistration_EXP-FP-0072.json)**
+- hypothesis: replacing total-error history features with REST-channel (obs dims 2-5, excluding pure-RNG cue dims 0-1) history features — rest lag-2 autocorr 0.24 vs total 0.13 — couples the estimator to error magnitude: Brier win on >=3/4 AND corr>=0.40 on >=3/4.
+- null: channel decomposition adds nothing (variant C is theater too).
+- preregistered metric / baseline / gates: identical to EXP-FP-0070/0071 (domains and events UNCHANGED — no goalpost moving).
+- conditions: changing_rule v1.0.0, InstrumentedArchB (equiv already proven), affect=none, 10 eps x 4 fresh seeds {73211,73212,73213,73214}.
+
+## EXP-FP-0021 — Episodic Contrastive Return (ECR) gain redesign (LIFTS NR-A-006)
+
+**PREREGISTERED (2026-10-07T08:45 EDT, before run; experiments/preregistration_EXP-FP-0021.json)**
+- hypothesis (H1): replacing the constant-baseline delta rule (and K9's eligibility-trace rule) with the Episodic Contrastive Return (ECR) gain update lets learned gains beat frozen gains on canonical delayed_reward (R >= 1.30 on 4/4 fresh seeds).
+- null (H0): ECR does not beat frozen (R < 1.30 on >= 1 seed).
+- preregistered metric: R = total_reward(learned)/total_reward(frozen) per seed, 8 episodes x <=15 steps on canonical delayed_reward v1.0.0. Gate: PASS iff R >= 1.30 on 4/4 fresh seeds {21001, 21002, 21003, 21004}.
+- conditions: arch_a WorkspaceTick, neutral specialists (K5 P1 identical), capacity=4, gain_lr=0.15, theta=0.45. Learned = EpisodicContrastiveArbitrator (new module prototypes/architecture-a/attention_ecr.py; attention.py untouched; tick.py additive arbitrator_kwargs passthrough). Frozen = same class, frozen=True (gains pinned 1.0).
+
+**RESULT (2026-10-07) — COMPLETE (POSITIVE, 4/4)**
+- seed 21001: learned=2.04 (1 success) vs frozen=0.84 (0) -> R=2.43 WIN
+- seed 21002: learned=2.34 (1) vs frozen=1.72 (1) -> R=1.36 WIN
+- seed 21003: learned=1.72 (1) vs frozen=0.36 (0) -> R=4.78 WIN
+- seed 21004: learned=3.16 (2) vs frozen=0.72 (0) -> R=4.39 WIN
+- **PASS (4/4). NR-A-006 conditionally LIFTED.**
+
+- Mechanism (the ECR rule): (1) EPISODIC credit assignment -- episode boundaries detected from the reward stream alone (r>=1.0 terminal signal + max_steps=15 truncation timeout; no obs/env read, state-blind preserved). On a successful episode, the episode's branch choice (first branch_channels winner) AND the progress channel (argmax shaping receipts = forward) are SET to the gain cap (2.0) -- tied, so neither can dominate and poison t=0 (the K9 failure mode: K9's trace concentrated credit on forward, which then won t=0 as a no-op). (2) Shaping-tick demotion: on r=0.02, channels neither the winner nor branch_channels (i.e. stay) demoted by 0.02; branches protected as enablers. (3) Corridor boost: winner (forward) +0.01 per shaping tick. (4) Pre-branch demotion: a non-branch winner before any branch was chosen is a wasted no-op; demoted by 0.05 BUT only down to the branch-gain level (conditional -- prevents inverting into branch dominance, which was measured on exploratory seeds 508/509). All three sub-mechanisms load-bearing (ablated on exploratory seeds 501-510: without corridor_boost 2/10 wins; without pre-branch demotion 5/10; full rule 10/10).
+- Why it beats K9: K9's accumulating trace gave forward ~9x the credit of the branch (frequency bias); ECR gives the branch and forward EQUAL cap-sets on success (no frequency bias), and the pre-branch demotion actively suppresses forward's t=0 poisoning instead of merely not decaying it.
+- Precise claim: NR-A-006 ("learned attention does not generalize to delayed_reward") is LIFTED for return-conditioned, baseline-free, EPISODIC gain rules. The bound stands for per-tick rules without episodic structure (delta rule, K9 trace). The lift depends on two documented task-structural priors: branch_channels (which channels are branch decisions) and max_steps (truncation detection). The bandit remains state-blind (neutral specialists, no obs input).
+- Frozen gates: G0 (canonical files unmodified by the run) PASS; G1 fabrication-tripwire CLEAN; G2 determinism recompute MATCH (seed 21002: 2.340000 vs 2.340000); G3 hash chain verified (6 records); G4 nothing pushed.
+- Receipt: receipts/EXP-FP-0021-ecr.ndjson (hash-chained: preregistration + 4 seed_results + verdict). Prereg: experiments/preregistration_EXP-FP-0021.json. Driver: prototypes/architecture-a/experiments/exp_fp_0021_ecr.py. Module: prototypes/architecture-a/attention_ecr.py. Tests: prototypes/architecture-a/tests/test_attention_ecr.py (15/15 pass).
+- Limitations: (1) Task-structural priors (branch_channels, max_steps) are given, not learned -- the rule is not a general sparse-reward solver. (2) Only tested on canonical delayed_reward; cross-task generality unknown (K11 showed the K9 trace was harmful on dense tasks; ECR not yet tested there). (3) The +1.0 lock-in is the main driver of large wins; on seeds with no +1.0, the edge is shaping-level (~1.3-2x).
+
+## EXP-FP-0072 — competence estimator variant C (channel-decomposed REST error features)
+
+**PREREGISTERED (2026-10-07, before run; experiments/preregistration_EXP-FP-0072.json)**
+- hypothesis: REST-channel features couple the estimator to error magnitude: Brier win on >=3/4 AND corr>=0.40 on >=3/4. Domains/events UNCHANGED from CALIB-01.
+- null: channel decomposition adds nothing.
+- conditions: changing_rule v1.0.0, InstrumentedArchB, affect=none, 10 eps x 4 fresh seeds {73211,73212,73213,73214}.
+
+**RESULT (2026-10-07) — COMPLETE (NEGATIVE; variant budget exhausted)**
+- Brier beats: 2/4 (D2, D4 marginal). Coupling: 0.074/0.126/0.090/0.075 — 0/4 reach 0.40. Neither gate fires.
+- Implementation bug: first execution voided (mode C silently dropped novelty features); fixed + regression-tested, re-run on same seeds. Documented in receipt.
+- Mechanism: signal ceiling, not learning failure — 60.5% of |err| variance is irreducible cue RNG; batch oracle caps at corr 0.17; online reaches 0.126 (~74% of oracle). The corr>=0.40 target is UNREACHABLE on changing_rule total-error as defined.
+- Full three-variant account in research/negative_results.md. Receipt: receipts/EXP-FP-0072.json (hash-chained).

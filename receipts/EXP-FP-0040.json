@@ -1,0 +1,204 @@
+{
+  "baseline": "arm U = ungated (current ArchB default).",
+  "conditions": "{\"N_threshold\": \"+inf\", \"action_mode\": \"active_inference\", \"affect\": \"none\", \"agent\": \"arch_b v1\", \"contract\": \"1.0.0\", \"env\": \"pomaze v1.0.0\", \"episodes\": 15, \"gate_threshold\": 0.0, \"gate_uhat_source\": \"shadow\"}",
+  "config": {
+    "N_threshold": "+inf",
+    "action_mode": "active_inference",
+    "affect": "none",
+    "agent": "arch_b v1",
+    "contract": "1.0.0",
+    "env": "pomaze v1.0.0",
+    "episodes": 15,
+    "gate_threshold": 0.0,
+    "gate_uhat_source": "shadow"
+  },
+  "config_hash": "6f5993a02e5a03ef7c3c6b42cc6a71f445f2befce7e25d7e3d5844821f4a3dd7",
+  "episodes": [],
+  "experiment_id": "EXP-FP-0040",
+  "hypothesis": "The shadow-uhat gate is a faithful selective filter: gated retrieval performs between unconditional and no-correction, with the deficit concentrated on episodes where retrieval mattered - not a uniform collapse.",
+  "interpretation": "NO-DEFICIT: seed-mean dUG=-0.0795 <= 0 - gated is at or above unconditional; no selective deficit because gating does not sacrifice retrieval value. Consistent with the EXP-FP-0007/0007R combined direction (9-seed dGU ~ +0.09). dGN=+0.3415, dUN=+0.2620.",
+  "limitations": "pomaze only; 4 fresh seeds; affect='none' isolates the world model; closed-loop policy test - arms diverge from shared initial conditions; episode pairing by index shares initial conditions, not trajectories; arm N is no-CORRECTION (gate blocks 100%), distinct from M1's store-disabled lesion; the +inf threshold is an additive-only never-apply encoding, not a new policy class.",
+  "null_hypothesis": "CEILING: |mean(U)-mean(N)| <= 0.25 seed-mean (correction carries no return leverage); UNIFORM: gated ~= no-correction while clearly below unconditional (broken filter); NO-DEFICIT: gated >= unconditional (the 0007/0007R direction).",
+  "preregistered_metric": "per seed: dUG = mean(U)-mean(G), dGN = mean(G)-mean(N), dUN = mean(U)-mean(N) over 15 paired episodes; trial-level corr_s = pearson(De, L_e) with L_e = mean realized benefit per episode from the U-arm PredictionLog; verdict priority CEILING -> UNIFORM -> SELECTIVE -> NO-DEFICIT.",
+  "prev_receipt_hash": "c55fdebe923d6d6a82081f093f410b863bb486e120ac9ade456e4d4b7f06d514",
+  "primary_seed": [
+    90101,
+    90102,
+    90103,
+    90104
+  ],
+  "receipt_hash": "f95ade151411208f29147065f382e576682f7e166b3d9a9bf19dc558dfeb9bb3",
+  "started_utc": "2026-10-07T12:37:31.485103+00:00",
+  "summary": {
+    "g0_discriminating_seeds": 4,
+    "per_seed": [
+      {
+        "G_gate_stats": {
+          "application_rate": 0.7711142654364798,
+          "mean_uhat": 0.09269983601784608,
+          "mean_uhat_applied": 0.13444552294175896,
+          "mean_uhat_blocked": -0.04794105961884081,
+          "n_applied": 2173,
+          "n_available": 2818,
+          "n_blocked": 645,
+          "policy": "uhat",
+          "rate_param": 1.0,
+          "threshold": 0.0
+        },
+        "G_mean_return": -3.646,
+        "G_mean_return_raw": -3.6459999999999844,
+        "G_shadow_corr": {
+          "corr_uhat_benefit": 0.4428524163480059,
+          "n": 2803
+        },
+        "N_gate_stats": {
+          "application_rate": 0.0,
+          "n_applied": 0,
+          "n_available": 2925
+        },
+        "N_mean_return": -3.772,
+        "N_shadow_corr": {
+          "corr_uhat_benefit": 0.46222402930223716,
+          "n": 2910
+        },
+        "U_mean_return": -3.7513,
+        "U_ranking": {
+          "corr_uhat_benefit": 0.3836462823887516,
+          "n": 2924
+        },
+        "corr_deficit_leverage": 0.731767358749372,
+        "d_GN": 0.126,
+        "d_UG": -0.1053,
+        "d_UN": 0.0207,
+        "seed": 90101
+      },
+      {
+        "G_gate_stats": {
+          "application_rate": 0.7322440813604535,
+          "mean_uhat": 0.08345543287127297,
+          "mean_uhat_applied": 0.1341987153769926,
+          "mean_uhat_blocked": -0.05531449039468094,
+          "n_applied": 2196,
+          "n_available": 2999,
+          "n_blocked": 803,
+          "policy": "uhat",
+          "rate_param": 1.0,
+          "threshold": 0.0
+        },
+        "G_mean_return": -3.8533,
+        "G_mean_return_raw": -3.8533333333333153,
+        "G_shadow_corr": {
+          "corr_uhat_benefit": 0.4294876797616972,
+          "n": 2984
+        },
+        "N_gate_stats": {
+          "application_rate": 0.0,
+          "n_applied": 0,
+          "n_available": 2999
+        },
+        "N_mean_return": -4.172,
+        "N_shadow_corr": {
+          "corr_uhat_benefit": 0.406764772741985,
+          "n": 2984
+        },
+        "U_mean_return": -3.528,
+        "U_ranking": {
+          "corr_uhat_benefit": 0.4093586877453519,
+          "n": 2787
+        },
+        "corr_deficit_leverage": -0.40145571940926056,
+        "d_GN": 0.3187,
+        "d_UG": 0.3253,
+        "d_UN": 0.644,
+        "seed": 90102
+      },
+      {
+        "G_gate_stats": {
+          "application_rate": 0.8112932604735883,
+          "mean_uhat": 0.11649919944733735,
+          "mean_uhat_applied": 0.15662938841175603,
+          "mean_uhat_blocked": -0.05602962453675722,
+          "n_applied": 2227,
+          "n_available": 2745,
+          "n_blocked": 518,
+          "policy": "uhat",
+          "rate_param": 1.0,
+          "threshold": 0.0
+        },
+        "G_mean_return": -3.2733,
+        "G_mean_return_raw": -3.273333333333318,
+        "G_shadow_corr": {
+          "corr_uhat_benefit": 0.41277084330914005,
+          "n": 2730
+        },
+        "N_gate_stats": {
+          "application_rate": 0.0,
+          "n_applied": 0,
+          "n_available": 2856
+        },
+        "N_mean_return": -3.5913,
+        "N_shadow_corr": {
+          "corr_uhat_benefit": 0.3707560886352707,
+          "n": 2841
+        },
+        "U_mean_return": -3.836,
+        "U_ranking": {
+          "corr_uhat_benefit": 0.357382316965524,
+          "n": 2865
+        },
+        "corr_deficit_leverage": -0.40191797996416867,
+        "d_GN": 0.318,
+        "d_UG": -0.5627,
+        "d_UN": -0.2447,
+        "seed": 90103
+      },
+      {
+        "G_gate_stats": {
+          "application_rate": 0.801360057265569,
+          "mean_uhat": 0.12253084074968991,
+          "mean_uhat_applied": 0.166219039584619,
+          "mean_uhat_blocked": -0.05371758662221302,
+          "n_applied": 2239,
+          "n_available": 2794,
+          "n_blocked": 555,
+          "policy": "uhat",
+          "rate_param": 1.0,
+          "threshold": 0.0
+        },
+        "G_mean_return": -3.5353,
+        "G_mean_return_raw": -3.5353333333333166,
+        "G_shadow_corr": {
+          "corr_uhat_benefit": 0.4240720202804535,
+          "n": 2779
+        },
+        "N_gate_stats": {
+          "application_rate": 0.0,
+          "n_applied": 0,
+          "n_available": 2999
+        },
+        "N_mean_return": -4.1387,
+        "N_shadow_corr": {
+          "corr_uhat_benefit": 0.3775373607020368,
+          "n": 2984
+        },
+        "U_mean_return": -3.5107,
+        "U_ranking": {
+          "corr_uhat_benefit": 0.4522474472726007,
+          "n": 2839
+        },
+        "corr_deficit_leverage": -0.05638866618005262,
+        "d_GN": 0.6033,
+        "d_UG": 0.0247,
+        "d_UN": 0.628,
+        "seed": 90104
+      }
+    ],
+    "seed_mean_d_GN": 0.3415,
+    "seed_mean_d_UG": -0.0795,
+    "seed_mean_d_UN": 0.262,
+    "seeds_corr_deficit_leverage_positive": 1,
+    "seeds_sign_dGN_positive": 4,
+    "verdict": "NO-DEFICIT"
+  },
+  "written_utc": "2026-10-07T12:39:48.380927+00:00"
+}

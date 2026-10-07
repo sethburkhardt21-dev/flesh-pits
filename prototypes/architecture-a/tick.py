@@ -45,7 +45,8 @@ class WorkspaceTick:
                  gain_lr=0.05, frozen_gains=False,
                  ignition_kwargs=None, alpha=0.01, initial_var=1.0,
                  admission_floor=0.0,
-                 arbitrator_cls=None, context_fn=None):
+                 arbitrator_cls=None, context_fn=None,
+                 arbitrator_kwargs=None):
         """Additive extensions (2026-10-07, K9/K10; defaults preserve the
         proven behavior exactly):
           arbitrator_cls -- AttentionArbitrator subclass to instantiate
@@ -54,7 +55,11 @@ class WorkspaceTick:
           context_fn     -- callable observation -> hashable context, fed
                             to arbitrator.set_context() before each
                             arbitration (default None -> no context;
-                            requires an arbitrator with set_context)."""
+                            requires an arbitrator with set_context).
+          arbitrator_kwargs -- extra kwargs forwarded to the arbitrator
+                            constructor (default None -> none). Used by
+                            rules with driver-side structural priors
+                            (e.g. ECR's branch_channels/max_steps)."""
         self.channels = list(channels)
         self.specialists = {c: fn for c, fn in specialists}
         if set(self.specialists) != set(self.channels):
@@ -64,7 +69,8 @@ class WorkspaceTick:
         arb_cls = arbitrator_cls or AttentionArbitrator
         self.arbitrator = arb_cls(
             self.channels, alpha=alpha, initial_var=initial_var,
-            gain_lr=gain_lr, frozen=frozen_gains)
+            gain_lr=gain_lr, frozen=frozen_gains,
+            **(arbitrator_kwargs or {}))
         if context_fn is not None and not hasattr(self.arbitrator,
                                                    "set_context"):
             raise ValueError("context_fn requires an arbitrator with "

@@ -283,3 +283,38 @@ written. Reconstructed from those citations.*
   (CueDelayedReward v1.0.0, registered additively in envs/__init__.py;
   canonical envs untouched). Fabrication-tripwire: CLEAN (architecture-a
   tree + envs dir, pre-run).
+
+## 2026-10-07 — NR-A-006 conditionally LIFTED (EXP-FP-0021): Episodic Contrastive Return
+
+- The bound AS STATED (per-tick delta rule, K5 P1: R = 0.08-0.17) stands for
+  per-tick gain rules. It does NOT generalize to episodic gain rules.
+- EXP-FP-0021 (preregistered: flesh-pits/experiments/preregistration_EXP-FP-0021.json,
+  sealed before run; 4 fresh seeds {21001, 21002, 21003, 21004}; receipt
+  flesh-pits/receipts/EXP-FP-0021-ecr.ndjson, hash chain verified):
+  EpisodicContrastiveArbitrator (attention_ecr.py; attention.py untouched)
+  posts R = 2.43 / 1.36 / 4.78 / 4.39 -- 4/4 WIN (gate >= 1.30). Learned
+  totals 1.72-3.16 (1-2 successes each) vs frozen 0.36-1.72.
+- Mechanism: episodic (not per-tick) credit. Episode boundaries from the
+  reward stream alone (r>=1.0 terminal; max_steps=15 truncation timeout).
+  On success: branch choice AND progress channel SET to cap (tied -- no
+  K9-style forward dominance, no t=0 poisoning). Shaping ticks demote
+  provably-useless channels (stay) while protecting branches as enablers.
+  Corridor boost (+0.01/shaping) for forward. Pre-branch demotion (-0.05,
+  floored at branch-gain level) as negative feedback against t=0
+  poisoning. Ablation on exploratory seeds 501-510: full rule 10/10 wins;
+  without corridor_boost 2/10; without pre-branch demotion 5/10.
+- Precise current claim: NR-A-006 holds IFF the gain rule is per-tick
+  without episodic structure. It is a RULE-CLASS bound, not a task
+  impossibility. With episodic return-conditioned updates the bound lifts.
+  The lift uses two documented task-structural priors (branch_channels,
+  max_steps); the bandit remains state-blind (neutral specialists).
+- New modules: prototypes/architecture-a/attention_ecr.py
+  (EpisodicContrastiveArbitrator); tick.py gained additive
+  `arbitrator_kwargs` passthrough (defaults preserve K1-K4/K9/K10 paths;
+  verified). Tests: tests/test_attention_ecr.py (15/15).
+- Frozen gates: G0 PASS (run modified nothing), G1 tripwire CLEAN, G2
+  determinism MATCH (21002: 2.340000 vs 2.340000), G3 chain verified,
+  G4 nothing pushed.
+- Limitations: priors are given not learned; cross-task generality
+  untested (ECR not yet run on dense changing_rule -- K11 warns trace-like
+  rules can harm there); large wins driven by +1.0 lock-in.

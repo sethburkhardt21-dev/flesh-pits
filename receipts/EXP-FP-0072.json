@@ -1,0 +1,181 @@
+{
+  "baseline": "sequential climatology (Laplace running base rate, per domain per seed).",
+  "conditions": "changing_rule v1.0.0, InstrumentedArchB (equivalence-proven in 0071), affect=none, 10 eps x 4 fresh seeds {73211,73212,73213,73214}, PredictionLog JSONL + sidecar JSONL per seed. 1560 ticks/domain. Estimator feature_mode='C' (causal prequential replay).",
+  "config": {
+    "affect": "none",
+    "agent": "arch_b_instrumented (equivalence-proven in 0071)",
+    "bins": 10,
+    "contract_version": "1.0.0",
+    "env": "changing_rule",
+    "env_version": "1.0.0",
+    "episodes_per_seed": 10,
+    "estimator": "competence_estimator.CompetenceEstimator variant C feature_mode='C' (REST-channel features + ehat on rest for D1/D3), normalized SGD eta_p=0.1/eta_e=0.05",
+    "experiment_id": "EXP-FP-0072",
+    "primary_seeds": [
+      73211,
+      73212,
+      73213,
+      73214
+    ],
+    "thresholds": {
+      "EPS_OBS": 0.2682,
+      "EPS_RW": 0.2067,
+      "TAU_FAIL": 0.4156
+    }
+  },
+  "config_hash": "3f4a58c24b07328a2d36fd1c6868996492411786db23df91c5533963f8b73c1e",
+  "episodes": [
+    {
+      "prediction_log": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0071EXP-FP-0072.seed73211.predictions.jsonl",
+      "seed": 73211,
+      "sidecar": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0071EXP-FP-0072.seed73211.sidecar.jsonl"
+    },
+    {
+      "prediction_log": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0071EXP-FP-0072.seed73212.predictions.jsonl",
+      "seed": 73212,
+      "sidecar": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0071EXP-FP-0072.seed73212.sidecar.jsonl"
+    },
+    {
+      "prediction_log": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0071EXP-FP-0072.seed73213.predictions.jsonl",
+      "seed": 73213,
+      "sidecar": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0071EXP-FP-0072.seed73213.sidecar.jsonl"
+    },
+    {
+      "prediction_log": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0071EXP-FP-0072.seed73214.predictions.jsonl",
+      "seed": 73214,
+      "sidecar": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0071EXP-FP-0072.seed73214.sidecar.jsonl"
+    }
+  ],
+  "experiment_id": "EXP-FP-0072",
+  "hypothesis": "Channel-decomposed REST error features (excluding the pure-RNG cue channels from the feature channel) couple the causal online estimator to error magnitude: Brier beats climatology on >=3/4 domains AND corr(predicted_uncertainty,|actual_error|)>=0.40 on >=3/4 domains.",
+  "interpretation": "NEGATIVE (third and final variant in the 0070-0072 budget): neither win gate fires. Brier beats climatology on 2/4 (D2 action_consequence 0.24818 vs 0.25090; D4 retrieval_usefulness 0.24769 vs 0.24839 -- both marginal; D1 0.25320 vs 0.25104 and D3 0.10292 vs 0.10173 LOSE). Coupling corr(uncertainty,|err|): 0.074/0.126/0.090/0.075 -- 0/4 reach 0.40 (best 0.126 on D2, still 3x short). corr(ehat,rest_err) diagnostic: 0.039/0.048 -- even the ehat head trained directly on the predictable component barely couples. Novelty features load-bearing on D2/D3/D4 (novelty-zeroed ablation worsens Brier); error-permutation intact<permuted on D2/D4. IMPLEMENTATION BUG (voided run, documented): the first 0072 execution ran with _extras() gating novelty features on feature_mode=='B' only, so mode C trained 7 features instead of the preregistered 11 -- the run did not match the preregistered design and was VOIDED. Fixed (one-line: mode in ('B','C')), regression unit test added (test_mode_c_includes_novelty_features), battery re-run on the same preregistered seeds. No design, feature, hyperparameter, or threshold changes were made based on observed results -- the fix restores the preregistered spec. THREE-VARIANT MECHANISM ACCOUNT: (0070) error-history features fail because changing_rule |err| is nearly temporally i.i.d. (lag-1 autocorr 0.13); (0071) prediction-time novelty features are load-bearing but tiny -- the binding constraint is irreducible cue RNG (60.5% of |err| variance; batch-oracle R^2=0.029, corr ceiling 0.17); (0072) channel decomposition (rest lag-2 autocorr 0.24) does not move coupling (0.126 vs oracle 0.17) -- the predictable remainder is dominated by fast re-learning transients and 10% reward noise flips, neither of which is visible in any causal prediction-time feature tested. CONCLUSION: the preregistered corr>=0.40 coupling target is UNREACHABLE on changing_rule's total-error as defined -- not a learning failure (the online estimator reaches ~74% of the batch-oracle ceiling on D2: 0.126 vs 0.17) but a signal ceiling. The estimator honestly beats climatology exactly where measurable signal exists (D2/D4, all three variants) and loses where it does not (D1/D3). Recommended re-scoping (future work, NOT claimed): exclude the RNG cue channels from the estimand, or use an env with less irreducible observation noise.",
+  "limitations": "Single env (changing_rule), closed-loop; affect=none; PROTOTYPE replay status (not wired into act()); anchor means early ticks equal baseline (pooled prequential Brier includes transient honestly). First 0072 execution voided for implementation bug (documented above); definitive run is the second execution.",
+  "null_hypothesis": "Channel decomposition adds nothing (variant C is theater too).",
+  "preregistered_metric": "Per-domain Brier_est vs Brier_climo; corr coupling gate >=0.40; ECE/MCE reported; corr(ehat,rest_err) diagnostic for D1/D3. Preregistered: experiments/preregistration_EXP-FP-0072.json (sealed pre-run). Domains/events UNCHANGED from CALIB-01.",
+  "prev_receipt_hash": "d935d52f32924a980dc46e31dde98d662c5b0068f115a21afba03dd2443a7f10",
+  "primary_seed": [
+    73211,
+    73212,
+    73213,
+    73214
+  ],
+  "receipt_hash": "2eda02a6c484c50900ec49afd3b45a52420c5777b69fa5afb4ec0f2d56ff682b",
+  "started_utc": "2026-10-07T12:51:34.907984+00:00",
+  "summary": {
+    "domains": {
+      "action_consequence": {
+        "base_rate": 0.5108974358974359,
+        "brier_climo": 0.250901767455282,
+        "brier_const05": 0.25,
+        "brier_est": 0.24818392641517112,
+        "corr_ehat_err": 0.12119415827507189,
+        "corr_ehat_rest": null,
+        "corr_uncertainty_err": 0.125588319455166,
+        "ece": 0.036020868707815686,
+        "mce": 0.31074332120687975,
+        "n": 1560,
+        "signed_error": -0.003092356543379329,
+        "skill_vs_climo": 0.010832291329295862,
+        "verdict": "MISCALIBRATED (beats climatology but reliability off-diagonal; dispersion error)"
+      },
+      "competence_failure": {
+        "base_rate": 0.1141025641025641,
+        "brier_climo": 0.1017342597368824,
+        "brier_const05": 0.25,
+        "brier_est": 0.1029245679677477,
+        "corr_ehat_err": 0.03845280540303008,
+        "corr_ehat_rest": 0.04778338719325426,
+        "corr_uncertainty_err": 0.08978141665471946,
+        "ece": 0.019974681445274353,
+        "mce": 0.6694386334204842,
+        "n": 1560,
+        "signed_error": 0.011675424895112127,
+        "skill_vs_climo": -0.011700170954640265,
+        "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+      },
+      "next_obs": {
+        "base_rate": 0.49423076923076925,
+        "brier_climo": 0.25103820543310823,
+        "brier_const05": 0.25,
+        "brier_est": 0.25319983416103103,
+        "corr_ehat_err": 0.03023784453960938,
+        "corr_ehat_rest": 0.03872749822005715,
+        "corr_uncertainty_err": 0.07397073572353552,
+        "ece": 0.04004285924264377,
+        "mce": 0.6271333100036207,
+        "n": 1560,
+        "signed_error": -0.003013456577740779,
+        "skill_vs_climo": -0.008610755977136675,
+        "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+      },
+      "retrieval_usefulness": {
+        "base_rate": 0.4480769230769231,
+        "brier_climo": 0.24838886110350175,
+        "brier_const05": 0.25,
+        "brier_est": 0.24768970950358377,
+        "corr_ehat_err": 0.0392631281026717,
+        "corr_ehat_rest": null,
+        "corr_uncertainty_err": 0.07494180603466728,
+        "ece": 0.0313740904807423,
+        "mce": 0.8332070238929261,
+        "n": 1560,
+        "signed_error": 0.004773957616612647,
+        "skill_vs_climo": 0.002814746187940531,
+        "verdict": "MISCALIBRATED (beats climatology but reliability off-diagonal; dispersion error)"
+      }
+    },
+    "kill_arms": {
+      "anchor_reproduces_climatology_1e9": true,
+      "error_permutation_decomposition": {
+        "action_consequence": {
+          "brier_climo": 0.250901767455282,
+          "brier_intact": 0.24818392641517112,
+          "brier_permuted": 0.25358786821997853,
+          "ordering_intact_lt_perm_lt_climo": false
+        },
+        "competence_failure": {
+          "brier_climo": 0.1017342597368824,
+          "brier_intact": 0.1029245679677477,
+          "brier_permuted": 0.10292080681807968,
+          "ordering_intact_lt_perm_lt_climo": false
+        },
+        "next_obs": {
+          "brier_climo": 0.25103820543310823,
+          "brier_intact": 0.25319983416103103,
+          "brier_permuted": 0.25246716353492077,
+          "ordering_intact_lt_perm_lt_climo": false
+        },
+        "retrieval_usefulness": {
+          "brier_climo": 0.24838886110350175,
+          "brier_intact": 0.24768970950358377,
+          "brier_permuted": 0.2505774848719168,
+          "ordering_intact_lt_perm_lt_climo": false
+        }
+      },
+      "novelty_zeroed_ablation": {
+        "action_consequence": {
+          "brier_novelty_zeroed": 0.24835203346996765,
+          "novelty_load_bearing": true
+        },
+        "competence_failure": {
+          "brier_novelty_zeroed": 0.1030895600974954,
+          "novelty_load_bearing": true
+        },
+        "next_obs": {
+          "brier_novelty_zeroed": 0.2528505443961166,
+          "novelty_load_bearing": false
+        },
+        "retrieval_usefulness": {
+          "brier_novelty_zeroed": 0.24810778066427552,
+          "novelty_load_bearing": true
+        }
+      }
+    },
+    "win_gates": {
+      "brier_beats_x_of_4": 2,
+      "coupled_ge_040_x_of_4": 0,
+      "need": ">=3 each -> NEITHER FIRES"
+    }
+  },
+  "written_utc": "2026-10-07T12:52:10.533595+00:00"
+}

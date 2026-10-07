@@ -1,0 +1,78 @@
+{
+  "baseline": "N (no offline replay).",
+  "conditions": "{\"affect\": \"none\", \"agent\": \"arch_b v1\", \"contract\": \"1.0.0\", \"env\": \"pomaze v1.0.0\"}",
+  "config": {
+    "affect": "none",
+    "agent": "arch_b v1",
+    "contract": "1.0.0",
+    "env": "pomaze v1.0.0"
+  },
+  "config_hash": "{\"affect\": \"none\", \"agent\": \"arch_b v1\", \"contract\": \"1.0.0\", \"env\": \"pomaze v1.0.0\"}",
+  "episodes": [],
+  "experiment_id": "EXP-FP-0005",
+  "hypothesis": "Offline prioritized consolidation replay causally improves later prediction performance on a held-out probe vs no replay, and beats uniform replay at equal budget.",
+  "interpretation": "NO OFFLINE LIFT: neither prioritized arm beat no-replay (P1-vs-N False, P2-vs-N False) on the pomaze corpus. The Phase-4 battery 'CAUSAL' claim gets a BOUND: the consolidation mechanism behaves per docs (mechanism CAUSAL, per brothel EXP-MEMORY-001), but offline replay shows no measured probe improvement here. Recorded as a negative result. Prioritized-vs-uniform: P1 False, P2 False. Implementation race: P1 (S-01).",
+  "limitations": "Corpus: pomaze only; priority function is prediction-error magnitude (deployment-specific per H5 risk). Replay budget K=200 (~4% of the ~4549-transition corpus). 4 seeds. Probe measures model prediction error, not closed-loop return. S-01 promotion is over summary ids (post-merge summed relevance favors large groups) \u2014 raced faithfully as implemented.",
+  "null_hypothesis": "Offline replay changes nothing (no arm beats N); or prioritized replay does not beat uniform (priority is decoration).",
+  "preregistered_metric": "IG_probe = probe_before - probe_after; probe error = mean|eval_transition| on a fixed 400-transition probe set (random-policy pomaze rollouts, probe seed 901, policy-independent, identical across arms/seeds). Fresh ArchB per arm, identical init (seed 7000+s), one online pass over the corpus before the offline phase. Higher IG = larger offline improvement.",
+  "prev_receipt_hash": "3c884f88d11a49db8b5b46602095c10826325abd869617ea39cfcf81ab4977bf",
+  "primary_seed": [
+    61701,
+    61702,
+    61703,
+    61704
+  ],
+  "receipt_hash": "8d14ac1f790641e9ac456467d553cf7faa480d2f7712978bb05eb4dac38fe821",
+  "started_utc": "2026-10-07T08:36:10.815864+00:00",
+  "summary": {
+    "per_seed_IG": {
+      "N": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "P1": [
+        -0.11138156286700496,
+        -0.24568615355410595,
+        0.10171559531947771,
+        0.45119643886256655
+      ],
+      "P2": [
+        -0.15945809924442955,
+        -0.4517682898703629,
+        -0.029022668007354646,
+        0.3831107806334839
+      ],
+      "U": [
+        0.21121316910742716,
+        0.06689441476978986,
+        0.37383061645780324,
+        0.6416775464127231
+      ]
+    },
+    "race_module": "flesh-pits/prototypes/architecture-b/consolidation_race.py",
+    "race_table_seed_mean_IG": {
+      "N": 0.0,
+      "P1": 0.04896107944023334,
+      "P2": -0.06428456912216579,
+      "U": 0.32340393668693584
+    },
+    "results_file": "flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0005-results.json",
+    "verdict": {
+      "G1_P1_vs_N": false,
+      "G1_P2_vs_N": false,
+      "G2_P1_vs_U": false,
+      "G2_P2_vs_U": false,
+      "G3_implementation_winner": "P1 (S-01)",
+      "delta_P1_minus_P2_seedmean": 0.11324564856239913,
+      "gates": {
+        "G0a_G0c": true,
+        "G0d_determinism": true,
+        "G0e_tripwire": true,
+        "failures": []
+      }
+    }
+  },
+  "written_utc": "2026-10-07T08:36:10.816009+00:00"
+}

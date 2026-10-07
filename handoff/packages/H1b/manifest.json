@@ -1,0 +1,124 @@
+{
+  "ablation": "B2 IS the ablation (withhold the cue -> advantage vanishes)",
+  "baseline": "frozen gains on cue-conditioned changing_rule WITH cue input",
+  "expected_benefit": "lifts H1's architectural bound on context-conditioned tasks; per-cue gain vectors are inspectable",
+  "generalization_bounds": [
+    "single experiment family; second-lane replication open",
+    "context dimensionality untested beyond binary cue"
+  ],
+  "harvest_class": "HARVEST_NOW",
+  "integration_surface": "any primary selection point with observable context \u2014 pass context_fn; H1's loop does the rest",
+  "key_results": [
+    {
+      "receipt": "receipts/k10_cue_indexed_adapter.ndjson (vendored); preregistration receipts/prereg_k10_cue_indexed_adapter.json",
+      "result": "K10 B1 (cue in input): R = 1.52/1.68/1.64/1.58, 4/4 WIN (learned 368-392/480 vs frozen 230-244/480)"
+    },
+    {
+      "receipt": "same ndjson",
+      "result": "B2 control (cue withheld): R 0.95-1.13, 0/4 gaps \u2014 the cue, not the new module, is causal"
+    },
+    {
+      "receipt": "same ndjson",
+      "result": "per-cue gain vectors diverge as designed (e.g. cue0 {a0:1.925, a1:0.875}, cue1 {a0:0.95, a1:2.0})"
+    },
+    {
+      "receipt": "receipts/package_test_receipt.json (generated on test run)",
+      "result": "package test reproduces B1 1.52/1.68/1.64/1.58 and B2 0.95-1.13 exactly, standalone"
+    }
+  ],
+  "license": "lab-original, owner-held",
+  "maturity": {
+    "ledger": "flesh-pits/bin/maturity_audit_report.json, generated 2026-10-07T12:14:34Z",
+    "level": "CAUSAL"
+  },
+  "mechanism": "the K4/P3 reversal-tracking mechanism operating per cue value across rule flips: CueIndexedArbitrator holds one gain vector per cue value via context-keyed gains property; original delta rule unchanged; tick.py additive arbitrator_cls/context_fn params, defaults = proven H1 behavior; context_fn without set_context fails closed",
+  "mechanism_name": "Cue-indexed gain adapter (widens H1 past NR-A-007)",
+  "merge_status": "PACKAGED ONLY \u2014 staged for the primary effort's decision per \u00a751 reorient. NOT merged into primary.",
+  "model_dependencies": "none \u2014 float arithmetic only; no foundation-model call in the loop",
+  "notes": [
+    "lab-original, owner-held, built 2026-10-07"
+  ],
+  "package_id": "H1b",
+  "package_test_result": "PASS standalone (copied to /tmp, ran without the lab tree)",
+  "risks": [
+    "cue must be in the input \u2014 without it the bound stands (NR-A-007-without-cue-input)",
+    "context dimensionality untested beyond binary cue"
+  ],
+  "rollback": "default arbitrator_cls/context_fn = the proven H1 path (one-flag)",
+  "sources": [
+    {
+      "bytes": 3079,
+      "lab_source": "flesh-pits/prototypes/architecture-a/attention_cue.py",
+      "package_path": "src/attention_cue.py",
+      "role": "mechanism",
+      "sha256": "2155b30ebd4debae4733344484965d7158845ee6bc485948787d1ee0193eab13"
+    },
+    {
+      "bytes": 12638,
+      "lab_source": "flesh-pits/prototypes/architecture-a/tick.py",
+      "package_path": "src/tick.py",
+      "role": "mechanism",
+      "sha256": "ca78fd8ff9e01d5ff51261ab56a245834ec5267ba61d585ff08a346ce46c1e2e"
+    },
+    {
+      "bytes": 5273,
+      "lab_source": "flesh-pits/prototypes/architecture-a/attention.py",
+      "package_path": "src/attention.py",
+      "role": "dependency",
+      "sha256": "ee977a1de7f28200ec74db637eafcc62e36bb07b0c6d9a6239f99918c532878d"
+    },
+    {
+      "bytes": 3059,
+      "lab_source": "flesh-pits/prototypes/architecture-a/bids.py",
+      "package_path": "src/bids.py",
+      "role": "dependency",
+      "sha256": "292dc50e7553243a4e7fce8f607b3d7f3e6e029ea13fe5cf571c9d6bbc8fe8c2"
+    },
+    {
+      "bytes": 6031,
+      "lab_source": "flesh-pits/prototypes/architecture-a/broadcast.py",
+      "package_path": "src/broadcast.py",
+      "role": "dependency",
+      "sha256": "8db343efa51728e7af585915950ba7c59df02ec6afdd53189aeb0d660bcc68a3"
+    },
+    {
+      "bytes": 8874,
+      "lab_source": "flesh-pits/prototypes/architecture-a/workspace_buffer.py",
+      "package_path": "src/workspace_buffer.py",
+      "role": "dependency",
+      "sha256": "09eda3384fdf1de271286db81ac155fdb351d5457fea23b16689c69b53da86c9"
+    },
+    {
+      "bytes": 4181,
+      "lab_source": "flesh-pits/prototypes/architecture-a/ignition.py",
+      "package_path": "src/ignition.py",
+      "role": "dependency",
+      "sha256": "cc38671f2c0dc6cdd7e433c677b1557d13c1af001b8f3978a35a8bbfc2b3b41b"
+    },
+    {
+      "bytes": 5303,
+      "lab_source": "flesh-pits/prototypes/architecture-a/consumers.py",
+      "package_path": "src/consumers.py",
+      "role": "dependency",
+      "sha256": "44096a6d97951b62073cd012a9d42622ee0854622567a9246516da207be4ce7c"
+    },
+    {
+      "bytes": 5137,
+      "package_path": "tests/support/changing_rule.py",
+      "role": "test-support env",
+      "sha256": "f861a6dac879ee20db4d72a96bea093e9385741f9e5a81956b362a3105896dd1"
+    },
+    {
+      "bytes": 7450,
+      "package_path": "tests/support/env_interface.py",
+      "role": "test-support env contract",
+      "sha256": "2b8d026e1bb4688c545215298ea3e0306e80ee49e528d9b99662dc814c844ed4"
+    },
+    {
+      "bytes": 5487,
+      "package_path": "tests/test_h1b.py",
+      "role": "package test (preregistered procedure)",
+      "sha256": "8bf327d849240e14e568beb98bd7152a25c53060ccdbc1d411c7b24e245ef720"
+    }
+  ]
+}

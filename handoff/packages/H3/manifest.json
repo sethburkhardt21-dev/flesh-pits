@@ -1,0 +1,103 @@
+{
+  "ablation": "K3 linear-probe control; K8 gates a-e (frozen-gains ignition identity 3/3 on behavioral content; K1-K3 byte-identical reruns; K4 non-degradation 4/4; sole-path on sub-ignition trials; freeze recovery replication)",
+  "baseline": "linear graded propagation (K3 graded control reads linear, error 0.002 \u2014 the probe is not blind)",
+  "expected_benefit": "genuine ignition event (not weighted averaging) plus freeze-free action selection without weakening the gate \u2014 NR-A-004's 'freeze is the price of the gate' is ruled out",
+  "generalization_bounds": [
+    "REPRODUCED 5/5 (K3); R1 confirmed on 3 fresh seeds 51501-51503 (single lab)"
+  ],
+  "harvest_class": "HARVEST_NOW",
+  "integration_surface": "any thresholded propagation point where gate selectivity must survive an exploration requirement",
+  "key_results": [
+    {
+      "receipt": "flesh-pits receipts repro_k3_ignition_probe.json; package test reproduces W=0.100 standalone",
+      "result": "K3: Heaviside step, transition width W 0.100 < 0.12 preregistered (5/5 fresh-seed repro: W 0.08-0.10)"
+    },
+    {
+      "receipt": "receipts/k8_r1_wiring_confirmation.json + k8_r1_wiring_decision.json (vendored in H8; package test reproduces 0.00->0.79/0.81/0.79, 19-21 trials, 0 violations)",
+      "result": "K8: R1 recovers frozen phases (phase-2 'c' fraction 0.0->0.79-0.81; total 84-85->128-129) with zero non-feedback consumer deliveries on 19-21 sub-ignition trials per seed"
+    },
+    {
+      "receipt": "receipts/package_test_receipt.json (generated on test run)",
+      "result": "package test passes K3+R1 standalone"
+    }
+  ],
+  "license": "lab-original, owner-held",
+  "maturity": {
+    "ledger": "flesh-pits/bin/maturity_audit_report.json, generated 2026-10-07T12:14:34Z",
+    "level": "REPRODUCED"
+  },
+  "mechanism": "recurrent bistable loop -> hard Heaviside gate on propagation (gate decides ALL propagation); R1 (wired 2026-10-07, K8): when nothing ignites, act on the graded arbitration winner with ZERO consumer propagation \u2014 the gate's selectivity is untouched by the exploration path",
+  "mechanism_name": "Recurrent ignition gate + R1 sub-ignition exploratory path",
+  "merge_status": "PACKAGED ONLY \u2014 staged for the primary effort's decision per \u00a751 reorient. NOT merged into primary.",
+  "model_dependencies": "none \u2014 float arithmetic only; no foundation-model call in the loop",
+  "notes": [],
+  "package_id": "H3",
+  "package_test_result": "PASS standalone (copied to /tmp, ran without the lab tree)",
+  "risks": [
+    "theta fixed at 0.45/0.6 (not ADAPTIVE \u2014 the R2 adaptive-theta alternative was REJECTED: ~2.7x ignitions, weakened selectivity). Do not tune theta upward expecting free wins"
+  ],
+  "rollback": "replace the gate with top-k pass-through; revert _select_action to the hold-branch (pre-K8 behavior, byte-identical per post-wire reruns)",
+  "sources": [
+    {
+      "bytes": 4181,
+      "lab_source": "flesh-pits/prototypes/architecture-a/ignition.py",
+      "package_path": "src/ignition.py",
+      "role": "mechanism",
+      "sha256": "cc38671f2c0dc6cdd7e433c677b1557d13c1af001b8f3978a35a8bbfc2b3b41b"
+    },
+    {
+      "bytes": 12638,
+      "lab_source": "flesh-pits/prototypes/architecture-a/tick.py",
+      "package_path": "src/tick.py",
+      "role": "mechanism",
+      "sha256": "ca78fd8ff9e01d5ff51261ab56a245834ec5267ba61d585ff08a346ce46c1e2e"
+    },
+    {
+      "bytes": 5273,
+      "lab_source": "flesh-pits/prototypes/architecture-a/attention.py",
+      "package_path": "src/attention.py",
+      "role": "dependency",
+      "sha256": "ee977a1de7f28200ec74db637eafcc62e36bb07b0c6d9a6239f99918c532878d"
+    },
+    {
+      "bytes": 3059,
+      "lab_source": "flesh-pits/prototypes/architecture-a/bids.py",
+      "package_path": "src/bids.py",
+      "role": "dependency",
+      "sha256": "292dc50e7553243a4e7fce8f607b3d7f3e6e029ea13fe5cf571c9d6bbc8fe8c2"
+    },
+    {
+      "bytes": 6031,
+      "lab_source": "flesh-pits/prototypes/architecture-a/broadcast.py",
+      "package_path": "src/broadcast.py",
+      "role": "dependency",
+      "sha256": "8db343efa51728e7af585915950ba7c59df02ec6afdd53189aeb0d660bcc68a3"
+    },
+    {
+      "bytes": 8874,
+      "lab_source": "flesh-pits/prototypes/architecture-a/workspace_buffer.py",
+      "package_path": "src/workspace_buffer.py",
+      "role": "dependency",
+      "sha256": "09eda3384fdf1de271286db81ac155fdb351d5457fea23b16689c69b53da86c9"
+    },
+    {
+      "bytes": 5303,
+      "lab_source": "flesh-pits/prototypes/architecture-a/consumers.py",
+      "package_path": "src/consumers.py",
+      "role": "dependency",
+      "sha256": "44096a6d97951b62073cd012a9d42622ee0854622567a9246516da207be4ce7c"
+    },
+    {
+      "bytes": 3061,
+      "package_path": "tests/envs.py",
+      "role": "test-support env (R1 only)",
+      "sha256": "5c6dc33c9d2f43bfd334c31bc168ba2ddac466c5b0f792ec4a58a4a63a85f359"
+    },
+    {
+      "bytes": 6653,
+      "package_path": "tests/test_h3.py",
+      "role": "package test (preregistered procedure)",
+      "sha256": "336a99c56be5907676e87fbcb5f551d6dcfccaf4b2fc4640ff27a76fbd69f751"
+    }
+  ]
+}

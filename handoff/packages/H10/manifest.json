@@ -1,0 +1,62 @@
+{
+  "ablation": "n/a (donor)",
+  "baseline": "no intrinsic-motivation baseline",
+  "expected_benefit": "canonical RND/curiosity baseline any local intrinsic-reward mechanism must beat; disposable single-file PPO/DQN baselines",
+  "generalization_bounds": [
+    "algorithm internals not line-verified individually at this SHA (single-file form makes verification cheap \u2014 do it before trusting a specific line)",
+    "env-dependent for full runs"
+  ],
+  "harvest_class": "HARVEST_NOW",
+  "integration_surface": "intrinsic-motivation experiments on the primary",
+  "key_results": [
+    {
+      "receipt": "emergent-mind/research/donor_matrix.md (D9 entry)",
+      "result": "donor_matrix D9: ADOPT \u2014 single-file layout confirmed at SHA; RND entry point is ppo_rnd_envpool.py (no rnd_atari.py at this SHA)"
+    },
+    {
+      "receipt": "receipts/package_test_receipt.json (generated on test run)",
+      "result": "package test: file compiles, AST-verifies RNDModel + intrinsic path, sha256 matches"
+    }
+  ],
+  "license": "MIT (raw LICENSE at SHA, VERIFIED per donor_matrix)",
+  "maturity": {
+    "ledger": "flesh-pits/bin/maturity_audit_report.json, generated 2026-10-07T12:14:34Z",
+    "level": "ADOPT"
+  },
+  "mechanism": "single-file RND/curiosity intrinsic-motivation reference: RNDModel predictor-target pair, intrinsic-reward coefficient wiring into PPO (envpool)",
+  "mechanism_name": "cleanrl ppo_rnd_envpool.py (D9) \u2014 donor adoption",
+  "merge_status": "PACKAGED ONLY \u2014 staged for the primary effort's decision per \u00a751 reorient. NOT merged into primary.",
+  "model_dependencies": "Python; PyTorch; envpool/gym (to RUN; not to vendor)",
+  "notes": [
+    "vendored file sha256 d6ec2fb0f2f1e3f78624b001f02abbe5fc46a645e2f88b2ff644609e3d1e5560, fetched 2026-10-07",
+    "pinned SHA fe8d8a03c41a7ef5b523e2e354bd01c363e786bb (2026-04-20)"
+  ],
+  "package_id": "H10",
+  "package_test_result": "PASS standalone (copied to /tmp, ran without the lab tree)",
+  "risks": [
+    "research-grade single file, not a library"
+  ],
+  "rollback": "drop the baseline (reference only; nothing imports it unless an experiment explicitly does)",
+  "sources": [
+    {
+      "bytes": 22283,
+      "lab_source": "https://raw.githubusercontent.com/vwxyzjn/cleanrl/fe8d8a03c41a7ef5b523e2e354bd01c363e786bb/cleanrl/ppo_rnd_envpool.py",
+      "package_path": "src/ppo_rnd_envpool.py",
+      "role": "vendored donor file (MIT)",
+      "sha256": "d6ec2fb0f2f1e3f78624b001f02abbe5fc46a645e2f88b2ff644609e3d1e5560"
+    },
+    {
+      "bytes": 2070,
+      "lab_source": "donor_matrix D9 (adoption record)",
+      "package_path": "ADOPTION.md",
+      "role": "adoption record",
+      "sha256": "0506c254892743e66b7f294a35ff3a432586e640a6595fae83847c401d5b66cb"
+    },
+    {
+      "bytes": 3516,
+      "package_path": "tests/test_h10.py",
+      "role": "package test (preregistered procedure)",
+      "sha256": "207548b90be096c8bf82a8d0e72645850d1439aa5895d157bb58bc3e7d88c5e9"
+    }
+  ]
+}

@@ -1,0 +1,157 @@
+{
+  "config": {
+    "affect": "none",
+    "agent": "arch_b_instrumented (additive subclass; equiv-checked)",
+    "bins": 10,
+    "contract_version": "1.0.0",
+    "env": "changing_rule",
+    "env_version": "1.0.0",
+    "episodes_per_seed": 10,
+    "equivalence_check": {
+      "byte_identical": true,
+      "seed": 73210
+    },
+    "estimator": "competence_estimator.CompetenceEstimator variant B feature_mode='B' (+novelty features), normalized SGD eta_p=0.1/eta_e=0.05",
+    "experiment_id": "EXP-FP-0071",
+    "primary_seeds": [
+      73205,
+      73206,
+      73208,
+      73209
+    ],
+    "thresholds": {
+      "EPS_OBS": 0.2682,
+      "EPS_RW": 0.2067,
+      "TAU_FAIL": 0.4156
+    }
+  },
+  "config_hash": "88ef531ff173a2377629699523d95f10051cda672fef8dbd0556147d7b3098f9",
+  "determinism_self_check": true,
+  "domains": {
+    "action_consequence": {
+      "base_rate": 0.5160256410256411,
+      "brier_climo": 0.25080763886289836,
+      "brier_const05": 0.25,
+      "brier_est": 0.2502787124985115,
+      "corr_ehat_err": 0.11898611861415256,
+      "corr_uncertainty_err": 0.08865066100819158,
+      "ece": 0.03421660251820069,
+      "mce": 0.17112526336516604,
+      "n": 1560,
+      "signed_error": 0.000963328235185236,
+      "skill_vs_climo": 0.0021088925631805866,
+      "verdict": "CALIBRATED"
+    },
+    "competence_failure": {
+      "base_rate": 0.1076923076923077,
+      "brier_climo": 0.09674346891119555,
+      "brier_const05": 0.25,
+      "brier_est": 0.09703771700005999,
+      "corr_ehat_err": -0.022134956959422695,
+      "corr_uncertainty_err": 0.0483605038298336,
+      "ece": 0.018808377601924175,
+      "mce": 0.6694386334204842,
+      "n": 1560,
+      "signed_error": 0.005426020703859212,
+      "skill_vs_climo": -0.0030415292337153677,
+      "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+    },
+    "next_obs": {
+      "base_rate": 0.5044871794871795,
+      "brier_climo": 0.2510664345424069,
+      "brier_const05": 0.25,
+      "brier_est": 0.2528751924741234,
+      "corr_ehat_err": -0.02275404560196508,
+      "corr_uncertainty_err": 0.04937933279669106,
+      "ece": 0.0452522342518872,
+      "mce": 0.8071270327272868,
+      "n": 1560,
+      "signed_error": -0.0028260720281873754,
+      "skill_vs_climo": -0.0072043000690757975,
+      "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+    },
+    "retrieval_usefulness": {
+      "base_rate": 0.4666666666666667,
+      "brier_climo": 0.2499658422794067,
+      "brier_const05": 0.25,
+      "brier_est": 0.24890402171423293,
+      "corr_ehat_err": 0.012819239725632259,
+      "corr_uncertainty_err": -0.04022490476007838,
+      "ece": 0.028248363730412056,
+      "mce": 0.8073074686128188,
+      "n": 1560,
+      "signed_error": -0.006030383860245156,
+      "skill_vs_climo": 0.004247862649917167,
+      "verdict": "MISCALIBRATED (beats climatology but reliability off-diagonal; dispersion error)"
+    }
+  },
+  "equivalence_check_pass": true,
+  "experiment_id": "EXP-FP-0071",
+  "kill_arms": {
+    "anchor_reproduces_climatology_1e9": true,
+    "error_permutation_decomposition": {
+      "action_consequence": {
+        "brier_climo": 0.25080763886289836,
+        "brier_intact": 0.2502787124985115,
+        "brier_permuted": 0.2571717835764676,
+        "ordering_intact_lt_perm_lt_climo": false
+      },
+      "competence_failure": {
+        "brier_climo": 0.09674346891119555,
+        "brier_intact": 0.09703771700005999,
+        "brier_permuted": 0.09692726764679147,
+        "ordering_intact_lt_perm_lt_climo": false
+      },
+      "next_obs": {
+        "brier_climo": 0.2510664345424069,
+        "brier_intact": 0.2528751924741234,
+        "brier_permuted": 0.2552772587952212,
+        "ordering_intact_lt_perm_lt_climo": false
+      },
+      "retrieval_usefulness": {
+        "brier_climo": 0.2499658422794067,
+        "brier_intact": 0.24890402171423293,
+        "brier_permuted": 0.2541398553323096,
+        "ordering_intact_lt_perm_lt_climo": false
+      }
+    },
+    "novelty_zeroed_ablation": {
+      "action_consequence": {
+        "brier_novelty_zeroed": 0.2509193124541854,
+        "novelty_load_bearing": true
+      },
+      "competence_failure": {
+        "brier_novelty_zeroed": 0.09715228268246544,
+        "novelty_load_bearing": true
+      },
+      "next_obs": {
+        "brier_novelty_zeroed": 0.2532226641516712,
+        "novelty_load_bearing": true
+      },
+      "retrieval_usefulness": {
+        "brier_novelty_zeroed": 0.24815847503087715,
+        "novelty_load_bearing": false
+      }
+    }
+  },
+  "logs": [
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0071.seed73205.predictions.jsonl",
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0071.seed73206.predictions.jsonl",
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0071.seed73208.predictions.jsonl",
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0071.seed73209.predictions.jsonl"
+  ],
+  "seeds": [
+    73205,
+    73206,
+    73208,
+    73209
+  ],
+  "sidecars": [
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0071.seed73205.sidecar.jsonl",
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0071.seed73206.sidecar.jsonl",
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0071.seed73208.sidecar.jsonl",
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0071.seed73209.sidecar.jsonl"
+  ],
+  "started_utc": "2026-10-07T12:43:21.715575+00:00",
+  "written_utc": "2026-10-07T12:43:32.028944+00:00"
+}

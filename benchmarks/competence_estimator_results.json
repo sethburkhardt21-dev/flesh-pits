@@ -1,0 +1,134 @@
+{
+  "config": {
+    "affect": "none",
+    "agent": "arch_b",
+    "bins": 10,
+    "contract_version": "1.0.0",
+    "env": "changing_rule",
+    "env_version": "1.0.0",
+    "episodes_per_seed": 10,
+    "estimator": "competence_estimator.CompetenceEstimator variant A (online logistic + log-linear, climatology-anchored, normalized SGD eta_p=0.1/eta_e=0.05)",
+    "experiment_id": "EXP-FP-0070",
+    "primary_seeds": [
+      73201,
+      73202,
+      73203,
+      73204
+    ],
+    "thresholds": {
+      "EPS_OBS": 0.2682,
+      "EPS_RW": 0.2067,
+      "TAU_FAIL": 0.4156
+    }
+  },
+  "config_hash": "d549ec2434f28a8567692d74f3bc56ad795492edbc2c2e7090e1a8fc2896adb3",
+  "determinism_self_check": true,
+  "domains": {
+    "action_consequence": {
+      "base_rate": 0.5262820512820513,
+      "brier_climo": 0.25036183227270964,
+      "brier_const05": 0.25,
+      "brier_est": 0.24875239877987557,
+      "corr_ehat_err": 0.12379233951951489,
+      "corr_uncertainty_err": 0.1120169948016946,
+      "ece": 0.04333342104156354,
+      "mce": 0.6845331511646591,
+      "n": 1560,
+      "signed_error": -0.004473376965502453,
+      "skill_vs_climo": 0.0064284299177079784,
+      "verdict": "MISCALIBRATED (beats climatology but reliability off-diagonal; dispersion error)"
+    },
+    "competence_failure": {
+      "base_rate": 0.08333333333333333,
+      "brier_climo": 0.07713224218057395,
+      "brier_const05": 0.25,
+      "brier_est": 0.07797291663349853,
+      "corr_ehat_err": 0.05150309393791989,
+      "corr_uncertainty_err": 0.06908558332980104,
+      "ece": 0.032957183904320876,
+      "mce": 0.6694386334204842,
+      "n": 1560,
+      "signed_error": 0.01281851572466934,
+      "skill_vs_climo": -0.010899131532524198,
+      "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+    },
+    "next_obs": {
+      "base_rate": 0.5205128205128206,
+      "brier_climo": 0.2506540081419076,
+      "brier_const05": 0.25,
+      "brier_est": 0.25327706723649157,
+      "corr_ehat_err": 0.03533617881735223,
+      "corr_uncertainty_err": 0.05487281044205946,
+      "ece": 0.05037739973740047,
+      "mce": 0.9085623354248478,
+      "n": 1560,
+      "signed_error": -0.008085575157830536,
+      "skill_vs_climo": -0.010464859963854822,
+      "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+    },
+    "retrieval_usefulness": {
+      "base_rate": 0.43653846153846154,
+      "brier_climo": 0.2470550870232435,
+      "brier_const05": 0.25,
+      "brier_est": 0.24597126507968797,
+      "corr_ehat_err": 0.08184306491347741,
+      "corr_uncertainty_err": 0.035722538581522745,
+      "ece": 0.01963671836730799,
+      "mce": 0.7500688373764632,
+      "n": 1560,
+      "signed_error": -0.00480547689740668,
+      "skill_vs_climo": 0.0043869646912130245,
+      "verdict": "MISCALIBRATED (beats climatology but reliability off-diagonal; dispersion error)"
+    }
+  },
+  "experiment_id": "EXP-FP-0070",
+  "kill_arms": {
+    "anchor_reproduces_climatology_1e9": true,
+    "error_permutation_decomposition": {
+      "action_consequence": {
+        "brier_climo": 0.25036183227270964,
+        "brier_intact": 0.24875239877987557,
+        "brier_permuted": 0.25320085606708975,
+        "ordering_intact_lt_perm_lt_climo": false
+      },
+      "competence_failure": {
+        "brier_climo": 0.07713224218057395,
+        "brier_intact": 0.07797291663349853,
+        "brier_permuted": 0.07780798008610201,
+        "ordering_intact_lt_perm_lt_climo": false
+      },
+      "next_obs": {
+        "brier_climo": 0.2506540081419076,
+        "brier_intact": 0.25327706723649157,
+        "brier_permuted": 0.2521672810452705,
+        "ordering_intact_lt_perm_lt_climo": false
+      },
+      "retrieval_usefulness": {
+        "brier_climo": 0.2470550870232435,
+        "brier_intact": 0.24597126507968797,
+        "brier_permuted": 0.25023575793536273,
+        "ordering_intact_lt_perm_lt_climo": false
+      }
+    }
+  },
+  "logs": [
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0070.seed73201.predictions.jsonl",
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0070.seed73202.predictions.jsonl",
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0070.seed73203.predictions.jsonl",
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0070.seed73204.predictions.jsonl"
+  ],
+  "per_seed_ticks": {
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0070.seed73201.predictions.jsonl": 390,
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0070.seed73202.predictions.jsonl": 390,
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0070.seed73203.predictions.jsonl": 390,
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0070.seed73204.predictions.jsonl": 390
+  },
+  "seeds": [
+    73201,
+    73202,
+    73203,
+    73204
+  ],
+  "started_utc": "2026-10-07T12:39:05.264331+00:00",
+  "written_utc": "2026-10-07T12:39:20.623191+00:00"
+}

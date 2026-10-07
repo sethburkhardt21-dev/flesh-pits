@@ -1,0 +1,127 @@
+{
+  "abstention_rule": "No hyperparameter, feature, threshold, bin, or mapping tuning after the battery runs. Estimator hyperparameters and features are frozen in this file. If variant A (EXP-FP-0070) fails the win gates, that IS the finding: a negative-results entry with the mechanism of failure, then variant B is preregistered as a NEW experiment (EXP-FP-0071) with its own fresh seeds and its own preregistration. Never re-tune-and-rerun under the same ID.",
+  "baseline": {
+    "formula": "p_i^c = (1 + sum_{j<i} o_j) / (2 + (i-1)) -- Laplace-smoothed running base rate over PAST outcomes only, per domain, per seed (estimator state resets per seed, exactly mirroring the agent's fresh start per seed)",
+    "name": "sequential_climatology",
+    "rationale": "Same climatological reference as EXP-FP-CALIB-01. A competence-estimator claim means nothing if it cannot beat the running base rate."
+  },
+  "coupling_target": {
+    "definition": "corr(predicted_uncertainty, |actual_error|) per domain, pooled over seeds. predicted_uncertainty = 1 - p for D1/D2/D4 (p = P(success)); = p for D3 (p = P(failure)). |actual_error| = mean_abs_error (D1/D3), abs_error (D2), abs(benefit) (D4) -- identical error channels to EXP-FP-CALIB-01.",
+    "gate": "corr >= 0.40 on >=3 of 4 domains",
+    "vs_current": "0.02 (D1/D3), 0.17 (D2), 0.05 (D4) -- essentially uncoupled; a LIVE HAZARD per the mandate"
+  },
+  "decision_tree": [
+    {
+      "if": "measurability gates fail (n<200/domain, std(p)<1e-9, base rate outside [0.02,0.98], non-finite)",
+      "then": "UNMEASURABLE (state which gate failed)"
+    },
+    {
+      "if": "Brier_est < Brier_climo on >=3/4 domains AND corr>=0.40 on >=3/4 domains",
+      "then": "SUCCESS -- the estimator is a genuine, calibrated competence estimator (PROTOTYPE status; not INTEGRATED until wired into the agent loop)"
+    },
+    {
+      "if": "Brier_est < Brier_climo on >=3/4 domains but coupling gate fails",
+      "then": "PARTIAL -- beats climatology but uncertainty still uncoupled from error magnitude; negative-results entry; next variant targets coupling"
+    },
+    {
+      "if": "otherwise",
+      "then": "NULL_HOLDS -- the estimator is theater too; negative-results entry with mechanism of failure; variant B preregistered fresh"
+    }
+  ],
+  "domains": {
+    "D1_NEXT_OBS": {
+      "binary_event": "o = 1(mean_abs_error <= EPS_OBS)",
+      "estimator_output": "p = P(o=1 | causal history) from online logistic model; ehat = E[|err|] from online log-linear model",
+      "prob_mapping": "DIRECT -- the estimator emits the probability itself; no Gaussian bridge (the bridge + uncoupled sigma was the CALIB-01 failure mode)",
+      "threshold_EPS_OBS": 0.2682,
+      "threshold_source": "frozen from 2340 published changing_rule ticks (EXP-FP-CALIB-01 preregistration); NOT re-estimated from battery data"
+    },
+    "D2_ACTION_CONSEQ": {
+      "binary_event": "o = 1(abs_error <= EPS_RW)",
+      "estimator_output": "p and ehat, direct",
+      "threshold_EPS_RW": 0.2067,
+      "threshold_source": "same frozen historical source"
+    },
+    "D3_COMPETENCE_FAILURE": {
+      "binary_event": "o = 1(mean_abs_error > TAU_FAIL) -- the rare large-error failure event",
+      "estimator_output": "p = P(failure | causal history) and ehat, direct",
+      "threshold_TAU_FAIL": 0.4156,
+      "threshold_source": "same frozen historical source (p90)"
+    },
+    "D4_RETRIEVAL_USEFUL": {
+      "binary_event": "o = 1(benefit > 0), benefit = |e0_raw| - |e0| recorded actual",
+      "estimator_output": "p = P(benefit>0 | causal history) and ehat = E[|benefit|], direct",
+      "threshold": "none (event is sign of benefit)",
+      "threshold_source": "N/A"
+    }
+  },
+  "estimator_design": {
+    "causality_rule": "At tick t the estimator may use: (a) prediction-time fields of tick t's own records (uncertainty, prediction/uhat -- known to the agent BEFORE the outcome), and (b) any quantity computed from ticks < t only (recorded actuals, errors, update_norm, base rates). Tick t's actuals train the model AFTER tick t's prediction is emitted (prequential). update_norm is lagged by one tick. No future information anywhere.",
+    "determinism": "pure SGD, zero-init weights, fixed hyperparameters; no RNG",
+    "ehat_model": "per-domain online linear regression on log|err|: ehat_t = exp(clip(w_e . z_t + b_e, -7, 3)); normalized SGD on squared log-error, eta=0.05",
+    "features_per_domain": {
+      "D1_D3_shared_error_channel": "[log1p(EMA_fast|e0|), log1p(EMA_slow|e0|), z_surprise(|e0|), logit(climo_rate_D), log1p(ounc_predtime), EMA_fast(event_rate_D), lag1_update_norm_EMA]",
+      "D2": "same 7 features on the |rerr| channel with runc as the stated-uncertainty feature",
+      "D4": "[log1p(EMA_fast|benefit|), log1p(EMA_slow|benefit|), z_surprise(|benefit|), logit(climo_rate_D4), log1p(uunc_predtime), uhat_predtime, EMA_fast(benefit>0 rate)]"
+    },
+    "p_model": "per-domain online logistic regression: p_t = sigmoid(logit(p_climo,t) + w . z_t + b), z_t = online-z-scored features; NORMALIZED SGD on log-loss (step scaled by 1/(1+||z||^2); bias step scaled 0.25x), eta=0.1, w=0/b=0 init (reduces exactly to climatology before any learning)",
+    "rationale": "The climatology anchor makes the estimator a strict online superset of the baseline: it starts AS the baseline and deviates only where learned feature weights carry signal. Signals: prediction-error history (regime structure after rule flips), z-scored surprise (change-point proximity), stated uncertainty as a recalibration feature (not trusted raw), recent event rates, lagged model churn (update_norm).",
+    "reset_policy": "estimator state resets per seed (mirrors the agent's fresh start per seed)",
+    "why_not_theater": "output is a calibrated probability / expected-error number trained on realized outcomes; it CANNOT be a ratio of counters or a renamed score -- the win gates (Brier vs climatology, corr>=0.40) are the anti-theater instruments, identical in spirit to the audit's M30 ratio-theater kill"
+  },
+  "experiment_id": "EXP-FP-0070",
+  "gates": {
+    "degenerate_base_rate": "base rate of o outside [0.02, 0.98] -> UNMEASURABLE",
+    "degenerate_probs": "std(p_i) < 1e-9 -> UNMEASURABLE",
+    "min_ticks": "n < 200 per domain -> UNMEASURABLE",
+    "nonfinite": "any NaN/inf -> UNMEASURABLE with cause"
+  },
+  "hypothesis": "A causal online competence estimator (logistic recalibrator anchored on sequential climatology + error-history/surprise/churn features) predicts arch_b's own error magnitude: its Brier score beats sequential climatology on >=3 of 4 prediction domains AND corr(predicted_uncertainty, |actual_error|) >= 0.40 on >=3 of 4 domains, on fresh changing_rule runs.",
+  "kill_attempt_preregistered": "Two kill arms on the same 4 seeds' streams. (1) Anchor-only: estimator with learn=False (weights frozen at 0) must reproduce Brier_climo within 1e-9 -- proves any Brier improvement is caused by learned features, not code paths. (2) Error-permutation decomposition: replay with the error stream permuted by perm(t)=(t*7919+13)%N (destroys the error-history->outcome link; the causal event-rate feature is untouched). Expect intact < permuted < climo: the ordering proves error-history features carry independent signal beyond fast base-rate tracking. NOTE: a naive reversal is NOT a valid control -- reversed regimes are still regimes (anti-correlated), which the model legitimately learns; discovered 2026-10-07 in unit testing.",
+  "limitations_preregistered": [
+    "Single env (changing_rule), closed-loop; calibration conditional on the visited distribution.",
+    "affect='none' matches the CALIB-01 characterization conditions.",
+    "Prototype status: the estimator runs as a causal replay over the agent's recorded stream (prequential, no future leakage); it is NOT yet wired into the agent's live act() path. SUCCESS claims PROTOTYPE, never INTEGRATED.",
+    "The climatology anchor means early-tick predictions equal the baseline by construction; the test is the pooled prequential Brier, which includes the learning transient honestly."
+  ],
+  "metric": {
+    "Brier_climo": "sequential Laplace-smoothed running base rate, per domain per seed (identical formula to CALIB-01)",
+    "Brier_est": "mean((p_i - o_i)^2), p_i from the estimator's causal prequential replay",
+    "ECE": "10 equal-width bins, reported per domain (secondary; full CALIBRATED status = Brier win AND ECE<=0.10 AND MCE<=0.25, reported but not gated)",
+    "MCE": "max bin deviation, reported per domain",
+    "corr_coupling": "Pearson corr(predicted_uncertainty, |actual_error|) per domain",
+    "corr_ehat": "Pearson corr(ehat, |actual_error|) per domain (supplementary: the expected-error output's own coupling)",
+    "signed_error_S": "mean(p_i - o_i); direction diagnostic",
+    "win_coupling": "corr >= 0.40 on >=3 of 4 domains",
+    "win_primary": "Brier_est < Brier_climo (strict) on >=3 of 4 domains"
+  },
+  "never_self_report": "The estimator consumes ONLY the JSONL records written by PredictionLog during closed-loop runs (prediction, confidence, uncertainty, actual, errors as recorded at tick time) plus quantities derived causally from past ticks. No agent self-assessment is an input; no outcome from tick t (or later) enters the prediction for tick t.",
+  "null": "Brier_est >= Brier_climo on every domain AND/OR corr < 0.40 on every domain -- the estimator carries no competence information beyond the base rate (theater).",
+  "pre_run_amendments": [
+    {
+      "change": "Plain SGD -> normalized SGD (step /(1+||z||^2)); ehat exponent clipped to [-7,3]. REASON: stability bug -- plain SGD diverged (OverflowError) on synthetic two-regime data in unit testing, before any battery run. No battery data seen; not a performance tune.",
+      "data_seen": "none -- synthetic unit-test stream only",
+      "utc": "2026-10-07T12:45:00Z"
+    },
+    {
+      "change": "Kill arm (2) redefined from 'shuffled must not beat climatology' to the intact<permuted<climo decomposition. REASON: unit testing showed the causal event-rate (fast base-rate) feature legitimately beats slow Laplace climatology even with permuted error features; the original control could not distinguish the two feature groups' contributions.",
+      "data_seen": "none -- synthetic unit-test stream only",
+      "utc": "2026-10-07T12:45:00Z"
+    }
+  ],
+  "preregistered_utc": "2026-10-07T12:35:00Z",
+  "primary_seeds": [
+    73201,
+    73202,
+    73203,
+    73204
+  ],
+  "receipt_target": "flesh-pits/receipts/EXP-FP-0070.json, hash-chained per experiments/harness.py convention (write_receipt/verify_chain)",
+  "runs": {
+    "affect": "none",
+    "agent": "arch_b (prototypes/architecture-b/agent.py), PredictionLog enabled, per-seed JSONL; agent code UNMODIFIED (additive estimator lives in prototypes/architecture-b/competence_estimator.py + benchmarks driver)",
+    "condition": "changing_rule v1.0.0, 10 episodes per seed, canonical derive_seed streams",
+    "fresh_seed_justification": "73201-73204: word-boundary grep over the entire flesh-pits tree (py/json/md/jsonl) finds zero prior use (2026-10-07)"
+  },
+  "variant_budget": "up to 3 estimator variants (0070, 0071, 0072); each variant preregistered separately with its own fresh seeds; every failed variant gets a negative-results entry with the measured mechanism of failure"
+}

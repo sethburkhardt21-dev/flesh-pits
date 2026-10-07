@@ -8,7 +8,8 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "envs"))
 
 from env_interface import Environment, make_episode_id  # noqa: E402
-from envs import ALL_ENVS, ChangingRule, SelfWorld  # noqa: E402
+from envs import (ALL_ENVS, ChangingRule, SelfWorld, DelayedMultistep,  # noqa: E402
+                  CompositionalRule, CueDelayedReward)
 
 
 def rollout(cls, seed, n=40):
@@ -195,6 +196,215 @@ class TestSelfWorld(unittest.TestCase):
         env.reset(999)
         t2 = [(env.step(0)[0]["hand"], env.step(0)[0]["ball"]) for _ in range(60)]
         self.assertEqual(t1, t2)
+
+
+class TestDelayedMultistep(unittest.TestCase):
+    """delayed_multistep v1.0.0: two-stage delayed conjunction probe."""
+
+    def _play(self, seed, branch, sub):
+        env = DelayedMultistep()
+        env.reset(seed)
+        total, done, infos = 0.0, False, []
+        script = [branch] + [2] * 14 + [sub] + [2] * 14
+        for a in script:
+            obs, r, done, info = env.step(a)
+            total += r
+            infos.append(info)
+            if done:
+                break
+        return total, done, infos[-1], obs
+
+    def test_conjunction_gates_final_reward(self):
+        # The +1.0 requires BOTH choices to match the hidden pattern.
+        for seed in (11, 12, 13):
+            env = DelayedMultistep()
+            env.reset(seed)
+            pat = tuple(env._pattern)
+            for b in (0, 1):
+                for s in (0, 1):
+                    total, done, info, _ = self._play(seed, b, s)
+                    self.assertTrue(done)
+                    want = 1.0 if (b, s) == pat else 0.0
+                    self.assertEqual(info["pattern_match"], (b, s) == pat)
+                    self.assertAlmostEqual(total - 28 * 0.02, want, places=9)
+
+    def test_reward_is_delayed(self):
+        # No final reward en route: shaping only until the terminal cell.
+        env = DelayedMultistep()
+        env.reset(21)
+        total = 0.0
+        for a in [0] + [2] * 14 + [0] + [2] * 13:  # stop one cell early
+            obs, r, done, info = env.step(a)
+            total += r
+            self.assertFalse(done)
+        self.assertAlmostEqual(total, 27 * 0.02, places=9)
+
+    def test_pattern_hidden_from_obs(self):
+        env = DelayedMultistep()
+        obs = env.reset(31)
+        self.assertNotIn("pattern", obs)
+        # ...but present in info for analysis only (contract: agents must
+        # not use info).
+        _, _, _, info = env.step(0)
+        self.assertIn("pattern", info)
+
+    def test_pattern_seed_determined(self):
+        e1, e2 = DelayedMultistep(), DelayedMultistep()
+        e1.reset(77)
+        e2.reset(77)
+        self.assertEqual(tuple(e1._pattern), tuple(e2._pattern))
+        # The 2-bit pattern space is fully exercised over seeds.
+        bits = set()
+        for s in range(40):
+            e = DelayedMultistep()
+            e.reset(s)
+            bits.add(tuple(e._pattern))
+        self.assertEqual(bits, {(0, 0), (0, 1), (1, 0), (1, 1)})
+
+    def test_truncation_without_progress(self):
+        env = DelayedMultistep()
+        env.reset(41)
+        done = False
+        for _ in range(DelayedMultistep.MAX_STEPS):
+            _, _, done, info = env.step(3)  # stay forever
+            if done:
+                break
+        self.assertTrue(done)
+        self.assertTrue(info.get("truncated"))
+
+
+class TestCompositionalRule(unittest.TestCase):
+    """compositional_rule v1.0.0: XOR contingency, phase flips."""
+
+    def _correct_from_info(self, info):
+        # info is ground truth for ANALYSIS ONLY in real runs; here the
+        # test harness itself is the analyst, so reading it is legitimate.
+        return info["map_a"][0] ^ info["map_b"][0]  # placeholder
+
+    def test_xor_contingency(self):
+        # Playing the XOR-correct action earns ~90% (10% noise flips).
+        # The test harness is the analyst here, so reading the env's
+        # internal maps (never in the observation) is legitimate.
+        env = CompositionalRule()
+        wins = n = 0
+        for seed in range(500, 520):
+            env.reset(seed)
+            for _ in range(CompositionalRule.STEPS):
+                correct = (env._map_a[env._cue_a]
+                           ^ env._map_b[env._cue_b])
+                _, r, done, _ = env.step(correct)
+                wins += r
+                n += 1
+                if done:
+                    break
+        rate = wins / n
+        self.assertGreater(rate, 0.80)
+        self.assertLess(rate, 1.0)  # noise flips genuinely occur
+
+    def test_single_cue_marginals_uninformative(self):
+        # For each fixed cue_a, the correct action is 50/50 over cue_b
+        # (and symmetrically) — the contingency is a genuine 3-way
+        # interaction, never reducible to one cue.
+        env = CompositionalRule()
+        env.reset(601)
+        ma, mb = list(env._map_a), list(env._map_b)
+        for cue_a in (0, 1):
+            actions = {ma[cue_a] ^ mb[cue_b] for cue_b in (0, 1)}
+            self.assertEqual(actions, {0, 1},
+                             f"cue_a={cue_a} alone determines the action")
+        for cue_b in (0, 1):
+            actions = {ma[cue_a] ^ mb[cue_b] for cue_a in (0, 1)}
+            self.assertEqual(actions, {0, 1},
+                             f"cue_b={cue_b} alone determines the action")
+        # Maps are never constant (guaranteed by MAPS).
+        for m in CompositionalRule.MAPS:
+            self.assertEqual(set(m), {0, 1})
+
+    def test_phase_schedule(self):
+        env = CompositionalRule()
+        sched = []
+        for ep in range(12):
+            env.reset(1000 + ep)
+            sched.append((tuple(env._map_a), tuple(env._map_b)))
+        self.assertEqual(sched[0], sched[4])      # fixed within a phase
+        self.assertEqual(sched[5], sched[9])
+        # schedule is a fixed function of phase: run-stable across instances
+        env2 = CompositionalRule()
+        sched2 = []
+        for ep in range(12):
+            env2.reset(555 + ep)
+            sched2.append((tuple(env2._map_a), tuple(env2._map_b)))
+        self.assertEqual(sched, sched2)
+
+    def test_maps_hidden_from_obs(self):
+        env = CompositionalRule()
+        obs = env.reset(701)
+        self.assertNotIn("map_a", obs)
+        self.assertNotIn("map_b", obs)
+
+    def test_episode_length(self):
+        env = CompositionalRule()
+        env.reset(801)
+        done = False
+        for _ in range(CompositionalRule.STEPS):
+            _, _, done, _ = env.step(0)
+        self.assertTrue(done)
+
+
+class TestCueDelayedReward(unittest.TestCase):
+    """cue_delayed_reward v1.0.0: cue-conditioned branch choice."""
+
+    def _play_branch(self, seed, branch):
+        env = CueDelayedReward()
+        obs0 = env.reset(seed)
+        cue = obs0["cue"]
+        total, done = 0.0, False
+        for a in [branch] + [2] * 9:
+            obs, r, done, info = env.step(a)
+            total += r
+            if done:
+                break
+        return total, done, info, cue
+
+    def test_correct_branch_equals_cue(self):
+        for seed in range(10, 20):
+            env = CueDelayedReward()
+            obs = env.reset(seed)
+            self.assertIn(env._cue, (0, 1))
+            self.assertEqual(env._correct, env._cue)
+            # cue constant within the episode
+            cues = {obs["cue"]}
+            for _ in range(5):
+                o, _, done, _ = env.step(3)
+                cues.add(o["cue"])
+                if done:
+                    break
+            self.assertEqual(cues, {env._cue})
+
+    def test_reward_conditioned_on_cue(self):
+        for seed in range(20, 30):
+            env = CueDelayedReward()
+            env.reset(seed)
+            cue = env._cue
+            total_ok, done_ok, info_ok, _ = self._play_branch(seed, cue)
+            total_bad, done_bad, info_bad, _ = self._play_branch(seed,
+                                                                 1 - cue)
+            self.assertTrue(done_ok and done_bad)
+            self.assertTrue(info_ok["branch_correct"])
+            self.assertFalse(info_bad["branch_correct"])
+            self.assertAlmostEqual(total_ok - 9 * 0.02, 1.0, places=9)
+            self.assertAlmostEqual(total_bad - 9 * 0.02, 0.0, places=9)
+
+    def test_reward_delayed_length_steps(self):
+        env = CueDelayedReward()
+        env.reset(31)
+        cue = env._cue
+        total = 0.0
+        for a in [cue] + [2] * 8:  # stop one cell before the end
+            _, r, done, _ = env.step(a)
+            total += r
+            self.assertFalse(done)
+        self.assertAlmostEqual(total, 8 * 0.02, places=9)
 
 
 if __name__ == "__main__":

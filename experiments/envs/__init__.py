@@ -15,11 +15,13 @@ from delayed_multistep import DelayedMultistep  # noqa: E402
 from compositional_rule import CompositionalRule  # noqa: E402
 from self_world import SelfWorld  # noqa: E402
 from self_world_cl import SelfWorldCL  # noqa: E402
+from self_world_mismatch import SelfWorldMismatch  # noqa: E402
 
 ALL_ENVS = [GridWorld, POMaze, ChangingRule, DelayedReward, ResourceWorld,
             CueDelayedReward, DelayedMultistep, CompositionalRule, SelfWorld,
-            SelfWorldCL]
+            SelfWorldCL, SelfWorldMismatch]
 
 __all__ = ["GridWorld", "POMaze", "ChangingRule", "DelayedReward",
            "ResourceWorld", "CueDelayedReward", "DelayedMultistep",
-           "CompositionalRule", "SelfWorld", "SelfWorldCL", "ALL_ENVS"]
+           "CompositionalRule", "SelfWorld", "SelfWorldCL",
+           "SelfWorldMismatch", "ALL_ENVS"]

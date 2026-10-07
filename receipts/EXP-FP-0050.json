@@ -1,0 +1,94 @@
+{
+  "baseline": "ArchB lesion_l1=True (L0-only), closed-loop, learning on.",
+  "conditions": "{\"action_mode\": \"active_inference\", \"affect\": \"none\", \"agent\": \"arch_b v1\", \"agent_init_base\": \"78120+si (paired intact/lesioned)\", \"envs\": {\"compositional_rule\": \"1.0.0\", \"delayed_multistep\": \"1.0.0\"}, \"instrument\": \"run_closed_loop verbatim (prototypes/architecture-b/experiments.py)\", \"learning\": \"on (both arms)\", \"n_episodes\": 30}",
+  "config": {
+    "arms": [
+      "intact vs lesion_l1 closed-loop, learning on"
+    ],
+    "envs": {
+      "compositional_rule": "1.0.0",
+      "delayed_multistep": "1.0.0"
+    },
+    "instrument": "run_closed_loop verbatim",
+    "n_episodes": 30,
+    "seeds": [
+      78101,
+      78102,
+      78103,
+      78104
+    ],
+    "solve_bar": {
+      "compositional_rule": 24.0,
+      "delayed_multistep": 0.5
+    }
+  },
+  "config_hash": "de8a9a531d31aa055368f9f2514ff5c74625e44395480be9e7cdb24ebc8391b6",
+  "episodes": {
+    "n_seeds": 4,
+    "n_tasks": 2,
+    "voided": []
+  },
+  "experiment_id": "EXP-FP-0050",
+  "hypothesis": "B's hierarchy (L1 top-down path / reward-channel contingency) earns its keep for CONTROL on harder tasks: intact beats L1-lesioned on closed-loop mean return, consistently across seeds, on both delayed_multistep and compositional_rule.",
+  "interpretation": "EXP-FP-0050 closed-loop control lesion gaps (4 fresh seeds, preregistered). delayed_multistep: per-seed G=[-0.049333333333333285, -0.0033333333333334103, -0.04466666666666663, 0.058666666666666645]; seed-mean -0.0097; sanity FAIL; VOID: solvability sanity gate failed \u2014 the unlesioned agent does not solve this task, so no control lesion gap can be measured. compositional_rule: per-seed G=[4.93333333333333, 6.299999999999997, 6.133333333333333, 4.833333333333336]; seed-mean +5.5500; sanity PASS; EARNS_KEEP: lesion gap positive on all 4 seeds with the sanity gate passed \u2014 the hierarchy earns its keep for control on this harder task.",
+  "limitations": "Closed-loop ArchB (active_inference, affect='none'), learning on, 30 episodes/arm/seed. Paired env streams + paired agent inits within each seed. G0b determinism: PASS. Sanity bars sealed pre-run from the pilot. CONSCIOUSNESS: UNRESOLVED \u2014 return gaps are mechanisms, not subjects.",
+  "null_hypothesis": "No consistent control gap: the lesion gap is ~0 or inconsistent in sign \u2014 the hierarchy does not earn its keep for control on harder tasks (K3C's prediction-error null extends to control).",
+  "preregistered_metric": "Per task, per seed: G = mean_return(intact) - mean_return(lesioned), closed-loop, learning on, paired streams + paired agent inits. 4 fresh seeds {78101..78104}. EARNS_KEEP(task) iff G_s > 0 on all 4 seeds AND the solvability sanity gate passes.",
+  "prev_receipt_hash": "cd414df1c6501f83ed5864a8b2fa56e1892c83146012fcfc589898fd78344d51",
+  "primary_seed": "78101-78104",
+  "receipt_hash": "75f474d1b045ef74a8570105a36d3e87b7cb0323970973729ea85c0cff29cf53",
+  "started_utc": "2026-10-07T12:38:45.531366+00:00",
+  "summary": {
+    "G0b_determinism": true,
+    "detail_receipt": "prototypes/architecture-b/receipts/EXP-FP-0050.json",
+    "per_task": {
+      "compositional_rule": {
+        "earns_keep": true,
+        "n_positive": 4,
+        "n_valid": 4,
+        "per_seed_G": [
+          4.93333333333333,
+          6.299999999999997,
+          6.133333333333333,
+          4.833333333333336
+        ],
+        "per_seed_mean_intact": [
+          25.466666666666665,
+          26.833333333333332,
+          26.5,
+          25.733333333333334
+        ],
+        "sanity_pass": true,
+        "seed_mean_G": 5.549999999999999,
+        "seed_mean_intact": 26.133333333333333,
+        "solve_bar": 24.0
+      },
+      "delayed_multistep": {
+        "earns_keep": false,
+        "n_positive": 1,
+        "n_valid": 4,
+        "per_seed_G": [
+          -0.049333333333333285,
+          -0.0033333333333334103,
+          -0.04466666666666663,
+          0.058666666666666645
+        ],
+        "per_seed_mean_intact": [
+          0.22000000000000003,
+          0.2833333333333333,
+          0.2873333333333334,
+          0.326
+        ],
+        "sanity_pass": false,
+        "seed_mean_G": -0.00966666666666667,
+        "seed_mean_intact": 0.2791666666666667,
+        "solve_bar": 0.5
+      }
+    },
+    "verdicts": {
+      "compositional_rule": "EARNS_KEEP: lesion gap positive on all 4 seeds with the sanity gate passed \u2014 the hierarchy earns its keep for control on this harder task.",
+      "delayed_multistep": "VOID: solvability sanity gate failed \u2014 the unlesioned agent does not solve this task, so no control lesion gap can be measured."
+    }
+  },
+  "written_utc": "2026-10-07T12:40:29.408601+00:00"
+}

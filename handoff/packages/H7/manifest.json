@@ -1,0 +1,65 @@
+{
+  "ablation": "n/a (metrology)",
+  "baseline": "ad-hoc scripts",
+  "expected_benefit": "every future claim arrives with a receipt; the K8 wire-by-decision-receipt pattern is the wiring template",
+  "generalization_bounds": [
+    "used across A, B, D, and the transfer variant \u2014 the lab's shared metrology"
+  ],
+  "harvest_class": "HARVEST_NOW",
+  "integration_surface": "any future primary-side experiment",
+  "key_results": [
+    {
+      "receipt": "flesh-pits/receipts/ (K4-CANONICAL-RERUN.ndjson, EXP-FP-0005-*.json, k8/k10 receipts)",
+      "result": "proven on the full K-series; 9+8 receipts in Phase 4; K-series + repro + K8 receipts in Phase 5"
+    },
+    {
+      "receipt": "lab negative-results record",
+      "result": "caught NR-A-008 (mis-specified metric) and NR-A-010 (harness artifact) honestly"
+    },
+    {
+      "receipt": "receipts/package_test_receipt.json (generated on test run)",
+      "result": "package test proves the metrology standalone (episode loop, preregistration schema, chained receipts, tamper evidence)"
+    }
+  ],
+  "license": "lab-original, owner-held",
+  "maturity": {
+    "ledger": "flesh-pits/bin/maturity_audit_report.json, generated 2026-10-07T12:14:34Z",
+    "level": "EXECUTED"
+  },
+  "mechanism": "preregistered experiments (hypothesis, null, metric, baseline, ablation, procedure, seed, interpretation, limitations), canonical episode loop, verify_chain() hash-chained receipts",
+  "mechanism_name": "Experiment harness (preregistration + hash-chained receipts)",
+  "merge_status": "PACKAGED ONLY \u2014 staged for the primary effort's decision per \u00a751 reorient. NOT merged into primary.",
+  "model_dependencies": "none \u2014 float arithmetic only; no foundation-model call in the loop",
+  "notes": [
+    "lab env/agent zoo (envs, baselines, arch_d) NOT vendored; the package test stubs them to prove the metrology machinery \u2014 stated in the test and README",
+    "brothel twin exists (not vendored)"
+  ],
+  "package_id": "H7",
+  "package_test_result": "PASS standalone (copied to /tmp, ran without the lab tree)",
+  "risks": [
+    "two harness variants exist (flesh-pits + brothel) \u2014 consolidate to one before primary adoption"
+  ],
+  "rollback": "n/a (metrology)",
+  "sources": [
+    {
+      "bytes": 11478,
+      "lab_source": "flesh-pits/experiments/harness.py",
+      "package_path": "src/harness.py",
+      "role": "mechanism",
+      "sha256": "59dd0b98c57054bfd2301522f84ebb11bc26d9bf3a1ec81485ffb4a4d66975b8"
+    },
+    {
+      "bytes": 7450,
+      "lab_source": "flesh-pits/experiments/env_interface.py",
+      "package_path": "src/env_interface.py",
+      "role": "dependency",
+      "sha256": "2b8d026e1bb4688c545215298ea3e0306e80ee49e528d9b99662dc814c844ed4"
+    },
+    {
+      "bytes": 6425,
+      "package_path": "tests/test_h7.py",
+      "role": "package test (preregistered procedure)",
+      "sha256": "22958fe37ed465b369c79bccc7b1c4b91eb5a7981da2fd4ab0f8501b3cfab0d1"
+    }
+  ]
+}

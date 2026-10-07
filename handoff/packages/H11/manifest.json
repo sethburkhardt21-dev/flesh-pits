@@ -1,0 +1,62 @@
+{
+  "ablation": "n/a (donor)",
+  "baseline": "the primary's current calibration approach",
+  "expected_benefit": "standard calibration mechanism: exact coverage guarantees, sklearn-native, low integration cost",
+  "generalization_bounds": [
+    "coverage guarantees assume exchangeability \u2014 validate on the primary's data regime",
+    "marginal (not conditional) coverage; intervals can be wide under distribution shift"
+  ],
+  "harvest_class": "HARVEST_NOW",
+  "integration_surface": "uncertainty/confidence outputs on the primary (metacognitive layer)",
+  "key_results": [
+    {
+      "receipt": "emergent-mind/research/donor_matrix.md (D17 entry)",
+      "result": "donor_matrix D17: ADOPT \u2014 SplitConformalRegressor/CrossConformalRegressor with fit/conformalize/predict_interval confirmed at SHA"
+    },
+    {
+      "receipt": "receipts/package_test_receipt.json (generated on test run)",
+      "result": "package test validates the adoption record standalone"
+    }
+  ],
+  "license": "BSD-3-Clause (raw LICENSE at SHA, VERIFIED per donor_matrix)",
+  "maturity": {
+    "ledger": "flesh-pits/bin/maturity_audit_report.json, generated 2026-10-07T12:14:34Z",
+    "level": "ADOPT"
+  },
+  "mechanism": "conformal prediction with finite-sample coverage guarantees: SplitConformalRegressor / CrossConformalRegressor, fit/conformalize/predict_interval (verified at SHA from mapie/regression/regression.py)",
+  "mechanism_name": "MAPIE (D17) \u2014 donor adoption",
+  "merge_status": "PACKAGED ONLY \u2014 staged for the primary effort's decision per \u00a751 reorient. NOT merged into primary.",
+  "model_dependencies": "Python; scikit-learn",
+  "notes": [
+    "donor NOT vendored; fetch.sh pins the exact SHA",
+    "pinned SHA 3b84b8212db2bba452ef5a09ae06a0dd545869ae (2026-09-30)"
+  ],
+  "package_id": "H11",
+  "package_test_result": "PASS standalone (copied to /tmp, ran without the lab tree)",
+  "risks": [
+    "non-stationary streams break the exchangeability assumption"
+  ],
+  "rollback": "current calibration approach (MAPIE wraps regressors without modifying them)",
+  "sources": [
+    {
+      "bytes": 1962,
+      "lab_source": "donor_matrix D17 (adoption record)",
+      "package_path": "ADOPTION.md",
+      "role": "adoption record",
+      "sha256": "14b2c93f54a615459cc65a8298db24e7d6338bef437eabb29de854733e26e948"
+    },
+    {
+      "bytes": 430,
+      "lab_source": "donor_matrix D17 (fetch script)",
+      "package_path": "fetch.sh",
+      "role": "fetch script (pins SHA)",
+      "sha256": "8eec8c0891b55bc71c18a5607172a040c82a31a57ab188d139f0f3cab46d7df4"
+    },
+    {
+      "bytes": 2916,
+      "package_path": "tests/test_h11.py",
+      "role": "package test (preregistered procedure)",
+      "sha256": "36e17c33107babc892ee074acaef0212ec1014b705125d97072dac8557960d8f"
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "decided_utc": "2026-10-07T07:23:05.812920+00:00",
+  "decision": "WIRE",
+  "evidence_receipt": "receipts/k8_r1_wiring_confirmation.json",
+  "experiment_id": "K8_r1_wiring_decision",
+  "fresh_seed_table": {
+    "51501": {
+      "R1": {
+        "ignited": 180,
+        "phase2_c_fraction": 0.79,
+        "sole_path_violations": 0,
+        "sub_ignition_trials": 20,
+        "total_reward": 127.93
+      },
+      "baseline": {
+        "ignited": 109,
+        "phase2_c_fraction": 0.0,
+        "total_reward": 84.48
+      }
+    },
+    "51502": {
+      "R1": {
+        "ignited": 181,
+        "phase2_c_fraction": 0.81,
+        "sole_path_violations": 0,
+        "sub_ignition_trials": 21,
+        "total_reward": 128.57
+      },
+      "baseline": {
+        "ignited": 107,
+        "phase2_c_fraction": 0.0,
+        "total_reward": 84.02
+      }
+    },
+    "51503": {
+      "R1": {
+        "ignited": 181,
+        "phase2_c_fraction": 0.79,
+        "sole_path_violations": 0,
+        "sub_ignition_trials": 19,
+        "total_reward": 128.45
+      },
+      "baseline": {
+        "ignited": 110,
+        "phase2_c_fraction": 0.0,
+        "total_reward": 85.0
+      }
+    }
+  },
+  "frozen_gains_ignition_identity": {
+    "51501": {
+      "baseline_ignited": 0,
+      "ignition_trajectory_identical": true,
+      "r1_ignited": 0
+    },
+    "51502": {
+      "baseline_ignited": 1,
+      "ignition_trajectory_identical": true,
+      "r1_ignited": 1
+    },
+    "51503": {
+      "baseline_ignited": 0,
+      "ignition_trajectory_identical": true,
+      "r1_ignited": 0
+    }
+  },
+  "gates": {
+    "a1_frozen_ignition_identity": true,
+    "b_k1k2k3_byte_identical": true,
+    "c_k4_nondegradation": true,
+    "d_sole_path_subignition": true,
+    "e_freeze_recovery_replicates": true
+  },
+  "hypothesis": "R1 sub-ignition exploratory path preserves gate selectivity, the K2 sole-path guarantee, and K1-K4 verdicts, while recovering frozen phases at theta=0.6.",
+  "interpretation": "WIRE. All five preregistered gates passed on fresh seeds. R1 recovers frozen phases (phase-2 'c' 0.0->0.79-0.81, total 84-85->128-129) with zero consumer deliveries on sub-ignition trials and an untouched ignition gate.",
+  "k4_nondegradation": {
+    "detail": {
+      "11": {
+        "R": 1.611,
+        "frozen": 79.18,
+        "learned": 127.58,
+        "win": true
+      },
+      "22": {
+        "R": 2.027,
+        "frozen": 63.17,
+        "learned": 128.07,
+        "win": true
+      },
+      "33": {
+        "R": 1.949,
+        "frozen": 65.5,
+        "learned": 127.65,
+        "win": true
+      },
+      "44": {
+        "R": 1.565,
+        "frozen": 82.67,
+        "learned": 129.42,
+        "win": true
+      }
+    },
+    "margin": 1.3,
+    "need": 3,
+    "wins": 4
+  },
+  "limitations": "Single lab, no independent replication (matches the lane's standing REPRODUCED bar \u2014 not yet claimed). R1's recovery feeds the gain loop via the standard per-tick feedback item; under sparse reward the NR-A-006 bound still applies.",
+  "method_correction": "First (a1) implementation compared raw item_ids and failed on seed 51502 (ws-586 vs ws-1186) despite identical ignition decisions: workspace_buffer.BoundedWorkspace._ids is a process-global itertools counter, so the second condition in the same process continues the first condition's numbering. Harness artifact, not a behavioral difference \u2014 verified by hand: same tick, same bids, same winner, one ignition each. Corrected by resetting the counter between conditions and comparing behavioral content (ignited item id+strength, competed bids, winner) per tick. The preregistration above is unchanged; this note is the honest record of the fix.",
+  "null_hypothesis": "R1 fails to recover the freeze on fresh seeds, or alters ignition selectivity, or leaks content to consumers on sub-ignition trials, or degrades K4 below R 1.30 -> REJECT.",
+  "post_wire_reruns": {
+    "k1_capacity_lesion": {
+      "byte_identical": true,
+      "sha_prefix": "e007671877da7e95"
+    },
+    "k2_broadcast_lesion": {
+      "byte_identical": true,
+      "sha_prefix": "bd2260363c15e14c",
+      "verdict_pass": true
+    },
+    "k3_ignition_probe": {
+      "byte_identical": true,
+      "sha_prefix": "0fc80361213e7c93"
+    },
+    "k4_attention_baseline": {
+      "byte_identical": true,
+      "ratios": {
+        "11": 1.611,
+        "22": 2.027,
+        "33": 1.949,
+        "44": 1.565
+      },
+      "sha_prefix": "4832d984137bfb6d",
+      "verdict_pass": true
+    },
+    "note": "All four receipts byte-identical after wiring: at theta=0.45 the sub-ignition path never fires in the K2/K4 scenarios (every tick ignites at least once), so behavior is preserved exactly; the exploratory path activates only in the sub-ignition regime it was designed for (theta=0.6 stationarity)."
+  },
+  "prev_receipt_hash": null,
+  "receipt_hash": "d0b1fd44198c32ccf8c371187de51e83d75320a3ed2bdc50391a28bc89c8e96b",
+  "wire": {
+    "change": "WorkspaceTick._select_action default: no-proposal branch now returns (decision['winner'], {'path': 'sub_ignition_explore'}) instead of (self._last_action, {'path': 'hold'}). No broadcast items exist on this path; the ignition gate still decides ALL propagation.",
+    "file": "tick.py",
+    "tick_py_sha256_prefix": "8ddac9dadf79a55a"
+  }
+}

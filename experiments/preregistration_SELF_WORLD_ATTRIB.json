@@ -1,0 +1,71 @@
+{
+  "ablation": "Chance null (random attribution) is the no-mechanism control: same env streams, same episodes; if the comparator's gap over chance vanishes, the attribution gain is not from the mechanism. Burn-in ticks excluded per preregistration (not post-hoc). No second ablation arm: the instrument IS the mechanism under test.",
+  "additivity_note": "New files only in flesh-pits/experiments/: envs/self_world_mismatch.py, source_attributor.py, episodic_store.py, exp_self_world_attribution.py, tests/test_attribution_probe.py, tests/test_episodic_store.py. Existing envs, agents, harness untouched.",
+  "amendments": [
+    {
+      "amended_utc": "2026-10-07T13:10:00+00:00",
+      "decision_rule_unchanged": false,
+      "scope": "pre-run methods correction; no definitive-run seeds touched (throwaway seed 99902 only for pilots)",
+      "what": "Instrument rewrite: transition processing moved from update() into act() (post-step obs arrives at next act() call; update() is now a no-op hook). Fixed a two-tick-delta bug in the original update() that used a stale cached observation.",
+      "why": "The original design computed deltas against the previous tick's pre-step obs, spanning two ticks. Pilot exposed it (hit 0.43 with wrong deltas)."
+    },
+    {
+      "amended_utc": "2026-10-07T13:10:00+00:00",
+      "decision_rule_changed": true,
+      "evidence": "Throwaway-seed pilot (99902, 3 episodes): comparator hit_visible 13/13, err_coincide 4/4 (says self), chance hit_visible 7/13 (~0.5).",
+      "scope": "pre-run methods correction",
+      "threshold_justification": "On visible trials the residual is exactly 0.4 (0.2 near rare boundary folds), far above tol 0.05, so ~1.0 is the mechanism's honest expectation; 0.90 leaves margin for boundary folds and spurious ball-coupling transients.",
+      "what": "PRIMARY metric changed from hit_mismatch (all injected-mismatch trials, target >= 0.80) to hit_visible (injected-mismatch trials where the exogenous effect did NOT coincide with the commanded direction, target seed-mean >= 0.90 and >= 0.85 on >= 3/4 seeds). Added H1b: err_coincide_rate = P(attr=self | coinciding mismatch) \u2014 the comparator model PREDICTS ~1.0 (misattribution), chance predicts ~0.5. hit_all (ungated) reported for honesty, expected ~0.67 by construction. accept_normal gate retained (>= 0.80). Env info extended with coincides_hand (additive, scoring-only).",
+      "why": "A coinciding exogenous move produces residual 0 \u2014 informationally identical to a genuine self move. NO efference-copy comparator can detect it; the original >= 0.80 target had a ~0.67 ceiling by construction. The corrected metric tests what the comparator actually claims (residual-driven attribution), and H1b tests its predicted failure mode \u2014 the sharper scientific claim."
+    },
+    {
+      "amended_utc": "2026-10-07T13:10:00+00:00",
+      "decision_rule_unchanged": true,
+      "scope": "pre-run seed hygiene",
+      "what": "Experimental seeds replaced: 96011-96014 -> 96021, 96022, 96023, 96024.",
+      "why": "Seed 96011 was touched by the debugging pilot (2 episodes) and the debug trace. Per lab discipline, contaminated seeds are retired."
+    }
+  ],
+  "conditions": {
+    "budget": "5 episodes x 60 ticks per seed, 4 fresh seeds: 96011, 96012, 96013, 96014. Paired arms share identical env seeds and episode streams within each seed.",
+    "env": "self_world_mismatch v1.0.0 (new, additive subclass of self_world v1.0.0; canonical envs untouched). Per tick, env-private RNG: r < 0.15 -> injected mismatch (agent's knowledge: none). Mode drawn uniformly among: override (hand moved by fresh exogenous coin, action ignored), swap (hand moved by exogenous coin AND ball moved by agent's action \u2014 simultaneous dissociation), delay (hand held this tick; next tick applies the STALE action instead of the current one; overwritten pending actions are logged and the later drop is recorded). info carries ground-truth per-channel cause labels + mismatch record FOR SCORING ONLY (contract v1.0.0 section 5 \u2014 agent never sees info; enforced by driver reading info, never passing it to the agent).",
+    "instrument": "ComparatorAgent (Agent subclass, experiments/source_attributor.py): efference-copy tags every action; per-channel forward model learns action->delta coupling online (EMA eta=0.1 over sign(delta)*sign(action)); predicted channel = reflect(channel_t + pred_delta) where pred_delta = action_sign*STEP if |coupling|>0.5 else 0.0; on ticks where the channel MOVED (|delta|>STEP/2): residual = |actual-predicted| > STEP/4 -> 'world' else 'self'. Non-moved channels are not scored (no change to attribute). First 8 ticks per episode are burn-in: model still learns, no attribution recorded. Action policy: deterministic alternation 0,1,0,1... (preregistered choice: guarantees delay-mode stale actions always differ from the current action, so the delay-apply residual is always informative). World-model head: each tick emits a forward prediction tagged 'predicted' into an in-memory prediction buffer (never admitted to the store).",
+    "null_arm": "ChanceAgent (paired identical env streams, identical episodes): random 50/50 attribution per moved channel from derive_seed(seed, ep, 'chance') stream. Always-self behavior is implied by null (hit rate 0.0) and not run as a separate arm.",
+    "quarantine_part": "EpisodicStore (experiments/episodic_store.py): admit(record) REQUIRES record['source']=='observed', else raises StoreQuarantineError and increments rejections; records carry chain hash sha256(prev_hash + canonical record) (tamper-evident; audit P-B03 spirit). restore(snapshot) re-admits every record through the same gate (quarantine enforced on restore). Part B runs the ComparatorAgent for 3 episodes (seed 96015): only 'observed' transition records are admitted; forward predictions stay in the in-memory buffer. Red-team (12 attempts across all public paths): admit(source='predicted'), admit(missing source), admit(source='simulated'), admit(source='observed' forged tag on prediction payload) \u2014 expect rejection; restore(snapshot with one record edited to source='predicted') \u2014 expect rejection, store unchanged; restore(forged snapshot with broken chain) \u2014 expect rejection. Final scan() audits every record: violators must be 0.",
+    "seeds": "4 fresh seeds: 96021, 96022, 96023, 96024 (96011 retired: touched by pilot)"
+  },
+  "experiment_id": "EXP-FP-0060-ATTRIBUTION",
+  "fabrication_discipline": "No random.* module calls in executable code; all randomness via env_interface.new_rng / derive_seed.",
+  "hypotheses": {
+    "H1_attribution": "The comparator attributor achieves >= 0.80 attribution hit rate on injected-mismatch trials while retaining >= 0.80 acceptance on normal (self-caused) trials.",
+    "H2_quarantine": "The episodic store admits zero predicted/simulated records: all red-team leak attempts are rejected and a post-run audit finds zero non-observed records."
+  },
+  "interpretation_rule": "H1 PASS = comparator attribution works under injected mismatches; the instrument graduates to harvest-candidate consideration. H1 null-holds = comparator alone insufficient for causal attribution under mismatch \u2014 record negative, do not inflate. H2 PASS = quarantine invariant holds on all public paths; H2 FAIL = simulation-leak path found, report exact path.",
+  "limitations": [
+    "Deterministic alternation policy is a probe convenience, not learned control; closed-loop policy adaptation is out of scope.",
+    "Delay-mode truth labels are structural (held/applied-by-stale-action), not model-relative.",
+    "Swap-mode ball-self ticks are expected misses for the learned-coupling instrument; counted honestly in accept_normal.",
+    "Quarantine is tag-enforced, not content-enforced: a 'predicted' payload carrying a forged 'observed' tag would pass content inspection; the audit flags this as the boundary of the invariant.",
+    "CONSCIOUSNESS: UNRESOLVED. This probe tests a mechanism (source attribution), not a consciousness claim."
+  ],
+  "mandate_refs": [
+    "Phase 6 item 5",
+    "FINAL_HANDOFF section 9 item 12",
+    "science_matrix priority 7 (Row 10 self/world distinction: attribution with injected mismatches)",
+    "science_matrix priority 6 (Row 16 source-attribution / quarantine: simulation-never-becomes-memory, audit P-B03/P-B05)"
+  ],
+  "null": {
+    "H1": "Attribution at chance: mismatch-hit not better than 0.50 (paired chance null); equivalently, always-self baseline scores 0.0 on mismatch trials.",
+    "H2": "Quarantine leaks: >= 1 predicted/simulated record admitted or >= 1 red-team admission succeeds."
+  },
+  "preregistered_metrics": {
+    "H1_null_metric": "paired chance-arm hit_visible; expected ~0.50. Instrument must exceed chance-arm seed-mean by >= 0.30.",
+    "H1_primary": "hit_visible = P(attr=='world' | injected mismatch on hand, moved, NOT coinciding). PASS iff seed-mean hit_visible >= 0.90 AND hit_visible >= 0.85 on >= 3/4 seeds.",
+    "H1_reported_ungated": "hit_all (all injected-mismatch hand trials): expected ~0.67 by construction (ceiling); reported honestly, not gated.",
+    "H1_secondary": "accept_normal = P(attr=='self' | truth=='self' on moved-channel ticks). Gate: seed-mean >= 0.80. (Documented limitation: in swap mode the ball is truth=='self' but the learned model predicts residual -> 'world'; expected to cost ~5% of normal ticks.)",
+    "H1b_coincide": "err_coincide_rate = P(attr=='self' | injected mismatch on hand, moved, coinciding). Comparator model predicts ~= 1.0 (attribution error); chance predicts ~= 0.5. Diagnostic-confirmatory, not gated.",
+    "H2_primary": "leaks_admitted == 0 AND audit_violators == 0 AND all 12 red-team attempts rejected. ANY admitted non-observed record = FAIL (whole H2)."
+  },
+  "preregistered_utc": "2026-10-07T12:35:00+00:00",
+  "question": "Can a comparator-based instrument (efference copy + learned forward model; Row 10 computational analogue) attribute each observed environmental change as self-caused vs externally-caused when 15% of action effects are injected mismatches \u2014 and does the predicted/simulated-output stream ever leak into the evidence store as if observed (Row 16 / P-B03 quarantine)?"
+}

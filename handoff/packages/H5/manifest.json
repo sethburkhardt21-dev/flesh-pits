@@ -1,0 +1,67 @@
+{
+  "ablation": "battery consolidation ablation (Phase-4); EXP-FP-0005 arms P1/P2/U/N",
+  "baseline": "no consolidation",
+  "expected_benefit": "measurable offline improvement of retrieval quality (claimed with the race bound above \u2014 performance lift UNPROVEN on current evidence)",
+  "generalization_bounds": [
+    "RACE BOUND (honest): neither implementation's offline replay beats no-replay on the pomaze corpus (P1-vs-N 2/4, P2-vs-N 1/4 per-seed wins; seed-mean IG +0.049/-0.064 vs N 0.0) \u2014 mechanism behaves per docs, no measured offline performance lift on this corpus",
+    "PE-magnitude prioritization is actively WORSE than uniform replay here (uniform wins 4/4, seed-mean +0.323) \u2014 do not wire priority replay without per-deployment validation",
+    "not generalized beyond the battery task; priority function needs validation per deployment"
+  ],
+  "harvest_class": "HARVEST_NOW",
+  "integration_surface": "any episodic store on the primary with an offline window",
+  "key_results": [
+    {
+      "receipt": "Phase-4 battery receipts",
+      "result": "CAUSAL (Phase-4 battery) \u2014 evidence HISTORICAL, stated as such"
+    },
+    {
+      "receipt": "receipts/EXP-FP-0005-S.json (vendored); receipts/EXP-FP-0005-D.json (vendored)",
+      "result": "EXP-FP-0005 race (CLOSED 2026-10-07, 4 fresh seeds, preregistered, all gates passed): S-01 wins 4/4 (Delta=+0.113 seed-mean IG)"
+    },
+    {
+      "receipt": "receipts/package_test_receipt.json (generated on test run)",
+      "result": "package test proves the mechanism standalone (cycle, determinism, immutability, merge correctness, verification flow, fail-closed)"
+    }
+  ],
+  "license": "lab-original, owner-held",
+  "maturity": {
+    "ledger": "flesh-pits/bin/maturity_audit_report.json, generated 2026-10-07T12:14:34Z",
+    "level": "CAUSAL"
+  },
+  "mechanism": "offline priority consolidation pass over the episodic store: decay -> merge (relevance-desc greedy seed, cosine to seed) -> prune (summary layer only, input never mutated). S-01's 'promote ids, replay raw' beat memory_port's 'replay compressed summaries' 4/4",
+  "mechanism_name": "consolidation_cycle (offline priority consolidation) \u2014 S-01 winner",
+  "merge_status": "PACKAGED ONLY \u2014 staged for the primary effort's decision per \u00a751 reorient. NOT merged into primary.",
+  "model_dependencies": "none \u2014 float arithmetic only; no foundation-model call in the loop",
+  "notes": [
+    "vendored files are byte-identical to the proven originals (PROVENANCE.md in race_vendored/), NOT modified",
+    "maturity ledger lists the race as EXECUTED (negative result) \u2014 the mechanism itself is CAUSAL per the battery"
+  ],
+  "package_id": "H5",
+  "package_test_result": "PASS standalone (copied to /tmp, ran without the lab tree)",
+  "risks": [
+    "priority function is deployment-specific; the race shows PE-magnitude prioritization hurts vs uniform on pomaze"
+  ],
+  "rollback": "disable the consolidation pass",
+  "sources": [
+    {
+      "bytes": 14546,
+      "lab_source": "flesh-pits/prototypes/architecture-b/race_vendored/consolidation_cycle_s01.py",
+      "package_path": "src/consolidation_cycle_s01.py",
+      "role": "mechanism",
+      "sha256": "c75e3892b90973c303ad47c5c87126c456ac3a61d44c18a987816f4fdb58db30"
+    },
+    {
+      "bytes": 5574,
+      "lab_source": "flesh-pits/prototypes/architecture-b/race_vendored/consolidation_cycle_memory_port.py",
+      "package_path": "src/consolidation_cycle_memory_port.py",
+      "role": "race loser (reference; the memory_port variant that lost 4/4)",
+      "sha256": "4f6707cc102310e00452a38e203633ca5be263209ff60b68ad5d3101e95bd9da"
+    },
+    {
+      "bytes": 5616,
+      "package_path": "tests/test_h5.py",
+      "role": "package test (preregistered procedure)",
+      "sha256": "3c421e2e48e355dc79d4c3643b80c183bf3c2c4146ce5ddd3321f54198e5dab1"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "ablation": "K7 IS the ablation (experiment-side constant-0.5 stubs)",
+  "baseline": "raw thresholds",
+  "expected_benefit": "cheap honest novelty signal with receipts; runs both standalone and inside the attention loop",
+  "generalization_bounds": [
+    "CAUSAL for moment-to-moment arbitration under frozen gains; NR-A-009 bound \u2014 the learned system barely needs bids (learned gains compensate). Do not claim bids drive the K4 reward win"
+  ],
+  "harvest_class": "HARVEST_NOW",
+  "integration_surface": "any novelty/salience input needing a cheap honest signal",
+  "key_results": [
+    {
+      "receipt": "Phase-4 battery receipts",
+      "result": "CAUSAL in two independent tests (battery: zero-latency shift detection, drift 22 vs raw 69; A: K1/K4 loop)"
+    },
+    {
+      "receipt": "lab K7 receipt; package test reproduces the collapse 1.00 -> 0.00 bits on an alternation probe",
+      "result": "K7: bids lesion collapses arbitration winner-entropy 1.03-1.38 -> 0.0 bits"
+    },
+    {
+      "receipt": "receipts/package_test_receipt.json (generated on test run)",
+      "result": "package test passes shift/habituation/fail-closed/entropy standalone"
+    }
+  ],
+  "license": "lab-original, owner-held",
+  "maturity": {
+    "ledger": "flesh-pits/bin/maturity_audit_report.json, generated 2026-10-07T12:14:34Z",
+    "level": "CAUSAL"
+  },
+  "mechanism": "sigmoid of causal running z-score \u2014 change detection + habituation in one mechanism; fail-closed on non-finite input",
+  "mechanism_name": "change_bid (RunningZScoreBid)",
+  "merge_status": "PACKAGED ONLY \u2014 staged for the primary effort's decision per \u00a751 reorient. NOT merged into primary.",
+  "model_dependencies": "none \u2014 float arithmetic only; no foundation-model call in the loop",
+  "notes": [
+    "audit twin at emergent-mind/sandbox/being/self_model_port/change_bid.py (same mechanism; not vendored \u2014 outside flesh-pits)"
+  ],
+  "package_id": "H4",
+  "package_test_result": "PASS standalone (copied to /tmp, ran without the lab tree)",
+  "risks": [
+    "none identified beyond the NR-A-009 bound"
+  ],
+  "rollback": "trivial \u2014 raw thresholds",
+  "sources": [
+    {
+      "bytes": 3059,
+      "lab_source": "flesh-pits/prototypes/architecture-a/bids.py",
+      "package_path": "src/bids.py",
+      "role": "mechanism",
+      "sha256": "292dc50e7553243a4e7fce8f607b3d7f3e6e029ea13fe5cf571c9d6bbc8fe8c2"
+    },
+    {
+      "bytes": 4318,
+      "package_path": "tests/test_h4.py",
+      "role": "package test (preregistered procedure)",
+      "sha256": "3e141bdc1c7a4ef7c6a0eb0ccb2a3c3033b175ffbc4ec0b872dd43315a830a26"
+    }
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "baseline": "sequential climatology (Laplace running base rate, per domain per seed).",
+  "conditions": "changing_rule v1.0.0, InstrumentedArchB (additive subclass of arch_b; PredictionLog JSONL byte-identical to ArchB on throwaway seed 73210 -> instrumentation behaviorally inert), affect=none, 10 eps x 4 fresh seeds {73205,73206,73208,73209}, PredictionLog JSONL + sidecar JSONL per seed. 1560 ticks/domain. Estimator feature_mode='B' (causal prequential replay).",
+  "config": {
+    "affect": "none",
+    "agent": "arch_b_instrumented (additive subclass; equiv-checked)",
+    "bins": 10,
+    "contract_version": "1.0.0",
+    "env": "changing_rule",
+    "env_version": "1.0.0",
+    "episodes_per_seed": 10,
+    "equivalence_check": {
+      "byte_identical": true,
+      "seed": 73210
+    },
+    "estimator": "competence_estimator.CompetenceEstimator variant B feature_mode='B' (+novelty features), normalized SGD eta_p=0.1/eta_e=0.05",
+    "experiment_id": "EXP-FP-0071",
+    "primary_seeds": [
+      73205,
+      73206,
+      73208,
+      73209
+    ],
+    "thresholds": {
+      "EPS_OBS": 0.2682,
+      "EPS_RW": 0.2067,
+      "TAU_FAIL": 0.4156
+    }
+  },
+  "config_hash": "88ef531ff173a2377629699523d95f10051cda672fef8dbd0556147d7b3098f9",
+  "episodes": [
+    {
+      "prediction_log": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0071.seed73205.predictions.jsonl",
+      "seed": 73205,
+      "sidecar": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0071.seed73205.sidecar.jsonl"
+    },
+    {
+      "prediction_log": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0071.seed73206.predictions.jsonl",
+      "seed": 73206,
+      "sidecar": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0071.seed73206.sidecar.jsonl"
+    },
+    {
+      "prediction_log": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0071.seed73208.predictions.jsonl",
+      "seed": 73208,
+      "sidecar": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0071.seed73208.sidecar.jsonl"
+    },
+    {
+      "prediction_log": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0071.seed73209.predictions.jsonl",
+      "seed": 73209,
+      "sidecar": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0071.seed73209.sidecar.jsonl"
+    }
+  ],
+  "experiment_id": "EXP-FP-0071",
+  "hypothesis": "Adding the agent's prediction-time novelty/state context (mean_similarity, n_nbrs, retrieval_used, e1_ema) via the additive InstrumentedArchB sidecar couples the causal online estimator to error magnitude: Brier beats climatology on >=3/4 domains AND corr(predicted_uncertainty,|actual_error|)>=0.40 on >=3/4.",
+  "interpretation": "NEGATIVE: neither win gate fires. Brier beats on 2/4 (D2 action_consequence 0.25028 vs 0.25081 -- CALIBRATED verdict, razor-thin; D4 retrieval_usefulness 0.24890 vs 0.24997 -- marginal; D1 0.25288 vs 0.25107 and D3 0.09704 vs 0.09674 LOSE). Coupling corr(uncertainty,|err|): 0.049/0.089/0.048/-0.040 -- 0/4 reach 0.40. Novelty features ARE load-bearing (novelty-zeroed ablation worsens Brier on D1/D2/D3) but gains are tiny. Mechanism (measured): the cue channels of the obs vector are pure RNG (cue redrawn uniform each tick) and contribute 60.5% of total |err| variance; batch-OLS ceiling with ALL features: R^2=0.029 on total error (corr ceiling 0.17), R^2=0.078 on predictable channels (corr ceiling 0.28). A perfect predictor of the predictable component caps at corr 0.629 with total error. The 0.40 target on total-error as defined is therefore extremely hard; variant B reaches ~30% of the batch-oracle ceiling. Kill arms: anchor-only reproduces climatology to 1e-9 (PASS); error-permutation intact<permuted on D1/D2/D4. Next: variant C (EXP-FP-0072) uses channel-decomposed REST error features (rest-channel lag-2 autocorr 0.24 vs total 0.13) -- the cue noise was masking learnable structure in the feature channel.",
+  "limitations": "Single env (changing_rule), closed-loop; affect=none; PROTOTYPE replay status; anchor means early ticks equal baseline (pooled prequential Brier includes transient honestly).",
+  "null_hypothesis": "The novelty features carry no competence information (variant B is theater too).",
+  "preregistered_metric": "Per-domain Brier_est vs Brier_climo; corr coupling gate >=0.40; ECE/MCE reported. Preregistered: experiments/preregistration_EXP-FP-0071.json (sealed pre-run).",
+  "prev_receipt_hash": "05ed0296f6d465d95955aaeb830c0dc4bd9e0c45cb698f1641424cb0c7adccd6",
+  "primary_seed": [
+    73205,
+    73206,
+    73208,
+    73209
+  ],
+  "receipt_hash": "d935d52f32924a980dc46e31dde98d662c5b0068f115a21afba03dd2443a7f10",
+  "started_utc": "2026-10-07T12:43:21.715575+00:00",
+  "summary": {
+    "domains": {
+      "action_consequence": {
+        "base_rate": 0.5160256410256411,
+        "brier_climo": 0.25080763886289836,
+        "brier_const05": 0.25,
+        "brier_est": 0.2502787124985115,
+        "corr_ehat_err": 0.11898611861415256,
+        "corr_uncertainty_err": 0.08865066100819158,
+        "ece": 0.03421660251820069,
+        "mce": 0.17112526336516604,
+        "n": 1560,
+        "signed_error": 0.000963328235185236,
+        "skill_vs_climo": 0.0021088925631805866,
+        "verdict": "CALIBRATED"
+      },
+      "competence_failure": {
+        "base_rate": 0.1076923076923077,
+        "brier_climo": 0.09674346891119555,
+        "brier_const05": 0.25,
+        "brier_est": 0.09703771700005999,
+        "corr_ehat_err": -0.022134956959422695,
+        "corr_uncertainty_err": 0.0483605038298336,
+        "ece": 0.018808377601924175,
+        "mce": 0.6694386334204842,
+        "n": 1560,
+        "signed_error": 0.005426020703859212,
+        "skill_vs_climo": -0.0030415292337153677,
+        "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+      },
+      "next_obs": {
+        "base_rate": 0.5044871794871795,
+        "brier_climo": 0.2510664345424069,
+        "brier_const05": 0.25,
+        "brier_est": 0.2528751924741234,
+        "corr_ehat_err": -0.02275404560196508,
+        "corr_uncertainty_err": 0.04937933279669106,
+        "ece": 0.0452522342518872,
+        "mce": 0.8071270327272868,
+        "n": 1560,
+        "signed_error": -0.0028260720281873754,
+        "skill_vs_climo": -0.0072043000690757975,
+        "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+      },
+      "retrieval_usefulness": {
+        "base_rate": 0.4666666666666667,
+        "brier_climo": 0.2499658422794067,
+        "brier_const05": 0.25,
+        "brier_est": 0.24890402171423293,
+        "corr_ehat_err": 0.012819239725632259,
+        "corr_uncertainty_err": -0.04022490476007838,
+        "ece": 0.028248363730412056,
+        "mce": 0.8073074686128188,
+        "n": 1560,
+        "signed_error": -0.006030383860245156,
+        "skill_vs_climo": 0.004247862649917167,
+        "verdict": "MISCALIBRATED (beats climatology but reliability off-diagonal; dispersion error)"
+      }
+    },
+    "equivalence_check": true,
+    "kill_arms": {
+      "anchor_reproduces_climatology_1e9": true,
+      "error_permutation_decomposition": {
+        "action_consequence": {
+          "brier_climo": 0.25080763886289836,
+          "brier_intact": 0.2502787124985115,
+          "brier_permuted": 0.2571717835764676,
+          "ordering_intact_lt_perm_lt_climo": false
+        },
+        "competence_failure": {
+          "brier_climo": 0.09674346891119555,
+          "brier_intact": 0.09703771700005999,
+          "brier_permuted": 0.09692726764679147,
+          "ordering_intact_lt_perm_lt_climo": false
+        },
+        "next_obs": {
+          "brier_climo": 0.2510664345424069,
+          "brier_intact": 0.2528751924741234,
+          "brier_permuted": 0.2552772587952212,
+          "ordering_intact_lt_perm_lt_climo": false
+        },
+        "retrieval_usefulness": {
+          "brier_climo": 0.2499658422794067,
+          "brier_intact": 0.24890402171423293,
+          "brier_permuted": 0.2541398553323096,
+          "ordering_intact_lt_perm_lt_climo": false
+        }
+      },
+      "novelty_zeroed_ablation": {
+        "action_consequence": {
+          "brier_novelty_zeroed": 0.2509193124541854,
+          "novelty_load_bearing": true
+        },
+        "competence_failure": {
+          "brier_novelty_zeroed": 0.09715228268246544,
+          "novelty_load_bearing": true
+        },
+        "next_obs": {
+          "brier_novelty_zeroed": 0.2532226641516712,
+          "novelty_load_bearing": true
+        },
+        "retrieval_usefulness": {
+          "brier_novelty_zeroed": 0.24815847503087715,
+          "novelty_load_bearing": false
+        }
+      }
+    },
+    "win_gates": {
+      "brier_beats_x_of_4": 2,
+      "coupled_ge_040_x_of_4": 0,
+      "need": ">=3 each -> NEITHER FIRES"
+    }
+  },
+  "written_utc": "2026-10-07T12:46:15.035069+00:00"
+}

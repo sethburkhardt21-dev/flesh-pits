@@ -1,0 +1,107 @@
+{
+  "ablation": "K1 (capacity lesion) and K2 (broadcast lesion) ARE the ablations",
+  "baseline": "unbounded queue / unwired broadcast (Delta=0 theater \u2014 Phase-4 battery 001b bit-identical trajectories)",
+  "expected_benefit": "provable global availability \u2014 a broadcast that demonstrably changes downstream consumers (the lab's anti-theater law: broadcast without measured consumer change is theater)",
+  "generalization_bounds": [
+    "REPRODUCED on 5/5 fresh seeds; single lab \u2014 no independent replication yet (stated, not hidden)"
+  ],
+  "harvest_class": "HARVEST_NOW",
+  "integration_surface": "any multi-consumer integration point on the primary; the K2 sole-path test is the acceptance gate",
+  "key_results": [
+    {
+      "receipt": "lab K1 receipt; package test reproduces 0/0.507/1.0 exactly",
+      "result": "K1: interference index 0/0.507/1.0 monotonic in distractor bid at K=3, exactly 0 at K=inf"
+    },
+    {
+      "receipt": "lab K2 receipt",
+      "result": "K2: total lesion silences all six consumers at once, internal processing continues, full recovery, no side channels (Phase-4 coordinator re-ran K2 by its own hand \u2014 PASS, numbers match)"
+    },
+    {
+      "receipt": "flesh-pits receipts repro_k1_capacity_lesion.json, repro_k2_broadcast_lesion.json",
+      "result": "REPRODUCED 5/5 fresh seeds on the original code paths"
+    },
+    {
+      "receipt": "receipts/package_test_receipt.json (generated on test run)",
+      "result": "package test passes K1+K2 standalone"
+    }
+  ],
+  "license": "lab-original, owner-held",
+  "maturity": {
+    "ledger": "flesh-pits/bin/maturity_audit_report.json, generated 2026-10-07T12:14:34Z",
+    "level": "REPRODUCED"
+  },
+  "mechanism": "capacity-K bounded buffer with explicit eviction policy (newcomer competes unprotected, TTL decay, per-admission receipts); in-memory bus as the ONLY consumer path (declared consumers, per-item consumer sets, lesion/restore, delivery receipts)",
+  "mechanism_name": "Bounded workspace buffer + sole-path broadcast pattern",
+  "merge_status": "PACKAGED ONLY \u2014 staged for the primary effort's decision per \u00a751 reorient. NOT merged into primary.",
+  "model_dependencies": "none \u2014 float arithmetic only; no foundation-model call in the loop",
+  "notes": [],
+  "package_id": "H2",
+  "package_test_result": "PASS standalone (copied to /tmp, ran without the lab tree)",
+  "risks": [
+    "adds a bottleneck; the burden of proof (K1/K2) must travel with the pattern \u2014 re-run K2 against the primary's consumer set or drop the claim"
+  ],
+  "rollback": "remove the bus, direct calls (the pre-bus wiring is the trivial fallback)",
+  "sources": [
+    {
+      "bytes": 8874,
+      "lab_source": "flesh-pits/prototypes/architecture-a/workspace_buffer.py",
+      "package_path": "src/workspace_buffer.py",
+      "role": "mechanism",
+      "sha256": "09eda3384fdf1de271286db81ac155fdb351d5457fea23b16689c69b53da86c9"
+    },
+    {
+      "bytes": 6031,
+      "lab_source": "flesh-pits/prototypes/architecture-a/broadcast.py",
+      "package_path": "src/broadcast.py",
+      "role": "mechanism",
+      "sha256": "8db343efa51728e7af585915950ba7c59df02ec6afdd53189aeb0d660bcc68a3"
+    },
+    {
+      "bytes": 12638,
+      "lab_source": "flesh-pits/prototypes/architecture-a/tick.py",
+      "package_path": "src/tick.py",
+      "role": "mechanism",
+      "sha256": "ca78fd8ff9e01d5ff51261ab56a245834ec5267ba61d585ff08a346ce46c1e2e"
+    },
+    {
+      "bytes": 5303,
+      "lab_source": "flesh-pits/prototypes/architecture-a/consumers.py",
+      "package_path": "src/consumers.py",
+      "role": "mechanism",
+      "sha256": "44096a6d97951b62073cd012a9d42622ee0854622567a9246516da207be4ce7c"
+    },
+    {
+      "bytes": 5273,
+      "lab_source": "flesh-pits/prototypes/architecture-a/attention.py",
+      "package_path": "src/attention.py",
+      "role": "dependency",
+      "sha256": "ee977a1de7f28200ec74db637eafcc62e36bb07b0c6d9a6239f99918c532878d"
+    },
+    {
+      "bytes": 3059,
+      "lab_source": "flesh-pits/prototypes/architecture-a/bids.py",
+      "package_path": "src/bids.py",
+      "role": "dependency",
+      "sha256": "292dc50e7553243a4e7fce8f607b3d7f3e6e029ea13fe5cf571c9d6bbc8fe8c2"
+    },
+    {
+      "bytes": 4181,
+      "lab_source": "flesh-pits/prototypes/architecture-a/ignition.py",
+      "package_path": "src/ignition.py",
+      "role": "dependency",
+      "sha256": "cc38671f2c0dc6cdd7e433c677b1557d13c1af001b8f3978a35a8bbfc2b3b41b"
+    },
+    {
+      "bytes": 3061,
+      "package_path": "tests/envs.py",
+      "role": "test-support env (K2 only)",
+      "sha256": "5c6dc33c9d2f43bfd334c31bc168ba2ddac466c5b0f792ec4a58a4a63a85f359"
+    },
+    {
+      "bytes": 5721,
+      "package_path": "tests/test_h2.py",
+      "role": "package test (preregistered procedure)",
+      "sha256": "f0c08687bc44f772d558f05af32cc4c196abdb738a777419e1075549b29176f3"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "ablation": "n/a (donor)",
+  "baseline": "the primary's current (ad-hoc) retrieval substrate",
+  "expected_benefit": "standardized vector retrieval substrate; low integration cost; maintained; permissive license",
+  "generalization_bounds": [
+    "retrieval quality is deployment-dependent \u2014 benchmark against the current substrate before switching",
+    "index internals not re-verified at this SHA (well-established upstream; UNVERIFIED at this SHA)"
+  ],
+  "harvest_class": "HARVEST_NOW",
+  "integration_surface": "the primary's retrieval layer (episodic/semantic retrieval substrate, local mode)",
+  "key_results": [
+    {
+      "receipt": "emergent-mind/research/donor_matrix.md (D6 entry)",
+      "result": "donor_matrix D6: ADOPT \u2014 repo/API surface verified at docs level; HNSW-based retrieval per documentation"
+    },
+    {
+      "receipt": "receipts/package_test_receipt.json (generated on test run)",
+      "result": "package test validates the adoption record standalone"
+    }
+  ],
+  "license": "Apache-2.0 (raw LICENSE at SHA, VERIFIED per donor_matrix)",
+  "maturity": {
+    "ledger": "flesh-pits/bin/maturity_audit_report.json, generated 2026-10-07T12:14:34Z",
+    "level": "ADOPT"
+  },
+  "mechanism": "embedding store with HNSW approximate-nearest-neighbor retrieval; collections, metadata filtering, pluggable embedding functions",
+  "mechanism_name": "chroma (D6) \u2014 donor adoption",
+  "merge_status": "PACKAGED ONLY \u2014 staged for the primary effort's decision per \u00a751 reorient. NOT merged into primary.",
+  "model_dependencies": "Python; hnswlib/onnxruntime; optional server mode",
+  "notes": [
+    "donor NOT vendored (large); fetch.sh pins the exact SHA",
+    "pinned SHA f36d9bba588e81efb0a0e7f155d2ca2cf58d2b4f (2026-10-06)"
+  ],
+  "package_id": "H9",
+  "package_test_result": "PASS standalone (copied to /tmp, ran without the lab tree)",
+  "risks": [
+    "index rebuild on embedding-model change; memory footprint of HNSW at scale"
+  ],
+  "rollback": "keep the current substrate (Chroma sits behind the retrieval interface)",
+  "sources": [
+    {
+      "bytes": 1799,
+      "lab_source": "donor_matrix D6 (adoption record)",
+      "package_path": "ADOPTION.md",
+      "role": "adoption record",
+      "sha256": "825252b1d66609b40a86517e266c103cf12860c99f061fd12ae48e96cd39a7d2"
+    },
+    {
+      "bytes": 422,
+      "lab_source": "donor_matrix D6 (fetch script)",
+      "package_path": "fetch.sh",
+      "role": "fetch script (pins SHA)",
+      "sha256": "f69c8dfa4099e45a75fc3d1083873fa62fe893362ef3c97ba12839a399f891f4"
+    },
+    {
+      "bytes": 2729,
+      "package_path": "tests/test_h9.py",
+      "role": "package test (preregistered procedure)",
+      "sha256": "a021e290390643d5c4b720f2e2b3190a525ff6ad897d1cadb49489b8159ca5aa"
+    }
+  ]
+}

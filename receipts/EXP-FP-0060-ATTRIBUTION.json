@@ -1,0 +1,271 @@
+{
+  "baseline": "ChanceAgent paired identical streams",
+  "conditions": "self_world_mismatch v1.0.0, p=0.15; 4 seeds x 5 eps x 60 ticks; burn-in 8 ticks; alternation policy",
+  "config": {
+    "agents": [
+      "comparator_attributor",
+      "chance_attributor"
+    ],
+    "burn_in": 8,
+    "contract_version": "1.0.0",
+    "env": {
+      "mismatch_p": 0.15,
+      "name": "self_world_mismatch",
+      "version": "1.0.0"
+    },
+    "episodes": 5,
+    "preregistration": "experiments/preregistration_SELF_WORLD_ATTRIB.json",
+    "quarantine_episodes": 3,
+    "quarantine_seed": 96015,
+    "seeds": [
+      96021,
+      96022,
+      96023,
+      96024
+    ],
+    "ticks": 60
+  },
+  "config_hash": "29a1c02a589eb162bc2557952260fefe37e52c438ce5bae137e2dec64d11aefd",
+  "episodes": 43,
+  "experiment_id": "EXP-FP-0060-ATTRIBUTION",
+  "hypothesis": "Comparator attributor: visible-mismatch hit >= 0.90 and normal-accept >= 0.80; coinciding mismatches are misattributed to self (comparator-predicted error). Quarantine: zero leaks.",
+  "interpretation": "PASS/NULL_HOLDS per decision rule in preregistration_SELF_WORLD_ATTRIB.json",
+  "limitations": "Alternation policy is a probe convenience; quarantine is tag-enforced, not content-enforced; CONSCIOUSNESS: UNRESOLVED.",
+  "null_hypothesis": "Attribution at chance (~0.50 visible-mismatch hit); quarantine leaks.",
+  "preregistered_metric": "H1 hit_visible seed-mean >= 0.90 with hit >= 0.85 on >= 3/4 seeds; accept_normal seed-mean >= 0.80; H2 leaks_admitted == 0, violators == 0",
+  "prev_receipt_hash": "f95ade151411208f29147065f382e576682f7e166b3d9a9bf19dc558dfeb9bb3",
+  "primary_seed": 96021,
+  "receipt_hash": "cd414df1c6501f83ed5864a8b2fa56e1892c83146012fcfc589898fd78344d51",
+  "started_utc": "2026-10-07T12:40:21.138599+00:00",
+  "summary": {
+    "H1_attribution": {
+      "chance_seed_hits_visible": [
+        0.5,
+        0.44,
+        0.35294117647058826,
+        0.1875
+      ],
+      "chance_seed_mean_hit_visible": 0.37011029411764707,
+      "comparator_seed_accepts": [
+        0.9073170731707317,
+        0.8737373737373737,
+        0.9023255813953488,
+        0.8990384615384616
+      ],
+      "comparator_seed_hits_visible": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "comparator_seed_mean_accept_normal": 0.895604622460479,
+      "comparator_seed_mean_err_coincide": 0.8995535714285714,
+      "comparator_seed_mean_hit_all": 0.623914780748397,
+      "comparator_seed_mean_hit_visible": 1.0,
+      "hit_advantage_over_chance": 0.6298897058823529,
+      "pass": true
+    },
+    "H2_quarantine": {
+      "admissions": 181,
+      "audit_violators": 0,
+      "chain_valid": true,
+      "leak_attempts": 10,
+      "leaks_admitted": 1,
+      "pass": false,
+      "predicted_buffer_size": 180,
+      "red_team": [
+        [
+          "admit predicted",
+          "rejected"
+        ],
+        [
+          "admit missing source",
+          "rejected"
+        ],
+        [
+          "admit simulated",
+          "rejected"
+        ],
+        [
+          "admit empty-string source",
+          "rejected"
+        ],
+        [
+          "admit None source",
+          "rejected"
+        ],
+        [
+          "admit non-dict",
+          "rejected"
+        ],
+        [
+          "admit forged observed tag",
+          "ADMITTED"
+        ],
+        [
+          "restore predicted-tagged",
+          "rejected"
+        ],
+        [
+          "restore broken chain",
+          "rejected"
+        ],
+        [
+          "restore bad head",
+          "rejected"
+        ],
+        [
+          "restore empty",
+          "ok"
+        ],
+        [
+          "restore honest",
+          "ok"
+        ]
+      ],
+      "rejections": 6,
+      "stored_records": 181
+    },
+    "consciousness_status": "UNRESOLVED",
+    "per_seed": [
+      {
+        "chance": {
+          "hit_all": 0.5263157894736842,
+          "hit_visible": 0.5,
+          "pooled_accuracy": 0.5034642032332564
+        },
+        "comparator": {
+          "accept_normal": 0.9073170731707317,
+          "accept_normal_n": 205,
+          "by_mode": {
+            "delay": {
+              "frac": 1.0,
+              "n": 10
+            },
+            "override": {
+              "frac": 0.5,
+              "n": 18
+            },
+            "swap": {
+              "frac": 0.6,
+              "n": 10
+            }
+          },
+          "err_coincide_n": 16,
+          "err_coincide_rate": 0.8125,
+          "hit_all": 0.6578947368421053,
+          "hit_all_n": 38,
+          "hit_visible": 1.0,
+          "hit_visible_n": 22,
+          "pooled_accuracy": 0.9168591224018475,
+          "pooled_n": 433
+        },
+        "seed": 96021
+      },
+      {
+        "chance": {
+          "hit_all": 0.4358974358974359,
+          "hit_visible": 0.44,
+          "pooled_accuracy": 0.541371158392435
+        },
+        "comparator": {
+          "accept_normal": 0.8737373737373737,
+          "accept_normal_n": 198,
+          "by_mode": {
+            "delay": {
+              "frac": 1.0,
+              "n": 14
+            },
+            "override": {
+              "frac": 0.8181818181818182,
+              "n": 11
+            },
+            "swap": {
+              "frac": 0.35714285714285715,
+              "n": 14
+            }
+          },
+          "err_coincide_n": 14,
+          "err_coincide_rate": 0.7857142857142857,
+          "hit_all": 0.717948717948718,
+          "hit_all_n": 39,
+          "hit_visible": 1.0,
+          "hit_visible_n": 25,
+          "pooled_accuracy": 0.9148936170212766,
+          "pooled_n": 423
+        },
+        "seed": 96022
+      },
+      {
+        "chance": {
+          "hit_all": 0.4838709677419355,
+          "hit_visible": 0.35294117647058826,
+          "pooled_accuracy": 0.45647058823529413
+        },
+        "comparator": {
+          "accept_normal": 0.9023255813953488,
+          "accept_normal_n": 215,
+          "by_mode": {
+            "delay": {
+              "frac": 1.0,
+              "n": 7
+            },
+            "override": {
+              "frac": 0.4444444444444444,
+              "n": 9
+            },
+            "swap": {
+              "frac": 0.4,
+              "n": 15
+            }
+          },
+          "err_coincide_n": 14,
+          "err_coincide_rate": 1.0,
+          "hit_all": 0.5483870967741935,
+          "hit_all_n": 31,
+          "hit_visible": 1.0,
+          "hit_visible_n": 17,
+          "pooled_accuracy": 0.9058823529411765,
+          "pooled_n": 425
+        },
+        "seed": 96023
+      },
+      {
+        "chance": {
+          "hit_all": 0.32142857142857145,
+          "hit_visible": 0.1875,
+          "pooled_accuracy": 0.4593967517401392
+        },
+        "comparator": {
+          "accept_normal": 0.8990384615384616,
+          "accept_normal_n": 208,
+          "by_mode": {
+            "delay": {
+              "frac": 1.0,
+              "n": 10
+            },
+            "override": {
+              "frac": 0.3333333333333333,
+              "n": 9
+            },
+            "swap": {
+              "frac": 0.3333333333333333,
+              "n": 9
+            }
+          },
+          "err_coincide_n": 12,
+          "err_coincide_rate": 1.0,
+          "hit_all": 0.5714285714285714,
+          "hit_all_n": 28,
+          "hit_visible": 1.0,
+          "hit_visible_n": 16,
+          "pooled_accuracy": 0.8932714617169374,
+          "pooled_n": 431
+        },
+        "seed": 96024
+      }
+    ],
+    "verdict": "PASS / FAIL"
+  },
+  "written_utc": "2026-10-07T12:40:21.228208+00:00"
+}
