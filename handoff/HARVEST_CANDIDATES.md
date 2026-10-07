@@ -11,11 +11,24 @@
 - **Baseline:** frozen gains (fixed baseline) on the canonical changing_rule env (ENV_INTERFACE v1.0.0).
 - **Result:** K4 learned/frozen total-reward ratios 1.61/2.03/1.95/1.57 (4/4 seeds, preregistered margin 1.30); canonical re-run 1.44/1.60/1.70/1.48 (receipt `flesh-pits/receipts/K4-CANONICAL-RERUN.ndjson`, hash-chained); multi-seed repro 1.71–2.13 on 5/5 fresh seeds (`repro_k4_attention_baseline.json`).
 - **Ablation:** freezing gains collapses the advantage (K4 is the ablation); K7 bids lesion collapses arbitration entropy 1.03–1.38 → 0.0 bits but learned gains compensate for dead bids (NR-A-009 — the win is carried by the gain loop, not the bids).
-- **Generalization:** GENERALIZING with stated bounds — noisy-signal tracking (K5 P2: 4/4, R 1.31–1.52) and multi-reversal stationary shifts (K5 P3: 4/4, R 1.74–2.05). BOUNDS: NR-A-005 (frozen change-bids suffice on signal-tracking reversals), NR-A-006 (delayed_reward: learned LOSES, R 0.08–0.17 — structural), NR-A-007 (cue-conditioned changing_rule without cue input: R 1.03–1.09 — architectural).
+- **Generalization:** GENERALIZING with stated bounds — noisy-signal tracking (K5 P2: 4/4, R 1.31–1.52) and multi-reversal stationary shifts (K5 P3: 4/4, R 1.74–2.05). BOUNDS: NR-A-005 (frozen change-bids suffice on signal-tracking reversals), NR-A-006 (delayed_reward: learned LOSES, R 0.08–0.17 — structural; K9 redesign failed 0/4, NR-A-011), NR-A-007-without-cue-input (cue-conditioned changing_rule without cue input: R 1.03–1.09 — architectural input bound; LIFTED when the cue is in the input — see H1b).
 - **Integration surface:** any selection/competition point on the primary that needs adaptive prioritization with receipts.
 - **Expected benefit:** adaptive attention that provably tracks salience-orthogonal relevance shifts; identity-symmetric (bit-identical trajectories for novel labels incl. a historically privileged string).
-- **Risks:** NR-A-006/NR-A-007 bounds travel with it — do not deploy on sparse-delayed-reward or cue-conditioned tasks without the redesigned gain rule / cue-indexed adapter (both are open next experiments, not part of this package).
+- **Risks:** NR-A-006 bound travels with it — do not deploy on sparse-delayed-reward tasks (K9 redesign failed; structural). The cue-conditioned bound is lifted by H1b below; without the cue-indexed adapter, do not deploy on cue-conditioned tasks.
 - **Rollback:** freeze gains (the K4 frozen mode is a one-flag rollback to the fixed baseline).
+
+### H1b. Cue-indexed gain adapter (widens H1 past NR-A-007)
+- **Exact source:** `flesh-pits/prototypes/architecture-a/attention_cue.py` (`CueIndexedArbitrator` — one gain vector per cue value via context-keyed `gains` property; original delta rule unchanged), `tick.py` additive `arbitrator_cls`/`context_fn` params (defaults = proven behavior; context_fn without `set_context` fails closed). Lab-original, owner-held, 2026-10-07.
+- **Model dependencies:** none — float arithmetic only.
+- **Mechanism:** the K4/P3 reversal-tracking mechanism operating per cue value across rule flips; per-cue gain vectors diverge as designed (e.g. cue0 {a0:1.925, a1:0.875}, cue1 {a0:0.95, a1:2.0}).
+- **Baseline:** frozen gains on cue-conditioned changing_rule WITH cue input.
+- **Result:** K10 B1 (cue in input): R = 1.52/1.68/1.64/1.58, 4/4 WIN (learned 368–392/480 vs frozen 230–244/480). B2 control (cue withheld): R 0.95–1.13, 0/4 gaps — the cue, not the new module, is causal (confound rule satisfied).
+- **Ablation:** B2 IS the ablation (withhold the cue → advantage vanishes).
+- **Generalization result:** single experiment family; second-lane replication open.
+- **Integration surface:** any primary selection point with observable context — pass `context_fn`; H1's loop does the rest.
+- **Expected benefit:** lifts H1's architectural bound on context-conditioned tasks; per-cue gain vectors are inspectable.
+- **Risks:** cue must be in the input — without it the bound stands (NR-A-007-without-cue-input). Context dimensionality untested beyond binary cue.
+- **Rollback:** default `arbitrator_cls`/`context_fn` = the proven H1 path (one-flag).
 
 ### H2. Bounded workspace buffer + sole-path broadcast pattern
 - **Exact source:** `flesh-pits/prototypes/architecture-a/workspace_buffer.py`, `broadcast.py`, `tick.py`, `consumers.py` (6 consumers). Lab-original, owner-held.

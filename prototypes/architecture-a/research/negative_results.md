@@ -148,3 +148,59 @@ written. Reconstructed from those citations.*
   fails trivially because baseline now recovers too). The WIRE decision
   rests on the pre-wire run recorded in the decision receipt.
 - Receipt: receipts/k8_r1_wiring_decision.json (method_correction field).
+
+## 2026-10-07 — NR-A-011: trace-rule redesign does not lift the delayed_reward bound (K9)
+
+- Expectation (H1, preregistered): replacing the constant-baseline (0.5)
+  delta rule with a return-conditioned, baseline-free eligibility-trace
+  gain update (attention_sparse.py: per-tick e_c <- 0.9*e_c, e_winner += 1;
+  on return r != 0, gain[c] += 0.15*r*e_c; no change on r == 0) would let
+  learned gains beat frozen gains on canonical delayed_reward (R >= 1.30
+  on >= 3/4 fresh seeds {1111, 2222, 3333, 4444}; every other
+  hyperparameter identical to K5 P1).
+- Observed: R = 0.50 / 0.34 / 0.43 / 0.47 — 0/4 wins, BOUND STANDS.
+  Learned totals 0.10–0.34 vs frozen 0.20–0.82; both at shaping level (no
+  +1.0 events in either condition on most seeds).
+- Mechanism (measured): the trace rule operated as designed — forward gain
+  rose to 1.24–1.29 on shaping-heavy seeds; branch channels received only
+  lambda^10-discounted credit (negligible). Two structural facts killed it:
+  (1) the +1.0 is too rare under near-uniform play for trace credit to
+  matter — learned totals stayed at shaping level; (2) the mild forward
+  preference the rule DID learn poisons the t=0 decision (forward is a
+  no-op at t=0; each forward-win there wastes one of 15 steps), so learned
+  < frozen on every seed. The preregistered H0 predicted the
+  forward-credit concentration correctly; the realized dynamics were
+  milder (t=0 poisoning, not full lock-in).
+- Rules out: "a return-conditioned baseline-free gain update lifts
+  NR-A-006." A state-blind bandit cannot learn branch-then-forward
+  sequencing — changing the gain-update rule changes HOW it fails, not
+  whether. The NR-A-006 bound is STRUCTURAL (input/state, not the rule).
+- Receipt: receipts/k9_sparse_reward_redesign.ndjson (hash-chained:
+  preregistration + 4 seed_results + verdict). Prereg:
+  receipts/prereg_k9_sparse_reward_redesign.json.
+
+## 2026-10-07 — NR-A-007 conditionally LIFTED (K10): cue-indexed gains
+
+- The bound AS STATED replicates: K10 control probe B2 (CueIndexedArbitrator
+  with constant context — cue withheld; code path otherwise identical)
+  shows R = 0.95–1.13, 0/4 gaps on fresh seeds {5555, 6666, 7777, 8888},
+  matching NR-A-007's 1.03–1.09. Without the cue in the input the
+  architecture is a context-free bandit and no gain rule beats chance.
+- With the cue in the input (B1: context_fn = obs["cue"] -> one gain
+  vector per cue value; ORIGINAL delta rule unchanged): R = 1.52 / 1.68 /
+  1.64 / 1.58 — 4/4 WIN (gate >= 1.30). Learned totals 368–392/480 vs
+  frozen 230–244/480 (chance).
+- Mechanism evidence: per-cue gain vectors diverged as designed (seed 5555
+  final: cue0 {a0: 1.925, a1: 0.875}, cue1 {a0: 0.95, a1: 2.0}) — the
+  K4/P3 reversal-tracking mechanism operating per cue, re-learning across
+  the 5-episode rule flips.
+- Precise current claim: NR-A-007 holds IFF the relevant state is absent
+  from the input. It is an architectural INPUT bound, not a learning
+  failure. With state-conditioned gains the bound lifts; the control
+  confirms the cue (not the new module) is the causal factor.
+- New modules: prototypes/architecture-a/attention_cue.py
+  (CueIndexedArbitrator; attention.py untouched), tick.py gained additive
+  `arbitrator_cls` / `context_fn` params (defaults = proven behavior).
+- Receipt: receipts/k10_cue_indexed_adapter.ndjson (hash-chained:
+  preregistration + 8 seed_results + verdict). Prereg:
+  receipts/prereg_k10_cue_indexed_adapter.json.

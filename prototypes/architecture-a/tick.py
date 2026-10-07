@@ -44,16 +44,32 @@ class WorkspaceTick:
     def __init__(self, channels, specialists, *, capacity=3,
                  gain_lr=0.05, frozen_gains=False,
                  ignition_kwargs=None, alpha=0.01, initial_var=1.0,
-                 admission_floor=0.0):
+                 admission_floor=0.0,
+                 arbitrator_cls=None, context_fn=None):
+        """Additive extensions (2026-10-07, K9/K10; defaults preserve the
+        proven behavior exactly):
+          arbitrator_cls -- AttentionArbitrator subclass to instantiate
+                            instead of AttentionArbitrator (default None
+                            -> AttentionArbitrator, byte-identical path).
+          context_fn     -- callable observation -> hashable context, fed
+                            to arbitrator.set_context() before each
+                            arbitration (default None -> no context;
+                            requires an arbitrator with set_context)."""
         self.channels = list(channels)
         self.specialists = {c: fn for c, fn in specialists}
         if set(self.specialists) != set(self.channels):
             raise ValueError("specialists must cover exactly the channels")
         self.buffer = BoundedWorkspace(
             capacity, consumer_registry=set(CONSUMER_REGISTRY))
-        self.arbitrator = AttentionArbitrator(
+        arb_cls = arbitrator_cls or AttentionArbitrator
+        self.arbitrator = arb_cls(
             self.channels, alpha=alpha, initial_var=initial_var,
             gain_lr=gain_lr, frozen=frozen_gains)
+        if context_fn is not None and not hasattr(self.arbitrator,
+                                                   "set_context"):
+            raise ValueError("context_fn requires an arbitrator with "
+                             "set_context()")
+        self.context_fn = context_fn
         self.ignition = RecurrentIgnition(**(ignition_kwargs or {}))
         self.bus = BroadcastBus()
         # The tick holds NO consumer references after registration:
@@ -99,6 +115,11 @@ class WorkspaceTick:
         self.tick_index += 1
         t = self.tick_index
         trace = {"tick": t}
+
+        # 0. context conditioning (K10 extension; default None -> skipped).
+        #    The context is input conditioning, set before arbitration.
+        if self.context_fn is not None:
+            self.arbitrator.set_context(self.context_fn(observation))
 
         # 1. specialists -> stimuli
         stimuli, payloads = {}, {}

@@ -53,9 +53,15 @@ perception -> specialists -> z-score salience bids -> attention arbitration
   frozen change-bid baseline adapts alone (NR-A-005). Learning earns its
   keep for salience-orthogonal relevance shifts — generalized 2026-10-07
   (K5) to noisy-signal tracking (P2, 4/4) and multi-reversal stationary
-  shifts (P3, 4/4), but NOT to sparse delayed reward (NR-A-006: learned
-  loses, R 0.08–0.17) or cue-conditioned contingencies without cue input
-  (NR-A-007: no gap, R 1.03–1.09).
+  shifts (P3, 4/4), and (K10) to cue-conditioned changing_rule WITH cue
+  input (4/4, R 1.52–1.68; per-cue gain vectors diverge as designed) —
+  but NOT to sparse delayed reward: NR-A-006 stands STRUCTURAL after K9
+  (NR-A-011) — the return-conditioned baseline-free eligibility-trace
+  redesign failed 0/4 (R 0.34–0.50); a state-blind bandit cannot learn
+  branch-then-forward sequencing — nor to cue-conditioned contingencies
+  WITHOUT cue input (NR-A-007: no gap, R 1.03–1.09; K10 control
+  replicates 0/4 at R 0.95–1.13 — the bound is architectural input
+  conditioning, not a learning failure).
 - **Stationarity perseveration** (NR-A-004) — RESOLVED and WIRED
   2026-10-07 (K6 + K8): R1 sub-ignition exploratory path is the default
   tick behavior (act on the graded arbitration winner when nothing
