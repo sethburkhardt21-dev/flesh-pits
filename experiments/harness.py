@@ -24,6 +24,13 @@ CHAIN CONVENTION (2026-10-07, bug fix):
   no integrity and removes the old write/verify disagreement (the EXP-AB-K3C
   lane confirmed the old mismatch live).
 - Existing receipts are never rewritten; only future writes use this rule.
+
+OVERWRITE RULE (2026-10-07, EXP-FP-0050 collision):
+- write_receipt FAILS CLOSED on an existing path (raises ReceiptExistsError)
+  unless supersede="<reason>" is passed; the superseded receipt records
+  superseded_previous_hash + supersede_reason. Claim IDs in
+  experiments/ID_REGISTRY (id_registry.py, atomic claims under the
+  file-lock skill) before writing; never mint blind.
 """
 
 import argparse
@@ -126,6 +133,13 @@ def run_experiment(env_name, agent_name, n_episodes, primary_seed,
     }
 
 
+class ReceiptExistsError(FileExistsError):
+    """Raised when write_receipt refuses to overwrite an existing receipt.
+
+    Subclasses FileExistsError so existing callers catching FileExistsError
+    also catch this."""
+
+
 def _chained_receipt_files(receipts_dir, exclude_path=None):
     """mtime-sorted .json files that carry a receipt_hash.
 
@@ -153,7 +167,7 @@ def _chained_receipt_files(receipts_dir, exclude_path=None):
 
 def write_receipt(result, receipts_dir, hypothesis="", null="",
                   preregistered_metric="", baseline="", conditions="",
-                  interpretation="", limitations=""):
+                  interpretation="", limitations="", supersede=None):
     """Write the §38/§46 receipt JSON. Returns the file path.
 
     Receipts are hash-chained: each receipt carries prev_receipt_hash (sha256
@@ -161,9 +175,33 @@ def write_receipt(result, receipts_dir, hypothesis="", null="",
     no chained receipt precedes it) and its own receipt_hash. verify_chain()
     checks the chain. Pre-chain (hashless) receipts are skipped when choosing
     prev — see CHAIN CONVENTION at module top.
+
+    FAIL-CLOSED OVERWRITE RULE (2026-10-07, EXP-FP-0050 collision):
+    if <receipts_dir>/<experiment_id>.json already exists, the write is
+    REFUSED with FileExistsError — never silently overwritten. This is the
+    systemic fix for the 2026-10-07 incident where two concurrent lanes
+    minted EXP-FP-0050 and the second lane's open(path, "w") destroyed the
+    first lane's receipt (hash c55fdebe..., unrecoverable). Claim the ID in
+    experiments/ID_REGISTRY before writing; never mint blind.
+
+    To deliberately replace an existing receipt (e.g. re-run after a crash
+    truncated the first write), pass supersede="<non-empty reason>": the
+    write proceeds, and the receipt records superseded_previous_hash (the
+    old receipt's receipt_hash, None if it was hashless) and
+    supersede_reason. An empty or missing reason still refuses.
     """
     import hashlib
     os.makedirs(receipts_dir, exist_ok=True)
+    path = os.path.join(receipts_dir, f"{result['experiment_id']}.json")
+    path_exists = os.path.exists(path)
+    reason = supersede if isinstance(supersede, str) and supersede else None
+    if path_exists and reason is None:
+        raise ReceiptExistsError(
+            f"refusing to overwrite existing receipt {path}: the experiment "
+            "ID is already taken (possible concurrent-lane collision — "
+            "claim the ID family in experiments/ID_REGISTRY first and never "
+            "mint blind). Pass supersede='<reason>' to deliberately "
+            "supersede the existing receipt.")
     receipt = {
         "experiment_id": result["experiment_id"],
         "hypothesis": hypothesis,
@@ -181,7 +219,15 @@ def write_receipt(result, receipts_dir, hypothesis="", null="",
         "interpretation": interpretation,
         "limitations": limitations,
     }
-    path = os.path.join(receipts_dir, f"{result['experiment_id']}.json")
+    if path_exists:
+        # Explicit supersede: bind the replacement to what it replaces.
+        try:
+            with open(path) as f:
+                old = json.load(f)
+            receipt["superseded_previous_hash"] = old.get("receipt_hash")
+        except (json.JSONDecodeError, OSError):
+            receipt["superseded_previous_hash"] = None
+        receipt["supersede_reason"] = reason
     prev = None
     chained = _chained_receipt_files(receipts_dir, exclude_path=path)
     if chained:

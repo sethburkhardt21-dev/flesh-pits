@@ -33,6 +33,8 @@ appended beneath, never edited into the preregistration.
 | EXP-FP-0072 | changing_rule | arch_b + estimator variant C (channel-decomposed REST error features) vs sequential climatology | Brier_est < Brier_climo on >=3/4 domains AND corr(uncertainty,|err|)>=0.40 on >=3/4 | COMPLETE (NEGATIVE — 2/4 Brier beats, 0/4 coupling; three-variant arc closed, result below) |
 | EXP-FP-0050 | delayed_multistep + compositional_rule | arch_b intact vs lesion_l1 closed-loop, learning on | control lesion gap G = mean_return(intact) − mean_return(lesioned), 30 eps/arm, 4 fresh seeds; EARNS_KEEP iff G>0 on 4/4 AND solvability sanity gate (SOLVE_BAR sealed pre-run) | COMPLETE (compositional_rule EARNS_KEEP 4/4; delayed_multistep VOID on sanity — result below) |
 | EXP-FP-0021 | delayed_reward | arch_a ECR (EpisodicContrastiveArbitrator) learned vs frozen | R = total(learned)/total(frozen) ≥ 1.30 on 4/4 fresh seeds {21001–21004}, 8 eps/seed | COMPLETE (POSITIVE — 4/4 wins, NR-A-006 conditionally lifted; result below) |
+| EXP-FP-0080 | delayed_reward | arch_a ECR independent reimplementation (ReturnConditionedEpisodicArbitrator) learned vs frozen — replication of EXP-FP-0021 | R = total(learned)/total(frozen) ≥ 1.30 on 4/4 fresh seeds {82021–82024}, 8 eps/seed | COMPLETE (POSITIVE — 4/4 wins, REPRODUCED; result below) |
+| EXP-FP-0090 | changing_rule (post-flip shift) | arch_a: transferred (source-tuned) dynamics vs default dynamics vs frozen phase-0 endpoint; metric = time-to-criterion | (TTC_D−TTC_X)/TTC_D ≥ 0.30 on ≥3/4 fresh seeds {97011–97014} | COMPLETE (NEGATIVE — H0: dynamics do not transfer, 0/4 wins; endpoint H0 reference confirmed; result below) |
 
 ---
 
@@ -987,6 +989,27 @@ receipt records, chain verified, G0c determinism MATCH)**
 - Mechanism: novelty features load-bearing but tiny; binding constraint is irreducible cue RNG (60.5% of |err| variance). Batch-oracle ceiling R²=0.029 (corr 0.17) on total error.
 - Receipt: receipts/EXP-FP-0071.json (hash-chained).
 
+## EXP-FP-0080 — Independent replication of the ECR gain redesign (EXP-FP-0021 REPRODUCED bar)
+
+**PREREGISTERED (2026-10-07T09:17 EDT, before the implementation was written and before any run; experiments/preregistration_EXP-FP-0080.json; ID confirmed allocated in experiments/ID_REGISTRY)**
+- hypothesis (H1): an INDEPENDENT implementation of the ECR rule (return-conditioned, baseline-free, episodic credit assignment from the reward stream alone) beats frozen gains on canonical delayed_reward: R >= 1.30 on 4/4 fresh seeds.
+- null (H0): R < 1.30 on >= 1 seed -> replication fails -> negative result with mechanism account.
+- preregistered metric: R = total_reward(learned)/total_reward(frozen) per seed, 8 episodes x <=15 steps. Gate: REPRODUCED iff R >= 1.30 on 4/4 fresh seeds {82021, 82022, 82023, 82024}.
+- conditions: K5 P1 identical in every hyperparameter except the update-rule implementation (independent module prototypes/architecture-a/attention_ecr_repro.py, class ReturnConditionedEpisodicArbitrator; zero imports from attention_ecr.py; attention.py untouched). Same rule params: branch_channels {branch_a, branch_b}, max_steps 15, shape_punish 0.02, prebranch_demote 0.05, corridor_boost 0.01. Frozen = same class, frozen=True (gains pinned 1.0), paired per seed.
+- ablation plan (preregistered): if gate PASS -> ablations on the same 4 seeds (descriptive): corridor_boost=0, prebranch_demote=0, shape_punish=0, branch-only success credit. If FAIL -> ablations diagnose via gains trace.
+- frozen gates: G0 canonical files untouched by this run PASS; G1 fabrication-tripwire CLEAN on all new code PASS; G2 determinism recompute exact (seed 82021 learned=3.220000) PASS; G3 hash-chained receipt via harness.write_receipt PASS (own hash verifies, prev->EXP-FP-0072 correct at write time; the full-dir verify_chain complaints are pre-existing historical issues preserved per lab law); G4 nothing pushed PASS (no git repo under flesh-pits); G5 independence audit PASS (zero imports of attention_ecr internals).
+
+**RESULT (2026-10-07) — COMPLETE (POSITIVE, 4/4) — VERDICT: REPRODUCED**
+- seed 82021: learned=3.22 (2 successes) vs frozen=0.80 (0) -> R=4.03 WIN — gains {branch_b: 2.0, forward: 2.0, stay: 0.01}
+- seed 82022: learned=1.56 (1) vs frozen=0.22 (0) -> R=7.09 WIN — gains {branch_b: 2.0, forward: 2.0, stay: 0.46}
+- seed 82023: learned=3.34 (2) vs frozen=1.82 (1) -> R=1.84 WIN — gains {branch_a: 2.0, forward: 2.0, stay: 0.01}
+- seed 82024: learned=2.12 (1) vs frozen=0.52 (0) -> R=4.08 WIN — gains {branch_a: 2.0, forward: 2.0, stay: 0.01}
+- **REPRODUCED (4/4).** The gains trace matches the original's mechanism signature exactly: episode branch choice + forward locked at the gain cap (2.0, tied), stay suppressed toward the floor, unused branch untouched at 1.0.
+- Mechanism note: the re-derivation choice (per-EPISODE shaping tally for the progress channel, vs the original's cumulative tally) is behaviorally equivalent on canonical delayed_reward — only forward ever earns shaping, so both identify forward. Documented in the preregistration's limitations.
+- Ablations (descriptive, same 4 seeds, frozen totals reused): no_boost 3/4 (load-bearing on 82022: R 1.09 LOSS); no_prebranch 2/4 (load-bearing on 82021 R 0.42 and 82024 R 0.46); no_punish 3/4 (load-bearing on 82021 R 1.05); branch_only 3/4 (progress lock-in load-bearing on 82023 R 0.65). Full rule 4/4 >= every ablation -- same qualitative pattern as the original's exploratory ablations (all sub-mechanisms load-bearing).
+- Receipt: receipts/EXP-FP-0080.json (hash-chained via harness.write_receipt: EXP-FP-0072 -> EXP-FP-0080 -> EXP-FP-0100, the latter a parallel lane). Prereg: experiments/preregistration_EXP-FP-0080.json. Driver: prototypes/architecture-a/experiments/exp_fp_0080_ecr_repro.py. Receipt writer: prototypes/architecture-a/experiments/write_receipt_0080.py. Module: prototypes/architecture-a/attention_ecr_repro.py. Tests: prototypes/architecture-a/tests/test_attention_ecr_repro.py (16/16 pass). Ablations: prototypes/architecture-a/experiments/exp_fp_0080_ablations.py; results var/ecr-repro-0080-ablations.json (staged results var/ecr-repro-0080-results.json).
+- Limitations: (1) 4 seeds, single env (canonical delayed_reward). (2) Task-structural priors (branch_channels, max_steps) given, not learned -- unchanged from the original. (3) Per-episode vs cumulative shaping tally is a re-derivation choice; equivalent here, unverified elsewhere. (4) Frozen comparator is the same class frozen -- the replication tests the rule, not the comparator.
+
 ## EXP-FP-0072 — competence estimator variant C (channel-decomposed REST error features)
 
 **PREREGISTERED (2026-10-07, before run; experiments/preregistration_EXP-FP-0072.json)**
@@ -994,6 +1017,24 @@ receipt records, chain verified, G0c determinism MATCH)**
 - null: channel decomposition adds nothing (variant C is theater too).
 - preregistered metric / baseline / gates: identical to EXP-FP-0070/0071 (domains and events UNCHANGED — no goalpost moving).
 - conditions: changing_rule v1.0.0, InstrumentedArchB (equiv already proven), affect=none, 10 eps x 4 fresh seeds {73211,73212,73213,73214}.
+
+## EXP-FP-0100 — estimand re-scoping: competence = predictable error (family 1, post-0072 program)
+
+**PREREGISTERED (2026-10-07, sealed before run; experiments/preregistration_EXP-FP-0100.json; ID claimed via experiments/id_registry.py, family EXP-FP-010x pre-allocated to the calibration lane)**
+- hypothesis: excluding the pure-RNG cue channels (obs dims 0-1) from the estimand couples the causal online estimator to error magnitude: Brier beats sequential climatology on >=3/4 domains AND corr(predicted_uncertainty, predictable|err|) >= 0.40 on the re-scoped D1/D3.
+- null: re-scoping changes nothing (the estimator is theater on the re-scoped estimand too).
+- preregistered metric: Brier_est vs Brier_climo on the re-scoped events (D1/D3); coupling gated at 0.40 on D1 AND D3; ECE/MCE reported. Baselines: sequential climatology (win gate) + the 0072 variant-C estimator replayed on the same logs scored on the re-scoped estimand (diagnostic reference, NOT a gate).
+- estimator: feature_mode='D' = mode-C feature set; D1/D3 p heads train on re-scoped rest events; fails closed without ctx['signed_error']. D2/D4 unchanged.
+- thresholds frozen from the EXP-FP-CALIB-01 history (1950 ticks, seeds 73101-73105, pre-dating all battery seeds): EPS_OBS_REST=0.1387 (hist median), TAU_FAIL_REST=0.2896 (hist p90); method-faithfulness verified by reproducing the published EPS_OBS/TAU_FAIL within rounding on the same ticks.
+- conditions: changing_rule v1.0.0, InstrumentedArchB (equivalence-proven in 0071; same agent+env, no new instrumentation), affect=none, 10 eps x 4 fresh seeds {73301,73302,73303,73304} (word-boundary grep: zero prior use).
+- abstention: no tuning after the run; EXP-FP-0101/0102 preregistered ONLY if 0100 wins both gates.
+
+**RESULT (2026-10-07, run complete — receipt receipts/EXP-FP-0100.json, superseded once to complete interpretation/limitations, no numbers changed; hash-chained, chained to EXP-FP-0080 per mtime order)**
+- verdict: NULL_HOLDS. Brier beats climatology on 2/4: D2 action_consequence 0.25036 vs 0.25063 (CALIBRATED verdict) and D4 retrieval_usefulness 0.24248 vs 0.24403 (both marginal); D1 0.24962 vs 0.24851 LOSES; D3 0.11492 vs 0.11484 LOSES. Coupling corr: 0.026/0.069/0.083/0.060 — 0/4 reach 0.40.
+- Reference arm (0072 variant C on the same logs, scored on the re-scoped estimand): essentially identical numbers (D1 corr 0.032, D3 corr 0.076; D2/D4 identical) — the estimand change + p-head retraining added nothing over the total-error estimator.
+- Kill arms: anchor-only reproduces climatology to 1e-9 on the re-scoped events → PASS; error-permutation intact<permuted on 4/4 → error features add small independent signal; novelty-zeroed ablation load-bearing 4/4. Determinism self-check PASS; tripwire CLEAN; 11/11 estimator unit tests green (incl. 3 new mode-D tests).
+- Families 2-3 NOT run: conditional on family 1's win; nothing to generalize. The signal ceiling extends to the re-scoped estimand.
+- Full mechanism account: research/negative_results.md, EXP-FP-0100 entry.
 
 ## EXP-FP-0021 — Episodic Contrastive Return (ECR) gain redesign (LIFTS NR-A-006)
 
@@ -1029,3 +1070,22 @@ receipt records, chain verified, G0c determinism MATCH)**
 - Implementation bug: first execution voided (mode C silently dropped novelty features); fixed + regression-tested, re-run on same seeds. Documented in receipt.
 - Mechanism: signal ceiling, not learning failure — 60.5% of |err| variance is irreducible cue RNG; batch oracle caps at corr 0.17; online reaches 0.126 (~74% of oracle). The corr>=0.40 target is UNREACHABLE on changing_rule total-error as defined.
 - Full three-variant account in research/negative_results.md. Receipt: receipts/EXP-FP-0072.json (hash-chained).
+
+## EXP-FP-0090 — transfer of LEARNING DYNAMICS (TRANSFER-K4-RESTORE H0 follow-up)
+
+**PREREGISTERED (2026-10-07T13:23:00Z, before run; experiments/preregistration_EXP-FP-0090.json)**
+- hypothesis (H1): learning DYNAMICS transfer where endpoint gains did not — a fresh K4 loop with dynamics meta-learned on the source task re-adapts to the shifted (post-flip) task >=30% faster than a fresh learner with default dynamics, on >=3/4 fresh test seeds.
+- null (H0): source-tuned dynamics re-adapt no faster than default dynamics on the shifted task.
+- preregistered metric: re-adaptation SPEED = time-to-criterion (TTC): first 1-indexed tick t with mean(rewards[t-40:t]) >= 0.75 over the 200-tick post-flip target run; None if unreached. Endpoint reward NOT gated (H0 already closed that question).
+- arms: D = default dynamics control (gain_lr=0.15, z_alpha=0.01, initial_var=1.0, gain_cap=2.0, reward_baseline=0.5), gains online from 1.0; X = TRANSFERRED dynamics (deterministic coordinate-descent tuned on source task), gains online from 1.0; E = H0 reference: default dynamics, FROZEN phase-0 endpoint gains (TRANSFER-K4-RESTORE mechanism on the shifted task).
+- source: canonical changing_rule 10x40=400 ticks (phase 0->1 flip); target: post-flip changing_rule (5 throwaway resets -> episode_idx 5..9, phase-1 rule from tick 0), 5x40=200 ticks. Test seeds {97011,97012,97013,97014}; tuning seeds {97001,97002,97003}; pilot {97021,97022} (design only, never reused). ID family EXP-FP-009x + EXP-FP-0090 claimed via experiments/id_registry.py before any write.
+- gates: G0 bit-identity (fail-closed) -> G1 tuning sanity (distinct AND no-worse, else UNINTERPRETABLE) -> G2 transfer ((TTC_D-TTC_X)/TTC_D >= 0.30 on >=3/4) / G3 no-harm (reach X >= reach D) / G4 H0 reference (TTC_E None on >=3/4).
+
+**RESULT (2026-10-07) — COMPLETE (NEGATIVE — H0)**
+- G0: PASS — DynamicArbitrator(baseline=0.5) bit-identical to parent WorkspaceTick path, 400 ticks.
+- G1: PASS — tuning adopted all 5 alternatives in pass 1 (gain_lr 0.15->0.30, z_alpha 0.01->0.05, initial_var 1.0->0.5, gain_cap 2.0->1.5, reward_baseline 0.5->0.7); source mean total 318.3 -> 344.3 (+8.2%).
+- G2: FAIL — 0/4 wins. TTC_D = 40/40/43/40 vs TTC_X = 40/40/40/40 ticks.
+- G3: PASS — reach 4/4 both arms. G4: PASS — arm E totals 9–23/200, TTC None 4/4 (frozen pre-shift endpoint actively hurts; TRANSFER-K4-RESTORE mechanism reproduced).
+- Mechanism: the K4 win's process-ness does not cash out as transferable hyperparameter dynamics. DESIGN CAVEAT OWNED: the preregistered metric floors at TTC=40 (window=40), so 3/4 seeds sit at the measurement floor for both arms. Exploratory finer-resolution re-runs (deterministic, labeled exploratory, NOT gated): window=20 shows D and X trajectories BIT-IDENTICAL on seeds 97011/97012 (dynamics change nothing — adaptation saturates), X faster early on 97013 (first-20-tick mean 0.85 vs 0.65) and 97014 (0.90 vs 0.75); even at finest resolution only 1/4 seeds clears the 30% bar — H1 still unsupported. Re-adaptation from scratch hits criterion in ~40 ticks regardless; the speed is a property of the loop STRUCTURE (broadcast feedback + delta rule + fixed baseline) meeting a clean cue signal, not of the dynamics constants. What transfers across tasks in this architecture: nothing measured so far — endpoint gains fail (TRANSFER-K4-RESTORE H0), dynamics fail (here). What survives is the loop itself, run long enough to re-adapt.
+- Receipt: receipts/EXP-FP-0090.json (hash-chained via harness.write_receipt; self-hash verified, chain position clean). State: prototypes/architecture-a/receipts/transfer/EXP-FP-0090-state.json. Driver: prototypes/architecture-a/experiments/transfer_dynamics.py (NEW, additive; K4 originals unmodified).
+- Note: receipts/ chain verify reports two PRE-EXISTING prev_receipt_hash mismatches (EXP-AB-K3C.json, EXP-FP-0040.json; mtimes predate this run) plus legacy hashless pre-chain receipts — not caused by this experiment; EXP-FP-0090's own chain position is clean.

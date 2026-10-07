@@ -263,7 +263,7 @@ class CompetenceEstimator:
     def _extras(self, ctx: Dict[str, float],
                 base: Optional[List[float]] = None) -> List[float]:
         base = base or []
-        if self.feature_mode in ("B", "C"):
+        if self.feature_mode in ("B", "C", "D"):
             return base + self._novelty_extras(ctx)
         return base
 
@@ -298,6 +298,34 @@ class CompetenceEstimator:
         itself. The p heads always train on the preregistered (err, event).
         """
         nov = self._extras(ctx)
+        if self.feature_mode == "D":
+            # EXP-FP-0100: estimand re-scoping. The pure-RNG cue channels
+            # (obs dims 0-1) are EXCLUDED from the estimand: D1/D3's p heads
+            # train on REST-error events (competence = predictable error,
+            # not total error). The caller passes the re-scoped thresholds
+            # as eps_obs (EPS_OBS_REST) and tau_fail (TAU_FAIL_REST);
+            # eps_rw (D2) and D4 are unchanged. Driver must supply
+            # ctx["signed_error"]; missing it is a hard error, never a
+            # silent fallback (fail closed, not fail soft).
+            if "signed_error" not in ctx:
+                raise ValueError(
+                    "feature_mode='D' requires ctx['signed_error']")
+            se = ctx["signed_error"]
+            rest_err = sum(abs(x) for x in se[2:6]) / 4.0
+            self.est["next_obs"].observe(
+                rest_err, 1 if rest_err <= self.eps_obs else 0,
+                ctx["ounc"], update_norm_lag, extra=nov, feat_err=rest_err)
+            self.est["action_consequence"].observe(
+                out["err_rw"], 1 if out["err_rw"] <= self.eps_rw else 0,
+                ctx["runc"], update_norm_lag, extra=nov)
+            self.est["competence_failure"].observe(
+                rest_err, 1 if rest_err > self.tau_fail else 0,
+                ctx["ounc"], update_norm_lag, extra=nov, feat_err=rest_err)
+            self.est["retrieval_usefulness"].observe(
+                abs(out["benefit"]), 1 if out["benefit"] > 0 else 0,
+                ctx["uunc"], update_norm_lag,
+                extra=self._extras(ctx, [ctx["uhat"]]))
+            return
         rest_err = None
         if self.feature_mode == "C" and "signed_error" in ctx:
             se = ctx["signed_error"]

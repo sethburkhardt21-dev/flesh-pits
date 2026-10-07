@@ -1,0 +1,17 @@
+[
+  "tests/test_attention_ecr.py::TestECRConstruction::test_frozen_no_update",
+  "tests/test_attention_ecr.py::TestECRConstruction::test_rejects_bad_branch_channels",
+  "tests/test_attention_ecr.py::TestECRConstruction::test_rejects_bad_max_steps",
+  "tests/test_attention_ecr.py::TestECRConstruction::test_requires_branch_channels_for_update",
+  "tests/test_attention_ecr.py::TestECRDeterminism::test_deterministic",
+  "tests/test_attention_ecr.py::TestECRPreBranch::test_postbranch_no_demotion",
+  "tests/test_attention_ecr.py::TestECRPreBranch::test_prebranch_demotes_forward_above_branches",
+  "tests/test_attention_ecr.py::TestECRPreBranch::test_prebranch_does_not_demote_below_branches",
+  "tests/test_attention_ecr.py::TestECRPreBranch::test_prebranch_never_demotes_branch",
+  "tests/test_attention_ecr.py::TestECRShaping::test_shaping_counts_identify_progress",
+  "tests/test_attention_ecr.py::TestECRShaping::test_shaping_demotes_useless_channels",
+  "tests/test_attention_ecr.py::TestECRSuccess::test_episode_resets_after_success",
+  "tests/test_attention_ecr.py::TestECRSuccess::test_success_credits_first_branch_win",
+  "tests/test_attention_ecr.py::TestECRSuccess::test_success_locks_branch_and_progress_to_cap",
+  "tests/test_attention_ecr.py::TestECRSuccess::test_truncation_resets_without_credit"
+]

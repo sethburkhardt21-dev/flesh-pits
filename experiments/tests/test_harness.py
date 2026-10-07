@@ -11,6 +11,7 @@ sys.path.insert(0, BASE)
 
 import harness  # noqa: E402
 from env_interface import derive_seed  # noqa: E402
+import id_registry  # noqa: E402
 
 
 class TestHarness(unittest.TestCase):
@@ -82,3 +83,173 @@ class TestHarness(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+def _fake_result(exp_id):
+    """Minimal harness result body for receipt tests (no env run needed)."""
+    return {
+        "experiment_id": exp_id,
+        "config": {"env": "grid_world", "agent": "stateless"},
+        "config_hash": "deadbeef",
+        "primary_seed": 1,
+        "started_utc": "2026-10-07T00:00:00+00:00",
+        "episodes": [],
+        "summary": {"n_episodes": 0},
+    }
+
+
+class TestWriteReceiptFailClosed(unittest.TestCase):
+    """2026-10-07 EXP-FP-0050 collision: write_receipt must never silently
+    overwrite an existing receipt. Runs on a FRESH temp receipts dir; no
+    existing receipt is touched."""
+
+    def test_existing_path_without_supersede_raises(self):
+        with tempfile.TemporaryDirectory() as td:
+            p1 = harness.write_receipt(_fake_result("EXP-DUP"), td)
+            with open(p1) as f:
+                before = json.load(f)
+            with self.assertRaises(FileExistsError):
+                harness.write_receipt(_fake_result("EXP-DUP"), td)
+            # the original receipt is untouched: byte-identical, no
+            # supersede fields
+            with open(p1) as f:
+                after = json.load(f)
+            self.assertEqual(before, after)
+            self.assertNotIn("supersede_reason", after)
+            self.assertNotIn("superseded_previous_hash", after)
+
+    def test_existing_path_empty_supersede_still_raises(self):
+        with tempfile.TemporaryDirectory() as td:
+            harness.write_receipt(_fake_result("EXP-DUP2"), td)
+            with self.assertRaises(FileExistsError):
+                harness.write_receipt(_fake_result("EXP-DUP2"), td,
+                                      supersede="")
+            with self.assertRaises(FileExistsError):
+                harness.write_receipt(_fake_result("EXP-DUP2"), td,
+                                      supersede=None)
+
+    def test_supersede_records_previous_hash_and_reason(self):
+        with tempfile.TemporaryDirectory() as td:
+            p1 = harness.write_receipt(_fake_result("EXP-SUP"), td)
+            with open(p1) as f:
+                old_hash = json.load(f)["receipt_hash"]
+            r2 = _fake_result("EXP-SUP")
+            r2["summary"] = {"n_episodes": 1, "note": "re-run"}
+            reason = "re-run after crash truncated the first write"
+            p2 = harness.write_receipt(r2, td, supersede=reason)
+            self.assertEqual(p1, p2)
+            with open(p2) as f:
+                rec = json.load(f)
+            self.assertEqual(rec["superseded_previous_hash"], old_hash)
+            self.assertEqual(rec["supersede_reason"], reason)
+            self.assertEqual(rec["summary"]["note"], "re-run")
+            # the superseded receipt still verifies in the chain
+            ok, problems = harness.verify_chain(td)
+            self.assertTrue(ok, problems)
+
+    def test_supersede_hashless_old_receipt_records_none(self):
+        with tempfile.TemporaryDirectory() as td:
+            legacy = os.path.join(td, "EXP-LEG.json")
+            with open(legacy, "w") as f:
+                json.dump({"experiment_id": "EXP-LEG"}, f)
+            rec = json.load(open(
+                harness.write_receipt(_fake_result("EXP-LEG"), td,
+                                      supersede="adopt legacy receipt")))
+            self.assertIsNone(rec["superseded_previous_hash"])
+            self.assertEqual(rec["supersede_reason"], "adopt legacy receipt")
+
+
+class TestIDRegistry(unittest.TestCase):
+    """Per-lane ID allocation registry (2026-10-07 EXP-FP-0050 systemic
+    fix). All tests run against registries in FRESH temp dirs; the real
+    experiments/ID_REGISTRY is never touched."""
+
+    def test_seed_records_preallocations_and_incident(self):
+        with tempfile.TemporaryDirectory() as td:
+            reg = id_registry.build_registry(experiments_dir=td)
+            self.assertEqual(reg["families"]["EXP-FP-008x"]["lane"],
+                             "ecr-replication")
+            self.assertEqual(reg["families"]["EXP-FP-009x"]["lane"],
+                             "transfer-dynamics")
+            self.assertEqual(reg["families"]["EXP-FP-010x"]["lane"],
+                             "calibration")
+            incidents = [i for i in reg["incidents"]
+                         if i["date"] == "2026-10-07"
+                         and "EXP-FP-0050" in i["ids"]]
+            self.assertEqual(len(incidents), 1)
+            self.assertIn("c55fdebe", incidents[0]["lost_receipt_hash"])
+
+    def test_build_refuses_to_clobber(self):
+        with tempfile.TemporaryDirectory() as td:
+            id_registry.build_registry(experiments_dir=td)
+            with self.assertRaises(id_registry.IDClaimError):
+                id_registry.build_registry(experiments_dir=td)
+
+    def test_claim_fails_closed_without_registry(self):
+        with tempfile.TemporaryDirectory() as td:
+            with self.assertRaises(id_registry.IDClaimError):
+                id_registry.claim_id_family("EXP-FP-091x", "lane-a",
+                                            experiments_dir=td)
+
+    def test_second_claim_same_family_fails(self):
+        with tempfile.TemporaryDirectory() as td:
+            id_registry.build_registry(experiments_dir=td)
+            rec = id_registry.claim_id_family("EXP-FP-091x", "lane-a",
+                                              purpose="regression test",
+                                              experiments_dir=td)
+            self.assertEqual(rec["lane"], "lane-a")
+            # a different lane cannot take the same family
+            with self.assertRaises(id_registry.IDClaimError):
+                id_registry.claim_id_family("EXP-FP-091x", "lane-b",
+                                            experiments_dir=td)
+            # same-lane re-claim is idempotent
+            rec2 = id_registry.claim_id_family("EXP-FP-091x", "lane-a",
+                                               experiments_dir=td)
+            self.assertEqual(rec2["lane"], "lane-a")
+
+    def test_concurrent_claim_simulation(self):
+        """Two threads, one ID family: exactly one claim wins; the loser
+        gets IDClaimError. This is the EXP-FP-0050 race, replayed."""
+        import threading
+        with tempfile.TemporaryDirectory() as td:
+            id_registry.build_registry(experiments_dir=td)
+            results = {}
+
+            def attempt(lane):
+                try:
+                    id_registry.claim_id_family("EXP-FP-092x", lane,
+                                                experiments_dir=td)
+                    results[lane] = "ok"
+                except id_registry.IDClaimError as e:
+                    results[lane] = f"refused: {e}"
+
+            ta = threading.Thread(target=attempt, args=("lane-a",))
+            tb = threading.Thread(target=attempt, args=("lane-b",))
+            ta.start()
+            tb.start()
+            ta.join()
+            tb.join()
+            wins = [lane for lane, r in results.items() if r == "ok"]
+            refused = [lane for lane, r in results.items()
+                       if r.startswith("refused")]
+            self.assertEqual(len(wins), 1,
+                             f"expected exactly one winner, got {results}")
+            self.assertEqual(len(refused), 1,
+                             f"expected exactly one refusal, got {results}")
+
+    def test_claim_id_inside_foreign_family_fails(self):
+        with tempfile.TemporaryDirectory() as td:
+            id_registry.build_registry(experiments_dir=td)
+            id_registry.claim_id_family("EXP-FP-093x", "lane-a",
+                                        experiments_dir=td)
+            with self.assertRaises(id_registry.IDClaimError):
+                id_registry.claim_id("EXP-FP-0931", "lane-b",
+                                     experiments_dir=td)
+            # same lane can mint inside its own family
+            rec = id_registry.claim_id("EXP-FP-0931", "lane-a",
+                                       experiments_dir=td)
+            self.assertEqual(rec["family"], "EXP-FP-093x")
+            ok, info = id_registry.is_allocated("EXP-FP-0931",
+                                                experiments_dir=td)
+            self.assertTrue(ok)
+            self.assertEqual(info["lane"], "lane-a")

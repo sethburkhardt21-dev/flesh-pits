@@ -1,0 +1,588 @@
+{
+  "baseline": "sequential climatology (Laplace running base rate, per domain per seed) on the re-scoped events",
+  "conditions": "changing_rule v1.0.0, InstrumentedArchB (equivalence-proven), affect=none, 10 eps x 4 fresh seeds {73301,73302,73303,73304}. NULL_HOLDS.",
+  "config": {
+    "affect": "none",
+    "agent": "arch_b_instrumented (equivalence-proven in 0071)",
+    "bins": 10,
+    "contract_version": "1.0.0",
+    "env": "changing_rule",
+    "env_version": "1.0.0",
+    "episodes_per_seed": 10,
+    "estimator": "competence_estimator.CompetenceEstimator feature_mode='D' (mode-C feature set; D1/D3 p heads train on re-scoped rest-error events), normalized SGD eta_p=0.1/eta_e=0.05",
+    "experiment_id": "EXP-FP-0100",
+    "primary_seeds": [
+      73301,
+      73302,
+      73303,
+      73304
+    ],
+    "thresholds": {
+      "EPS_OBS_REST": 0.1387,
+      "EPS_RW": 0.2067,
+      "TAU_FAIL_REST": 0.2896
+    }
+  },
+  "config_hash": "518a0d5b9b618180481235fd0b0883bfa7555352ddd0065d120e28dd679ee103",
+  "episodes": [
+    {
+      "n_episodes": [
+        {
+          "actions": null,
+          "done": true,
+          "episode": 0,
+          "final_hash": "9bc030b982c10745a6b90ce5e0cdf3228fb6c8cb4bfe90134c2d014a9cb2745c",
+          "init_hash": "1c68118feba1539f1d98b35f68e3fd8faddf43f62b1cab1a0ee6bd7593a7e419",
+          "return": 31.0,
+          "seed": 445362236,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 1,
+          "final_hash": "df71e9260dfe14021659c28a0cf36b69ad688c815caf70882281a61a9c24e7e1",
+          "init_hash": "b15e77d23973f3b82f75084dd93373d7878cb1aaaf62ecd2d3340983e2a91566",
+          "return": 33.0,
+          "seed": 2253960367,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 2,
+          "final_hash": "1fc1fddb69c49a3d54ad1e04d3fe25636fe79ab4ed8111c64e9ef4dc595660dc",
+          "init_hash": "98cba167c2cae2d1c08af8bbabebc5d64d832db500a756127ce1f955c39cf7e3",
+          "return": 27.0,
+          "seed": 3596155663,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 3,
+          "final_hash": "7ba3dcbcc5b34c7bb79e9a3274dcbda93c96e3e0ac846b036be17bbefba0a9ec",
+          "init_hash": "6784858d3a44bbc6b0d5f42d1437fc02c170c5e15307ecefaffc8f5d98ec5867",
+          "return": 22.0,
+          "seed": 3378337549,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 4,
+          "final_hash": "7d3b6ba09acbc6999862b7cc7d20ec2297c6f0d8affff3f683a975a7e32e1523",
+          "init_hash": "69b3eefa18cd531b8c649fe4d368fbec0018dd00625e5f8d92a38a3bf7201ffa",
+          "return": 17.0,
+          "seed": 525852123,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 5,
+          "final_hash": "464a9a45f7de982fadbcfc9370cfedd5dca0dd1cb90488d389e4a3fcd2a4984a",
+          "init_hash": "2b9dd3997cc434068da55499f5d3789585f0fa0e80f3998d1cc337aef862e5ef",
+          "return": 23.0,
+          "seed": 3829731316,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 6,
+          "final_hash": "855d00e6022dbb56a09ee782ce0de772305f5a6c5c3758b86d5bc8df3bfaf62b",
+          "init_hash": "b103b1e10f4059f71ff9ab32223d1eefaa2442793870f8850e691439fdf3e355",
+          "return": 26.0,
+          "seed": 1877119833,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 7,
+          "final_hash": "a70f9b7781a91d099f6e050bf54bf01fb7e0ce6a1a2619378f41c1983bdbbc0f",
+          "init_hash": "abc828885eee3ce9cdd38a8dc919882fa269a77c477b91dbd856cdf4326a24ed",
+          "return": 24.0,
+          "seed": 1819481239,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 8,
+          "final_hash": "ae9ccdace296a88f7f1502877f6451c998532ff0fc0f162eba96062b99a82355",
+          "init_hash": "29de7ede83d93cd9699c61b4b1a8b47f718b45fd99a91c344f085164fc324b3d",
+          "return": 11.0,
+          "seed": 2455789007,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 9,
+          "final_hash": "ec8d11e8e2ebbc09a6373641ffd4cc9cdee6f5fe1e2f8c7760eac4e37f4248ff",
+          "init_hash": "f3d5803811c438a1d0adc7ac21cff0b905c981890016dbb21ba345b3a437f019",
+          "return": 7.0,
+          "seed": 4251056720,
+          "steps": 40
+        }
+      ],
+      "prediction_log": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0100.seed73301.predictions.jsonl",
+      "seed": 73301,
+      "sidecar": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0100.seed73301.sidecar.jsonl"
+    },
+    {
+      "n_episodes": [
+        {
+          "actions": null,
+          "done": true,
+          "episode": 0,
+          "final_hash": "202fde96cfde4adb715858eb18139a71a36ac4a93aceaa33ca127b6510357d74",
+          "init_hash": "d004efe1b3cf083c2fb43b083a3998a7199e88cf6bb2c5fcdcbd59946b76f9d4",
+          "return": 31.0,
+          "seed": 3854330235,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 1,
+          "final_hash": "5ad7fb67c827cbf7a0fd852d13e4dae66138768f2e44d80344156453d0c44153",
+          "init_hash": "7cc779995d1a1412e621be3efaf8e2f1587d3ad4fad8cb788dee4800b71b66b8",
+          "return": 30.0,
+          "seed": 812827930,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 2,
+          "final_hash": "055b61a9aeac91b5ecce1e4490134deaaf86b4bd0ef89a209dbee1e4c67340ff",
+          "init_hash": "392bbbbabe2e584bbe5a4410effb545e345fa54cbd698a594b5d0ba14417fc83",
+          "return": 33.0,
+          "seed": 2335695068,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 3,
+          "final_hash": "f9eb62cc28b332d0085bfa7a49d8cd284f72c2adbc52f72180438cb1eb7eb15b",
+          "init_hash": "47e51379eca4b9fecf5ce7fdbd773ab5aea424a852cf10c9fd15562c6e7a8307",
+          "return": 21.0,
+          "seed": 2423520583,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 4,
+          "final_hash": "7b60e9ece748037d3cfb42eb468680b417b2c7a6f8779fdcb42e11b0b822dab8",
+          "init_hash": "ea7c4a40ae6f674b97901610911fef5cba56a9fb1ca1fddae25185787bd6aeba",
+          "return": 20.0,
+          "seed": 3904882213,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 5,
+          "final_hash": "2356fb8f11275ad9b73b7c3ed4df69d2d3deed02502376e4f5a129c5f814d1c3",
+          "init_hash": "751f097a8fc07ce0c90b4eb2000c2446c91d898e318fc8eeadc455d7c06c9b85",
+          "return": 16.0,
+          "seed": 2762336536,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 6,
+          "final_hash": "c84179ce94bab0965266e812a3ebed82d34f1fd72ae3fd427bf69bc430e5fe53",
+          "init_hash": "9a5301f2820de34e45a986e0c45843dae9794b1a1d9ec59254f54eb39ef284ea",
+          "return": 26.0,
+          "seed": 2626995404,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 7,
+          "final_hash": "39657e2082d9f8d71c8d329b1e8cd136362652c72bb99a3d72b59d83b90896ee",
+          "init_hash": "23b10365c24b29c78d3c9f747762ad8b3b1bb13b0929a95efed3c916b178e173",
+          "return": 17.0,
+          "seed": 908343433,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 8,
+          "final_hash": "7d5374413c1a448d8b0105fa4060b886851a392c3730f174ccbbd343af054a8a",
+          "init_hash": "738f6ff7e439e575c14bcb8fd61e7c65739975e4f144d3dec5c8a8fc8de7d7b2",
+          "return": 17.0,
+          "seed": 1192896361,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 9,
+          "final_hash": "4ba88d5fd963e374d090342841c6f1d1d8141950a8773ae3b616bb0ebdea77a9",
+          "init_hash": "f5121b0bdfee05cf4eb73af2443ca2fef2721acf24d9c125b65b70670cf17578",
+          "return": 14.0,
+          "seed": 3432238331,
+          "steps": 40
+        }
+      ],
+      "prediction_log": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0100.seed73302.predictions.jsonl",
+      "seed": 73302,
+      "sidecar": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0100.seed73302.sidecar.jsonl"
+    },
+    {
+      "n_episodes": [
+        {
+          "actions": null,
+          "done": true,
+          "episode": 0,
+          "final_hash": "7676495d59985b3f0075a855b1d49bd95f329f68fbc80ad28a25dea2ee74c611",
+          "init_hash": "96905887fc33d3db3cc4aa28e5ac38eb8c6dfbc82591a195b98d4c09960898ac",
+          "return": 32.0,
+          "seed": 917501718,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 1,
+          "final_hash": "57dfa583ab15809eda35d5d6ff44519fe4a2f2aec6c3eeddae5e744565f28bbb",
+          "init_hash": "501f42e18139cfddc42c57930c835b324850f707fc8eaac27f4f709e5328fbfa",
+          "return": 30.0,
+          "seed": 1594648450,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 2,
+          "final_hash": "99e88eec209c1a90f95f28a3e28a08b32f2cca1f8d2fd5d5dde30d92f1d3470b",
+          "init_hash": "c85c64dc68c89f00ec3c6524d66497fdc795a347058d4bf2db6ef97b0d14ce5a",
+          "return": 28.0,
+          "seed": 192395324,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 3,
+          "final_hash": "fa01ef87e6217603e446df95aaa4e55c8cc0f4dede26f3104a31c4c74fccc3be",
+          "init_hash": "1a2d4d499889150ba5c840390973f36157298cfed39bf06535a3708054cc9007",
+          "return": 26.0,
+          "seed": 3895217569,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 4,
+          "final_hash": "e8dc521b08dc644496c81ea2511fb0067a01d32161147066f88dfd5ca99dcdec",
+          "init_hash": "412a4d16fd14654e5ae8686282476dc9d48475f3e59541dcccf8a1fc1321141e",
+          "return": 30.0,
+          "seed": 4263707663,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 5,
+          "final_hash": "61b21ca7cd44e2b69c7eee0d9c3697b2fc5d75d95ea8b31da7a04ef956edfe57",
+          "init_hash": "3e6ac0651a3d7899319b3b4c96283a2edff551ad4cb4dbfd8ba7fc271d7b02ff",
+          "return": 15.0,
+          "seed": 2973211199,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 6,
+          "final_hash": "fad3e4808726f7c3954a7e5a2d90160504152ecef22df51148a5dd187a0bf86b",
+          "init_hash": "2a51bf37c8d3db85beb7e5c6989b8ff78b1222713b3ac3b74c276a6c17907df3",
+          "return": 23.0,
+          "seed": 330217878,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 7,
+          "final_hash": "ab3aa3c09c403cec1b31a09afe7f58126b60359ac4b0e5f4735521f615a484a7",
+          "init_hash": "6b447999a45dae120300123eed31d30a078a0adc0a8469039014a6fcf2ef7794",
+          "return": 12.0,
+          "seed": 2598793318,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 8,
+          "final_hash": "184bd770cf80fdc8faf0b608dd6e3eacffe08dd53f2fba8328ed127a460888c7",
+          "init_hash": "9a78eb0d13eb22df14542a7d23efa210fa6d7e49d1b49044de505549ce9f64a1",
+          "return": 31.0,
+          "seed": 2598057213,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 9,
+          "final_hash": "f89f05fb9aba6bb589e73fe7d6c4168dfe90328dfdfd74fd9866422468a0c002",
+          "init_hash": "184484e1fcc912b7f23e1060a873cb02b7a46247106396271c6c6157d21fcb08",
+          "return": 24.0,
+          "seed": 1534135150,
+          "steps": 40
+        }
+      ],
+      "prediction_log": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0100.seed73303.predictions.jsonl",
+      "seed": 73303,
+      "sidecar": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0100.seed73303.sidecar.jsonl"
+    },
+    {
+      "n_episodes": [
+        {
+          "actions": null,
+          "done": true,
+          "episode": 0,
+          "final_hash": "5062b15efe5c7f806d2311e54a49162041b194c8fd9fdb48e231bfaa7109680f",
+          "init_hash": "fbf0578fc8b417f3b90844cc2d24b78e431f547a2a2eddfade1c7f491f49c8d3",
+          "return": 25.0,
+          "seed": 1409876954,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 1,
+          "final_hash": "eebbe14a15143b98946c86aaaf5d1dc07609880f2c459e760cbe3986748c368e",
+          "init_hash": "0c1db2e085eb21506226b51e7f3164ee70ae2215d54d0012f68465b2c1ba2718",
+          "return": 27.0,
+          "seed": 859910981,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 2,
+          "final_hash": "eba3e0f877a851d29c94482c9ce29a5432f4c08a8da27e3d8a6a03cae88d50d9",
+          "init_hash": "0f7009bb7d8e999d7fd1447bbd65dad148ad545c9234ccbc7828eee2974a0c88",
+          "return": 32.0,
+          "seed": 1782120344,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 3,
+          "final_hash": "b3db24257359de023f81916685fe77ad65a8418a48fb1571c6dc5a97860275cb",
+          "init_hash": "b1731af3dbba7b12934a508f8f77804291e629ac06fa1bfff468e302037e55e3",
+          "return": 32.0,
+          "seed": 140943269,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 4,
+          "final_hash": "60f2caf7183888950051ef81f78fb1fe34255e85c1ce9711d7285f67db68e977",
+          "init_hash": "99fbfc08a128a4e1072c8cb35cde44c5fc8f5f60961a6444d17693db11c3e3e6",
+          "return": 21.0,
+          "seed": 2642208181,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 5,
+          "final_hash": "6ad9845ea58e55f7700bc9d135115874246930e60f53abc2dbc3270b87b3b42c",
+          "init_hash": "887ecc43beb5d4199b95df51074a3000a3be28cde79c94ce68a8121c04941964",
+          "return": 31.0,
+          "seed": 3153087551,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 6,
+          "final_hash": "3ece06c33dcc6b8897ae2c2928c2b9f0fcbcbc60ff1111ef8e003e0e35ac87ac",
+          "init_hash": "eeba544c5253d998c916e895650df8fa46c83fa7c5f6c59086b3b8f13a7969d9",
+          "return": 31.0,
+          "seed": 2883635583,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 7,
+          "final_hash": "01f42f664c8fdfba51ad9a37cf804b3cd42262e31d54ab81d39935e0ed0c0a0f",
+          "init_hash": "ebf00f46ffd8cd38c47386955fcfe3c1b6a37ed50b050b7c1534e314dcefd3e9",
+          "return": 24.0,
+          "seed": 1819875504,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 8,
+          "final_hash": "adb4956b9b3a369cc5b1aac8c43681606b5b078a528f3c5289dd76d873cdbfa1",
+          "init_hash": "f18a9221d429456ef8208a193ef6dde082ced2cca2f90642de23eef37e68095d",
+          "return": 24.0,
+          "seed": 2691198456,
+          "steps": 40
+        },
+        {
+          "actions": null,
+          "done": true,
+          "episode": 9,
+          "final_hash": "bbb637e798858d50c47ed9ea14e1246e533b3afb48858ee1072a68e604ecdc8d",
+          "init_hash": "6050743c38b944e02537641788e93cd36c440d1bbcdfed7a4a4395ebb55f77ba",
+          "return": 20.0,
+          "seed": 722779167,
+          "steps": 40
+        }
+      ],
+      "prediction_log": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0100.seed73304.predictions.jsonl",
+      "seed": 73304,
+      "sidecar": "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0100.seed73304.sidecar.jsonl"
+    }
+  ],
+  "experiment_id": "EXP-FP-0100",
+  "hypothesis": "Estimand re-scoping (exclude the pure-RNG cue channels from the estimand; competence = predictable error) couples the causal online competence estimator to error magnitude: Brier beats sequential climatology on >=3/4 domains AND corr(predicted_uncertainty, predictable|err|) >= 0.40 on the re-scoped D1/D3 estimand.",
+  "interpretation": "NULL_HOLDS (family 1 of the post-0072 re-scoping program): estimand re-scoping does NOT make the estimator win. Brier beats climatology on 2/4 only: D2 action_consequence 0.25036 vs 0.25063 (marginal, CALIBRATED verdict -- beats AND ECE/MCE in gates) and D4 retrieval_usefulness 0.24248 vs 0.24403 (marginal); D1 next_obs 0.24962 vs 0.24851 LOSES and D3 competence_failure 0.11492 vs 0.11484 LOSES on the re-scoped rest events. Coupling corr(predicted_uncertainty, predictable|err|): 0.026/0.069/0.083/0.060 -- 0/4 reach 0.40; the gated D1/D3 coupling is 0.026 and 0.083, no better than the total-error arc. The honest expectation was stated up front (batch oracle R^2=0.078 -> corr 0.28 with the tested features) and the data land exactly there: even on the predictable component, the available causal features carry ~7% of the variance, and no coupling. The reference arm is decisive: the 0072 variant-C estimator, replayed on the same logs and scored on the same re-scoped estimand, posts essentially IDENTICAL numbers (D1 0.25072 vs 0.24851, corr 0.032; D3 0.11499 vs 0.11484, corr 0.076; D2/D4 identical) -- the estimand change + p-head retraining added nothing over the total-error estimator. The signal ceiling extends to the re-scoped estimand: the predictable remainder is dominated by fast re-learning transients and 10% reward-noise flips, neither visible in any causal prediction-time feature tested. Families 2-3 are NOT run (conditional on family 1's win; nothing to generalize).",
+  "limitations": "Single env (changing_rule), closed-loop; affect=none. PROTOTYPE replay status (not wired into act()). The re-scoping threshold derivation used the EXP-FP-CALIB-01 history (1950 ticks, seeds 73101-73105, pre-dating all battery seeds); method-faithfulness verified by reproducing the published EPS_OBS/TAU_FAIL within rounding. Kill arms: anchor-only PASS (reduces exactly to climatology on re-scoped events, 1e-9); error permutation intact<permuted on 4/4 (error features add small independent signal); novelty-zeroed ablation load-bearing on 4/4. Preregistration sealed before the run: experiments/preregistration_EXP-FP-0100.json. Receipt superseded once to complete interpretation/limitations; original write chained to EXP-FP-0080 per mtime order.",
+  "null_hypothesis": "Re-scoping changes nothing (the estimator is theater on the re-scoped estimand too).",
+  "preregistered_metric": "Per-domain Brier_est vs sequential-climatology Brier_climo on the re-scoped events (D1/D3); corr(predicted_uncertainty, predictable|err|) gated at 0.40 on D1/D3; ECE/MCE reported. Preregistered: experiments/preregistration_EXP-FP-0100.json (sealed pre-run).",
+  "prev_receipt_hash": "bbe5523e04525ac166f0bc2bbb7286fb72876724b938d17c82006fcbe89639ef",
+  "primary_seed": [
+    73301,
+    73302,
+    73303,
+    73304
+  ],
+  "receipt_hash": "d0a94207a753aeb9c3bff8b259f3bc04c212d6c32a29abf9b7fc5d9ab5defbc5",
+  "started_utc": "2026-10-07T13:23:24.467127+00:00",
+  "summary": {
+    "domains": {
+      "action_consequence": {
+        "base_rate": 0.47884615384615387,
+        "brier_climo": 0.2506253300390646,
+        "brier_const05": 0.25,
+        "brier_est": 0.2503572795121975,
+        "corr_ehat_err": 0.09574468493642889,
+        "corr_uncertainty_err": 0.0691163131414915,
+        "ece": 0.03344950323105834,
+        "mce": 0.24298362969075,
+        "n": 1560,
+        "signed_error": -0.012191923050236454,
+        "skill_vs_climo": 0.0010695268783300627,
+        "verdict": "CALIBRATED"
+      },
+      "competence_failure": {
+        "base_rate": 0.13141025641025642,
+        "brier_climo": 0.11483836146828377,
+        "brier_const05": 0.25,
+        "brier_est": 0.11492197516717062,
+        "corr_ehat_err": 0.019257045876132032,
+        "corr_uncertainty_err": 0.08332769560042128,
+        "ece": 0.024340214484099322,
+        "mce": 0.6694386334204842,
+        "n": 1560,
+        "signed_error": 0.007109150252747277,
+        "skill_vs_climo": -0.0007280990238609508,
+        "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+      },
+      "next_obs": {
+        "base_rate": 0.4493589743589744,
+        "brier_climo": 0.24851323545257545,
+        "brier_const05": 0.25,
+        "brier_est": 0.24962064921494567,
+        "corr_ehat_err": 0.02135505863571983,
+        "corr_uncertainty_err": 0.025967101409243475,
+        "ece": 0.03722084903019723,
+        "mce": 0.27804396968384004,
+        "n": 1560,
+        "signed_error": 0.0023454205134864764,
+        "skill_vs_climo": -0.004456156068925132,
+        "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+      },
+      "retrieval_usefulness": {
+        "base_rate": 0.41602564102564105,
+        "brier_climo": 0.2440313235872925,
+        "brier_const05": 0.25,
+        "brier_est": 0.24247914844000162,
+        "corr_ehat_err": -0.030072258546476327,
+        "corr_uncertainty_err": 0.06038053816858365,
+        "ece": 0.04958835685863234,
+        "mce": 0.7251699421541695,
+        "n": 1560,
+        "signed_error": -0.004371057599571235,
+        "skill_vs_climo": 0.006360557015688384,
+        "verdict": "MISCALIBRATED (beats climatology but reliability off-diagonal; dispersion error)"
+      }
+    },
+    "kill_arms": {
+      "anchor_reproduces_climatology_1e9": true,
+      "error_permutation_decomposition": {
+        "action_consequence": {
+          "brier_climo": 0.2506253300390646,
+          "brier_intact": 0.2503572795121975,
+          "brier_permuted": 0.2543491375609934,
+          "ordering_intact_lt_perm_lt_climo": false
+        },
+        "competence_failure": {
+          "brier_climo": 0.11483836146828377,
+          "brier_intact": 0.11492197516717062,
+          "brier_permuted": 0.11685269492994142,
+          "ordering_intact_lt_perm_lt_climo": false
+        },
+        "next_obs": {
+          "brier_climo": 0.24851323545257545,
+          "brier_intact": 0.24962064921494567,
+          "brier_permuted": 0.2508185492642864,
+          "ordering_intact_lt_perm_lt_climo": false
+        },
+        "retrieval_usefulness": {
+          "brier_climo": 0.2440313235872925,
+          "brier_intact": 0.24247914844000162,
+          "brier_permuted": 0.2480133614696348,
+          "ordering_intact_lt_perm_lt_climo": false
+        }
+      },
+      "novelty_zeroed_ablation": {
+        "action_consequence": {
+          "brier_novelty_zeroed": 0.2509232053528844,
+          "novelty_load_bearing": true
+        },
+        "competence_failure": {
+          "brier_novelty_zeroed": 0.11542251187711938,
+          "novelty_load_bearing": true
+        },
+        "next_obs": {
+          "brier_novelty_zeroed": 0.25034789872239993,
+          "novelty_load_bearing": true
+        },
+        "retrieval_usefulness": {
+          "brier_novelty_zeroed": 0.2426339825544336,
+          "novelty_load_bearing": true
+        }
+      }
+    },
+    "win_gates": {
+      "brier_beats_ge3": false,
+      "d1_coupling_ge040": false,
+      "d3_coupling_ge040": false,
+      "verdict": "NULL_HOLDS"
+    }
+  },
+  "supersede_reason": "complete interpretation/limitations on the first (data-only) write; no numbers changed",
+  "superseded_previous_hash": "e67353308ce78ee710dea34adfb882b7b38fdd5c5c6773ab0fb3faa928bd3a48",
+  "written_utc": "2026-10-07T13:24:21.276858+00:00"
+}

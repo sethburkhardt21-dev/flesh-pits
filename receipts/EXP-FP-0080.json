@@ -1,0 +1,221 @@
+{
+  "baseline": "frozen = identical ReturnConditionedEpisodicArbitrator with frozen=True (gains pinned at 1.0), paired per seed",
+  "conditions": "delayed_reward v1.0.0; neutral specialists; capacity=4; gain_lr=0.15; theta=0.45; gain_cap=2.0; independent module prototypes/architecture-a/attention_ecr_repro.py; preregistration experiments/preregistration_EXP-FP-0080.json; driver prototypes/architecture-a/experiments/exp_fp_0080_ecr_repro.py",
+  "config": {
+    "arbitrator": "ReturnConditionedEpisodicArbitrator (independent ECR reimplementation)",
+    "arbitrator_params": {
+      "branch_channels": [
+        "branch_a",
+        "branch_b"
+      ],
+      "corridor_boost": 0.01,
+      "max_steps": 15,
+      "prebranch_demote": 0.05,
+      "shape_punish": 0.02
+    },
+    "capacity": 4,
+    "channels": [
+      "branch_a",
+      "branch_b",
+      "forward",
+      "stay"
+    ],
+    "env": "delayed_reward v1.0.0",
+    "episodes_per_arm": 8,
+    "floor": 0.01,
+    "frozen": "same class, frozen=True, gains pinned 1.0",
+    "gain_cap": 2.0,
+    "gain_lr": 0.15,
+    "max_steps": 15,
+    "replicates": "EXP-FP-0021",
+    "seeds": [
+      82021,
+      82022,
+      82023,
+      82024
+    ],
+    "specialists": "neutral (K5 P1 identical)",
+    "theta": 0.45
+  },
+  "config_hash": "c0a331edc0228e242d3cf3d9a3af5b744bcf2a5c8da15cff16a87db3bebb25de",
+  "episodes": [
+    {
+      "arm": "learned",
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=82021:run=0",
+      "max_steps": 15,
+      "n_env_episodes": 8,
+      "return": 3.22,
+      "seed": 82021,
+      "successes": 2,
+      "truncated": false
+    },
+    {
+      "arm": "frozen",
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=82021:run=1",
+      "max_steps": 15,
+      "n_env_episodes": 8,
+      "return": 0.8,
+      "seed": 82021,
+      "successes": 0,
+      "truncated": false
+    },
+    {
+      "arm": "learned",
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=82022:run=0",
+      "max_steps": 15,
+      "n_env_episodes": 8,
+      "return": 1.56,
+      "seed": 82022,
+      "successes": 1,
+      "truncated": false
+    },
+    {
+      "arm": "frozen",
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=82022:run=1",
+      "max_steps": 15,
+      "n_env_episodes": 8,
+      "return": 0.22,
+      "seed": 82022,
+      "successes": 0,
+      "truncated": false
+    },
+    {
+      "arm": "learned",
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=82023:run=0",
+      "max_steps": 15,
+      "n_env_episodes": 8,
+      "return": 3.34,
+      "seed": 82023,
+      "successes": 2,
+      "truncated": false
+    },
+    {
+      "arm": "frozen",
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=82023:run=1",
+      "max_steps": 15,
+      "n_env_episodes": 8,
+      "return": 1.82,
+      "seed": 82023,
+      "successes": 1,
+      "truncated": false
+    },
+    {
+      "arm": "learned",
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=82024:run=0",
+      "max_steps": 15,
+      "n_env_episodes": 8,
+      "return": 2.12,
+      "seed": 82024,
+      "successes": 1,
+      "truncated": false
+    },
+    {
+      "arm": "frozen",
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=82024:run=1",
+      "max_steps": 15,
+      "n_env_episodes": 8,
+      "return": 0.52,
+      "seed": 82024,
+      "successes": 0,
+      "truncated": false
+    }
+  ],
+  "experiment_id": "EXP-FP-0080",
+  "hypothesis": "H1: an independent implementation of the ECR gain update (return-conditioned, baseline-free, episodic) beats frozen gains on canonical delayed_reward (R >= 1.30 on 4/4 fresh seeds)",
+  "interpretation": "REPRODUCED: independent ECR implementation lifts the NR-A-006 bound on delayed_reward (4/4 seeds)",
+  "limitations": "4 seeds; single env (canonical delayed_reward); task-structural priors (branch_channels, max_steps) given, not learned; per-episode (not cumulative) shaping tally is the independent re-derivation choice -- equivalent on this env where only forward earns shaping",
+  "null_hypothesis": "H0: R < 1.30 on >= 1 seed -> replication fails -> negative result with mechanism account",
+  "preregistered_metric": "R = total(learned)/total(frozen) per seed, 8 episodes x <=15 steps; per-seed WIN iff R >= 1.30",
+  "prev_receipt_hash": "2eda02a6c484c50900ec49afd3b45a52420c5777b69fa5afb4ec0f2d56ff682b",
+  "primary_seed": 82021,
+  "receipt_hash": "fdae11c553edf25f5ba811fc57d030f6b448cca97e60474a21cd4528eeac40a2",
+  "started_utc": "2026-10-07T13:23:23.500200+00:00",
+  "summary": {
+    "margin": 1.3,
+    "max_return": 3.34,
+    "mean_return": 1.7,
+    "mean_steps": 60.0,
+    "min_return": 0.22,
+    "n_episodes": 8,
+    "need": 4,
+    "passed": true,
+    "per_seed": [
+      {
+        "frozen_successes": 0,
+        "frozen_total": 0.8,
+        "learned_gains": {
+          "branch_a": 1.0,
+          "branch_b": 2.0,
+          "forward": 2.0,
+          "stay": 0.01
+        },
+        "learned_successes": 2,
+        "learned_total": 3.22,
+        "n_gain_updates": 120,
+        "ratio": 4.025,
+        "seed": 82021,
+        "win": true
+      },
+      {
+        "frozen_successes": 0,
+        "frozen_total": 0.22,
+        "learned_gains": {
+          "branch_a": 1.0,
+          "branch_b": 2.0,
+          "forward": 2.0,
+          "stay": 0.46
+        },
+        "learned_successes": 1,
+        "learned_total": 1.56,
+        "n_gain_updates": 120,
+        "ratio": 7.090909090909091,
+        "seed": 82022,
+        "win": true
+      },
+      {
+        "frozen_successes": 1,
+        "frozen_total": 1.82,
+        "learned_gains": {
+          "branch_a": 2.0,
+          "branch_b": 1.0,
+          "forward": 2.0,
+          "stay": 0.01
+        },
+        "learned_successes": 2,
+        "learned_total": 3.34,
+        "n_gain_updates": 120,
+        "ratio": 1.835164835164835,
+        "seed": 82023,
+        "win": true
+      },
+      {
+        "frozen_successes": 0,
+        "frozen_total": 0.52,
+        "learned_gains": {
+          "branch_a": 2.0,
+          "branch_b": 1.0,
+          "forward": 2.0,
+          "stay": 0.01
+        },
+        "learned_successes": 1,
+        "learned_total": 2.12,
+        "n_gain_updates": 120,
+        "ratio": 4.076923076923077,
+        "seed": 82024,
+        "win": true
+      }
+    ],
+    "stdev_return": 1.095627673984187,
+    "verdict": "REPRODUCED",
+    "wins": 4
+  },
+  "written_utc": "2026-10-07T13:23:35.310756+00:00"
+}

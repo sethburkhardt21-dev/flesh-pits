@@ -1,0 +1,304 @@
+{
+  "created_utc": "2026-10-07T13:17:24.148966+00:00",
+  "families": {
+    "EXP-FP-008x": {
+      "claimed_by_pid": 43249,
+      "claimed_utc": "2026-10-07T13:17:24.148966+00:00",
+      "lane": "ecr-replication",
+      "notes": [
+        "seeded by build_registry from Phase 7 pre-allocations (owner-standing)"
+      ],
+      "purpose": "Phase 7 pre-allocation: ECR replication lane"
+    },
+    "EXP-FP-009x": {
+      "claimed_by_pid": 43249,
+      "claimed_utc": "2026-10-07T13:17:24.148966+00:00",
+      "lane": "transfer-dynamics",
+      "notes": [
+        "seeded by build_registry from Phase 7 pre-allocations (owner-standing)"
+      ],
+      "purpose": "Phase 7 pre-allocation: transfer-dynamics lane"
+    },
+    "EXP-FP-010x": {
+      "claimed_by_pid": 43249,
+      "claimed_utc": "2026-10-07T13:17:24.148966+00:00",
+      "lane": "calibration",
+      "notes": [
+        "seeded by build_registry from Phase 7 pre-allocations (owner-standing)"
+      ],
+      "purpose": "Phase 7 pre-allocation: calibration lane"
+    }
+  },
+  "ids": {
+    "EXP-AB-K3C": {
+      "family": null,
+      "file": "experiments/preregistration_EXP-AB-K3C.json",
+      "lane": null,
+      "source": "preregistration"
+    },
+    "EXP-AB-K3D": {
+      "family": null,
+      "file": "experiments/preregistration_K3B_E0.json",
+      "lane": null,
+      "source": "preregistration"
+    },
+    "EXP-AB-K3E": {
+      "family": null,
+      "file": "experiments/preregistration_BRANCH_LOAD.json",
+      "lane": null,
+      "source": "preregistration"
+    },
+    "EXP-FP-0001-D": {
+      "family": null,
+      "file": "receipts/EXP-FP-0001-D.json",
+      "lane": null,
+      "source": "receipt"
+    },
+    "EXP-FP-0001-S": {
+      "family": null,
+      "file": "receipts/EXP-FP-0001-S.json",
+      "lane": null,
+      "source": "receipt"
+    },
+    "EXP-FP-0002-D": {
+      "family": null,
+      "file": "receipts/EXP-FP-0002-D.json",
+      "lane": null,
+      "source": "receipt"
+    },
+    "EXP-FP-0002-S": {
+      "family": null,
+      "file": "receipts/EXP-FP-0002-S.json",
+      "lane": null,
+      "source": "receipt"
+    },
+    "EXP-FP-0003-D": {
+      "family": null,
+      "file": "receipts/EXP-FP-0003-D.json",
+      "lane": null,
+      "source": "receipt"
+    },
+    "EXP-FP-0003-S": {
+      "family": null,
+      "file": "receipts/EXP-FP-0003-S.json",
+      "lane": null,
+      "source": "receipt"
+    },
+    "EXP-FP-0004-D": {
+      "family": null,
+      "file": "receipts/EXP-FP-0004-D.json",
+      "lane": null,
+      "source": "receipt"
+    },
+    "EXP-FP-0004-S": {
+      "family": null,
+      "file": "receipts/EXP-FP-0004-S.json",
+      "lane": null,
+      "source": "receipt"
+    },
+    "EXP-FP-0005": {
+      "family": null,
+      "file": "receipts/EXP-FP-0005-D.json",
+      "lane": null,
+      "source": "receipt"
+    },
+    "EXP-FP-0006": {
+      "family": null,
+      "file": "receipts/EXP-FP-0006.json",
+      "lane": null,
+      "source": "receipt"
+    },
+    "EXP-FP-0007": {
+      "family": null,
+      "file": "receipts/EXP-FP-0007.json",
+      "lane": null,
+      "source": "receipt"
+    },
+    "EXP-FP-0007R": {
+      "family": null,
+      "file": "experiments/preregistration_EXP-FP-0007R.json",
+      "lane": null,
+      "source": "preregistration"
+    },
+    "EXP-FP-0008": {
+      "family": null,
+      "file": "experiments/preregistration_EXP-FP-0008.json",
+      "lane": null,
+      "source": "preregistration"
+    },
+    "EXP-FP-0009": {
+      "family": null,
+      "file": "experiments/preregistration_SIGNAL_QUALITY.json",
+      "lane": null,
+      "source": "preregistration"
+    },
+    "EXP-FP-0010-POMAZE-DIAG": {
+      "family": null,
+      "file": "experiments/preregistration_POMAZE_DIAG.json",
+      "lane": null,
+      "source": "preregistration"
+    },
+    "EXP-FP-0011-ALIASING": {
+      "family": null,
+      "file": "experiments/preregistration_ALIASING.json",
+      "lane": null,
+      "source": "preregistration"
+    },
+    "EXP-FP-0011-ATTRACTOR-BREAK": {
+      "family": null,
+      "file": "experiments/preregistration_ATTRACTOR_BREAK.json",
+      "lane": null,
+      "source": "preregistration"
+    },
+    "EXP-FP-0012-2X2-SEARCH": {
+      "family": null,
+      "file": "experiments/preregistration_2X2_SEARCH.json",
+      "lane": null,
+      "source": "preregistration"
+    },
+    "EXP-FP-0013-RETENTION": {
+      "family": null,
+      "file": "experiments/preregistration_RETENTION.json",
+      "lane": null,
+      "source": "preregistration"
+    },
+    "EXP-FP-0021": {
+      "family": null,
+      "file": "experiments/preregistration_EXP-FP-0021.json",
+      "lane": null,
+      "source": "preregistration"
+    },
+    "EXP-FP-0040": {
+      "family": null,
+      "file": "experiments/preregistration_EXP-FP-0040.json",
+      "lane": null,
+      "source": "preregistration"
+    },
+    "EXP-FP-0050": {
+      "family": null,
+      "file": "experiments/preregistration_EXP-FP-0050.json",
+      "lane": null,
+      "source": "preregistration"
+    },
+    "EXP-FP-0060-ATTRIBUTION": {
+      "family": null,
+      "file": "experiments/preregistration_SELF_WORLD_ATTRIB.json",
+      "lane": null,
+      "source": "preregistration"
+    },
+    "EXP-FP-0070": {
+      "family": null,
+      "file": "experiments/preregistration_EXP-FP-0070.json",
+      "lane": null,
+      "source": "preregistration"
+    },
+    "EXP-FP-0071": {
+      "family": null,
+      "file": "experiments/preregistration_EXP-FP-0071.json",
+      "lane": null,
+      "source": "preregistration"
+    },
+    "EXP-FP-0072": {
+      "family": null,
+      "file": "experiments/preregistration_EXP-FP-0072.json",
+      "lane": null,
+      "source": "preregistration"
+    },
+    "EXP-FP-0080": {
+      "family": null,
+      "file": "experiments/preregistration_EXP-FP-0080.json",
+      "lane": null,
+      "source": "preregistration"
+    },
+    "EXP-FP-0090": {
+      "claimed_utc": "2026-10-07T13:21:37.628917+00:00",
+      "family": "EXP-FP-009x",
+      "file": null,
+      "lane": "transfer-dynamics",
+      "source": "claimed"
+    },
+    "EXP-FP-0100": {
+      "claimed_utc": "2026-10-07T13:21:41.500119+00:00",
+      "family": "EXP-FP-010x",
+      "file": "receipts/EXP-FP-0100.json",
+      "lane": "calibration",
+      "source": "receipt",
+      "written_utc": "2026-10-07T13:25:13.431272+00:00"
+    },
+    "EXP-FP-C-BUILD-AND-BEAT": {
+      "family": null,
+      "file": "experiments/preregistration_ARCH_C.json",
+      "lane": null,
+      "source": "preregistration"
+    },
+    "EXP-FP-CALIB-01": {
+      "family": null,
+      "file": "receipts/EXP-FP-CALIB-01.json",
+      "lane": null,
+      "source": "receipt"
+    },
+    "EXP-SW-01": {
+      "family": null,
+      "file": "experiments/preregistration_SELF_WORLD.json",
+      "lane": null,
+      "source": "preregistration"
+    },
+    "EXP-SW-01-A": {
+      "family": null,
+      "file": "receipts/EXP-SW-01-A.json",
+      "lane": null,
+      "source": "receipt"
+    },
+    "EXP-SW-01-B": {
+      "family": null,
+      "file": "receipts/EXP-SW-01-B.json",
+      "lane": null,
+      "source": "receipt"
+    },
+    "EXP-SW-02-B": {
+      "family": null,
+      "file": "experiments/preregistration_SELF_WORLD_CL.json",
+      "lane": null,
+      "source": "preregistration"
+    },
+    "repro5_EXP-AB-C2B": {
+      "family": null,
+      "file": "receipts/repro5_EXP-AB-C2B.json",
+      "lane": null,
+      "source": "receipt"
+    },
+    "repro5_EXP-AB-C4B": {
+      "family": null,
+      "file": "receipts/repro5_EXP-AB-C4B.json",
+      "lane": null,
+      "source": "receipt"
+    },
+    "repro5_EXP-AB-K3B": {
+      "family": null,
+      "file": "receipts/repro5_EXP-AB-K3B.json",
+      "lane": null,
+      "source": "receipt"
+    },
+    "repro5_EXP-AB-M1": {
+      "family": null,
+      "file": "receipts/repro5_EXP-AB-M1.json",
+      "lane": null,
+      "source": "receipt"
+    }
+  },
+  "incidents": [
+    {
+      "cause": "Two concurrent lanes minted EXP-FP-0050 with no shared allocation registry. Lane A's free-check at ~12:31 UTC was clean, but an unidentified concurrent lane wrote receipts/EXP-FP-0050.json (hash c55fdebe\u2026) between ~12:31 and 12:39:48 UTC; lane A's harness.write_receipt() (open(path, 'w')) overwrote it at 12:40:29 UTC. Lost content unrecoverable \u2014 verified across the workspace, git history, and agent transcripts.",
+      "collateral": "EXP-FP-0040.json's prev_receipt_hash now dangles (points at c55fdebe\u2026); preserved as-is per lab law \u2014 never rewritten. verify_chain flags it.",
+      "date": "2026-10-07",
+      "fix": "2026-10-07 systemic fix: per-lane ID allocation registry (experiments/ID_REGISTRY) with atomic family/ID claims under the file-lock skill (claim before writing, never mint blind); harness.write_receipt() fails closed on existing paths with an explicit supersede path recording superseded_previous_hash + supersede_reason. Incident also recorded in research/negative_results.md ('## 2026-10-07 \u2014 EXP-FP-0050').",
+      "ids": [
+        "EXP-FP-0050"
+      ],
+      "lost_receipt_hash": "c55fdebe\u2026",
+      "surviving_receipt_hash": "75f474d1\u2026",
+      "time_utc": "~12:40"
+    }
+  ],
+  "version": 1
+}

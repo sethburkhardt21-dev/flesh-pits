@@ -232,6 +232,102 @@ def test_mode_c_includes_novelty_features():
     print("test_mode_c_includes_novelty_features PASS")
 
 
+
+def test_mode_d_rest_events_not_total():
+    """Mode D (EXP-FP-0100): D1/D3's p heads must train on REST-error
+    events, NOT total-error events. Stream: total err_next constant 0.5
+    (> any threshold), rest_err alternates 0.05/0.30 with EPS_OBS_REST=
+    0.1387 -> rest events alternate 1/0. After observing, the D1 head's
+    climatology counts must match the REST events, and the D3 head's must
+    match rest > TAU_FAIL_REST=0.2896 (alternating 0/1)."""
+    EPS_REST = 0.1387
+    TAU_REST = 0.2896
+    est = CompetenceEstimator(EPS_REST, 0.2067, TAU_REST, feature_mode="D")
+    for t in range(100):
+        rest = 0.05 if t % 2 == 0 else 0.30
+        se = [0.0, 0.0, rest, rest, rest, rest]
+        ctx = {"ounc": 0.3, "runc": 0.2, "uunc": 0.5, "uhat": 0.0,
+               "signed_error": se}
+        est.observe_tick(ctx, {"err_next": 0.5, "err_rw": 0.2,
+                               "benefit": 0.05}, 0.01)
+    d1 = est.est["next_obs"]
+    d3 = est.est["competence_failure"]
+    # D1: rest events 1,0,1,0,... -> 50 ones
+    assert d1._n == 100, d1._n
+    assert d1._a == 51.0, d1._a  # Laplace init 1.0 + 50 observed ones
+    # D3: rest > 0.2896 -> 0,1,0,1,... -> 50 ones
+    assert d3._n == 100, d3._n
+    assert d3._a == 51.0, d3._a
+    # and learn=False mode-D p equals the re-scoped Laplace base rate
+    est2 = CompetenceEstimator(EPS_REST, 0.2067, TAU_REST,
+                              learn=False, feature_mode="D")
+    a, n = 1.0, 0
+    for t in range(100):
+        rest = 0.05 if t % 2 == 0 else 0.30
+        se = [0.0, 0.0, rest, rest, rest, rest]
+        ctx = {"ounc": 0.3, "runc": 0.2, "uunc": 0.5, "uhat": 0.0,
+               "signed_error": se}
+        expected = a / (n + 2.0)
+        got = est2.predict_tick(ctx)["next_obs"]["p"]
+        assert abs(got - expected) < 1e-12, (got, expected)
+        o = 1 if rest <= EPS_REST else 0
+        est2.observe_tick(ctx, {"err_next": 0.5, "err_rw": 0.2,
+                                "benefit": 0.05}, 0.01)
+        a += o
+        n += 1
+    print("test_mode_d_rest_events_not_total PASS")
+
+
+def test_mode_d_no_leakage_via_signed_error():
+    """ctx['signed_error'] (tick-t outcome) must not affect tick-t's
+    emitted prediction in mode D (same no-leakage contract as mode C)."""
+    eA = CompetenceEstimator(0.1387, 0.2067, 0.2896, feature_mode="D")
+    eB = CompetenceEstimator(0.1387, 0.2067, 0.2896, feature_mode="D")
+    for t in range(30):
+        se = [0.1 * t] * 6
+        ctx = {"ounc": 0.3, "runc": 0.2, "uunc": 0.5, "uhat": 0.0,
+               "signed_error": se}
+        for e in (eA, eB):
+            e.predict_tick(ctx)
+            e.observe_tick(ctx, {"err_next": 0.2, "err_rw": 0.2,
+                                 "benefit": 0.05}, 0.01)
+    ctxA = {"ounc": 0.3, "runc": 0.2, "uunc": 0.5, "uhat": 0.0,
+            "signed_error": [9.9] * 6}
+    ctxB = {"ounc": 0.3, "runc": 0.2, "uunc": 0.5, "uhat": 0.0,
+            "signed_error": [0.0] * 6}
+    pA = eA.predict_tick(ctxA)
+    pB = eB.predict_tick(ctxB)
+    for d in pA:
+        assert pA[d]["p"] == pB[d]["p"], (d,)
+        assert pA[d]["ehat"] == pB[d]["ehat"], (d,)
+    print("test_mode_d_no_leakage_via_signed_error PASS")
+
+
+def test_mode_d_feature_dims():
+    """Mode D trains the same feature structure as mode C (7 base + 4
+    novelty on D1/D2/D3; +1 uhat on D4); missing signed_error fails closed."""
+    est = CompetenceEstimator(0.1387, 0.2067, 0.2896, feature_mode="D")
+    ctx = {"ounc": 0.3, "runc": 0.2, "uunc": 0.5, "uhat": 0.1,
+           "mean_similarity": 0.8, "n_nbrs": 4, "retrieval_used": True,
+           "e1_ema": 0.5, "signed_error": [0.1] * 6}
+    est.predict_tick(ctx)
+    est.observe_tick(ctx, {"err_next": 0.2, "err_rw": 0.2, "benefit": 0.05},
+                     0.01)
+    assert len(est.est["next_obs"].w) == 11, len(est.est["next_obs"].w)
+    assert len(est.est["retrieval_usefulness"].w) == 12, \
+        len(est.est["retrieval_usefulness"].w)
+    # fail-closed on missing signed_error
+    est2 = CompetenceEstimator(0.1387, 0.2067, 0.2896, feature_mode="D")
+    bad = {"ounc": 0.3, "runc": 0.2, "uunc": 0.5, "uhat": 0.1}
+    try:
+        est2.observe_tick(bad, {"err_next": 0.2, "err_rw": 0.2,
+                                "benefit": 0.05}, 0.01)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("mode D without signed_error must fail closed")
+    print("test_mode_d_feature_dims PASS")
+
 if __name__ == "__main__":
     test_anchor_equals_climatology()
     test_causality_prediction_ignores_current_outcome()
@@ -241,6 +337,7 @@ if __name__ == "__main__":
     test_mode_c_channel_tracks_rest_not_total()
     test_mode_c_no_leakage_via_signed_error()
     test_mode_c_includes_novelty_features()
+    test_mode_d_rest_events_not_total()
+    test_mode_d_no_leakage_via_signed_error()
+    test_mode_d_feature_dims()
     print("ALL ESTIMATOR TESTS PASS")
-
-

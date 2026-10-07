@@ -1,0 +1,271 @@
+{
+  "baseline": "Arm D: fresh learner, DEFAULT dynamics (gain_lr=0.15, z_alpha=0.01, initial_var=1.0, gain_cap=2.0, reward_baseline=0.5), gains online from 1.0. Arm E: H0 reference \u2014 default dynamics, FROZEN phase-0 endpoint gains (TRANSFER-K4-RESTORE mechanism on the shifted task).",
+  "conditions": "changing_rule v1.0.0; source 10x40=400 ticks (phase 0->1 flip); target 5x40=200 ticks phase-1-only via 5 throwaway resets; cue-indexed adapter; theta=0.45; capacity=3; test seeds {97011,97012,97013,97014}; tuning seeds {97001,97002,97003}; pilot {97021,97022} (design only). Deterministic seeded RNG throughout; no random.* in measurement.",
+  "config": {
+    "arms": {
+      "D": "default dynamics, online learning (control)",
+      "E": "default dynamics, FROZEN phase-0 endpoint gains (H0 reference)",
+      "X": "transferred (tuned) dynamics, online learning"
+    },
+    "contract_version": "1.0.0",
+    "criterion": "TTC = first 1-indexed tick t with mean(rewards[t-40:t]) >= 0.75; None if unreached within 200 ticks",
+    "default_dynamics": {
+      "gain_cap": 2.0,
+      "gain_lr": 0.15,
+      "initial_var": 1.0,
+      "reward_baseline": 0.5,
+      "z_alpha": 0.01
+    },
+    "gates": {
+      "G0": "DynamicArbitrator(baseline=0.5) bit-identical to parent path",
+      "G1": "tuned distinct from default AND no-worse on tuning seeds",
+      "G2": "(TTC_D-TTC_X)/TTC_D >= 0.30 on >=3/4 informative seeds -> H1",
+      "G3": "reach(X) >= reach(D)",
+      "G4": "TTC_E None on >=3/4 seeds (void if phase rules equal)"
+    },
+    "id_claim": "EXP-FP-009x family + EXP-FP-0090 via experiments/id_registry.py",
+    "implementation": "prototypes/architecture-a/experiments/transfer_dynamics.py (NEW, additive; K4 originals unmodified). reward_baseline parameterized via DynamicArbitrator(arbitrator_cls hook); gain update still only via broadcast feedback envelope.",
+    "pilot_seeds": [
+      97021,
+      97022
+    ],
+    "preregistration": "experiments/preregistration_EXP-FP-0090.json (sealed 2026-10-07T13:23:00Z, before the confirmatory run)",
+    "source_task": "changing_rule v1.0.0, 10 episodes x 40 steps = 400 ticks, phase 0->1 flip, cue-indexed adapter, theta=0.45, capacity=3",
+    "target_task": "post-flip changing_rule v1.0.0: 5 throwaway resets -> episode_idx 5..9 (phase 1 throughout), 5 episodes x 40 = 200 ticks, gains from 1.0",
+    "test_seeds": [
+      97011,
+      97012,
+      97013,
+      97014
+    ],
+    "tuned_dynamics": {
+      "gain_cap": 1.5,
+      "gain_lr": 0.3,
+      "initial_var": 0.5,
+      "reward_baseline": 0.7,
+      "z_alpha": 0.05
+    },
+    "tuning_means": {
+      "default": 318.333,
+      "tuned": 344.333
+    },
+    "tuning_protocol": "deterministic coordinate descent, order [gain_lr, z_alpha, initial_var, gain_cap, reward_baseline], strict-improvement adoption, max 2 passes, criterion = tuning-seed mean total on source task",
+    "tuning_seeds": [
+      97001,
+      97002,
+      97003
+    ]
+  },
+  "config_hash": "a42e5aa12e3d676defc7e2096feb700e50d6adcdb5b3205b4af11586e39c0127",
+  "episodes": [
+    {
+      "arm": "D",
+      "criterion_reached": true,
+      "done": true,
+      "episode_id": "EXP-FP-0090/seed=97011/arm=D",
+      "return": 175.0,
+      "seed": 97011,
+      "steps": 200,
+      "truncated": false,
+      "ttc_ticks": 40
+    },
+    {
+      "arm": "X",
+      "criterion_reached": true,
+      "done": true,
+      "episode_id": "EXP-FP-0090/seed=97011/arm=X",
+      "return": 175.0,
+      "seed": 97011,
+      "steps": 200,
+      "truncated": false,
+      "ttc_ticks": 40
+    },
+    {
+      "arm": "E",
+      "criterion_reached": false,
+      "done": true,
+      "episode_id": "EXP-FP-0090/seed=97011/arm=E",
+      "return": 23.0,
+      "seed": 97011,
+      "steps": 200,
+      "truncated": false,
+      "ttc_ticks": null
+    },
+    {
+      "arm": "D",
+      "criterion_reached": true,
+      "done": true,
+      "episode_id": "EXP-FP-0090/seed=97012/arm=D",
+      "return": 188.0,
+      "seed": 97012,
+      "steps": 200,
+      "truncated": false,
+      "ttc_ticks": 40
+    },
+    {
+      "arm": "X",
+      "criterion_reached": true,
+      "done": true,
+      "episode_id": "EXP-FP-0090/seed=97012/arm=X",
+      "return": 188.0,
+      "seed": 97012,
+      "steps": 200,
+      "truncated": false,
+      "ttc_ticks": 40
+    },
+    {
+      "arm": "E",
+      "criterion_reached": false,
+      "done": true,
+      "episode_id": "EXP-FP-0090/seed=97012/arm=E",
+      "return": 9.0,
+      "seed": 97012,
+      "steps": 200,
+      "truncated": false,
+      "ttc_ticks": null
+    },
+    {
+      "arm": "D",
+      "criterion_reached": true,
+      "done": true,
+      "episode_id": "EXP-FP-0090/seed=97013/arm=D",
+      "return": 177.0,
+      "seed": 97013,
+      "steps": 200,
+      "truncated": false,
+      "ttc_ticks": 43
+    },
+    {
+      "arm": "X",
+      "criterion_reached": true,
+      "done": true,
+      "episode_id": "EXP-FP-0090/seed=97013/arm=X",
+      "return": 185.0,
+      "seed": 97013,
+      "steps": 200,
+      "truncated": false,
+      "ttc_ticks": 40
+    },
+    {
+      "arm": "E",
+      "criterion_reached": false,
+      "done": true,
+      "episode_id": "EXP-FP-0090/seed=97013/arm=E",
+      "return": 15.0,
+      "seed": 97013,
+      "steps": 200,
+      "truncated": false,
+      "ttc_ticks": null
+    },
+    {
+      "arm": "D",
+      "criterion_reached": true,
+      "done": true,
+      "episode_id": "EXP-FP-0090/seed=97014/arm=D",
+      "return": 180.0,
+      "seed": 97014,
+      "steps": 200,
+      "truncated": false,
+      "ttc_ticks": 40
+    },
+    {
+      "arm": "X",
+      "criterion_reached": true,
+      "done": true,
+      "episode_id": "EXP-FP-0090/seed=97014/arm=X",
+      "return": 183.0,
+      "seed": 97014,
+      "steps": 200,
+      "truncated": false,
+      "ttc_ticks": 40
+    },
+    {
+      "arm": "E",
+      "criterion_reached": false,
+      "done": true,
+      "episode_id": "EXP-FP-0090/seed=97014/arm=E",
+      "return": 20.0,
+      "seed": 97014,
+      "steps": 200,
+      "truncated": false,
+      "ttc_ticks": null
+    }
+  ],
+  "experiment_id": "EXP-FP-0090",
+  "hypothesis": "Learning DYNAMICS transfer where endpoint gains did not: a fresh K4 loop with dynamics meta-learned on the source task re-adapts to the shifted (post-flip) task >=30% faster than a fresh learner with default dynamics, on >=3/4 fresh test seeds.",
+  "interpretation": "VERDICT: H0 \u2014 learning dynamics do NOT transfer (G2 0/4 wins, need 3). Tuning found real, distinct, better dynamics on the source task (all 5 params moved: gain_lr 0.15->0.30, z_alpha 0.01->0.05, initial_var 1.0->0.5, gain_cap 2.0->1.5, reward_baseline 0.5->0.7; source mean total 318.3->344.3, +8.2%; G1 PASS). But on the shifted task re-adaptation speed is unchanged: TTC_D = 40/40/43/40 vs TTC_X = 40/40/40/40 ticks. G3 no-harm PASS (4/4 reach both arms). G4 H0 reference PASS: frozen pre-shift endpoint totals 9-23/200, TTC None 4/4 \u2014 the endpoint actively hurts re-adaptation, reproducing TRANSFER-K4-RESTORE's mechanism. MECHANISM ACCOUNT (incl. floor-effect audit): the preregistered metric floors at TTC=40 (window=40), so 3/4 seeds sit at the measurement floor for both arms \u2014 the design could not resolve sub-40-tick differences. Exploratory finer-resolution re-runs (deterministic; labeled exploratory, NOT gated): window=20 shows D and X trajectories BIT-IDENTICAL on seeds 97011/97012 (dynamics change nothing \u2014 adaptation saturates), and X faster early on 97013 (first-20-tick mean 0.85 vs 0.65; w20/c0.75 TTC 20 vs 40) and 97014 (0.90 vs 0.75; w20/c0.80 20 vs 26). Even at the finest resolution only 1/4 seeds clears the 30% bar \u2014 H1 still unsupported. Conclusion: the K4 win's process-ness does not cash out as transferable hyperparameter dynamics. Re-adaptation from scratch reaches criterion in ~40 ticks regardless; the speed is a property of the loop STRUCTURE (broadcast feedback + delta rule + fixed baseline) meeting a clean cue signal, not of the specific dynamics constants. What transfers across tasks in this architecture: nothing measured so far \u2014 endpoint gains fail (H0, TRANSFER-K4-RESTORE), dynamics fail (H0, here). What survives is the loop itself, run long enough to re-adapt.",
+  "limitations": "Single source/target pair (changing_rule phase flip); other shifts untested. Preregistered metric had a floor at TTC=40 (window=40); the confirmatory comparison is valid but coarse \u2014 the exploratory finer-resolution analysis is post-hoc and labeled as such. Tuning optimized source-task total reward, not re-adaptation speed; a dynamics search targeting speed directly might find different constants (untested). Coordinate descent over a 2-alternative grid per parameter is a coarse meta-learner; the true dynamics optimum is unmapped. reward_baseline is owned by DynamicArbitrator (payload field superseded, documented); the sole-path broadcast discipline is intact but the envelope field is vestigial for this arm.",
+  "null_hypothesis": "Learning dynamics do not transfer: source-tuned dynamics re-adapt no faster than default dynamics ((TTC_D-TTC_X)/TTC_D < 0.30 on >=2/4 seeds), or tuning finds no distinct no-worse dynamics (G1 fails -> UNINTERPRETABLE).",
+  "preregistered_metric": "time-to-criterion: first 1-indexed tick t with mean(rewards[t-40:t]) >= 0.75 over the 200-tick post-flip target run; None if unreached",
+  "prev_receipt_hash": "e67353308ce78ee710dea34adfb882b7b38fdd5c5c6773ab0fb3faa928bd3a48",
+  "primary_seed": 97011,
+  "receipt_hash": "bbe5523e04525ac166f0bc2bbb7286fb72876724b938d17c82006fcbe89639ef",
+  "started_utc": "2026-10-07T13:22:13.140134+00:00",
+  "summary": {
+    "G0_bit_identity": {
+      "identical": true,
+      "ticks": 400
+    },
+    "G1_tuning_sanity": true,
+    "gates": {
+      "G2_informative_seeds": 4,
+      "G2_transfer_pass": false,
+      "G2_uninformative_seeds": 0,
+      "G2_wins": 0,
+      "G3_no_harm_pass": true,
+      "G4_H0_reference": true,
+      "reach_D": 4,
+      "reach_E": 0,
+      "reach_X": 4,
+      "rules_differ": true
+    },
+    "n_episodes": 12,
+    "n_test_seeds": 4,
+    "total_table": {
+      "97011": {
+        "D": 175.0,
+        "E": 23.0,
+        "X": 175.0
+      },
+      "97012": {
+        "D": 188.0,
+        "E": 9.0,
+        "X": 188.0
+      },
+      "97013": {
+        "D": 177.0,
+        "E": 15.0,
+        "X": 185.0
+      },
+      "97014": {
+        "D": 180.0,
+        "E": 20.0,
+        "X": 183.0
+      }
+    },
+    "ttc_table": {
+      "97011": {
+        "D": 40,
+        "E": null,
+        "X": 40
+      },
+      "97012": {
+        "D": 40,
+        "E": null,
+        "X": 40
+      },
+      "97013": {
+        "D": 43,
+        "E": null,
+        "X": 40
+      },
+      "97014": {
+        "D": 40,
+        "E": null,
+        "X": 40
+      }
+    },
+    "verdict": "H0 \u2014 learning dynamics do NOT transfer: source-tuned dynamics re-adapt no faster than default dynamics on the shifted task (wins 0/4, need 3)."
+  },
+  "written_utc": "2026-10-07T13:24:15.294651+00:00"
+}

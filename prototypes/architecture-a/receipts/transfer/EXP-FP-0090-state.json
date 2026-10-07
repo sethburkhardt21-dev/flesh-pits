@@ -1,0 +1,326 @@
+{
+ "G0_bit_identity": {
+  "identical": true,
+  "ticks": 400
+ },
+ "G1_tuning_sanity": true,
+ "experiment_id": "EXP-FP-0090",
+ "gates": {
+  "G2_informative_seeds": 4,
+  "G2_transfer_pass": false,
+  "G2_uninformative_seeds": 0,
+  "G2_wins": 0,
+  "G3_no_harm_pass": true,
+  "G4_H0_reference": true,
+  "reach_D": 4,
+  "reach_E": 0,
+  "reach_X": 4,
+  "rules_differ": true
+ },
+ "per_seed": [
+  {
+   "arm_D": {
+    "total": 175.0,
+    "ttc": 40
+   },
+   "arm_E": {
+    "total": 23.0,
+    "ttc": null
+   },
+   "arm_X": {
+    "total": 175.0,
+    "ttc": 40
+   },
+   "endpoint_gains_phase0": {
+    "c0a0": 2.0,
+    "c0a1": 1.0,
+    "c1a0": 0.925,
+    "c1a1": 2.0
+   },
+   "seed": 97011
+  },
+  {
+   "arm_D": {
+    "total": 188.0,
+    "ttc": 40
+   },
+   "arm_E": {
+    "total": 9.0,
+    "ttc": null
+   },
+   "arm_X": {
+    "total": 188.0,
+    "ttc": 40
+   },
+   "endpoint_gains_phase0": {
+    "c0a0": 2.0,
+    "c0a1": 0.925,
+    "c1a0": 0.925,
+    "c1a1": 2.0
+   },
+   "seed": 97012
+  },
+  {
+   "arm_D": {
+    "total": 177.0,
+    "ttc": 43
+   },
+   "arm_E": {
+    "total": 15.0,
+    "ttc": null
+   },
+   "arm_X": {
+    "total": 185.0,
+    "ttc": 40
+   },
+   "endpoint_gains_phase0": {
+    "c0a0": 2.0,
+    "c0a1": 0.925,
+    "c1a0": 0.8500000000000001,
+    "c1a1": 2.0
+   },
+   "seed": 97013
+  },
+  {
+   "arm_D": {
+    "total": 180.0,
+    "ttc": 40
+   },
+   "arm_E": {
+    "total": 20.0,
+    "ttc": null
+   },
+   "arm_X": {
+    "total": 183.0,
+    "ttc": 40
+   },
+   "endpoint_gains_phase0": {
+    "c0a0": 2.0,
+    "c0a1": 0.925,
+    "c1a0": 0.925,
+    "c1a1": 2.0
+   },
+   "seed": 97014
+  }
+ ],
+ "t_wall": "2026-10-07T13:22:13.140134+00:00",
+ "task_shift": {
+  "phase0_rule": [
+   0,
+   1
+  ],
+  "phase1_rule": [
+   1,
+   0
+  ],
+  "rules_differ": true
+ },
+ "tuning": {
+  "default_dynamics": {
+   "gain_cap": 2.0,
+   "gain_lr": 0.15,
+   "initial_var": 1.0,
+   "reward_baseline": 0.5,
+   "z_alpha": 0.01
+  },
+  "default_mean_total": 318.3333333333333,
+  "distinct": true,
+  "no_worse": true,
+  "trace": [
+   {
+    "candidate": 0.05,
+    "incumbent": 318.3333333333333,
+    "mean_total": 268.6666666666667,
+    "param": "gain_lr",
+    "pass": 1
+   },
+   {
+    "candidate": 0.3,
+    "incumbent": 318.3333333333333,
+    "mean_total": 332.6666666666667,
+    "param": "gain_lr",
+    "pass": 1
+   },
+   {
+    "ADOPTED": 0.3,
+    "from": 0.15,
+    "from_mean": 318.3333333333333,
+    "param": "gain_lr",
+    "pass": 1,
+    "to_mean": 332.6666666666667
+   },
+   {
+    "candidate": 0.005,
+    "incumbent": 332.6666666666667,
+    "mean_total": 331.0,
+    "param": "z_alpha",
+    "pass": 1
+   },
+   {
+    "candidate": 0.05,
+    "incumbent": 332.6666666666667,
+    "mean_total": 335.6666666666667,
+    "param": "z_alpha",
+    "pass": 1
+   },
+   {
+    "ADOPTED": 0.05,
+    "from": 0.01,
+    "from_mean": 332.6666666666667,
+    "param": "z_alpha",
+    "pass": 1,
+    "to_mean": 335.6666666666667
+   },
+   {
+    "candidate": 0.5,
+    "incumbent": 335.6666666666667,
+    "mean_total": 337.0,
+    "param": "initial_var",
+    "pass": 1
+   },
+   {
+    "candidate": 2.0,
+    "incumbent": 335.6666666666667,
+    "mean_total": 334.3333333333333,
+    "param": "initial_var",
+    "pass": 1
+   },
+   {
+    "ADOPTED": 0.5,
+    "from": 1.0,
+    "from_mean": 335.6666666666667,
+    "param": "initial_var",
+    "pass": 1,
+    "to_mean": 337.0
+   },
+   {
+    "candidate": 1.5,
+    "incumbent": 337.0,
+    "mean_total": 344.0,
+    "param": "gain_cap",
+    "pass": 1
+   },
+   {
+    "candidate": 3.0,
+    "incumbent": 337.0,
+    "mean_total": 323.0,
+    "param": "gain_cap",
+    "pass": 1
+   },
+   {
+    "ADOPTED": 1.5,
+    "from": 2.0,
+    "from_mean": 337.0,
+    "param": "gain_cap",
+    "pass": 1,
+    "to_mean": 344.0
+   },
+   {
+    "candidate": 0.3,
+    "incumbent": 344.0,
+    "mean_total": 331.6666666666667,
+    "param": "reward_baseline",
+    "pass": 1
+   },
+   {
+    "candidate": 0.7,
+    "incumbent": 344.0,
+    "mean_total": 344.3333333333333,
+    "param": "reward_baseline",
+    "pass": 1
+   },
+   {
+    "ADOPTED": 0.7,
+    "from": 0.5,
+    "from_mean": 344.0,
+    "param": "reward_baseline",
+    "pass": 1,
+    "to_mean": 344.3333333333333
+   },
+   {
+    "candidate": 0.05,
+    "incumbent": 344.3333333333333,
+    "mean_total": 322.0,
+    "param": "gain_lr",
+    "pass": 2
+   },
+   {
+    "candidate": 0.3,
+    "incumbent": 344.3333333333333,
+    "mean_total": 344.3333333333333,
+    "param": "gain_lr",
+    "pass": 2
+   },
+   {
+    "candidate": 0.005,
+    "incumbent": 344.3333333333333,
+    "mean_total": 340.3333333333333,
+    "param": "z_alpha",
+    "pass": 2
+   },
+   {
+    "candidate": 0.05,
+    "incumbent": 344.3333333333333,
+    "mean_total": 344.3333333333333,
+    "param": "z_alpha",
+    "pass": 2
+   },
+   {
+    "candidate": 0.5,
+    "incumbent": 344.3333333333333,
+    "mean_total": 344.3333333333333,
+    "param": "initial_var",
+    "pass": 2
+   },
+   {
+    "candidate": 2.0,
+    "incumbent": 344.3333333333333,
+    "mean_total": 344.0,
+    "param": "initial_var",
+    "pass": 2
+   },
+   {
+    "candidate": 1.5,
+    "incumbent": 344.3333333333333,
+    "mean_total": 344.3333333333333,
+    "param": "gain_cap",
+    "pass": 2
+   },
+   {
+    "candidate": 3.0,
+    "incumbent": 344.3333333333333,
+    "mean_total": 331.0,
+    "param": "gain_cap",
+    "pass": 2
+   },
+   {
+    "candidate": 0.3,
+    "incumbent": 344.3333333333333,
+    "mean_total": 331.6666666666667,
+    "param": "reward_baseline",
+    "pass": 2
+   },
+   {
+    "candidate": 0.7,
+    "incumbent": 344.3333333333333,
+    "mean_total": 344.3333333333333,
+    "param": "reward_baseline",
+    "pass": 2
+   }
+  ],
+  "tuned_dynamics": {
+   "gain_cap": 1.5,
+   "gain_lr": 0.3,
+   "initial_var": 0.5,
+   "reward_baseline": 0.7,
+   "z_alpha": 0.05
+  },
+  "tuned_mean_total": 344.3333333333333,
+  "tuning_seeds": [
+   97001,
+   97002,
+   97003
+  ]
+ },
+ "verdict": "H0 \u2014 learning dynamics do NOT transfer: source-tuned dynamics re-adapt no faster than default dynamics on the shifted task (wins 0/4, need 3)."
+}

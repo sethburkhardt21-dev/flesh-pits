@@ -1,0 +1,216 @@
+{
+  "config": {
+    "affect": "none",
+    "agent": "arch_b_instrumented (equivalence-proven in 0071)",
+    "bins": 10,
+    "contract_version": "1.0.0",
+    "env": "changing_rule",
+    "env_version": "1.0.0",
+    "episodes_per_seed": 10,
+    "estimator": "competence_estimator.CompetenceEstimator feature_mode='D' (mode-C feature set; D1/D3 p heads train on re-scoped rest-error events), normalized SGD eta_p=0.1/eta_e=0.05",
+    "experiment_id": "EXP-FP-0100",
+    "primary_seeds": [
+      73301,
+      73302,
+      73303,
+      73304
+    ],
+    "thresholds": {
+      "EPS_OBS_REST": 0.1387,
+      "EPS_RW": 0.2067,
+      "TAU_FAIL_REST": 0.2896
+    }
+  },
+  "config_hash": "518a0d5b9b618180481235fd0b0883bfa7555352ddd0065d120e28dd679ee103",
+  "determinism_self_check": true,
+  "domains": {
+    "action_consequence": {
+      "base_rate": 0.47884615384615387,
+      "brier_climo": 0.2506253300390646,
+      "brier_const05": 0.25,
+      "brier_est": 0.2503572795121975,
+      "corr_ehat_err": 0.09574468493642889,
+      "corr_uncertainty_err": 0.0691163131414915,
+      "ece": 0.03344950323105834,
+      "mce": 0.24298362969075,
+      "n": 1560,
+      "signed_error": -0.012191923050236454,
+      "skill_vs_climo": 0.0010695268783300627,
+      "verdict": "CALIBRATED"
+    },
+    "competence_failure": {
+      "base_rate": 0.13141025641025642,
+      "brier_climo": 0.11483836146828377,
+      "brier_const05": 0.25,
+      "brier_est": 0.11492197516717062,
+      "corr_ehat_err": 0.019257045876132032,
+      "corr_uncertainty_err": 0.08332769560042128,
+      "ece": 0.024340214484099322,
+      "mce": 0.6694386334204842,
+      "n": 1560,
+      "signed_error": 0.007109150252747277,
+      "skill_vs_climo": -0.0007280990238609508,
+      "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+    },
+    "next_obs": {
+      "base_rate": 0.4493589743589744,
+      "brier_climo": 0.24851323545257545,
+      "brier_const05": 0.25,
+      "brier_est": 0.24962064921494567,
+      "corr_ehat_err": 0.02135505863571983,
+      "corr_uncertainty_err": 0.025967101409243475,
+      "ece": 0.03722084903019723,
+      "mce": 0.27804396968384004,
+      "n": 1560,
+      "signed_error": 0.0023454205134864764,
+      "skill_vs_climo": -0.004456156068925132,
+      "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+    },
+    "retrieval_usefulness": {
+      "base_rate": 0.41602564102564105,
+      "brier_climo": 0.2440313235872925,
+      "brier_const05": 0.25,
+      "brier_est": 0.24247914844000162,
+      "corr_ehat_err": -0.030072258546476327,
+      "corr_uncertainty_err": 0.06038053816858365,
+      "ece": 0.04958835685863234,
+      "mce": 0.7251699421541695,
+      "n": 1560,
+      "signed_error": -0.004371057599571235,
+      "skill_vs_climo": 0.006360557015688384,
+      "verdict": "MISCALIBRATED (beats climatology but reliability off-diagonal; dispersion error)"
+    }
+  },
+  "experiment_id": "EXP-FP-0100",
+  "kill_arms": {
+    "anchor_reproduces_climatology_1e9": true,
+    "error_permutation_decomposition": {
+      "action_consequence": {
+        "brier_climo": 0.2506253300390646,
+        "brier_intact": 0.2503572795121975,
+        "brier_permuted": 0.2543491375609934,
+        "ordering_intact_lt_perm_lt_climo": false
+      },
+      "competence_failure": {
+        "brier_climo": 0.11483836146828377,
+        "brier_intact": 0.11492197516717062,
+        "brier_permuted": 0.11685269492994142,
+        "ordering_intact_lt_perm_lt_climo": false
+      },
+      "next_obs": {
+        "brier_climo": 0.24851323545257545,
+        "brier_intact": 0.24962064921494567,
+        "brier_permuted": 0.2508185492642864,
+        "ordering_intact_lt_perm_lt_climo": false
+      },
+      "retrieval_usefulness": {
+        "brier_climo": 0.2440313235872925,
+        "brier_intact": 0.24247914844000162,
+        "brier_permuted": 0.2480133614696348,
+        "ordering_intact_lt_perm_lt_climo": false
+      }
+    },
+    "novelty_zeroed_ablation": {
+      "action_consequence": {
+        "brier_novelty_zeroed": 0.2509232053528844,
+        "novelty_load_bearing": true
+      },
+      "competence_failure": {
+        "brier_novelty_zeroed": 0.11542251187711938,
+        "novelty_load_bearing": true
+      },
+      "next_obs": {
+        "brier_novelty_zeroed": 0.25034789872239993,
+        "novelty_load_bearing": true
+      },
+      "retrieval_usefulness": {
+        "brier_novelty_zeroed": 0.2426339825544336,
+        "novelty_load_bearing": true
+      }
+    }
+  },
+  "logs": [
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0100.seed73301.predictions.jsonl",
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0100.seed73302.predictions.jsonl",
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0100.seed73303.predictions.jsonl",
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0100.seed73304.predictions.jsonl"
+  ],
+  "reference_modeC_on_rescoped": {
+    "action_consequence": {
+      "base_rate": 0.47884615384615387,
+      "brier_climo": 0.2506253300390646,
+      "brier_const05": 0.25,
+      "brier_est": 0.2503572795121975,
+      "corr_ehat_err": 0.09574468493642889,
+      "corr_uncertainty_err": 0.0691163131414915,
+      "ece": 0.03344950323105834,
+      "mce": 0.24298362969075,
+      "n": 1560,
+      "signed_error": -0.012191923050236454,
+      "skill_vs_climo": 0.0010695268783300627,
+      "verdict": "CALIBRATED"
+    },
+    "competence_failure": {
+      "base_rate": 0.13141025641025642,
+      "brier_climo": 0.11483836146828377,
+      "brier_const05": 0.25,
+      "brier_est": 0.11498551960171297,
+      "corr_ehat_err": 0.020246089285852628,
+      "corr_uncertainty_err": 0.07580328812325303,
+      "ece": 0.023303485686970694,
+      "mce": 0.6694386334204842,
+      "n": 1560,
+      "signed_error": 0.012861714057034866,
+      "skill_vs_climo": -0.0012814370698752686,
+      "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+    },
+    "next_obs": {
+      "base_rate": 0.4493589743589744,
+      "brier_climo": 0.24851323545257545,
+      "brier_const05": 0.25,
+      "brier_est": 0.25072370695457447,
+      "corr_ehat_err": 0.017081382654115244,
+      "corr_uncertainty_err": 0.03170481145467222,
+      "ece": 0.038094503961317576,
+      "mce": 0.7194046398851824,
+      "n": 1560,
+      "signed_error": 0.02036803681049302,
+      "skill_vs_climo": -0.0088947838048683,
+      "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+    },
+    "retrieval_usefulness": {
+      "base_rate": 0.41602564102564105,
+      "brier_climo": 0.2440313235872925,
+      "brier_const05": 0.25,
+      "brier_est": 0.24247914844000162,
+      "corr_ehat_err": -0.030072258546476327,
+      "corr_uncertainty_err": 0.06038053816858365,
+      "ece": 0.04958835685863234,
+      "mce": 0.7251699421541695,
+      "n": 1560,
+      "signed_error": -0.004371057599571235,
+      "skill_vs_climo": 0.006360557015688384,
+      "verdict": "MISCALIBRATED (beats climatology but reliability off-diagonal; dispersion error)"
+    }
+  },
+  "seeds": [
+    73301,
+    73302,
+    73303,
+    73304
+  ],
+  "sidecars": [
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0100.seed73301.sidecar.jsonl",
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0100.seed73302.sidecar.jsonl",
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0100.seed73303.sidecar.jsonl",
+    "/home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/experiments_out/EXP-FP-0100.seed73304.sidecar.jsonl"
+  ],
+  "started_utc": "2026-10-07T13:23:24.467127+00:00",
+  "win_gates": {
+    "brier_beats_ge3": false,
+    "d1_coupling_ge040": false,
+    "d3_coupling_ge040": false,
+    "verdict": "NULL_HOLDS"
+  },
+  "written_utc": "2026-10-07T13:23:39.508350+00:00"
+}
