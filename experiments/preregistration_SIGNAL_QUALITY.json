@@ -1,0 +1,52 @@
+{
+  "background": "EXP-FP-0007 (pomaze, 4 seeds) showed the shadow-trained UsefulnessPredictor's ranking signal carries decision value (corr(uhat,benefit) +0.40...+0.53, gate rate 0.79-0.80, H SUPPORTED 4/4 seeds). EXP-FP-0007R (5 fresh seeds x 3 envs) FAILED to replicate any decision value, but the descriptive finding is sharp: on changing_rule the ranking correlate is genuinely weaker (+0.09...+0.14 shadow) and the gate applies far less often (rate 0.27-0.42 vs 0.71-0.82 pomaze), while the correlate itself replicates everywhere (13 seeds). So SIGNAL QUALITY is env-dependent, and signal quality predicts decision value. This experiment CHARACTERIZES that dependence. It is a characterization, NOT a kill: no win/lose rule on a policy, only descriptive success criteria.",
+  "characterization_design": "For each of 5 envs (pomaze, delayed_reward, changing_rule, compositional_rule, cue_delayed_reward) x 5 fresh seeds (81001..81005): one characterization arm per seed. Agent = make_agent(env_cls, seed=1000+s, gate_policy='ungated', gate_uhat_source='shadow') so the retrieval correction is applied whenever available (UNCONDITIONAL stream) and the shadow UsefulnessPredictor trains online on the counterfactual unconditional benefit (identical to realized benefit under ungated). 15 episodes/seed, arch_b v1, affect='none', action_mode='active_inference', identical conditions across envs. Driver-side instrumentation only: wrap agent.shadow_usefulness.update to record (qfeat[4], uhat_pre_update, benefit) per correction-available tick. No canonical files modified (predictions.py, agent.py, experiments.py untouched); driver imports corr/_mean from exp_retrieval_gate_shadow (additive reuse, verbatim instrument).",
+  "conditions": {
+    "action_mode": "active_inference",
+    "affect": "none",
+    "agent": "arch_b v1",
+    "envs": [
+      "pomaze",
+      "delayed_reward",
+      "changing_rule",
+      "compositional_rule",
+      "cue_delayed_reward"
+    ],
+    "episodes_per_arm_per_seed": 15,
+    "gate_policy": "ungated",
+    "gate_uhat_source": "shadow",
+    "instrumentation": "driver-side record of (qfeat, uhat_pre, benefit) at shadow_usefulness.update; predictions.py/agent.py/experiments.py untouched"
+  },
+  "cross_env_analysis": "Across the 5 envs (env = one observation, n=5, honestly small): rank-order signal quality (seed-mean corr) and report rank correlations with candidate env properties (base rate, benefit std, mean|benefit|, correction-available rate, mean episode return, per-feature variances). All rank correlations REPORTED (no selection); with n=5 no p-value claims are made. The interpretation names which env properties track signal quality.",
+  "experiment_id": "EXP-FP-0009",
+  "failure_rule": "If S1 fails for any env, that env is DEGENERATE and a research/negative_results.md entry is written as a failed preregistered descriptive criterion (that env contributes no interpretation). If S2/S3/S4 cannot be measured for a non-degenerate env, the experiment is VOID for that env (honest BLOCKED, never simulated).",
+  "frozen_gates": {
+    "G1_fabrication_tripwire": "CLEAN on the new driver, checked pre-run via skills/fabrication-tripwire; scan output recorded.",
+    "G2_determinism": "per env: recompute the first seed's characterization arm; unrounded mean benefit AND corr(uhat,benefit) must match at 1e-12; else that env VOID.",
+    "G3_receipts": "lane receipt receipts/EXP-FP-0009.json via experiments/harness.py write_receipt + verify_chain; pre-chain detail copy in prototypes/architecture-b/receipts/EXP-FP-0009.json (EXP-AB-K3C/EXP-FP-0007R convention)."
+  },
+  "hypothesis": "The shadow-trained uhat ranking-signal quality (corr(uhat, benefit)) varies systematically across envs, and the variation is predictable from env-measurable properties: benefit base rate P(benefit>0), benefit magnitude distribution, per-feature marginals, and which feature carries the ranking. Identifying these properties explains why the gate applies 0.79-0.80 on pomaze but 0.27-0.42 on changing_rule and bounds where shadow- gating can carry decision value (gap #2 mechanism lead).",
+  "limitations": "Closed-loop observational characterization (no policy intervention): the shadow predictor's training stream is the ungated trajectory; benefit is the counterfactual-unconditional benefit under a policy that applies it. n=5 envs for the cross-env analysis (rank correlations only, no significance claims). 5 seeds/env. CONSCIOUSNESS: UNRESOLVED - this experiment measures predictor statistics, nothing about conscious state; donor provenance n/a (no donor code).",
+  "null": "No systematic env-dependence is identifiable: signal quality varies across envs but no env-measurable property (base rate, magnitude distribution, feature marginals, carrier feature) co-varies with it; the pomaze/changing_rule contrast is noise.",
+  "preregistered_measurements": {
+    "a_signal_quality": "corr(uhat_pre, benefit) per seed (Pearson, preregistered_primary), plus live-predictor corr(uhat_live, benefit) from the same stream as secondary for comparability with EXP-FP-0006/0007 U-arm diagnostics.",
+    "b_base_rate": "P(benefit>0), P(benefit>=1e-9), mean benefit per seed; sign-prediction agreement P((uhat_pre>0)==(benefit>0)).",
+    "c_sign_vs_magnitude": "corr(uhat,sign(benefit)) vs corr(uhat,|benefit|) vs corr(uhat,benefit); corr(uhat,benefit) restricted to benefit>0 and benefit<=0 strata; benefit and |benefit| quantiles (p10/p50/p90) and std per seed. Question: is the ranking signal in the SIGN, the MAGNITUDE, or both?",
+    "d_feature_carriers": "per env: mean/std of each qfeat component (mean_sim, n_nbrs/5, uncertainty, e1_ema); per-feature corr(x_j, benefit) per seed; final shadow weights w[4], b; carrier feature per env = argmax_j |corr(x_j, benefit)| seed-mean; check learned-weight sign alignment with corr(x_j, benefit) sign. Question: WHICH feature carries the ranking where?",
+    "e_gate_application_rate": "fraction of correction-available ticks with online uhat_pre > 0 (exactly what a threshold-0 shadow gate would apply; uhat_pre recorded before each online update); reference: fraction with uhat_pre >= 0.",
+    "env_context": "n correction-available ticks, correction-available rate (ticks_avail / total_ticks), mean episode return, mean |benefit|, benefit std, ticks per episode. These are the candidate env properties predicting signal quality."
+  },
+  "preregistered_utc": "2026-10-07T10:18:00Z",
+  "promotion_rule": "NONE - characterization, not a promotion experiment. MATURITY.md retrieval row gets the characterization appended as an EXTENSION of the existing INTEGRATED annotation (bounded by EXP-FP-0007R), not a maturity change.",
+  "seed_freshness": "Checked 2026-10-07 before sealing: zero occurrences of each of 81001..81005 in experiments/EXPERIMENT_REGISTRY.md, receipts/*.json, and prototypes/architecture-b/receipts/*.json.",
+  "seeds": [
+    81001,
+    81002,
+    81003,
+    81004,
+    81005
+  ],
+  "status": "PREREGISTERED",
+  "success_criteria_descriptive": "This is characterization: there is no policy win/lose rule. The experiment SUCCEEDS if ALL of S1-S4 hold; individual descriptive expectations may be confirmed OR refuted (both are results). S1 (non-degeneracy): every env yields >=100 correction-available ticks on >=4/5 seeds; an env failing this is marked DEGENERATE (not reinterpreted). S2 (ordering): per-env signal quality ordering identified (seed-mean corr with seed-level spread reported). S3 (mechanism): for each env the carrying feature(s) identified AND a mechanism interpretation written (why the correlate strengthens/weakens there, in terms of base rate / feature variance / env dynamics). S4 (application): gate-application-rate ordering identified and tied to signal quality (does low rate <-> weak signal hold across all 5 envs?).",
+  "title": "Env-dependence of the shadow-trained uhat ranking-signal quality (mechanism lead for B gap #2)"
+}

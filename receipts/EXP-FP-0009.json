@@ -1,0 +1,1844 @@
+{
+  "baseline": "ungated unconditional-correction stream; shadow predictor trains online on unconditional benefit (characterization arm, no gating intervention).",
+  "conditions": "{\"action_mode\": \"active_inference\", \"affect\": \"none\", \"agent\": \"arch_b v1\", \"envs\": [\"pomaze\", \"delayed_reward\", \"changing_rule\", \"compositional_rule\", \"cue_delayed_reward\"], \"episodes_per_arm_per_seed\": 15, \"gate_policy\": \"ungated\", \"gate_uhat_source\": \"shadow\", \"parent_experiment\": \"EXP-FP-0007R\", \"preregistration\": \"experiments/preregistration_SIGNAL_QUALITY.json\"}",
+  "config": {
+    "action_mode": "active_inference",
+    "affect": "none",
+    "agent": "arch_b v1",
+    "envs": [
+      "pomaze",
+      "delayed_reward",
+      "changing_rule",
+      "compositional_rule",
+      "cue_delayed_reward"
+    ],
+    "episodes_per_arm_per_seed": 15,
+    "gate_policy": "ungated",
+    "gate_uhat_source": "shadow",
+    "parent_experiment": "EXP-FP-0007R",
+    "preregistration": "experiments/preregistration_SIGNAL_QUALITY.json"
+  },
+  "config_hash": "eb6cb40607dc12f28cac6b613d3fc148d453cadf5ad38057dc339a5550236714",
+  "episodes": [],
+  "experiment_id": "EXP-FP-0009",
+  "hypothesis": "The shadow-trained uhat ranking-signal quality varies systematically across envs, predictable from env-measurable properties (base rate, magnitude distribution, feature marginals, carrier feature).",
+  "interpretation": "EXP-FP-0009 characterization complete: 5/5 envs non-degenerate. Signal-quality ordering (seed-mean corr(uhat,benefit)): pomaze=+0.431, cue_delayed_reward=+0.358, delayed_reward=+0.266, changing_rule=+0.030, compositional_rule=+0.024. Carrier features: pomaze:e1_ema, delayed_reward:n_nbrs_5, changing_rule:uncertainty, compositional_rule:mean_sim, cue_delayed_reward:n_nbrs_5. Cross-env rank correlations with signal quality: p_benefit_pos=+0.70, std_benefit=-0.50, absbenefit_p50=-0.60, avail_rate=-1.00, apply_rate_t0=+0.70, corr_sign=+0.90, corr_abs=+0.90",
+  "limitations": "Observational characterization (no policy intervention); shadow predictor trains on the ungated trajectory; n=5 envs for cross-env rank correlations (no significance claims); 5 fresh seeds per env; 15 episodes per arm. CONSCIOUSNESS: UNRESOLVED.",
+  "null_hypothesis": "No systematic env-dependence identifiable; the pomaze/changing_rule contrast is noise.",
+  "preregistered_metric": "per (env,seed): corr(uhat_pre,benefit); P(benefit>0); sign/magnitude decomposition; feature marginals + carrier; gate apply rate at threshold 0; cross-env rank correlations. Descriptive success S1-S4; no policy win/lose rule.",
+  "prev_receipt_hash": "f99169e12de64b84bad00eabaa1079602544e9437f4a3c52e3896a2b5dccc050",
+  "primary_seed": [
+    81001,
+    81002,
+    81003,
+    81004,
+    81005
+  ],
+  "receipt_hash": "58749159732999c03f9781d5a64bc680ec611ea6d9a32c7b1074b03f6c6e00db",
+  "started_utc": "2026-10-07T10:16:28.465594+00:00",
+  "summary": {
+    "cross_env_rank_correlations": {
+      "absbenefit_p50": -0.6,
+      "apply_rate_t0": 0.7,
+      "avail_rate": -1.0,
+      "corr_abs": 0.9,
+      "corr_sign": 0.9,
+      "p_benefit_pos": 0.7,
+      "std_benefit": -0.5
+    },
+    "degenerate_envs": [],
+    "envs": {
+      "changing_rule": {
+        "carrier_abs_corr": 0.07136233583423965,
+        "carrier_feature": "uncertainty",
+        "n_nondegenerate": 5,
+        "per_seed": [
+          {
+            "absbenefit_q": {
+              "p10": 0.05232235594254127,
+              "p50": 0.2563597155624171,
+              "p90": 0.55108704356153
+            },
+            "apply_rate_t0": 0.3167808219178082,
+            "apply_rate_t0_nonneg": 0.3202054794520548,
+            "avail_rate": 14.974358974358974,
+            "benefit_q": {
+              "p10": -0.5209005889232577,
+              "p50": -0.06074525069207559,
+              "p90": 0.39010721118115
+            },
+            "corr_uhat_absbenefit": 0.02830091065894545,
+            "corr_uhat_benefit": 0.07394603039940262,
+            "corr_uhat_benefit_nonpos": -0.024521930609218263,
+            "corr_uhat_benefit_pos": 0.06914228994870196,
+            "corr_uhat_sign": 0.08625602553722475,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": -0.09228403037141251,
+                "mean": 0.9670500007299921,
+                "std": 0.10470936687029761
+              },
+              {
+                "corr_with_benefit": -0.07689727417496303,
+                "mean": 0.9965753424657534,
+                "std": 0.04520029027916827
+              },
+              {
+                "corr_with_benefit": 0.09698761532657103,
+                "mean": 0.3632643812660647,
+                "std": 0.026086018486835966
+              },
+              {
+                "corr_with_benefit": 0.04579424120982179,
+                "mean": 0.6527664543544197,
+                "std": 0.23775883487129126
+              }
+            ],
+            "mean_benefit": -0.07550259324972217,
+            "mean_benefit_raw": -0.07550259324972217,
+            "mean_return": 21.6,
+            "mean_return_raw": 21.6,
+            "n_ticks_avail": 584,
+            "p_benefit_nonneg": 0.4212328767123288,
+            "p_benefit_pos": 0.4212328767123288,
+            "seed": 81001,
+            "shadow_b": -0.04294106510238682,
+            "shadow_w": [
+              -0.11966245170182942,
+              -0.0954249812780689,
+              -0.01026582587227889,
+              -0.04913999558311999
+            ],
+            "sign_agreement": 0.5565068493150684,
+            "std_benefit": 0.3656508390644579,
+            "total_ticks": 39
+          },
+          {
+            "absbenefit_q": {
+              "p10": 0.04782073787307223,
+              "p50": 0.21751786869278866,
+              "p90": 0.5494603376933813
+            },
+            "apply_rate_t0": 0.386986301369863,
+            "apply_rate_t0_nonneg": 0.3904109589041096,
+            "avail_rate": 14.974358974358974,
+            "benefit_q": {
+              "p10": -0.4682875073569458,
+              "p50": -0.0327997558685279,
+              "p90": 0.37856254692235125
+            },
+            "corr_uhat_absbenefit": -0.09184261939311797,
+            "corr_uhat_benefit": 0.030988408444265557,
+            "corr_uhat_benefit_nonpos": 0.136053519977684,
+            "corr_uhat_benefit_pos": -0.04202898376958196,
+            "corr_uhat_sign": -0.004758228790023711,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": -0.1257068596138254,
+                "mean": 0.9758754542840773,
+                "std": 0.09227300732394207
+              },
+              {
+                "corr_with_benefit": -0.07339477496782376,
+                "mean": 0.9965753424657534,
+                "std": 0.04520029027916827
+              },
+              {
+                "corr_with_benefit": 0.07363700793296712,
+                "mean": 0.3610225258005069,
+                "std": 0.020843024378266878
+              },
+              {
+                "corr_with_benefit": 0.037743195409412005,
+                "mean": 0.6545536228319324,
+                "std": 0.23507548769865613
+              }
+            ],
+            "mean_benefit": -0.0473298037810408,
+            "mean_benefit_raw": -0.0473298037810408,
+            "mean_return": 22.3333,
+            "mean_return_raw": 22.333333333333332,
+            "n_ticks_avail": 584,
+            "p_benefit_nonneg": 0.464041095890411,
+            "p_benefit_pos": 0.464041095890411,
+            "seed": 81002,
+            "shadow_b": 0.04305868580818926,
+            "shadow_w": [
+              -0.08688770348267674,
+              -0.00378518199263006,
+              0.034270315109474474,
+              0.11683699846903357
+            ],
+            "sign_agreement": 0.4982876712328767,
+            "std_benefit": 0.3354062873944373,
+            "total_ticks": 39
+          },
+          {
+            "absbenefit_q": {
+              "p10": 0.04039851376178745,
+              "p50": 0.2054776328365301,
+              "p90": 0.5029413010399233
+            },
+            "apply_rate_t0": 0.3595890410958904,
+            "apply_rate_t0_nonneg": 0.3613013698630137,
+            "avail_rate": 14.974358974358974,
+            "benefit_q": {
+              "p10": -0.4454750127504019,
+              "p50": -0.03581228377116674,
+              "p90": 0.34211855649853007
+            },
+            "corr_uhat_absbenefit": 0.01669845289931597,
+            "corr_uhat_benefit": 0.00603886261055846,
+            "corr_uhat_benefit_nonpos": -0.0166373202568059,
+            "corr_uhat_benefit_pos": 0.01920382138195395,
+            "corr_uhat_sign": 0.008624587915358618,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": -0.0028648699825239055,
+                "mean": 0.9716233042937721,
+                "std": 0.09540357548955535
+              },
+              {
+                "corr_with_benefit": 0.028148454526107994,
+                "mean": 0.9965753424657534,
+                "std": 0.04520029027916827
+              },
+              {
+                "corr_with_benefit": 0.06325647452527244,
+                "mean": 0.35906972260552994,
+                "std": 0.02757914462588632
+              },
+              {
+                "corr_with_benefit": 0.03369280801249725,
+                "mean": 0.6441913667877489,
+                "std": 0.2305338891691837
+              }
+            ],
+            "mean_benefit": -0.04188784519000345,
+            "mean_benefit_raw": -0.04188784519000345,
+            "mean_return": 22.2,
+            "mean_return_raw": 22.2,
+            "n_ticks_avail": 584,
+            "p_benefit_nonneg": 0.4486301369863014,
+            "p_benefit_pos": 0.4486301369863014,
+            "seed": 81003,
+            "shadow_b": -0.04536377677088174,
+            "shadow_w": [
+              -0.008226492820450664,
+              -0.021805059948097946,
+              -0.009434749976631402,
+              0.09651026026183988
+            ],
+            "sign_agreement": 0.5273972602739726,
+            "std_benefit": 0.3089182384109638,
+            "total_ticks": 39
+          },
+          {
+            "absbenefit_q": {
+              "p10": 0.02998973027165879,
+              "p50": 0.23105007917227444,
+              "p90": 0.6774221694122762
+            },
+            "apply_rate_t0": 0.23972602739726026,
+            "apply_rate_t0_nonneg": 0.24143835616438356,
+            "avail_rate": 14.974358974358974,
+            "benefit_q": {
+              "p10": -0.6645064211956813,
+              "p50": -0.04893423032329852,
+              "p90": 0.31280697829571436
+            },
+            "corr_uhat_absbenefit": -0.09581451650546423,
+            "corr_uhat_benefit": -0.013930411273886832,
+            "corr_uhat_benefit_nonpos": 0.09780955218540255,
+            "corr_uhat_benefit_pos": -0.15050881947913186,
+            "corr_uhat_sign": -0.039827855427073074,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": -0.03432051246295588,
+                "mean": 0.9700985383271141,
+                "std": 0.09822376707978375
+              },
+              {
+                "corr_with_benefit": 0.024132362641765586,
+                "mean": 0.9965753424657534,
+                "std": 0.04520029027916827
+              },
+              {
+                "corr_with_benefit": 0.06273784015768674,
+                "mean": 0.35967084728177146,
+                "std": 0.02829259495023375
+              },
+              {
+                "corr_with_benefit": 0.023293838353367062,
+                "mean": 0.637320595919666,
+                "std": 0.2242721777456264
+              }
+            ],
+            "mean_benefit": -0.12237956115749957,
+            "mean_benefit_raw": -0.12237956115749957,
+            "mean_return": 23.0,
+            "mean_return_raw": 23.0,
+            "n_ticks_avail": 584,
+            "p_benefit_nonneg": 0.410958904109589,
+            "p_benefit_pos": 0.410958904109589,
+            "seed": 81004,
+            "shadow_b": -0.11205888267930471,
+            "shadow_w": [
+              -0.0937030636786926,
+              -0.07018303692797942,
+              -0.04825616447704629,
+              -0.0291796480604834
+            ],
+            "sign_agreement": 0.541095890410959,
+            "std_benefit": 0.3936200793800533,
+            "total_ticks": 39
+          },
+          {
+            "absbenefit_q": {
+              "p10": 0.028736884596973593,
+              "p50": 0.19014326852385594,
+              "p90": 0.5383003506655455
+            },
+            "apply_rate_t0": 0.464041095890411,
+            "apply_rate_t0_nonneg": 0.4674657534246575,
+            "avail_rate": 14.974358974358974,
+            "benefit_q": {
+              "p10": -0.38869013811746983,
+              "p50": -0.0038390014172260956,
+              "p90": 0.34642963265970683
+            },
+            "corr_uhat_absbenefit": -0.15901678832478397,
+            "corr_uhat_benefit": 0.05266607662807099,
+            "corr_uhat_benefit_nonpos": 0.1303467846001781,
+            "corr_uhat_benefit_pos": -0.19019487232410184,
+            "corr_uhat_sign": 0.06869262527861565,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": -0.04734709622926404,
+                "mean": 0.9680417198183844,
+                "std": 0.1043213028323155
+              },
+              {
+                "corr_with_benefit": 0.01528740477272433,
+                "mean": 0.9965753424657534,
+                "std": 0.04520029027916827
+              },
+              {
+                "corr_with_benefit": 0.06019274122870095,
+                "mean": 0.3570305925153515,
+                "std": 0.027076347943347904
+              },
+              {
+                "corr_with_benefit": -0.00527372260405271,
+                "mean": 0.6344160158144682,
+                "std": 0.22626715696983984
+              }
+            ],
+            "mean_benefit": -0.020900877703281858,
+            "mean_benefit_raw": -0.020900877703281858,
+            "mean_return": 23.2,
+            "mean_return_raw": 23.2,
+            "n_ticks_avail": 584,
+            "p_benefit_nonneg": 0.4914383561643836,
+            "p_benefit_pos": 0.4914383561643836,
+            "seed": 81005,
+            "shadow_b": 0.06406978253637567,
+            "shadow_w": [
+              0.022083937001146414,
+              0.07805448585572751,
+              0.02573012609521988,
+              -0.022603884399315412
+            ],
+            "sign_agreement": 0.547945205479452,
+            "std_benefit": 0.3043625185729599,
+            "total_ticks": 39
+          }
+        ],
+        "seed_corrs": [
+          0.07394603039940262,
+          0.030988408444265557,
+          0.00603886261055846,
+          -0.013930411273886832,
+          0.05266607662807099
+        ],
+        "seed_mean_absbenefit_p50": 0.22010971295757323,
+        "seed_mean_apply_t0": 0.35342465753424657,
+        "seed_mean_avail_rate": 14.974358974358974,
+        "seed_mean_corr": 0.029941793361682158,
+        "seed_mean_corr_abs": -0.060334912133020946,
+        "seed_mean_corr_sign": 0.023797430902820445,
+        "seed_mean_p_pos": 0.4472602739726027,
+        "seed_mean_std_benefit": 0.3415915925645744,
+        "weight_alignment": [
+          {
+            "feature": "mean_sim",
+            "seed_mean_corr": -0.06050467373199635,
+            "seed_mean_w": -0.0572791549365006,
+            "sign_aligned": true
+          },
+          {
+            "feature": "n_nbrs_5",
+            "seed_mean_corr": -0.016544765440437776,
+            "seed_mean_w": -0.02262875485820976,
+            "sign_aligned": true
+          },
+          {
+            "feature": "uncertainty",
+            "seed_mean_corr": 0.07136233583423965,
+            "seed_mean_w": -0.0015912598242524456,
+            "sign_aligned": false
+          },
+          {
+            "feature": "e1_ema",
+            "seed_mean_corr": 0.027050072076209082,
+            "seed_mean_w": 0.02248474613759093,
+            "sign_aligned": true
+          }
+        ]
+      },
+      "compositional_rule": {
+        "carrier_abs_corr": 0.06467798268561015,
+        "carrier_feature": "mean_sim",
+        "n_nondegenerate": 5,
+        "per_seed": [
+          {
+            "absbenefit_q": {
+              "p10": 0.03813608894638375,
+              "p50": 0.1903238156419167,
+              "p90": 0.4871594163059878
+            },
+            "apply_rate_t0": 0.3047945205479452,
+            "apply_rate_t0_nonneg": 0.3065068493150685,
+            "avail_rate": 14.974358974358974,
+            "benefit_q": {
+              "p10": -0.4421889888970789,
+              "p50": -0.06439520376796809,
+              "p90": 0.2963085542736902
+            },
+            "corr_uhat_absbenefit": -0.030603740903523732,
+            "corr_uhat_benefit": -0.04600237428359807,
+            "corr_uhat_benefit_nonpos": 0.009771724668257613,
+            "corr_uhat_benefit_pos": -0.08280693350851298,
+            "corr_uhat_sign": -0.03858569330604188,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": -0.02950212226488219,
+                "mean": 0.9616241401646034,
+                "std": 0.08352799173697571
+              },
+              {
+                "corr_with_benefit": -0.07979230052279142,
+                "mean": 0.9965753424657534,
+                "std": 0.04520029027916827
+              },
+              {
+                "corr_with_benefit": -0.018110210100421027,
+                "mean": 0.40652293450579374,
+                "std": 0.025263742997665713
+              },
+              {
+                "corr_with_benefit": -0.022760961643759646,
+                "mean": 0.8473696998575533,
+                "std": 0.29435560580628867
+              }
+            ],
+            "mean_benefit": -0.06847121818525907,
+            "mean_benefit_raw": -0.06847121818525907,
+            "mean_return": 25.0,
+            "mean_return_raw": 25.0,
+            "n_ticks_avail": 584,
+            "p_benefit_nonneg": 0.4126712328767123,
+            "p_benefit_pos": 0.4126712328767123,
+            "seed": 81001,
+            "shadow_b": -0.06388567748970558,
+            "shadow_w": [
+              -0.03006218906914703,
+              -0.10081004314655082,
+              -0.0516393458547676,
+              -0.005371981200057984
+            ],
+            "sign_agreement": 0.5154109589041096,
+            "std_benefit": 0.2832513770025846,
+            "total_ticks": 39
+          },
+          {
+            "absbenefit_q": {
+              "p10": 0.03453884218416075,
+              "p50": 0.19925460844891296,
+              "p90": 0.47607132113832745
+            },
+            "apply_rate_t0": 0.3116438356164384,
+            "apply_rate_t0_nonneg": 0.3150684931506849,
+            "avail_rate": 14.974358974358974,
+            "benefit_q": {
+              "p10": -0.42059457438515957,
+              "p50": -0.07566227241993773,
+              "p90": 0.29883258311384614
+            },
+            "corr_uhat_absbenefit": -0.11125253532319314,
+            "corr_uhat_benefit": 0.055973529438213404,
+            "corr_uhat_benefit_nonpos": 0.0735229792565799,
+            "corr_uhat_benefit_pos": -0.12916018347990163,
+            "corr_uhat_sign": 0.08501302440959806,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": -0.04260083932403531,
+                "mean": 0.9624994897938124,
+                "std": 0.08646311902260966
+              },
+              {
+                "corr_with_benefit": -0.10273074736170158,
+                "mean": 0.9965753424657534,
+                "std": 0.04520029027916827
+              },
+              {
+                "corr_with_benefit": 0.020499097042816734,
+                "mean": 0.403643802457893,
+                "std": 0.025425651916976936
+              },
+              {
+                "corr_with_benefit": -0.05582153788561446,
+                "mean": 0.8361856807880305,
+                "std": 0.2980531422030021
+              }
+            ],
+            "mean_benefit": -0.07535111749829272,
+            "mean_benefit_raw": -0.07535111749829272,
+            "mean_return": 23.9333,
+            "mean_return_raw": 23.933333333333334,
+            "n_ticks_avail": 584,
+            "p_benefit_nonneg": 0.410958904109589,
+            "p_benefit_pos": 0.410958904109589,
+            "seed": 81002,
+            "shadow_b": -0.02233231873330683,
+            "shadow_w": [
+              -0.016969419433143708,
+              -0.07315770347525594,
+              -0.009685518664520394,
+              -0.11620240892720365
+            ],
+            "sign_agreement": 0.5993150684931506,
+            "std_benefit": 0.28623289480291825,
+            "total_ticks": 39
+          },
+          {
+            "absbenefit_q": {
+              "p10": 0.03802575980755932,
+              "p50": 0.20889371324216338,
+              "p90": 0.49562976901863887
+            },
+            "apply_rate_t0": 0.3681506849315068,
+            "apply_rate_t0_nonneg": 0.3698630136986301,
+            "avail_rate": 14.974358974358974,
+            "benefit_q": {
+              "p10": -0.43451269249961744,
+              "p50": -0.04791133439873374,
+              "p90": 0.3094840103701354
+            },
+            "corr_uhat_absbenefit": -0.051372462516514505,
+            "corr_uhat_benefit": 0.09025969476873878,
+            "corr_uhat_benefit_nonpos": 0.0833523140404173,
+            "corr_uhat_benefit_pos": 0.021077849198862894,
+            "corr_uhat_sign": 0.06794875973428503,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": -0.11523539956770476,
+                "mean": 0.9592316337189012,
+                "std": 0.08591298054911925
+              },
+              {
+                "corr_with_benefit": -0.04871834493216926,
+                "mean": 0.9965753424657534,
+                "std": 0.04520029027916827
+              },
+              {
+                "corr_with_benefit": 0.04691532960372816,
+                "mean": 0.4071303186906174,
+                "std": 0.027483496188935048
+              },
+              {
+                "corr_with_benefit": -0.048586575884004266,
+                "mean": 0.8433871332599744,
+                "std": 0.2973779732184905
+              }
+            ],
+            "mean_benefit": -0.05536872245055834,
+            "mean_benefit_raw": -0.05536872245055834,
+            "mean_return": 24.1333,
+            "mean_return_raw": 24.133333333333333,
+            "n_ticks_avail": 584,
+            "p_benefit_nonneg": 0.4315068493150685,
+            "p_benefit_pos": 0.4315068493150685,
+            "seed": 81003,
+            "shadow_b": 0.05249883019872889,
+            "shadow_w": [
+              -0.04046985139540707,
+              0.028712147849988368,
+              0.009957893448806739,
+              -0.1555268925743828
+            ],
+            "sign_agreement": 0.553082191780822,
+            "std_benefit": 0.3028606224239172,
+            "total_ticks": 39
+          },
+          {
+            "absbenefit_q": {
+              "p10": 0.03674389476532262,
+              "p50": 0.20327373402078597,
+              "p90": 0.452476843261107
+            },
+            "apply_rate_t0": 0.3047945205479452,
+            "apply_rate_t0_nonneg": 0.3065068493150685,
+            "avail_rate": 14.974358974358974,
+            "benefit_q": {
+              "p10": -0.4241635145217108,
+              "p50": -0.07124659545722034,
+              "p90": 0.3019382511087322
+            },
+            "corr_uhat_absbenefit": 0.03398418620247433,
+            "corr_uhat_benefit": 0.02391505398210143,
+            "corr_uhat_benefit_nonpos": -0.06268116319280578,
+            "corr_uhat_benefit_pos": 0.016357971581962436,
+            "corr_uhat_sign": 0.05676965907714004,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": -0.114626074166075,
+                "mean": 0.9593418560409056,
+                "std": 0.08795433739138213
+              },
+              {
+                "corr_with_benefit": -0.07325735082363055,
+                "mean": 0.9965753424657534,
+                "std": 0.04520029027916827
+              },
+              {
+                "corr_with_benefit": 0.04006979250648197,
+                "mean": 0.40498650953914644,
+                "std": 0.02678140944594545
+              },
+              {
+                "corr_with_benefit": 0.030135344347393282,
+                "mean": 0.8444449427278761,
+                "std": 0.30579488948298655
+              }
+            ],
+            "mean_benefit": -0.07524604571308116,
+            "mean_benefit_raw": -0.07524604571308116,
+            "mean_return": 24.0,
+            "mean_return_raw": 24.0,
+            "n_ticks_avail": 584,
+            "p_benefit_nonneg": 0.4160958904109589,
+            "p_benefit_pos": 0.4160958904109589,
+            "seed": 81004,
+            "shadow_b": 0.024939527731660596,
+            "shadow_w": [
+              -0.0432921530574577,
+              -0.010783243815085608,
+              0.0042266061852966105,
+              0.013621979167777746
+            ],
+            "sign_agreement": 0.5325342465753424,
+            "std_benefit": 0.2866296265288525,
+            "total_ticks": 39
+          },
+          {
+            "absbenefit_q": {
+              "p10": 0.04822482944867287,
+              "p50": 0.22273923516594474,
+              "p90": 0.5108956452488493
+            },
+            "apply_rate_t0": 0.2722602739726027,
+            "apply_rate_t0_nonneg": 0.273972602739726,
+            "avail_rate": 14.974358974358974,
+            "benefit_q": {
+              "p10": -0.4779102170748807,
+              "p50": -0.10266926263795484,
+              "p90": 0.29325911572456176
+            },
+            "corr_uhat_absbenefit": -0.05608204735673572,
+            "corr_uhat_benefit": -0.002308913793640694,
+            "corr_uhat_benefit_nonpos": 0.06634355420504956,
+            "corr_uhat_benefit_pos": -0.05303070526971657,
+            "corr_uhat_sign": -0.02196316962795716,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": -0.021425478105353488,
+                "mean": 0.9602940486560259,
+                "std": 0.09136448613535998
+              },
+              {
+                "corr_with_benefit": 0.11247928535413795,
+                "mean": 0.9965753424657534,
+                "std": 0.04520029027916827
+              },
+              {
+                "corr_with_benefit": 0.046772203401863624,
+                "mean": 0.40337762276693556,
+                "std": 0.026072413211126064
+              },
+              {
+                "corr_with_benefit": 0.0707443965465567,
+                "mean": 0.8410664937830133,
+                "std": 0.302047117708108
+              }
+            ],
+            "mean_benefit": -0.09147872528251376,
+            "mean_benefit_raw": -0.09147872528251376,
+            "mean_return": 25.8,
+            "mean_return_raw": 25.8,
+            "n_ticks_avail": 584,
+            "p_benefit_nonneg": 0.3955479452054795,
+            "p_benefit_pos": 0.3955479452054795,
+            "seed": 81005,
+            "shadow_b": -0.06424491117534911,
+            "shadow_w": [
+              -0.01566459711299934,
+              0.022436487200479062,
+              -0.022510482696705077,
+              0.16507999046909574
+            ],
+            "sign_agreement": 0.5308219178082192,
+            "std_benefit": 0.31079296594904204,
+            "total_ticks": 39
+          }
+        ],
+        "seed_corrs": [
+          -0.04600237428359807,
+          0.055973529438213404,
+          0.09025969476873878,
+          0.02391505398210143,
+          -0.002308913793640694
+        ],
+        "seed_mean_absbenefit_p50": 0.20489702130394477,
+        "seed_mean_apply_t0": 0.31232876712328766,
+        "seed_mean_avail_rate": 14.974358974358974,
+        "seed_mean_corr": 0.02436739802236297,
+        "seed_mean_corr_abs": -0.04306531997949855,
+        "seed_mean_corr_sign": 0.029836516057404817,
+        "seed_mean_p_pos": 0.4133561643835616,
+        "seed_mean_std_benefit": 0.2939534973414629,
+        "weight_alignment": [
+          {
+            "feature": "mean_sim",
+            "seed_mean_corr": -0.06467798268561015,
+            "seed_mean_w": -0.02929164201363097,
+            "sign_aligned": true
+          },
+          {
+            "feature": "n_nbrs_5",
+            "seed_mean_corr": -0.038403891657230974,
+            "seed_mean_w": -0.026720471077284987,
+            "sign_aligned": true
+          },
+          {
+            "feature": "uncertainty",
+            "seed_mean_corr": 0.02722924249089389,
+            "seed_mean_w": -0.013930169516377943,
+            "sign_aligned": false
+          },
+          {
+            "feature": "e1_ema",
+            "seed_mean_corr": -0.005257866903885677,
+            "seed_mean_w": -0.019679862612954187,
+            "sign_aligned": true
+          }
+        ]
+      },
+      "cue_delayed_reward": {
+        "carrier_abs_corr": 0.6001021889744879,
+        "carrier_feature": "n_nbrs_5",
+        "n_nondegenerate": 5,
+        "per_seed": [
+          {
+            "absbenefit_q": {
+              "p10": 0.01153965449892913,
+              "p50": 0.07545223802605672,
+              "p90": 0.30647208068357645
+            },
+            "apply_rate_t0": 0.8300970873786407,
+            "apply_rate_t0_nonneg": 0.8349514563106796,
+            "avail_rate": 14.714285714285714,
+            "benefit_q": {
+              "p10": -0.06777552543830538,
+              "p50": 0.04008517138477733,
+              "p90": 0.2971076130387913
+            },
+            "corr_uhat_absbenefit": 0.29750300517095385,
+            "corr_uhat_benefit": 0.2901129074872934,
+            "corr_uhat_benefit_nonpos": -0.04899799163193065,
+            "corr_uhat_benefit_pos": 0.326113424129065,
+            "corr_uhat_sign": 0.1410528350363244,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": -0.32167301022842165,
+                "mean": 0.9732545661260763,
+                "std": 0.07584517163600059
+              },
+              {
+                "corr_with_benefit": -0.5622363061589896,
+                "mean": 0.9902912621359223,
+                "std": 0.07570325704705991
+              },
+              {
+                "corr_with_benefit": 0.023419935762737657,
+                "mean": 0.19523947244281392,
+                "std": 0.06048685839184088
+              },
+              {
+                "corr_with_benefit": 0.08559496783668391,
+                "mean": 0.2032543265051019,
+                "std": 0.12188546722573229
+              }
+            ],
+            "mean_benefit": 0.08783871142630686,
+            "mean_benefit_raw": 0.08783871142630686,
+            "mean_return": 0.0893,
+            "mean_return_raw": 0.08933333333333333,
+            "n_ticks_avail": 206,
+            "p_benefit_nonneg": 0.6699029126213593,
+            "p_benefit_pos": 0.6699029126213593,
+            "seed": 81001,
+            "shadow_b": 0.06885843247444935,
+            "shadow_w": [
+              0.004257879914179304,
+              -0.07398316237750621,
+              -0.031733832883932896,
+              -0.025675054361682877
+            ],
+            "sign_agreement": 0.6553398058252428,
+            "std_benefit": 0.18387387260746335,
+            "total_ticks": 14
+          },
+          {
+            "absbenefit_q": {
+              "p10": 0.015786912930448715,
+              "p50": 0.08544242199783847,
+              "p90": 0.25379917199910695
+            },
+            "apply_rate_t0": 0.782608695652174,
+            "apply_rate_t0_nonneg": 0.7874396135265701,
+            "avail_rate": 14.785714285714286,
+            "benefit_q": {
+              "p10": -0.07954875424014293,
+              "p50": 0.057294593142211,
+              "p90": 0.24641396182513559
+            },
+            "corr_uhat_absbenefit": 0.2853769558435944,
+            "corr_uhat_benefit": 0.3820241490870136,
+            "corr_uhat_benefit_nonpos": 0.026760968533292642,
+            "corr_uhat_benefit_pos": 0.2788685407531246,
+            "corr_uhat_sign": 0.34684470757865776,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": -0.2818798281859185,
+                "mean": 0.9760776443648616,
+                "std": 0.06826017559733853
+              },
+              {
+                "corr_with_benefit": -0.5982543999916619,
+                "mean": 0.9903381642512077,
+                "std": 0.07552317776178862
+              },
+              {
+                "corr_with_benefit": 0.06322739834440513,
+                "mean": 0.18026258732008993,
+                "std": 0.055642734099727205
+              },
+              {
+                "corr_with_benefit": 0.2968790300364059,
+                "mean": 0.19341867583319203,
+                "std": 0.12120703520497647
+              }
+            ],
+            "mean_benefit": 0.07881866795761563,
+            "mean_benefit_raw": 0.07881866795761563,
+            "mean_return": 0.1427,
+            "mean_return_raw": 0.14266666666666666,
+            "n_ticks_avail": 207,
+            "p_benefit_nonneg": 0.6859903381642513,
+            "p_benefit_pos": 0.6859903381642513,
+            "seed": 81002,
+            "shadow_b": 0.06194579636978755,
+            "shadow_w": [
+              0.019272611715914947,
+              -0.08550890372567296,
+              -0.02679331185764357,
+              0.025858797835707572
+            ],
+            "sign_agreement": 0.7198067632850241,
+            "std_benefit": 0.18153409560620146,
+            "total_ticks": 14
+          },
+          {
+            "absbenefit_q": {
+              "p10": 0.015253652390863588,
+              "p50": 0.05529804119184423,
+              "p90": 0.30328183476478504
+            },
+            "apply_rate_t0": 0.7559808612440191,
+            "apply_rate_t0_nonneg": 0.7607655502392344,
+            "avail_rate": 14.928571428571429,
+            "benefit_q": {
+              "p10": -0.07026755603552574,
+              "p50": 0.031830642843231796,
+              "p90": 0.25508112717758563
+            },
+            "corr_uhat_absbenefit": 0.32913035789707046,
+            "corr_uhat_benefit": 0.41243464613286446,
+            "corr_uhat_benefit_nonpos": 0.2306792104578443,
+            "corr_uhat_benefit_pos": 0.4686065892205071,
+            "corr_uhat_sign": 0.1364926489347837,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": -0.21781390021392705,
+                "mean": 0.9765638190813284,
+                "std": 0.0739032967990593
+              },
+              {
+                "corr_with_benefit": -0.5940450293413583,
+                "mean": 0.9904306220095693,
+                "std": 0.07516683975753294
+              },
+              {
+                "corr_with_benefit": 0.13942461221398028,
+                "mean": 0.166525132586034,
+                "std": 0.06721482246273666
+              },
+              {
+                "corr_with_benefit": 0.3223238097057187,
+                "mean": 0.1729499839585235,
+                "std": 0.11927047168269464
+              }
+            ],
+            "mean_benefit": 0.0654871384813718,
+            "mean_benefit_raw": 0.0654871384813718,
+            "mean_return": 0.0427,
+            "mean_return_raw": 0.042666666666666665,
+            "n_ticks_avail": 209,
+            "p_benefit_nonneg": 0.6794258373205742,
+            "p_benefit_pos": 0.6794258373205742,
+            "seed": 81003,
+            "shadow_b": 0.06181235760022367,
+            "shadow_w": [
+              0.035227948408482826,
+              -0.08601259622258074,
+              -0.03198635760981462,
+              0.02438582561061591
+            ],
+            "sign_agreement": 0.645933014354067,
+            "std_benefit": 0.18507163240430274,
+            "total_ticks": 14
+          },
+          {
+            "absbenefit_q": {
+              "p10": 0.017962719432827682,
+              "p50": 0.06636596978568485,
+              "p90": 0.25704168953956547
+            },
+            "apply_rate_t0": 0.722488038277512,
+            "apply_rate_t0_nonneg": 0.7272727272727273,
+            "avail_rate": 14.928571428571429,
+            "benefit_q": {
+              "p10": -0.08498152631723917,
+              "p50": 0.03673486746335855,
+              "p90": 0.22630141306612334
+            },
+            "corr_uhat_absbenefit": 0.40216008898159883,
+            "corr_uhat_benefit": 0.4145716483605151,
+            "corr_uhat_benefit_nonpos": -0.11102387908591001,
+            "corr_uhat_benefit_pos": 0.41537124249884166,
+            "corr_uhat_sign": 0.25243886582895575,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": -0.2813673626036718,
+                "mean": 0.9767056299625864,
+                "std": 0.07422548751300158
+              },
+              {
+                "corr_with_benefit": -0.6309671358054073,
+                "mean": 0.9904306220095693,
+                "std": 0.07516683975753294
+              },
+              {
+                "corr_with_benefit": 0.1819250318248243,
+                "mean": 0.16795097507286105,
+                "std": 0.06623420919402102
+              },
+              {
+                "corr_with_benefit": 0.4142242613769201,
+                "mean": 0.17801658313367716,
+                "std": 0.1156073450454784
+              }
+            ],
+            "mean_benefit": 0.06010276139707012,
+            "mean_benefit_raw": 0.06010276139707012,
+            "mean_return": 0.0413,
+            "mean_return_raw": 0.04133333333333333,
+            "n_ticks_avail": 209,
+            "p_benefit_nonneg": 0.631578947368421,
+            "p_benefit_pos": 0.631578947368421,
+            "seed": 81004,
+            "shadow_b": 0.07878515057092839,
+            "shadow_w": [
+              0.03837833137250105,
+              -0.06698264382270086,
+              -0.030257282641210092,
+              0.028739254453256077
+            ],
+            "sign_agreement": 0.6507177033492823,
+            "std_benefit": 0.1723938796700273,
+            "total_ticks": 14
+          },
+          {
+            "absbenefit_q": {
+              "p10": 0.01456966737118372,
+              "p50": 0.08298228716442885,
+              "p90": 0.26163589943326265
+            },
+            "apply_rate_t0": 0.7655502392344498,
+            "apply_rate_t0_nonneg": 0.7703349282296651,
+            "avail_rate": 14.928571428571429,
+            "benefit_q": {
+              "p10": -0.09165819239428519,
+              "p50": 0.04142274239370303,
+              "p90": 0.2607434855365395
+            },
+            "corr_uhat_absbenefit": 0.3154247135704553,
+            "corr_uhat_benefit": 0.29287921645165343,
+            "corr_uhat_benefit_nonpos": -0.30457042176848426,
+            "corr_uhat_benefit_pos": 0.2840295089355701,
+            "corr_uhat_sign": 0.23867761038014026,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": -0.29065917224353816,
+                "mean": 0.9695225916271604,
+                "std": 0.08220322955401532
+              },
+              {
+                "corr_with_benefit": -0.6150080735750223,
+                "mean": 0.9904306220095693,
+                "std": 0.07516683975753294
+              },
+              {
+                "corr_with_benefit": 0.028735317605576762,
+                "mean": 0.18469169929122073,
+                "std": 0.061122009820180324
+              },
+              {
+                "corr_with_benefit": 0.19994901659975156,
+                "mean": 0.19815723080390302,
+                "std": 0.11959943873321076
+              }
+            ],
+            "mean_benefit": 0.07031649607706286,
+            "mean_benefit_raw": 0.07031649607706286,
+            "mean_return": 0.044,
+            "mean_return_raw": 0.044000000000000004,
+            "n_ticks_avail": 209,
+            "p_benefit_nonneg": 0.645933014354067,
+            "p_benefit_pos": 0.645933014354067,
+            "seed": 81005,
+            "shadow_b": 0.07908551796124798,
+            "shadow_w": [
+              -0.0003610694194279493,
+              -0.06574287042525091,
+              -0.02394421088130759,
+              0.003937537337644976
+            ],
+            "sign_agreement": 0.6698564593301436,
+            "std_benefit": 0.1740908515491794,
+            "total_ticks": 14
+          }
+        ],
+        "seed_corrs": [
+          0.2901129074872934,
+          0.3820241490870136,
+          0.41243464613286446,
+          0.4145716483605151,
+          0.29287921645165343
+        ],
+        "seed_mean_absbenefit_p50": 0.07310819163317062,
+        "seed_mean_apply_t0": 0.7713449843573591,
+        "seed_mean_avail_rate": 14.857142857142858,
+        "seed_mean_corr": 0.358404513503868,
+        "seed_mean_corr_abs": 0.32591902429273456,
+        "seed_mean_corr_sign": 0.22310133355177236,
+        "seed_mean_p_pos": 0.6625662099657346,
+        "seed_mean_std_benefit": 0.17939286636743484,
+        "weight_alignment": [
+          {
+            "feature": "mean_sim",
+            "seed_mean_corr": -0.2786786546950954,
+            "seed_mean_w": 0.019355140398330035,
+            "sign_aligned": false
+          },
+          {
+            "feature": "n_nbrs_5",
+            "seed_mean_corr": -0.6001021889744879,
+            "seed_mean_w": -0.07564603531474234,
+            "sign_aligned": true
+          },
+          {
+            "feature": "uncertainty",
+            "seed_mean_corr": 0.08734645915030484,
+            "seed_mean_w": -0.028942999174781752,
+            "sign_aligned": false
+          },
+          {
+            "feature": "e1_ema",
+            "seed_mean_corr": 0.263794217111096,
+            "seed_mean_w": 0.01144927217510833,
+            "sign_aligned": true
+          }
+        ]
+      },
+      "delayed_reward": {
+        "carrier_abs_corr": 0.5382111075063734,
+        "carrier_feature": "n_nbrs_5",
+        "n_nondegenerate": 5,
+        "per_seed": [
+          {
+            "absbenefit_q": {
+              "p10": 0.015709310353731198,
+              "p50": 0.08440259867054133,
+              "p90": 0.23417092184977395
+            },
+            "apply_rate_t0": 0.84688995215311,
+            "apply_rate_t0_nonneg": 0.8516746411483254,
+            "avail_rate": 14.928571428571429,
+            "benefit_q": {
+              "p10": -0.05676512939502717,
+              "p50": 0.07309738012199864,
+              "p90": 0.21714810237849286
+            },
+            "corr_uhat_absbenefit": 0.22595485825527492,
+            "corr_uhat_benefit": 0.34739776291062757,
+            "corr_uhat_benefit_nonpos": 0.11952731314038234,
+            "corr_uhat_benefit_pos": 0.2582341868392319,
+            "corr_uhat_sign": 0.2984742335996695,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": -0.3769443158895877,
+                "mean": 0.986303633890579,
+                "std": 0.05981807822315512
+              },
+              {
+                "corr_with_benefit": -0.546773523780994,
+                "mean": 0.9904306220095693,
+                "std": 0.07516683975753294
+              },
+              {
+                "corr_with_benefit": -0.27619555804144835,
+                "mean": 0.17821544792007155,
+                "std": 0.04609602221307576
+              },
+              {
+                "corr_with_benefit": 0.012455851622545496,
+                "mean": 0.15833206597697233,
+                "std": 0.09240537973106405
+              }
+            ],
+            "mean_benefit": 0.07580120836780273,
+            "mean_benefit_raw": 0.07580120836780273,
+            "mean_return": 0.0747,
+            "mean_return_raw": 0.07466666666666667,
+            "n_ticks_avail": 209,
+            "p_benefit_nonneg": 0.7559808612440191,
+            "p_benefit_pos": 0.7559808612440191,
+            "seed": 81001,
+            "shadow_b": 0.09275312850481224,
+            "shadow_w": [
+              0.04792478149520302,
+              -0.018976289009738755,
+              -0.012552931903800786,
+              0.013283817969505226
+            ],
+            "sign_agreement": 0.7559808612440191,
+            "std_benefit": 0.14139083491062626,
+            "total_ticks": 14
+          },
+          {
+            "absbenefit_q": {
+              "p10": 0.017703883909877215,
+              "p50": 0.10554657692843386,
+              "p90": 0.27892929413944667
+            },
+            "apply_rate_t0": 0.9090909090909091,
+            "apply_rate_t0_nonneg": 0.9138755980861244,
+            "avail_rate": 14.928571428571429,
+            "benefit_q": {
+              "p10": -0.0544882786388612,
+              "p50": 0.08658576447281402,
+              "p90": 0.27308207140720936
+            },
+            "corr_uhat_absbenefit": 0.31235606567752083,
+            "corr_uhat_benefit": 0.22957837409287485,
+            "corr_uhat_benefit_nonpos": -0.3993769099484649,
+            "corr_uhat_benefit_pos": 0.27725407824001036,
+            "corr_uhat_sign": 0.14620374341296966,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": -0.42366632238235247,
+                "mean": 0.9740657634606424,
+                "std": 0.09368049587572913
+              },
+              {
+                "corr_with_benefit": -0.5049990317938822,
+                "mean": 0.9904306220095693,
+                "std": 0.07516683975753294
+              },
+              {
+                "corr_with_benefit": -0.10408747965916257,
+                "mean": 0.1954437752068558,
+                "std": 0.04618016252270896
+              },
+              {
+                "corr_with_benefit": 0.24185244570238662,
+                "mean": 0.17023420760232696,
+                "std": 0.10449935342984087
+              }
+            ],
+            "mean_benefit": 0.09454591871410895,
+            "mean_benefit_raw": 0.09454591871410895,
+            "mean_return": 0.0627,
+            "mean_return_raw": 0.06266666666666668,
+            "n_ticks_avail": 209,
+            "p_benefit_nonneg": 0.7942583732057417,
+            "p_benefit_pos": 0.7942583732057417,
+            "seed": 81002,
+            "shadow_b": 0.1062310463626984,
+            "shadow_w": [
+              -0.019414256550021436,
+              -0.011745291035110253,
+              -0.009829713395344634,
+              0.06032210260711315
+            ],
+            "sign_agreement": 0.7607655502392344,
+            "std_benefit": 0.15756049740763065,
+            "total_ticks": 14
+          },
+          {
+            "absbenefit_q": {
+              "p10": 0.01408736389155419,
+              "p50": 0.09629008707906192,
+              "p90": 0.2900432570832871
+            },
+            "apply_rate_t0": 0.9234449760765551,
+            "apply_rate_t0_nonneg": 0.9282296650717703,
+            "avail_rate": 14.928571428571429,
+            "benefit_q": {
+              "p10": -0.025251019584341575,
+              "p50": 0.08409758978477219,
+              "p90": 0.28734912386102845
+            },
+            "corr_uhat_absbenefit": 0.2561096321759296,
+            "corr_uhat_benefit": 0.24939877053475906,
+            "corr_uhat_benefit_nonpos": -0.1185590851527736,
+            "corr_uhat_benefit_pos": 0.25479985886084533,
+            "corr_uhat_sign": 0.13160382816966126,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": -0.4188558074488837,
+                "mean": 0.97335971143987,
+                "std": 0.09347381783481679
+              },
+              {
+                "corr_with_benefit": -0.482666355733773,
+                "mean": 0.9904306220095693,
+                "std": 0.07516683975753294
+              },
+              {
+                "corr_with_benefit": -0.1280775256276112,
+                "mean": 0.19663298949889485,
+                "std": 0.04563396772429818
+              },
+              {
+                "corr_with_benefit": 0.1397228462266203,
+                "mean": 0.1731910408046795,
+                "std": 0.1006718813377461
+              }
+            ],
+            "mean_benefit": 0.10332633539335717,
+            "mean_benefit_raw": 0.10332633539335717,
+            "mean_return": 0.0747,
+            "mean_return_raw": 0.07466666666666667,
+            "n_ticks_avail": 209,
+            "p_benefit_nonneg": 0.8373205741626795,
+            "p_benefit_pos": 0.8373205741626795,
+            "seed": 81003,
+            "shadow_b": 0.08066549180547827,
+            "shadow_w": [
+              -0.042106130604625897,
+              -0.029900028472998875,
+              -0.01090277745920537,
+              0.04493825001700114
+            ],
+            "sign_agreement": 0.8086124401913876,
+            "std_benefit": 0.1506068260850296,
+            "total_ticks": 14
+          },
+          {
+            "absbenefit_q": {
+              "p10": 0.01587430437497176,
+              "p50": 0.0960841578604884,
+              "p90": 0.23417949317062658
+            },
+            "apply_rate_t0": 0.9038461538461539,
+            "apply_rate_t0_nonneg": 0.9086538461538461,
+            "avail_rate": 14.857142857142858,
+            "benefit_q": {
+              "p10": -0.05097014409025401,
+              "p50": 0.08776387208013538,
+              "p90": 0.22241583446006086
+            },
+            "corr_uhat_absbenefit": 0.17173053851128603,
+            "corr_uhat_benefit": 0.26162152491322743,
+            "corr_uhat_benefit_nonpos": 0.21966210294900013,
+            "corr_uhat_benefit_pos": 0.20417424593189976,
+            "corr_uhat_sign": 0.168758241695363,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": -0.4090439423133565,
+                "mean": 0.9857014926911817,
+                "std": 0.05963752124170433
+              },
+              {
+                "corr_with_benefit": -0.5580837459262364,
+                "mean": 0.9903846153846154,
+                "std": 0.07534437701599897
+              },
+              {
+                "corr_with_benefit": -0.16226442802670907,
+                "mean": 0.18073502231245736,
+                "std": 0.04925743360542216
+              },
+              {
+                "corr_with_benefit": 0.020706220844461453,
+                "mean": 0.15805570955077802,
+                "std": 0.09450719085805259
+              }
+            ],
+            "mean_benefit": 0.08815166055577041,
+            "mean_benefit_raw": 0.08815166055577041,
+            "mean_return": 0.1507,
+            "mean_return_raw": 0.15066666666666664,
+            "n_ticks_avail": 208,
+            "p_benefit_nonneg": 0.7740384615384616,
+            "p_benefit_pos": 0.7740384615384616,
+            "seed": 81004,
+            "shadow_b": 0.09777149546313994,
+            "shadow_w": [
+              0.04009677281680058,
+              -0.019482762206300762,
+              -0.008497686594747474,
+              0.018093751306947944
+            ],
+            "sign_agreement": 0.7548076923076923,
+            "std_benefit": 0.1434009530978611,
+            "total_ticks": 14
+          },
+          {
+            "absbenefit_q": {
+              "p10": 0.02032718292398983,
+              "p50": 0.08736398979067211,
+              "p90": 0.20438666849084053
+            },
+            "apply_rate_t0": 0.8543689320388349,
+            "apply_rate_t0_nonneg": 0.8592233009708737,
+            "avail_rate": 14.714285714285714,
+            "benefit_q": {
+              "p10": -0.045630121332700585,
+              "p50": 0.07327666332823884,
+              "p90": 0.20211210836185264
+            },
+            "corr_uhat_absbenefit": 0.22409756727640445,
+            "corr_uhat_benefit": 0.24263299412949418,
+            "corr_uhat_benefit_nonpos": 0.11745664796455975,
+            "corr_uhat_benefit_pos": 0.28049110160836077,
+            "corr_uhat_sign": 0.07079581438807714,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": -0.5199490145938851,
+                "mean": 0.9756397277247523,
+                "std": 0.0793258806955665
+              },
+              {
+                "corr_with_benefit": -0.5985328802969814,
+                "mean": 0.9902912621359223,
+                "std": 0.07570325704705991
+              },
+              {
+                "corr_with_benefit": -0.21268360308145995,
+                "mean": 0.18044367394244812,
+                "std": 0.03475462064740209
+              },
+              {
+                "corr_with_benefit": -0.0005943591347182095,
+                "mean": 0.1744607124929718,
+                "std": 0.09883944606177286
+              }
+            ],
+            "mean_benefit": 0.07774756464223925,
+            "mean_benefit_raw": 0.07774756464223925,
+            "mean_return": 0.156,
+            "mean_return_raw": 0.156,
+            "n_ticks_avail": 206,
+            "p_benefit_nonneg": 0.7718446601941747,
+            "p_benefit_pos": 0.7718446601941747,
+            "seed": 81005,
+            "shadow_b": 0.09228697431785127,
+            "shadow_w": [
+              -0.012536569657849187,
+              -0.02588779880808726,
+              -0.007886263998812006,
+              0.019524518050450673
+            ],
+            "sign_agreement": 0.7233009708737864,
+            "std_benefit": 0.13679872056468428,
+            "total_ticks": 14
+          }
+        ],
+        "seed_corrs": [
+          0.34739776291062757,
+          0.22957837409287485,
+          0.24939877053475906,
+          0.26162152491322743,
+          0.24263299412949418
+        ],
+        "seed_mean_absbenefit_p50": 0.09393748206583953,
+        "seed_mean_apply_t0": 0.8875281846411125,
+        "seed_mean_avail_rate": 14.871428571428572,
+        "seed_mean_corr": 0.26612588531619663,
+        "seed_mean_corr_abs": 0.23804973237928317,
+        "seed_mean_corr_sign": 0.1631671722531481,
+        "seed_mean_p_pos": 0.7866885860690153,
+        "seed_mean_std_benefit": 0.14595156641316637,
+        "weight_alignment": [
+          {
+            "feature": "mean_sim",
+            "seed_mean_corr": -0.4296918805256131,
+            "seed_mean_w": 0.002792919499901416,
+            "sign_aligned": false
+          },
+          {
+            "feature": "n_nbrs_5",
+            "seed_mean_corr": -0.5382111075063734,
+            "seed_mean_w": -0.02119843390644718,
+            "sign_aligned": true
+          },
+          {
+            "feature": "uncertainty",
+            "seed_mean_corr": -0.17666171888727825,
+            "seed_mean_w": -0.009933874670382054,
+            "sign_aligned": true
+          },
+          {
+            "feature": "e1_ema",
+            "seed_mean_corr": 0.08282860105225913,
+            "seed_mean_w": 0.031232487990203627,
+            "sign_aligned": true
+          }
+        ]
+      },
+      "pomaze": {
+        "carrier_abs_corr": 0.3201775776708296,
+        "carrier_feature": "e1_ema",
+        "n_nondegenerate": 5,
+        "per_seed": [
+          {
+            "absbenefit_q": {
+              "p10": 0.01453421316180601,
+              "p50": 0.12529976404393847,
+              "p90": 0.36023970690064466
+            },
+            "apply_rate_t0": 0.7741286863270778,
+            "apply_rate_t0_nonneg": 0.7744638069705094,
+            "avail_rate": 14.99497487437186,
+            "benefit_q": {
+              "p10": -0.11774774756762368,
+              "p50": 0.07628554407586774,
+              "p90": 0.350821254666191
+            },
+            "corr_uhat_absbenefit": 0.535855163641184,
+            "corr_uhat_benefit": 0.45814771612339605,
+            "corr_uhat_benefit_nonpos": -0.25065615828319154,
+            "corr_uhat_benefit_pos": 0.5687081938022518,
+            "corr_uhat_sign": 0.2672246363112817,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": 0.02938271920468772,
+                "mean": 0.9810653585587541,
+                "std": 0.06060933155836807
+              },
+              {
+                "corr_with_benefit": -0.1143396938190844,
+                "mean": 0.9993297587131368,
+                "std": 0.020042343893251265
+              },
+              {
+                "corr_with_benefit": 0.3021044538891724,
+                "mean": 0.24476651901218424,
+                "std": 0.08370848230346556
+              },
+              {
+                "corr_with_benefit": 0.3762953736066582,
+                "mean": 0.5029535767682859,
+                "std": 0.22909154927051853
+              }
+            ],
+            "mean_benefit": 0.09791264445735172,
+            "mean_benefit_raw": 0.09791264445735172,
+            "mean_return": -3.9373,
+            "mean_return_raw": -3.9373333333333163,
+            "n_ticks_avail": 2984,
+            "p_benefit_nonneg": 0.6963806970509383,
+            "p_benefit_pos": 0.6963806970509383,
+            "seed": 81001,
+            "shadow_b": -0.006865069680244799,
+            "shadow_w": [
+              -0.0695362418545057,
+              -0.12557958001378883,
+              0.013800346392629503,
+              0.54139293594582
+            ],
+            "sign_agreement": 0.7004021447721179,
+            "std_benefit": 0.1913329780198722,
+            "total_ticks": 199
+          },
+          {
+            "absbenefit_q": {
+              "p10": 0.013942894576040117,
+              "p50": 0.13394487752376588,
+              "p90": 0.34239328422890764
+            },
+            "apply_rate_t0": 0.80328418230563,
+            "apply_rate_t0_nonneg": 0.8036193029490617,
+            "avail_rate": 14.99497487437186,
+            "benefit_q": {
+              "p10": -0.11195409743873527,
+              "p50": 0.08960747731827035,
+              "p90": 0.33397967706270815
+            },
+            "corr_uhat_absbenefit": 0.5355137083700797,
+            "corr_uhat_benefit": 0.4490486696117556,
+            "corr_uhat_benefit_nonpos": -0.3155345447688999,
+            "corr_uhat_benefit_pos": 0.5436669174994719,
+            "corr_uhat_sign": 0.2574264742963956,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": 0.03282124290746722,
+                "mean": 0.9841559261521123,
+                "std": 0.05569285053998851
+              },
+              {
+                "corr_with_benefit": -0.2222126770142505,
+                "mean": 0.9993297587131368,
+                "std": 0.020042343893251265
+              },
+              {
+                "corr_with_benefit": 0.21997088359245456,
+                "mean": 0.2364590192229626,
+                "std": 0.07694384340477987
+              },
+              {
+                "corr_with_benefit": 0.3447706746955223,
+                "mean": 0.481414485077434,
+                "std": 0.20909091670901114
+              }
+            ],
+            "mean_benefit": 0.10395367628206206,
+            "mean_benefit_raw": 0.10395367628206206,
+            "mean_return": -3.9707,
+            "mean_return_raw": -3.970666666666651,
+            "n_ticks_avail": 2984,
+            "p_benefit_nonneg": 0.7211796246648794,
+            "p_benefit_pos": 0.7211796246648794,
+            "seed": 81002,
+            "shadow_b": 0.07879966662325359,
+            "shadow_w": [
+              0.007367637568899216,
+              -0.12665503286603097,
+              -0.019812736777290008,
+              0.5230030346500378
+            ],
+            "sign_agreement": 0.7034182305630027,
+            "std_benefit": 0.18497174314641637,
+            "total_ticks": 199
+          },
+          {
+            "absbenefit_q": {
+              "p10": 0.024928138774029947,
+              "p50": 0.14354328627797547,
+              "p90": 0.3557149026716189
+            },
+            "apply_rate_t0": 0.8073056300268097,
+            "apply_rate_t0_nonneg": 0.8076407506702413,
+            "avail_rate": 14.99497487437186,
+            "benefit_q": {
+              "p10": -0.1292598922339002,
+              "p50": 0.10320300203977024,
+              "p90": 0.3454332173463577
+            },
+            "corr_uhat_absbenefit": 0.4754579751530093,
+            "corr_uhat_benefit": 0.43291080601954046,
+            "corr_uhat_benefit_nonpos": -0.18116109352461887,
+            "corr_uhat_benefit_pos": 0.4994310379220115,
+            "corr_uhat_sign": 0.26205465509812953,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": 0.03605183122524671,
+                "mean": 0.9805170129580669,
+                "std": 0.058594570099557736
+              },
+              {
+                "corr_with_benefit": -0.10542808616664735,
+                "mean": 0.9993297587131368,
+                "std": 0.020042343893251265
+              },
+              {
+                "corr_with_benefit": 0.16911951404768988,
+                "mean": 0.2588228036571979,
+                "std": 0.05005714751169937
+              },
+              {
+                "corr_with_benefit": 0.3258511498633314,
+                "mean": 0.532206289874896,
+                "std": 0.1575804309211689
+              }
+            ],
+            "mean_benefit": 0.10426194528861371,
+            "mean_benefit_raw": 0.10426194528861371,
+            "mean_return": -3.9373,
+            "mean_return_raw": -3.937333333333316,
+            "n_ticks_avail": 2984,
+            "p_benefit_nonneg": 0.7201742627345844,
+            "p_benefit_pos": 0.7201742627345844,
+            "seed": 81003,
+            "shadow_b": 0.03543893230867196,
+            "shadow_w": [
+              -0.06976550556092088,
+              -0.0746895184699435,
+              0.025528078963218317,
+              0.5201185736334243
+            ],
+            "sign_agreement": 0.7064343163538874,
+            "std_benefit": 0.18609251192881443,
+            "total_ticks": 199
+          },
+          {
+            "absbenefit_q": {
+              "p10": 0.02290296469250931,
+              "p50": 0.15419953082118953,
+              "p90": 0.3932256424557612
+            },
+            "apply_rate_t0": 0.7777777777777778,
+            "apply_rate_t0_nonneg": 0.7781207133058985,
+            "avail_rate": 14.653266331658292,
+            "benefit_q": {
+              "p10": -0.15547051933553058,
+              "p50": 0.09510975174037373,
+              "p90": 0.37100173596598696
+            },
+            "corr_uhat_absbenefit": 0.46706511677917917,
+            "corr_uhat_benefit": 0.3799526776856888,
+            "corr_uhat_benefit_nonpos": -0.23406258098776864,
+            "corr_uhat_benefit_pos": 0.49620775769971975,
+            "corr_uhat_sign": 0.21270984135865367,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": 0.061098575731596286,
+                "mean": 0.9813065904263822,
+                "std": 0.054733453339167314
+              },
+              {
+                "corr_with_benefit": -0.17320738730425758,
+                "mean": 0.9993141289437586,
+                "std": 0.0202744226709188
+              },
+              {
+                "corr_with_benefit": 0.17319034820895923,
+                "mean": 0.28274774306713235,
+                "std": 0.07460319330613276
+              },
+              {
+                "corr_with_benefit": 0.26743732737123005,
+                "mean": 0.5957849157572505,
+                "std": 0.22115460408864202
+              }
+            ],
+            "mean_benefit": 0.10515118700847371,
+            "mean_benefit_raw": 0.10515118700847371,
+            "mean_return": -3.616,
+            "mean_return_raw": -3.6159999999999837,
+            "n_ticks_avail": 2916,
+            "p_benefit_nonneg": 0.6934156378600823,
+            "p_benefit_pos": 0.6934156378600823,
+            "seed": 81004,
+            "shadow_b": 0.01338119118916017,
+            "shadow_w": [
+              0.0013054385209661443,
+              -0.17247876404463955,
+              -0.008324712565359615,
+              0.4862453922872904
+            ],
+            "sign_agreement": 0.6577503429355281,
+            "std_benefit": 0.21509857190549705,
+            "total_ticks": 199
+          },
+          {
+            "absbenefit_q": {
+              "p10": 0.028592830693185904,
+              "p50": 0.15105102437977874,
+              "p90": 0.3450996918832914
+            },
+            "apply_rate_t0": 0.7832456799398948,
+            "apply_rate_t0_nonneg": 0.7836213373403456,
+            "avail_rate": 13.376884422110553,
+            "benefit_q": {
+              "p10": -0.13110364853913628,
+              "p50": 0.11019346314545794,
+              "p90": 0.32838295488319064
+            },
+            "corr_uhat_absbenefit": 0.4731942120901106,
+            "corr_uhat_benefit": 0.4353266898027784,
+            "corr_uhat_benefit_nonpos": -0.298036729862986,
+            "corr_uhat_benefit_pos": 0.46757992424986866,
+            "corr_uhat_sign": 0.3325577445622449,
+            "degenerate": false,
+            "feature_marginals": [
+              {
+                "corr_with_benefit": 0.06577451073468916,
+                "mean": 0.9817358468253128,
+                "std": 0.05819604781058652
+              },
+              {
+                "corr_with_benefit": -0.11677660418074862,
+                "mean": 0.9992486851990984,
+                "std": 0.02121849209088367
+              },
+              {
+                "corr_with_benefit": 0.06477076741239358,
+                "mean": 0.2595160880788438,
+                "std": 0.038846688282197596
+              },
+              {
+                "corr_with_benefit": 0.28653336281740593,
+                "mean": 0.5269297586734785,
+                "std": 0.14367883438347961
+              }
+            ],
+            "mean_benefit": 0.10417490621094935,
+            "mean_benefit_raw": 0.10417490621094935,
+            "mean_return": -3.068,
+            "mean_return_raw": -3.067999999999984,
+            "n_ticks_avail": 2662,
+            "p_benefit_nonneg": 0.7235161532682194,
+            "p_benefit_pos": 0.7235161532682194,
+            "seed": 81005,
+            "shadow_b": 0.015533245425212384,
+            "shadow_w": [
+              0.002148019391900116,
+              -0.09998164540070503,
+              0.027722449120610074,
+              0.4685318659582327
+            ],
+            "sign_agreement": 0.7329075882794891,
+            "std_benefit": 0.1868665219457228,
+            "total_ticks": 199
+          }
+        ],
+        "seed_corrs": [
+          0.45814771612339605,
+          0.4490486696117556,
+          0.43291080601954046,
+          0.3799526776856888,
+          0.4353266898027784
+        ],
+        "seed_mean_absbenefit_p50": 0.14160769660932962,
+        "seed_mean_apply_t0": 0.789148391275438,
+        "seed_mean_avail_rate": 14.603015075376884,
+        "seed_mean_corr": 0.43107731184863185,
+        "seed_mean_corr_abs": 0.4974172352067126,
+        "seed_mean_corr_sign": 0.2663946703253411,
+        "seed_mean_p_pos": 0.7109332751157408,
+        "seed_mean_std_benefit": 0.19287246538926456,
+        "weight_alignment": [
+          {
+            "feature": "mean_sim",
+            "seed_mean_corr": 0.04502577596073742,
+            "seed_mean_w": -0.025696130386732224,
+            "sign_aligned": false
+          },
+          {
+            "feature": "n_nbrs_5",
+            "seed_mean_corr": -0.14639288969699768,
+            "seed_mean_w": -0.11987690815902156,
+            "sign_aligned": true
+          },
+          {
+            "feature": "uncertainty",
+            "seed_mean_corr": 0.18583119343013393,
+            "seed_mean_w": 0.007782685026761655,
+            "sign_aligned": true
+          },
+          {
+            "feature": "e1_ema",
+            "seed_mean_corr": 0.3201775776708296,
+            "seed_mean_w": 0.507858360494961,
+            "sign_aligned": true
+          }
+        ]
+      }
+    },
+    "min_ticks_per_seed": 100,
+    "s1_all_nondegenerate": true,
+    "signal_quality_ordering": [
+      [
+        "pomaze",
+        0.43107731184863185
+      ],
+      [
+        "cue_delayed_reward",
+        0.358404513503868
+      ],
+      [
+        "delayed_reward",
+        0.26612588531619663
+      ],
+      [
+        "changing_rule",
+        0.029941793361682158
+      ],
+      [
+        "compositional_rule",
+        0.02436739802236297
+      ]
+    ],
+    "verdict": "CHARACTERIZED"
+  },
+  "written_utc": "2026-10-07T10:18:22.261051+00:00"
+}

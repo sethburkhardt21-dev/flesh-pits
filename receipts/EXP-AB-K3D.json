@@ -1,0 +1,131 @@
+{
+  "baseline": "arch_b lesion_l1=True (L0-only), paired streams/seeds.",
+  "conditions": "{\"affect\": \"none\", \"agent\": \"arch_b v1\", \"agent_init_base\": \"76120+si (paired)\", \"changing_rule\": \"45 eps, train 0-1499, stable 1520-1599 (ph7), postflip 1600-1799 (ph8); ref base 76210\", \"compositional_rule\": \"45 eps, train 0-1519, stable 1520-1599 (ph7), postflip 1600-1799 (ph8); ref base 76220\", \"contract\": \"1.0.0\", \"delayed_multistep\": \"30 eps scripted, train eps 0-19, held-out eps 20-29\", \"delayed_reward\": \"60 eps, train first 600, held-out last 120; ref base 76230\"}",
+  "config": {
+    "envs": [
+      "changing_rule v1.0.0",
+      "delayed_reward v1.0.0",
+      "delayed_multistep v1.0.0",
+      "compositional_rule v1.0.0"
+    ],
+    "instrument": "K3B open-loop + per-channel predict_next eval",
+    "lesion": "lesion_l1",
+    "seeds": [
+      76101,
+      76102,
+      76103,
+      76104
+    ]
+  },
+  "config_hash": "a48926a358ed93edc1cc33955a8791844ce0f3f0b5484c543cbed04e8fc7dbab",
+  "episodes": {
+    "changing_rule": {
+      "segments": [
+        "stable",
+        "postflip",
+        "mechanism",
+        "void"
+      ]
+    },
+    "compositional_rule": {
+      "segments": [
+        "stable",
+        "postflip",
+        "mechanism",
+        "void"
+      ]
+    },
+    "delayed_multistep": {
+      "segments": [
+        "heldout",
+        "mechanism",
+        "void"
+      ]
+    },
+    "delayed_reward": {
+      "segments": [
+        "heldout",
+        "mechanism",
+        "void"
+      ]
+    }
+  },
+  "experiment_id": "EXP-AB-K3D",
+  "hypothesis": "DESCRIPTIVE: characterize D_e0 per env with 95% CIs; decompose stable vs post-flip on the two flip envs.",
+  "interpretation": "EXP-AB-K3D |e0|-channel characterization (4 fresh seeds, preregistered). changing_rule/stable: D_e0 seed-mean +0.0070 95%CI [-0.0114, +0.0254], positive 3/4 seeds. changing_rule/postflip: D_e0 seed-mean +0.0103 95%CI [-0.0110, +0.0315], positive 3/4 seeds. changing_rule mechanism: DYNAMICS (stable +0.0070, postflip +0.0103). delayed_reward/heldout: D_e0 seed-mean +0.0986 95%CI [+0.0033, +0.1939], positive 4/4 seeds. delayed_multistep/heldout: D_e0 seed-mean -0.0555 95%CI [-0.0765, -0.0345], positive 0/4 seeds. compositional_rule/stable: D_e0 seed-mean -0.0016 95%CI [-0.0220, +0.0188], positive 2/4 seeds. compositional_rule/postflip: D_e0 seed-mean -0.0168 95%CI [-0.0394, +0.0057], positive 0/4 seeds. compositional_rule mechanism: MIXED (stable -0.0016, postflip -0.0168). Flip-env signatures: {'changing_rule': 'DYNAMICS', 'compositional_rule': 'MIXED'}.",
+  "limitations": "Open-loop training isolates the weight/precision machinery (K3/K3B/K3C-faithful); closed-loop control effects factored out by design. compositional_rule train is 80 transitions shorter than K3C's split (preregistered). Per-channel |err| uses the exact predict_next computation eval_transition performs. CIs (95 pct) are t-based, df=3 (wide by construction at n=4). G0b determinism: PASS.",
+  "null_hypothesis": "D_e0 <= 0 seed-mean on all 4 envs \u2014 the surviving channel is dead too.",
+  "preregistered_metric": "D_e0 = lesioned - intact mean|e0| per seed/segment; per-channel D_c; 95% t-CI (df=3).",
+  "prev_receipt_hash": "58749159732999c03f9781d5a64bc680ec611ea6d9a32c7b1074b03f6c6e00db",
+  "primary_seed": "76101-76104",
+  "receipt_hash": "eb072c62674b04b244b24ec9dd7ca2b2d33125f6b85813fc71b610fd958372a3",
+  "started_utc": "2026-10-07T10:18:26.343746+00:00",
+  "summary": {
+    "G0b_determinism": true,
+    "detail_receipt": "prototypes/architecture-b/receipts/EXP-AB-K3D.json",
+    "mechanism_signatures": {
+      "changing_rule": "DYNAMICS",
+      "compositional_rule": "MIXED"
+    },
+    "per_env": {
+      "changing_rule": {
+        "postflip": {
+          "ci95": [
+            -0.011032214996069678,
+            0.03154143948244601
+          ],
+          "n_positive": 3,
+          "seed_mean_D_e0": 0.010254612243188166
+        },
+        "stable": {
+          "ci95": [
+            -0.011433320570528888,
+            0.02537308740478116
+          ],
+          "n_positive": 3,
+          "seed_mean_D_e0": 0.006969883417126135
+        }
+      },
+      "compositional_rule": {
+        "postflip": {
+          "ci95": [
+            -0.039386073044617304,
+            0.005706904370215926
+          ],
+          "n_positive": 0,
+          "seed_mean_D_e0": -0.01683958433720069
+        },
+        "stable": {
+          "ci95": [
+            -0.02198251858964545,
+            0.01879226933703987
+          ],
+          "n_positive": 2,
+          "seed_mean_D_e0": -0.0015951246263027892
+        }
+      },
+      "delayed_multistep": {
+        "heldout": {
+          "ci95": [
+            -0.07654677457587902,
+            -0.034497171622890926
+          ],
+          "n_positive": 0,
+          "seed_mean_D_e0": -0.055521973099384975
+        }
+      },
+      "delayed_reward": {
+        "heldout": {
+          "ci95": [
+            0.003275130317328123,
+            0.1939094131827423
+          ],
+          "n_positive": 4,
+          "seed_mean_D_e0": 0.09859227175003521
+        }
+      }
+    },
+    "verdict": "CHARACTERIZATION COMPLETE"
+  },
+  "written_utc": "2026-10-07T10:20:57.294443+00:00"
+}

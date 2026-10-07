@@ -1,0 +1,162 @@
+{
+ "pomaze": [
+  {
+   "seed": 81001,
+   "n_avail": 2984,
+   "total_steps": 3000,
+   "avail_rate": 0.9946666666666667
+  },
+  {
+   "seed": 81002,
+   "n_avail": 2984,
+   "total_steps": 3000,
+   "avail_rate": 0.9946666666666667
+  },
+  {
+   "seed": 81003,
+   "n_avail": 2984,
+   "total_steps": 3000,
+   "avail_rate": 0.9946666666666667
+  },
+  {
+   "seed": 81004,
+   "n_avail": 2916,
+   "total_steps": 2932,
+   "avail_rate": 0.9945429740791268
+  },
+  {
+   "seed": 81005,
+   "n_avail": 2662,
+   "total_steps": 2678,
+   "avail_rate": 0.9940253920836445
+  }
+ ],
+ "delayed_reward": [
+  {
+   "seed": 81001,
+   "n_avail": 209,
+   "total_steps": 225,
+   "avail_rate": 0.9288888888888889
+  },
+  {
+   "seed": 81002,
+   "n_avail": 209,
+   "total_steps": 225,
+   "avail_rate": 0.9288888888888889
+  },
+  {
+   "seed": 81003,
+   "n_avail": 209,
+   "total_steps": 225,
+   "avail_rate": 0.9288888888888889
+  },
+  {
+   "seed": 81004,
+   "n_avail": 208,
+   "total_steps": 224,
+   "avail_rate": 0.9285714285714286
+  },
+  {
+   "seed": 81005,
+   "n_avail": 206,
+   "total_steps": 222,
+   "avail_rate": 0.9279279279279279
+  }
+ ],
+ "changing_rule": [
+  {
+   "seed": 81001,
+   "n_avail": 584,
+   "total_steps": 600,
+   "avail_rate": 0.9733333333333334
+  },
+  {
+   "seed": 81002,
+   "n_avail": 584,
+   "total_steps": 600,
+   "avail_rate": 0.9733333333333334
+  },
+  {
+   "seed": 81003,
+   "n_avail": 584,
+   "total_steps": 600,
+   "avail_rate": 0.9733333333333334
+  },
+  {
+   "seed": 81004,
+   "n_avail": 584,
+   "total_steps": 600,
+   "avail_rate": 0.9733333333333334
+  },
+  {
+   "seed": 81005,
+   "n_avail": 584,
+   "total_steps": 600,
+   "avail_rate": 0.9733333333333334
+  }
+ ],
+ "compositional_rule": [
+  {
+   "seed": 81001,
+   "n_avail": 584,
+   "total_steps": 600,
+   "avail_rate": 0.9733333333333334
+  },
+  {
+   "seed": 81002,
+   "n_avail": 584,
+   "total_steps": 600,
+   "avail_rate": 0.9733333333333334
+  },
+  {
+   "seed": 81003,
+   "n_avail": 584,
+   "total_steps": 600,
+   "avail_rate": 0.9733333333333334
+  },
+  {
+   "seed": 81004,
+   "n_avail": 584,
+   "total_steps": 600,
+   "avail_rate": 0.9733333333333334
+  },
+  {
+   "seed": 81005,
+   "n_avail": 584,
+   "total_steps": 600,
+   "avail_rate": 0.9733333333333334
+  }
+ ],
+ "cue_delayed_reward": [
+  {
+   "seed": 81001,
+   "n_avail": 206,
+   "total_steps": 222,
+   "avail_rate": 0.9279279279279279
+  },
+  {
+   "seed": 81002,
+   "n_avail": 207,
+   "total_steps": 223,
+   "avail_rate": 0.9282511210762332
+  },
+  {
+   "seed": 81003,
+   "n_avail": 209,
+   "total_steps": 225,
+   "avail_rate": 0.9288888888888889
+  },
+  {
+   "seed": 81004,
+   "n_avail": 209,
+   "total_steps": 225,
+   "avail_rate": 0.9288888888888889
+  },
+  {
+   "seed": 81005,
+   "n_avail": 209,
+   "total_steps": 225,
+   "avail_rate": 0.9288888888888889
+  }
+ ]
+}

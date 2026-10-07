@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-10-07T10:05:19.392167+00:00",
+  "generated_utc": "2026-10-07T10:25:20.274373+00:00",
   "scope": [
     "prototypes/architecture-a/MATURITY.md",
     "prototypes/architecture-b/MATURITY.md"
@@ -115,15 +115,22 @@
       }
     ]
   },
-  "findings": [],
+  "findings": [
+    {
+      "arch": "b",
+      "row": "\u00a730 retrieval-usefulness prediction",
+      "type": "STALE",
+      "message": "receipt 'experiments/preregistration_SIGNAL_QUALITY.json' claimed hash-chained: no receipt_hash field"
+    }
+  ],
   "summary": {
     "rows_checked": {
       "a": 11,
       "b": 10
     },
-    "STALE": 0,
+    "STALE": 1,
     "OVERCLAIMED": 0,
     "WARN": 0,
-    "verdict": "GREEN"
+    "verdict": "RED"
   }
 }
