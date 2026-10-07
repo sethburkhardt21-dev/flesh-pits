@@ -1,0 +1,338 @@
+{
+  "conditions": {
+    "R1_sub_ignition_explore": {
+      "1111": {
+        "broadcast": 183,
+        "final_actions": [
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c"
+        ],
+        "freeze_rate": 0.9867,
+        "gains": {
+          "a": 0.975,
+          "b": 0.949,
+          "c": 2.0
+        },
+        "ignited": 183,
+        "mean_theta": 0.6,
+        "phase2_c_fraction": 0.78,
+        "sub_ignition_ticks": 17,
+        "total_reward": 128.85
+      },
+      "2222": {
+        "broadcast": 176,
+        "final_actions": [
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c"
+        ],
+        "freeze_rate": 0.9533,
+        "gains": {
+          "a": 0.96,
+          "b": 0.889,
+          "c": 2.0
+        },
+        "ignited": 176,
+        "mean_theta": 0.6,
+        "phase2_c_fraction": 0.78,
+        "sub_ignition_ticks": 24,
+        "total_reward": 127.46
+      },
+      "3333": {
+        "broadcast": 175,
+        "final_actions": [
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c"
+        ],
+        "freeze_rate": 0.9667,
+        "gains": {
+          "a": 0.905,
+          "b": 0.92,
+          "c": 2.0
+        },
+        "ignited": 175,
+        "mean_theta": 0.6,
+        "phase2_c_fraction": 0.78,
+        "sub_ignition_ticks": 25,
+        "total_reward": 127.92
+      }
+    },
+    "R2_adaptive_theta": {
+      "1111": {
+        "broadcast": 511,
+        "final_actions": [
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c"
+        ],
+        "freeze_rate": 0.9867,
+        "gains": {
+          "a": 0.975,
+          "b": 0.949,
+          "c": 2.0
+        },
+        "ignited": 511,
+        "mean_theta": 0.4725,
+        "phase2_c_fraction": 0.78,
+        "sub_ignition_ticks": 0,
+        "total_reward": 128.85
+      },
+      "2222": {
+        "broadcast": 467,
+        "final_actions": [
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c"
+        ],
+        "freeze_rate": 0.9533,
+        "gains": {
+          "a": 0.96,
+          "b": 0.889,
+          "c": 2.0
+        },
+        "ignited": 467,
+        "mean_theta": 0.4725,
+        "phase2_c_fraction": 0.78,
+        "sub_ignition_ticks": 0,
+        "total_reward": 127.46
+      },
+      "3333": {
+        "broadcast": 478,
+        "final_actions": [
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c",
+          "c"
+        ],
+        "freeze_rate": 0.9733,
+        "gains": {
+          "a": 0.962,
+          "b": 0.92,
+          "c": 2.0
+        },
+        "ignited": 478,
+        "mean_theta": 0.4725,
+        "phase2_c_fraction": 0.79,
+        "sub_ignition_ticks": 0,
+        "total_reward": 129.02
+      }
+    },
+    "baseline": {
+      "1111": {
+        "broadcast": 112,
+        "final_actions": [
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a"
+        ],
+        "freeze_rate": 1.0,
+        "gains": {
+          "a": 0.01,
+          "b": 1.0,
+          "c": 1.0
+        },
+        "ignited": 112,
+        "mean_theta": 0.6,
+        "phase2_c_fraction": 0.0,
+        "sub_ignition_ticks": 0,
+        "total_reward": 85.95
+      },
+      "2222": {
+        "broadcast": 108,
+        "final_actions": [
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a"
+        ],
+        "freeze_rate": 1.0,
+        "gains": {
+          "a": 0.01,
+          "b": 1.0,
+          "c": 1.0
+        },
+        "ignited": 108,
+        "mean_theta": 0.6,
+        "phase2_c_fraction": 0.0,
+        "sub_ignition_ticks": 0,
+        "total_reward": 84.56
+      },
+      "3333": {
+        "broadcast": 107,
+        "final_actions": [
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a"
+        ],
+        "freeze_rate": 1.0,
+        "gains": {
+          "a": 0.01,
+          "b": 1.0,
+          "c": 1.0
+        },
+        "ignited": 107,
+        "mean_theta": 0.6,
+        "phase2_c_fraction": 0.0,
+        "sub_ignition_ticks": 0,
+        "total_reward": 85.57
+      }
+    }
+  },
+  "experiment": "K6_stationarity_resolution",
+  "freeze_cut": 0.9,
+  "k1_k2_k3_preservation": "see report: reruns below",
+  "need": 3,
+  "seeds": [
+    1111,
+    2222,
+    3333
+  ],
+  "theta_hi": 0.6,
+  "theta_lo": 0.45,
+  "ticks": 200,
+  "verdicts": {
+    "R1_sub_ignition_explore": {
+      "detail": {
+        "1111": {
+          "baseline_total": 85.95,
+          "candidate_total": 128.85,
+          "freeze_rate_prereg": 0.9867,
+          "freeze_resolved_corrected": true,
+          "freeze_resolved_prereg": false,
+          "no_material_harm": true,
+          "phase2_c_fraction": 0.78
+        },
+        "2222": {
+          "baseline_total": 84.56,
+          "candidate_total": 127.46,
+          "freeze_rate_prereg": 0.9533,
+          "freeze_resolved_corrected": true,
+          "freeze_resolved_prereg": false,
+          "no_material_harm": true,
+          "phase2_c_fraction": 0.78
+        },
+        "3333": {
+          "baseline_total": 85.57,
+          "candidate_total": 127.92,
+          "freeze_rate_prereg": 0.9667,
+          "freeze_resolved_corrected": true,
+          "freeze_resolved_prereg": false,
+          "no_material_harm": true,
+          "phase2_c_fraction": 0.78
+        }
+      },
+      "k4_non_degradation": {
+        "need": 3,
+        "pass": true,
+        "wins": 4
+      },
+      "need": 3,
+      "pass_a_prime_b": true,
+      "prereg_note": "freeze_rate<0.90 preregistration was mis-specified: a perfect tracker holds actions ~100 ticks and scores ~0.99. Superseded by phase2_c_fraction>0.5; the preregistered numbers are kept in the receipt.",
+      "seeds_meeting_a_prime_and_b": 3
+    },
+    "R2_adaptive_theta": {
+      "detail": {
+        "1111": {
+          "baseline_total": 85.95,
+          "candidate_total": 128.85,
+          "freeze_rate_prereg": 0.9867,
+          "freeze_resolved_corrected": true,
+          "freeze_resolved_prereg": false,
+          "no_material_harm": true,
+          "phase2_c_fraction": 0.78
+        },
+        "2222": {
+          "baseline_total": 84.56,
+          "candidate_total": 127.46,
+          "freeze_rate_prereg": 0.9533,
+          "freeze_resolved_corrected": true,
+          "freeze_resolved_prereg": false,
+          "no_material_harm": true,
+          "phase2_c_fraction": 0.78
+        },
+        "3333": {
+          "baseline_total": 85.57,
+          "candidate_total": 129.02,
+          "freeze_rate_prereg": 0.9733,
+          "freeze_resolved_corrected": true,
+          "freeze_resolved_prereg": false,
+          "no_material_harm": true,
+          "phase2_c_fraction": 0.79
+        }
+      },
+      "k4_non_degradation": {
+        "need": 3,
+        "pass": true,
+        "wins": 4
+      },
+      "need": 3,
+      "pass_a_prime_b": true,
+      "prereg_note": "freeze_rate<0.90 preregistration was mis-specified: a perfect tracker holds actions ~100 ticks and scores ~0.99. Superseded by phase2_c_fraction>0.5; the preregistered numbers are kept in the receipt.",
+      "seeds_meeting_a_prime_and_b": 3
+    }
+  }
+}

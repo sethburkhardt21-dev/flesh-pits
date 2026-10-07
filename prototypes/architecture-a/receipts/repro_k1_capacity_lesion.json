@@ -1,0 +1,123 @@
+{
+  "experiment": "K1_capacity_lesion",
+  "original_seed": 20261007,
+  "passes": 5,
+  "per_seed": {
+    "71001": {
+      "monotonic": true,
+      "pass": true,
+      "results": {
+        "0.5": {
+          "interference": 0.0,
+          "p_lost_K3": 0.0,
+          "p_lost_Kinf": 0.0
+        },
+        "0.85": {
+          "interference": 0.475,
+          "p_lost_K3": 0.475,
+          "p_lost_Kinf": 0.0
+        },
+        "0.95": {
+          "interference": 1.0,
+          "p_lost_K3": 1.0,
+          "p_lost_Kinf": 0.0
+        }
+      }
+    },
+    "71002": {
+      "monotonic": true,
+      "pass": true,
+      "results": {
+        "0.5": {
+          "interference": 0.0,
+          "p_lost_K3": 0.0,
+          "p_lost_Kinf": 0.0
+        },
+        "0.85": {
+          "interference": 0.485,
+          "p_lost_K3": 0.485,
+          "p_lost_Kinf": 0.0
+        },
+        "0.95": {
+          "interference": 1.0,
+          "p_lost_K3": 1.0,
+          "p_lost_Kinf": 0.0
+        }
+      }
+    },
+    "71003": {
+      "monotonic": true,
+      "pass": true,
+      "results": {
+        "0.5": {
+          "interference": 0.0,
+          "p_lost_K3": 0.0,
+          "p_lost_Kinf": 0.0
+        },
+        "0.85": {
+          "interference": 0.5375,
+          "p_lost_K3": 0.5375,
+          "p_lost_Kinf": 0.0
+        },
+        "0.95": {
+          "interference": 1.0,
+          "p_lost_K3": 1.0,
+          "p_lost_Kinf": 0.0
+        }
+      }
+    },
+    "71004": {
+      "monotonic": true,
+      "pass": true,
+      "results": {
+        "0.5": {
+          "interference": 0.0,
+          "p_lost_K3": 0.0,
+          "p_lost_Kinf": 0.0
+        },
+        "0.85": {
+          "interference": 0.4675,
+          "p_lost_K3": 0.4675,
+          "p_lost_Kinf": 0.0
+        },
+        "0.95": {
+          "interference": 1.0,
+          "p_lost_K3": 1.0,
+          "p_lost_Kinf": 0.0
+        }
+      }
+    },
+    "71005": {
+      "monotonic": true,
+      "pass": true,
+      "results": {
+        "0.5": {
+          "interference": 0.0,
+          "p_lost_K3": 0.0,
+          "p_lost_Kinf": 0.0
+        },
+        "0.85": {
+          "interference": 0.45,
+          "p_lost_K3": 0.45,
+          "p_lost_Kinf": 0.0
+        },
+        "0.95": {
+          "interference": 1.0,
+          "p_lost_K3": 1.0,
+          "p_lost_Kinf": 0.0
+        }
+      }
+    }
+  },
+  "reproduces": true,
+  "reproduction": true,
+  "seeds": [
+    71001,
+    71002,
+    71003,
+    71004,
+    71005
+  ],
+  "trials": 400,
+  "verdict": "REPRODUCES 5/5 seeds"
+}

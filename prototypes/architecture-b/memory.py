@@ -168,3 +168,32 @@ class EpisodicStore:
         self.attention_threshold = state["attention_threshold"]
         self._indexed = state["indexed"]
         self.recent = state["recent"]
+
+
+class DisabledStore(EpisodicStore):
+    """Null-object episodic store: the no-memory ablation (EXP-AB-M1).
+
+    Encodes nothing, retrieves nothing, predicts nothing. Retrieval
+    correction reports 'no correction' (honest, not invented) and
+    per-action error prediction returns None so callers fall back to
+    their running tables. Lets the memory be removed from the causal
+    path without touching any other code path.
+    """
+
+    def store(self, *args, **kwargs) -> str:
+        return ""
+
+    def retrieve(self, query: List[float], k: int = 5,
+                 action: Optional[int] = None) -> List[Dict[str, Any]]:
+        if k < 1:
+            raise ValueError("k must be >= 1")
+        return []
+
+    def retrieval_correction(self, query: List[float],
+                             k: int = 5) -> Dict:
+        return {"correction": None, "mean_similarity": 0.0, "n": 0}
+
+    def predicted_error_for_action(self, query: List[float],
+                                   action: int,
+                                   k: int = 5) -> Optional[float]:
+        return None

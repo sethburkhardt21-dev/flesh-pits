@@ -1,0 +1,85 @@
+{
+  "aggregate": {
+    "holds": 3,
+    "n": 5,
+    "reproduces": false,
+    "seeds": [
+      72501,
+      72502,
+      72503,
+      72504,
+      72505
+    ]
+  },
+  "architecture": "B",
+  "config_hash": "c992f3c369153fbf39d18e601483a6fc7215e51a28ed25706364d082e042e08f",
+  "contract_version": "1.0.0",
+  "experiment_id": "EXP-AB-C2",
+  "interpretation": "FAILS TO REPRODUCE \u2014 original verdict holds on only 3/5 fresh seeds. MAJOR FINDING.",
+  "limitations": "Multi-seed reproduction of the single-seed original. All RNG streams derive from the fresh primary seed; agent construction seeds = primary seed (originals used hardcoded agent seeds). Same environments, same code, same gates.",
+  "original_primary_seed": 107,
+  "per_seed": [
+    {
+      "delta": -9.899999999999999,
+      "kill_replicates": true,
+      "mean_return_precision": 23.5,
+      "mean_return_uniform": 33.4,
+      "seed": 72501,
+      "verdict_holds": true
+    },
+    {
+      "delta": -5.399999999999999,
+      "kill_replicates": true,
+      "mean_return_precision": 22.8,
+      "mean_return_uniform": 28.2,
+      "seed": 72502,
+      "verdict_holds": true
+    },
+    {
+      "delta": 0.8000000000000007,
+      "kill_replicates": false,
+      "mean_return_precision": 21.7,
+      "mean_return_uniform": 20.9,
+      "seed": 72503,
+      "verdict_holds": false
+    },
+    {
+      "delta": -2.5,
+      "kill_replicates": true,
+      "mean_return_precision": 24.5,
+      "mean_return_uniform": 27.0,
+      "seed": 72504,
+      "verdict_holds": true
+    },
+    {
+      "delta": 3.5,
+      "kill_replicates": false,
+      "mean_return_precision": 26.7,
+      "mean_return_uniform": 23.2,
+      "seed": 72505,
+      "verdict_holds": false
+    }
+  ],
+  "preregistered": {
+    "baseline": "arch_b with uniform_precision=True (all pi = 1).",
+    "conditions": {
+      "affect": "none (world-model isolation; affect in K4)",
+      "agent": "arch_b v1",
+      "env": "changing_rule v1.0.0",
+      "episodes": 10,
+      "primary_seed": 107,
+      "reproduction_seeds": [
+        72501,
+        72502,
+        72503,
+        72504,
+        72505
+      ]
+    },
+    "hypothesis": "Estimated precision (pi from error statistics) beats uniform pi=1 on the noisy changing_rule task (10% noise).",
+    "metric": "mean_return over 10 episodes.",
+    "null": "No decision-quality gap (precision is numerology)."
+  },
+  "reproduction": true,
+  "written_utc": "2026-10-07T06:58:37.621023+00:00"
+}

@@ -1,0 +1,143 @@
+{
+  "aggregate": {
+    "holds": 3,
+    "n": 5,
+    "reproduces": false,
+    "seeds": [
+      72401,
+      72402,
+      72403,
+      72404,
+      72405
+    ]
+  },
+  "architecture": "B",
+  "config_hash": "7cb89be1cbe8141da5bf73d269c222d4d7e111b7f6c76cd823d496332d3ad6c9",
+  "contract_version": "1.0.0",
+  "experiment_id": "EXP-AB-C1",
+  "interpretation": "FAILS TO REPRODUCE \u2014 original verdict holds on only 3/5 fresh seeds. MAJOR FINDING.",
+  "limitations": "Multi-seed reproduction of the single-seed original. All RNG streams derive from the fresh primary seed; agent construction seeds = primary seed (originals used hardcoded agent seeds). Same environments, same code, same gates.",
+  "original_primary_seed": 106,
+  "per_seed": [
+    {
+      "envs": {
+        "delayed_reward": {
+          "decline": 0.10883188838155838,
+          "early": 0.3923792695762976,
+          "late": 0.2835473811947392,
+          "n_ticks": 140
+        },
+        "grid_world": {
+          "decline": 0.15489199741329018,
+          "early": 0.49217407301937455,
+          "late": 0.33728207560608436,
+          "n_ticks": 614
+        }
+      },
+      "holds": true,
+      "seed": 72401,
+      "verdict_holds": true
+    },
+    {
+      "envs": {
+        "delayed_reward": {
+          "decline": 0.22953091619962018,
+          "early": 0.40182199762352205,
+          "late": 0.17229108142390187,
+          "n_ticks": 140
+        },
+        "grid_world": {
+          "decline": 0.1681471667182528,
+          "early": 0.5100331621183146,
+          "late": 0.3418859954000618,
+          "n_ticks": 567
+        }
+      },
+      "holds": true,
+      "seed": 72402,
+      "verdict_holds": true
+    },
+    {
+      "envs": {
+        "delayed_reward": {
+          "decline": 0.21790996431083298,
+          "early": 0.3929873251605885,
+          "late": 0.1750773608497555,
+          "n_ticks": 140
+        },
+        "grid_world": {
+          "decline": -0.007515736637024484,
+          "early": 0.4004514668318513,
+          "late": 0.40796720346887577,
+          "n_ticks": 746
+        }
+      },
+      "holds": false,
+      "seed": 72403,
+      "verdict_holds": false
+    },
+    {
+      "envs": {
+        "delayed_reward": {
+          "decline": 0.0023262848254067547,
+          "early": 0.4157296478863011,
+          "late": 0.41340336306089437,
+          "n_ticks": 140
+        },
+        "grid_world": {
+          "decline": 0.03403810719589356,
+          "early": 0.519607583168472,
+          "late": 0.48556947597257843,
+          "n_ticks": 565
+        }
+      },
+      "holds": true,
+      "seed": 72404,
+      "verdict_holds": true
+    },
+    {
+      "envs": {
+        "delayed_reward": {
+          "decline": -0.02345382341750657,
+          "early": 0.40111032727685253,
+          "late": 0.4245641506943591,
+          "n_ticks": 140
+        },
+        "grid_world": {
+          "decline": 0.21574401867383328,
+          "early": 0.42917382140758076,
+          "late": 0.21342980273374748,
+          "n_ticks": 646
+        }
+      },
+      "holds": false,
+      "seed": 72405,
+      "verdict_holds": false
+    }
+  ],
+  "preregistered": {
+    "baseline": "first-quintile self (within-run).",
+    "conditions": {
+      "affect": "none (world-model isolation; affect in K4)",
+      "agent": "arch_b v1",
+      "envs": [
+        "delayed_reward v1.0.0",
+        "grid_world v1.0.0"
+      ],
+      "episodes": 10,
+      "primary_seed": 106,
+      "reproduction_seeds": [
+        72401,
+        72402,
+        72403,
+        72404,
+        72405
+      ]
+    },
+    "hypothesis": "Mean |e0| declines from the first to the last quintile of a run on stationary tasks (delayed_reward, grid_world).",
+    "metric": "mean |e0| ticks[0:20%] vs ticks[80:100%].",
+    "null": "No decline (nothing is being learned)."
+  },
+  "reproduction": true,
+  "written_utc": "2026-10-07T06:58:32.371024+00:00"
+}

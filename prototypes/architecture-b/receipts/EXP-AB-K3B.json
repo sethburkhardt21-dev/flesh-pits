@@ -1,0 +1,159 @@
+{
+  "architecture": "B",
+  "config_hash": "a0ef664d58f69009f3527abe88e56e474b31dae85c705ac1f8f577d076859e72",
+  "contract_version": "1.0.0",
+  "experiment_id": "EXP-AB-K3B",
+  "interpretation": "HIERARCHY EARNS ITS KEEP: arm-A lesion gaps grew vs K3's +0.0032 \u2014 |e0| gap +0.0054, |rerr| gap +0.0602 (seed-means). Arm B: |e0| +0.0437, terminal |rerr| +0.0073 (expected \u22480 \u2014 hidden branch bounds it).",
+  "limitations": "Open-loop training isolates the weight/precision machinery (as K3); closed-loop control effects are factored out by design. Arm-B terminal ticks flagged by reward >= 0.5. 3 seeds.",
+  "preregistered": {
+    "ablation": "L1 top-down path (lesion_l1) \u2014 same lesion as K3.",
+    "baseline": "arch_b lesion_l1=True (L0-only), identical transitions.",
+    "conditions": {
+      "affect": "none",
+      "agent": "arch_b v1"
+    },
+    "decision_rule": "Arm-A |e0| or |rerr| lesion gap clearly larger than K3's +0.0032 (seed-mean) -> hierarchy earns its keep. Gaps at K3 scale or smaller -> effect stays weak; note as a bound.",
+    "hypothesis": "With longer training on structured tasks, the intact-vs-L1-lesioned prediction gap GROWS beyond K3's +0.0032: the top-down context experts earn their keep where predictable structure spans longer horizons.",
+    "metric": "Arm A (changing_rule, 1500 train transitions, held-out 200 from a stable phase): mean|e0| and mean|rerr| intact vs lesioned. Arm B (delayed_reward, 600 train / 120 held-out): same metrics; preregistered expectation: terminal |rerr| gap \u2248 0 because the correct branch is hidden (50/50 unpredictable from obs) \u2014 arm B bounds the test, arm A carries it.",
+    "null": "Gaps stay tiny/absent \u2014 the hierarchy effect is bounded at K3's weak level.",
+    "procedure": "Open-loop transition training via learn_transition (no retrieval correction/affect \u2014 isolates the weight/precision machinery, as in K3), 3 seeds.",
+    "seeds": [
+      331,
+      332,
+      333
+    ]
+  },
+  "result": {
+    "arm_a_changing_rule": {
+      "mean_delta_e0": 0.005433940931200605,
+      "mean_delta_rerr": 0.06021933378761635,
+      "per_seed": [
+        {
+          "delta_e0": -0.010916624920188522,
+          "delta_rerr": 0.07913963139676694,
+          "intact": {
+            "mean_abs_e0": 0.8957040747553746,
+            "mean_abs_rerr": 0.6682950095064719,
+            "mean_abs_rerr_terminal": 0.8153984313767054,
+            "n_terminal": 136
+          },
+          "lesioned": {
+            "mean_abs_e0": 0.8847874498351861,
+            "mean_abs_rerr": 0.7474346409032389,
+            "mean_abs_rerr_terminal": 0.9463078291731745,
+            "n_terminal": 136
+          },
+          "n_heldout": 200,
+          "n_train": 1500,
+          "seed": 331
+        },
+        {
+          "delta_e0": 0.010421890435890147,
+          "delta_rerr": 0.048270209802640185,
+          "intact": {
+            "mean_abs_e0": 0.9481173738168025,
+            "mean_abs_rerr": 0.7899091725321092,
+            "mean_abs_rerr_terminal": 1.0396501858154201,
+            "n_terminal": 125
+          },
+          "lesioned": {
+            "mean_abs_e0": 0.9585392642526926,
+            "mean_abs_rerr": 0.8381793823347494,
+            "mean_abs_rerr_terminal": 1.117757453511679,
+            "n_terminal": 125
+          },
+          "n_heldout": 200,
+          "n_train": 1500,
+          "seed": 332
+        },
+        {
+          "delta_e0": 0.016796557277900193,
+          "delta_rerr": 0.053248160163441915,
+          "intact": {
+            "mean_abs_e0": 0.8661461972678027,
+            "mean_abs_rerr": 0.5818249869713175,
+            "mean_abs_rerr_terminal": 0.5755973117273511,
+            "n_terminal": 116
+          },
+          "lesioned": {
+            "mean_abs_e0": 0.8829427545457029,
+            "mean_abs_rerr": 0.6350731471347594,
+            "mean_abs_rerr_terminal": 0.4403556506826409,
+            "n_terminal": 116
+          },
+          "n_heldout": 200,
+          "n_train": 1500,
+          "seed": 333
+        }
+      ]
+    },
+    "arm_b_delayed_reward": {
+      "mean_delta_e0": 0.043688579172869245,
+      "mean_delta_rerr": -0.0002114734755964224,
+      "mean_delta_rerr_terminal": 0.0073188814994353075,
+      "per_seed": [
+        {
+          "delta_e0": 0.03515127160405296,
+          "delta_rerr": -0.18621889907575798,
+          "delta_rerr_terminal": 0.02195664449830592,
+          "intact": {
+            "mean_abs_e0": 0.42794071207723505,
+            "mean_abs_rerr": 0.38617924519434677,
+            "mean_abs_rerr_terminal": 0.20456843627283994,
+            "n_terminal": 1
+          },
+          "lesioned": {
+            "mean_abs_e0": 0.463091983681288,
+            "mean_abs_rerr": 0.1999603461185888,
+            "mean_abs_rerr_terminal": 0.22652508077114586,
+            "n_terminal": 1
+          },
+          "n_heldout": 120,
+          "n_train": 600,
+          "seed": 331
+        },
+        {
+          "delta_e0": 0.045103087439384515,
+          "delta_rerr": 0.18142987747595507,
+          "delta_rerr_terminal": 0.0,
+          "intact": {
+            "mean_abs_e0": 0.3374050977569694,
+            "mean_abs_rerr": 0.2278411300290057,
+            "mean_abs_rerr_terminal": 0.0,
+            "n_terminal": 0
+          },
+          "lesioned": {
+            "mean_abs_e0": 0.38250818519635393,
+            "mean_abs_rerr": 0.40927100750496076,
+            "mean_abs_rerr_terminal": 0.0,
+            "n_terminal": 0
+          },
+          "n_heldout": 120,
+          "n_train": 600,
+          "seed": 332
+        },
+        {
+          "delta_e0": 0.050811378475170255,
+          "delta_rerr": 0.004154601173013639,
+          "delta_rerr_terminal": 0.0,
+          "intact": {
+            "mean_abs_e0": 0.5242145456980719,
+            "mean_abs_rerr": 0.12520108849265044,
+            "mean_abs_rerr_terminal": 0.0,
+            "n_terminal": 0
+          },
+          "lesioned": {
+            "mean_abs_e0": 0.5750259241732422,
+            "mean_abs_rerr": 0.12935568966566408,
+            "mean_abs_rerr_terminal": 0.0,
+            "n_terminal": 0
+          },
+          "n_heldout": 120,
+          "n_train": 600,
+          "seed": 333
+        }
+      ]
+    }
+  },
+  "written_utc": "2026-10-07T07:00:35.609041+00:00"
+}

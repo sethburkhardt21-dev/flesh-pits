@@ -79,6 +79,17 @@ class WorkspaceTick:
         self._last_action = self.channels[0]
 
     # ---------------------------------------------------------------
+    def _select_action(self, proposal, decision) -> tuple:
+        """Action-selection hook. Default (ignition-gated): the planner
+        proposal — which arrives only via broadcast after ignition — is
+        the sole path; with no proposal the previous action holds.
+        Subclasses may implement alternative resolution paths (e.g. an
+        explicit sub-ignition exploratory path for NR-A-004); the
+        default is behavior-identical to the pre-hook tick."""
+        if proposal and proposal.get("proposed_action"):
+            return proposal["proposed_action"], {"path": "ignited_proposal"}
+        return self._last_action, {"path": "hold"}
+
     def step(self, observation: dict, env=None) -> dict:
         """One closed-loop tick. Returns a machine-readable trace."""
         self.tick_index += 1
@@ -168,13 +179,14 @@ class WorkspaceTick:
         #    (broadcast -> planner_input is the sole path workspace content
         #    takes to reach action selection). If nothing ignited this
         #    tick, hold the previous action (no hallucinated proposals).
+        #    Routed through _select_action so alternative resolution
+        #    paths can be tested as explicit subclasses (NR-A-004).
         proposal = self.bus.read_consumer("planner_input")
-        action = (proposal["proposed_action"]
-                  if proposal and proposal.get("proposed_action")
-                  else self._last_action)
+        action, selection = self._select_action(proposal, decision)
         self._last_action = action
         self.actions.append(action)
         trace["action"] = action
+        trace["action_selection"] = selection
         if env is not None:
             reward = env.step(action)
             self.rewards.append(float(reward))

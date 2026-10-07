@@ -1,0 +1,118 @@
+{
+  "architecture": "B",
+  "config_hash": "80742cee7bf7e6d206237ed3008da3a807cf7e2c39af310d1251d255abcf35b7",
+  "contract_version": "1.0.0",
+  "experiment_id": "EXP-AB-C2B",
+  "interpretation": "REJECTED: shift_reset shift 23.97 vs estimated 24.10 vs uniform 28.47; stationary 24.40 vs uniform 34.00. The revival rule failed \u2014 shift-aware precision joins the rejected list.",
+  "limitations": "ONE preregistered variant (k=4.0); no tuning after the run. Stationary arm is 5 phase-0 episodes (200 trials). 3 seeds. affect='none' isolates the world model.",
+  "preregistered": {
+    "ablation": "arch_b precision_kind='shift_reset', surprise_k=4.0 (preregistered; ONE variant).",
+    "baseline": "arch_b uniform pi=1; arch_b estimated pi (C2 replication).",
+    "conditions": {
+      "affect": "none",
+      "agent": "arch_b v1",
+      "surprise_k": 4.0
+    },
+    "hypothesis": "ShiftRobustPrecisionEstimator (surprise-triggered window reset, k=4.0) matches or beats estimated precision and beats uniform pi=1 on noisy changing_rule, without losing to uniform on a stationary noisy task.",
+    "metric": "mean_return over episodes, seed-meaned. Shift arm: 10 episodes changing_rule (1 rule flip). Stationary arm: 5 episodes changing_rule phase-0 only (rule fixed, 10% noise).",
+    "null": "Uniform >= shift-reset on both tasks \u2014 the precision idea is dead even in shift-aware form.",
+    "procedure": "Closed-loop runs, affect='none', identical primary seeds across the three conditions (paired). Diagnostic: window reset counts \u2014 expected ~1 per flip on the shift arm, ~0 on the stationary arm.",
+    "revival_rule": "Revival iff (shift: shift_reset seed-mean >= estimated seed-mean AND > uniform seed-mean) AND (stationary: shift_reset seed-mean >= uniform seed-mean). Otherwise it joins the rejected list (NR-B-008).",
+    "seeds": [
+      311,
+      312,
+      313
+    ]
+  },
+  "result": {
+    "shift": {
+      "estimated": {
+        "mean_resets": 0.0,
+        "mean_return": 24.099999999999998,
+        "per_seed_resets": [
+          0,
+          0,
+          0
+        ],
+        "per_seed_returns": [
+          23.9,
+          24.5,
+          23.9
+        ]
+      },
+      "shift_reset": {
+        "mean_resets": 94.66666666666667,
+        "mean_return": 23.96666666666667,
+        "per_seed_resets": [
+          92,
+          110,
+          82
+        ],
+        "per_seed_returns": [
+          26.1,
+          21.6,
+          24.2
+        ]
+      },
+      "uniform": {
+        "mean_resets": 0.0,
+        "mean_return": 28.46666666666667,
+        "per_seed_resets": [
+          0,
+          0,
+          0
+        ],
+        "per_seed_returns": [
+          30.9,
+          27.7,
+          26.8
+        ]
+      }
+    },
+    "stationary": {
+      "estimated": {
+        "mean_resets": 0.0,
+        "mean_return": 25.666666666666668,
+        "per_seed_resets": [
+          0,
+          0,
+          0
+        ],
+        "per_seed_returns": [
+          25.6,
+          26.4,
+          25.0
+        ]
+      },
+      "shift_reset": {
+        "mean_resets": 57.0,
+        "mean_return": 24.400000000000002,
+        "per_seed_resets": [
+          38,
+          86,
+          47
+        ],
+        "per_seed_returns": [
+          26.4,
+          20.6,
+          26.2
+        ]
+      },
+      "uniform": {
+        "mean_resets": 0.0,
+        "mean_return": 34.0,
+        "per_seed_resets": [
+          0,
+          0,
+          0
+        ],
+        "per_seed_returns": [
+          33.4,
+          35.0,
+          33.6
+        ]
+      }
+    }
+  },
+  "written_utc": "2026-10-07T07:00:03.125361+00:00"
+}

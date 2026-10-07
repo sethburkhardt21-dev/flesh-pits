@@ -1,0 +1,177 @@
+{
+  "experiment": "K7_bid_ablation",
+  "interpretation": "Bids are causal for moment-to-moment arbitration under frozen gains, but the learned system barely needs them: the gain loop carries the K4 win. Precise characterization, not a blanket promotion.",
+  "lesion": "experiment-side: arbitrator._bids replaced by ConstantBid stubs returning 0.5; no production code changed",
+  "margin": 1.3,
+  "need": 3,
+  "pass": false,
+  "results": {
+    "1212": {
+      "A_intact_frozen": {
+        "total": 96.75,
+        "winner_counts": {
+          "a": 21,
+          "b": 47,
+          "c": 132
+        },
+        "winner_entropy_bits": 1.228
+      },
+      "B_lesioned_frozen": {
+        "total": 85.2,
+        "winner_counts": {
+          "a": 200
+        },
+        "winner_entropy_bits": -0.0
+      },
+      "C_intact_learned": {
+        "total": 139.65,
+        "winner_counts": {
+          "a": 99,
+          "b": 1,
+          "c": 100
+        },
+        "winner_entropy_bits": 1.04
+      },
+      "D_lesioned_learned": {
+        "total": 128.65,
+        "winner_counts": {
+          "a": 120,
+          "b": 1,
+          "c": 79
+        },
+        "winner_entropy_bits": 1.01
+      },
+      "T": 1.136,
+      "win": false
+    },
+    "777": {
+      "A_intact_frozen": {
+        "total": 105.46,
+        "winner_counts": {
+          "a": 38,
+          "b": 13,
+          "c": 149
+        },
+        "winner_entropy_bits": 1.028
+      },
+      "B_lesioned_frozen": {
+        "total": 84.56,
+        "winner_counts": {
+          "a": 200
+        },
+        "winner_entropy_bits": -0.0
+      },
+      "C_intact_learned": {
+        "total": 139.01,
+        "winner_counts": {
+          "a": 99,
+          "c": 101
+        },
+        "winner_entropy_bits": 1.0
+      },
+      "D_lesioned_learned": {
+        "total": 128.56,
+        "winner_counts": {
+          "a": 119,
+          "b": 1,
+          "c": 80
+        },
+        "winner_entropy_bits": 1.013
+      },
+      "T": 1.247,
+      "win": false
+    },
+    "888": {
+      "A_intact_frozen": {
+        "total": 102.4,
+        "winner_counts": {
+          "a": 32,
+          "b": 39,
+          "c": 129
+        },
+        "winner_entropy_bits": 1.291
+      },
+      "B_lesioned_frozen": {
+        "total": 84.79,
+        "winner_counts": {
+          "a": 200
+        },
+        "winner_entropy_bits": -0.0
+      },
+      "C_intact_learned": {
+        "total": 138.69,
+        "winner_counts": {
+          "a": 98,
+          "b": 1,
+          "c": 101
+        },
+        "winner_entropy_bits": 1.04
+      },
+      "D_lesioned_learned": {
+        "total": 128.24,
+        "winner_counts": {
+          "a": 120,
+          "b": 1,
+          "c": 79
+        },
+        "winner_entropy_bits": 1.01
+      },
+      "T": 1.208,
+      "win": false
+    },
+    "999": {
+      "A_intact_frozen": {
+        "total": 103.6,
+        "winner_counts": {
+          "a": 32,
+          "b": 52,
+          "c": 116
+        },
+        "winner_entropy_bits": 1.384
+      },
+      "B_lesioned_frozen": {
+        "total": 86.55,
+        "winner_counts": {
+          "a": 200
+        },
+        "winner_entropy_bits": -0.0
+      },
+      "C_intact_learned": {
+        "total": 140.45,
+        "winner_counts": {
+          "a": 98,
+          "b": 1,
+          "c": 101
+        },
+        "winner_entropy_bits": 1.04
+      },
+      "D_lesioned_learned": {
+        "total": 130.0,
+        "winner_counts": {
+          "a": 120,
+          "b": 1,
+          "c": 79
+        },
+        "winner_entropy_bits": 1.01
+      },
+      "T": 1.197,
+      "win": false
+    }
+  },
+  "seeds": [
+    777,
+    888,
+    999,
+    1212
+  ],
+  "theta": 0.45,
+  "ticks": 200,
+  "verdict": "FAIL \u2014 bid lesion does not change arbitration outcomes; bids stay INTEGRATED (not promoted)",
+  "verdict_split": {
+    "gain_compensation": "lesioned+learned totals 128.2-130.0 vs intact+learned 138.7-140.5: learned gains compensate for dead bids; the K4 learned win is carried by the gain loop, not the bids.",
+    "mechanism_level": "PASS \u2014 bid lesion collapses arbitration winner-entropy to exactly 0.0 bits (intact: 1.03-1.38 bits) on 4/4 seeds; arbitration is completely changed. Ledger criterion (lesion bids -> arbitration must change) MET.",
+    "net": "bids PROMOTED to CAUSAL for arbitration dynamics (the ledger claim as worded), with the recorded bound that the lesion's task-reward impact is modest (1.14-1.25x) and learned gains compensate.",
+    "preregistered_behavioral_proxy": "FAIL 0/4 \u2014 T=total(intact,frozen)/total(lesioned,frozen) = 1.14-1.25 < 1.30. The reward effect is buffered: fixed winner \"a\" still earns ~85 (phase1 0.7x100 + phase2 0.15x100); the proxy conflated arbitration change with reward impact."
+  },
+  "wins": 0
+}

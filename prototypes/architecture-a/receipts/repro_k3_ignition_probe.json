@@ -1,0 +1,53 @@
+{
+  "experiment": "K3_ignition_linearity_probe",
+  "original_seed": 20261007,
+  "passes": 5,
+  "per_seed": {
+    "71201": {
+      "graded_control_linearity_error": 0.0018231062308453553,
+      "p_above": 1.0,
+      "p_below": 0.0,
+      "pass": true,
+      "transition_width": 0.07999999999999996
+    },
+    "71202": {
+      "graded_control_linearity_error": 0.001800124782764502,
+      "p_above": 1.0,
+      "p_below": 0.0,
+      "pass": true,
+      "transition_width": 0.09999999999999998
+    },
+    "71203": {
+      "graded_control_linearity_error": 0.0017014752380998062,
+      "p_above": 1.0,
+      "p_below": 0.0,
+      "pass": true,
+      "transition_width": 0.09999999999999998
+    },
+    "71204": {
+      "graded_control_linearity_error": 0.0018487897595826888,
+      "p_above": 1.0,
+      "p_below": 0.0,
+      "pass": true,
+      "transition_width": 0.09999999999999998
+    },
+    "71205": {
+      "graded_control_linearity_error": 0.0015448560287494367,
+      "p_above": 1.0,
+      "p_below": 0.0,
+      "pass": true,
+      "transition_width": 0.09999999999999998
+    }
+  },
+  "reproduces": true,
+  "reproduction": true,
+  "seeds": [
+    71201,
+    71202,
+    71203,
+    71204,
+    71205
+  ],
+  "theta": 0.6,
+  "verdict": "REPRODUCES 5/5 seeds"
+}

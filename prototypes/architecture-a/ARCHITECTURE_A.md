@@ -51,10 +51,18 @@ perception -> specialists -> z-score salience bids -> attention arbitration
 
 - Learned attention's win is **bounded**: on signal-tracking reversals the
   frozen change-bid baseline adapts alone (NR-A-005). Learning earns its
-  keep for salience-orthogonal relevance shifts.
-- **Stationarity perseveration** (NR-A-004): at theta=0.6, ignition-gated
-  action selection cannot act under fully stationary signals. Open design
-  question.
+  keep for salience-orthogonal relevance shifts — generalized 2026-10-07
+  (K5) to noisy-signal tracking (P2, 4/4) and multi-reversal stationary
+  shifts (P3, 4/4), but NOT to sparse delayed reward (NR-A-006: learned
+  loses, R 0.08–0.17) or cue-conditioned contingencies without cue input
+  (NR-A-007: no gap, R 1.03–1.09).
+- **Stationarity perseveration** (NR-A-004) — RESOLVED 2026-10-07 (K6):
+  R1 sub-ignition exploratory path recommended (act on the graded
+  arbitration winner when nothing ignites; nothing unignited reaches
+  consumers; gate still decides all propagation). 3/3 seeds: phase-2
+  'c' fraction 0.0→0.78, total 85→128; K1–K3 reruns byte-identical PASS;
+  K4 non-degradation 4/4. R2 (adaptive theta) also resolves but admits
+  ~2.7× ignitions — rejected. The freeze is not the price of the gate.
 - Three mechanism bugs found and fixed during the build (NR-A-001/002/003):
   tracking baselines, unobserved-arm punishment, within-tick ignition
   contamination. All in `research/negative_results.md`.

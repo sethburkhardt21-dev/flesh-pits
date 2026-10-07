@@ -1,0 +1,218 @@
+{
+  "experiment": "K2_broadcast_lesion",
+  "original_seed": 20261007,
+  "passes": 5,
+  "per_seed": {
+    "71101": {
+      "baseline": {
+        "attention_update": 120,
+        "consolidation_eligible": 90,
+        "memory_admit": 90,
+        "planner_input": 30,
+        "report": 90,
+        "self_model_update": 90
+      },
+      "internal_admissions_during_total_lesion": 90,
+      "internal_ignitions_during_total_lesion": 90,
+      "pass": true,
+      "recovery_deltas": {
+        "attention_update": 120,
+        "consolidation_eligible": 90,
+        "memory_admit": 90,
+        "planner_input": 30,
+        "report": 90,
+        "self_model_update": 90
+      },
+      "recovery_ok": true,
+      "selective_lesion_deltas": {
+        "attention_update": 120,
+        "consolidation_eligible": 90,
+        "memory_admit": 0,
+        "planner_input": 30,
+        "report": 90,
+        "self_model_update": 90
+      },
+      "selective_ok": true,
+      "total_lesion_deltas": {
+        "attention_update": 0,
+        "consolidation_eligible": 0,
+        "memory_admit": 0,
+        "planner_input": 0,
+        "report": 0,
+        "self_model_update": 0
+      },
+      "total_ok": true
+    },
+    "71102": {
+      "baseline": {
+        "attention_update": 120,
+        "consolidation_eligible": 90,
+        "memory_admit": 90,
+        "planner_input": 30,
+        "report": 90,
+        "self_model_update": 90
+      },
+      "internal_admissions_during_total_lesion": 90,
+      "internal_ignitions_during_total_lesion": 90,
+      "pass": true,
+      "recovery_deltas": {
+        "attention_update": 120,
+        "consolidation_eligible": 90,
+        "memory_admit": 90,
+        "planner_input": 30,
+        "report": 90,
+        "self_model_update": 90
+      },
+      "recovery_ok": true,
+      "selective_lesion_deltas": {
+        "attention_update": 120,
+        "consolidation_eligible": 90,
+        "memory_admit": 0,
+        "planner_input": 30,
+        "report": 90,
+        "self_model_update": 90
+      },
+      "selective_ok": true,
+      "total_lesion_deltas": {
+        "attention_update": 0,
+        "consolidation_eligible": 0,
+        "memory_admit": 0,
+        "planner_input": 0,
+        "report": 0,
+        "self_model_update": 0
+      },
+      "total_ok": true
+    },
+    "71103": {
+      "baseline": {
+        "attention_update": 120,
+        "consolidation_eligible": 90,
+        "memory_admit": 90,
+        "planner_input": 30,
+        "report": 90,
+        "self_model_update": 90
+      },
+      "internal_admissions_during_total_lesion": 90,
+      "internal_ignitions_during_total_lesion": 90,
+      "pass": true,
+      "recovery_deltas": {
+        "attention_update": 119,
+        "consolidation_eligible": 89,
+        "memory_admit": 89,
+        "planner_input": 30,
+        "report": 89,
+        "self_model_update": 89
+      },
+      "recovery_ok": true,
+      "selective_lesion_deltas": {
+        "attention_update": 120,
+        "consolidation_eligible": 90,
+        "memory_admit": 0,
+        "planner_input": 30,
+        "report": 90,
+        "self_model_update": 90
+      },
+      "selective_ok": true,
+      "total_lesion_deltas": {
+        "attention_update": 0,
+        "consolidation_eligible": 0,
+        "memory_admit": 0,
+        "planner_input": 0,
+        "report": 0,
+        "self_model_update": 0
+      },
+      "total_ok": true
+    },
+    "71104": {
+      "baseline": {
+        "attention_update": 120,
+        "consolidation_eligible": 90,
+        "memory_admit": 90,
+        "planner_input": 30,
+        "report": 90,
+        "self_model_update": 90
+      },
+      "internal_admissions_during_total_lesion": 90,
+      "internal_ignitions_during_total_lesion": 90,
+      "pass": true,
+      "recovery_deltas": {
+        "attention_update": 120,
+        "consolidation_eligible": 90,
+        "memory_admit": 90,
+        "planner_input": 30,
+        "report": 90,
+        "self_model_update": 90
+      },
+      "recovery_ok": true,
+      "selective_lesion_deltas": {
+        "attention_update": 120,
+        "consolidation_eligible": 90,
+        "memory_admit": 0,
+        "planner_input": 30,
+        "report": 90,
+        "self_model_update": 90
+      },
+      "selective_ok": true,
+      "total_lesion_deltas": {
+        "attention_update": 0,
+        "consolidation_eligible": 0,
+        "memory_admit": 0,
+        "planner_input": 0,
+        "report": 0,
+        "self_model_update": 0
+      },
+      "total_ok": true
+    },
+    "71105": {
+      "baseline": {
+        "attention_update": 117,
+        "consolidation_eligible": 87,
+        "memory_admit": 87,
+        "planner_input": 30,
+        "report": 87,
+        "self_model_update": 87
+      },
+      "internal_admissions_during_total_lesion": 90,
+      "internal_ignitions_during_total_lesion": 90,
+      "pass": true,
+      "recovery_deltas": {
+        "attention_update": 118,
+        "consolidation_eligible": 88,
+        "memory_admit": 88,
+        "planner_input": 30,
+        "report": 88,
+        "self_model_update": 88
+      },
+      "recovery_ok": true,
+      "selective_lesion_deltas": {
+        "attention_update": 118,
+        "consolidation_eligible": 88,
+        "memory_admit": 0,
+        "planner_input": 30,
+        "report": 88,
+        "self_model_update": 88
+      },
+      "selective_ok": true,
+      "total_lesion_deltas": {
+        "attention_update": 0,
+        "consolidation_eligible": 0,
+        "memory_admit": 0,
+        "planner_input": 0,
+        "report": 0,
+        "self_model_update": 0
+      },
+      "total_ok": true
+    }
+  },
+  "reproduces": true,
+  "reproduction": true,
+  "seeds": [
+    71101,
+    71102,
+    71103,
+    71104,
+    71105
+  ],
+  "ticks_per_phase": 30,
+  "verdict": "REPRODUCES 5/5 seeds"
+}

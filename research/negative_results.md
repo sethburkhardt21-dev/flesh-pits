@@ -72,3 +72,76 @@ evidence in receipts/.
 - Rules out: frontier definitions that don't record sensed wall adjacency.
   Fixed: sensed walls are written into the map as known-wall cells; the
   symbolic baseline now solves 10/10 mazes.
+
+## 2026-10-07 — REPRO-K1: B-K1 "learning freeze" verdict does NOT replicate (MAJOR)
+- Expectation: the Phase-4 kill EXP-AB-K1 verdict (SURVIVES: learn 26.2 >
+  frozen 21.6, +4.6) would hold on fresh seeds.
+- Observed: on 5 fresh seeds (72001–72005) the FROZEN agent beats the
+  learning agent on ALL 5 (deltas −0.8, −4.0, −4.0, −4.2, −10.2). Kill
+  condition met 5/5 — and reversed: freezing IMPROVES post-flip return.
+- Driver faithfulness verified: original config (primary=101, agent=11)
+  reruns to exactly +4.60. Decomposition: changing ONLY the agent init seed
+  (101/72001) flips to −0.20; changing ONLY the env stream (72001/11)
+  flips to −5.60. The +4.6 was a lucky draw on both.
+- Rules out: "learning is load-bearing for control on changing_rule." The
+  frozen agent's random-init weights + mu0 state tracking do most of the
+  work. Receipt: prototypes/architecture-b/receipts/repro_EXP-AB-K1.json.
+
+## 2026-10-07 — REPRO-K3: B-K3 "hierarchy lesion" verdict does NOT replicate (MAJOR)
+- Expectation: EXP-AB-K3 verdict (SURVIVES, WEAK: structured delta +0.0032)
+  would hold on fresh seeds.
+- Observed: on 5 fresh seeds (72201–72205) the structured lesion delta is
+  NEGATIVE on all 5 (−0.008…−0.028) — disabling L1 consistently HELPS L0
+  prediction. White-noise deltas stay small/mixed as preregistered.
+- Driver faithfulness verified: original seed 103 reruns to exactly
+  +0.0032/−0.0012. The original +0.0032 was a single-seed artifact; the
+  consistent direction across 5 fresh seeds is systematic, not noise.
+- Rules out: the original K3 |e0| probe as an instrument — seed-fragile and
+  diluted by unpredictable channels. (Concurrent K3B worker's longer-horizon
+  reward-channel probe is a separate instrument with separate evidence;
+  this entry concerns the ORIGINAL probe only.)
+- Receipt: prototypes/architecture-b/receipts/repro_EXP-AB-K3.json.
+
+## 2026-10-07 — REPRO-K5: B-K5 "shuffle" verdict does NOT replicate
+- Expectation: EXP-AB-K5 verdict (SURVIVES, WEAK: shuffled-trained error
+  0.8606 > ordered-trained 0.8575, delta +0.0030) would hold on fresh seeds.
+- Observed: on 5 fresh seeds (72301–72305) shuffled-trained is AS GOOD OR
+  BETTER on all 5 (deltas −0.0002…−0.0457). Kill condition met 5/5.
+- Driver faithfulness verified: exact original config reruns to +0.0030.
+- Rules out (per the preregistered kill condition): the temporal-prediction
+  claim — the model does not demonstrably learn the temporally-tracked
+  rule vs bag-of-features marginals on this probe. Claim demoted.
+- Receipt: prototypes/architecture-b/receipts/repro_EXP-AB-K5.json.
+
+## 2026-10-07 — REPRO-C1: B-C1 "error decline" holds only 3/5 seeds
+- Expectation: EXP-AB-C1 verdict (HOLDS: |e0| declines first→last quintile
+  on delayed_reward and grid_world) would hold on fresh seeds.
+- Observed: 3/5 hold. Flips are small-magnitude: seed 72403 grid_world
+  decline −0.0075 (delayed_reward +0.2179 on the same seed); seed 72405
+  delayed_reward decline −0.0235 (grid_world +0.2157 on the same seed).
+  The failure mode is per-env, not systematic — the within-run comparison
+  is noisy at the boundary.
+- Verdict: MIXED. The claim is directionally right but fragile; do not cite
+  C1 as established without the 3/5 qualifier.
+- Receipt: prototypes/architecture-b/receipts/repro_EXP-AB-C1.json.
+
+## 2026-10-07 — REPRO-C2: B-C2 "precision ablation" kill is seed-fragile (3/5)
+- Expectation: EXP-AB-C2 kill verdict (uniform pi=1 beats estimated pi)
+  would replicate on fresh seeds.
+- Observed: uniform wins on 3/5 seeds (margins −2.5, −5.4, −9.9); estimated
+  precision wins on 2/5 (margins +0.8, +3.5). The kill direction flips.
+- The engineering rejection stands (uniform wins more often and by larger
+  margins; concurrent C2B worker independently rejects the shift-aware
+  variant), but the original single-seed kill margin is seed-dependent —
+  cite as KILL, FRAGILE, not as a clean kill.
+- Receipt: prototypes/architecture-b/receipts/repro_EXP-AB-C2.json.
+
+## 2026-10-07 — REPRO cross-cutting pattern (for Phase-4 follow-up)
+- The replication failures cluster exactly where L1 / precision / learning
+  interact with distribution shift: K1 (freeze helps), K3 (lesion helps),
+  C2 (uniform wins). Pure prediction learning (B-K2: learned predictor
+  beats fixed 5/5, gap 0.405–0.426, rock-stable) is robust.
+- Coherent reading: the predictor LEARNS, but the L1-context and precision
+  machinery does not robustly convert learning into better decisions under
+  shift. All of Architecture A (K1–K4) reproduced 5/5 — the fragility is
+  specific to B's adaptive machinery, not the reproduction method.

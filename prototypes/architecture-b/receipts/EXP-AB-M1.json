@@ -1,0 +1,88 @@
+{
+  "architecture": "B",
+  "config_hash": "9a1d9659250488710f32d8cb63d5537d078723a8e0ae94585ec144c762b32b1b",
+  "contract_version": "1.0.0",
+  "experiment_id": "EXP-AB-M1",
+  "interpretation": "SELECTIVE DEFICIT as preregistered: pomaze delta +2.200 > delayed_reward delta +0.046. Episodic memory is causally load-bearing on the partial-observability task.",
+  "limitations": "DisabledStore also removes the per-action error signal used by the AI selector's IG term (falls back to the running table), so the ablation covers the store's full causal footprint. 3 seeds; affect='none' isolates the world model.",
+  "preregistered": {
+    "ablation": "arch_b memory_enabled=False: DisabledStore \u2014 no encoding, no retrieval correction, per-action error prediction returns None (selector falls back to its running table).",
+    "baseline": "arch_b memory_enabled=True (intact store).",
+    "conditions": {
+      "action_mode": "active_inference",
+      "affect": "none",
+      "agent": "arch_b v1"
+    },
+    "decision_rule": "Selective deficit (pomaze seed-mean delta > 0 and > delayed_reward seed-mean delta) -> memory earns a causal role. Seed-mean deltas \u2248 0 on both tasks -> memory decorative in B (NR-B-007).",
+    "hypothesis": "Disabling episodic memory produces a SELECTIVE deficit: pomaze (partial observability; recall should aid revisit-avoidance via retrieval correction) degrades more than delayed_reward (credit flows through the reward-channel learning path).",
+    "metric": "mean_return per task; per-seed delta = intact \u2212 no_memory; seed-mean deltas compared across tasks.",
+    "null": "Disabling memory changes nothing on either task \u2014 the EpisodicStore is decorative in Architecture B.",
+    "procedure": "Closed-loop runs: pomaze 15 episodes, delayed_reward 10 episodes; affect='none' (world-model isolation); action_mode='active_inference'; identical primary seeds for both conditions (paired).",
+    "seeds": [
+      301,
+      302,
+      303
+    ]
+  },
+  "result": {
+    "delayed_reward": {
+      "mean_delta": 0.046000000000000006,
+      "per_seed": [
+        {
+          "delta": 0.048,
+          "intact": 0.048,
+          "intact_memories": 140,
+          "no_memory": 0.0,
+          "nomem_memories": 0,
+          "seed": 301
+        },
+        {
+          "delta": 0.05,
+          "intact": 0.05,
+          "intact_memories": 140,
+          "no_memory": 0.0,
+          "nomem_memories": 0,
+          "seed": 302
+        },
+        {
+          "delta": 0.04,
+          "intact": 0.04,
+          "intact_memories": 140,
+          "no_memory": 0.0,
+          "nomem_memories": 0,
+          "seed": 303
+        }
+      ]
+    },
+    "pomaze": {
+      "mean_delta": 2.199555555555575,
+      "per_seed": [
+        {
+          "delta": 2.3893333333333517,
+          "intact": -3.501333333333319,
+          "intact_memories": 2705,
+          "no_memory": -5.890666666666671,
+          "nomem_memories": 0,
+          "seed": 301
+        },
+        {
+          "delta": 2.379333333333353,
+          "intact": -3.575333333333318,
+          "intact_memories": 2810,
+          "no_memory": -5.954666666666671,
+          "nomem_memories": 0,
+          "seed": 302
+        },
+        {
+          "delta": 1.8300000000000205,
+          "intact": -4.044666666666649,
+          "intact_memories": 2982,
+          "no_memory": -5.87466666666667,
+          "nomem_memories": 0,
+          "seed": 303
+        }
+      ]
+    }
+  },
+  "written_utc": "2026-10-07T07:00:44.834898+00:00"
+}

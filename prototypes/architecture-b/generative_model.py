@@ -47,6 +47,7 @@ import random
 from typing import Dict, List, Tuple
 
 from precision import PrecisionEstimator
+from shift_precision import ShiftRobustPrecisionEstimator
 
 
 def _zeros(n: int) -> List[float]:
@@ -66,9 +67,13 @@ class HierarchicalGenerativeModel:
                  eta_r: float = 0.05, etaR: float = 0.10,
                  max_contexts: int = 32,
                  precision_window: int = 50, uniform_precision: bool = False,
+                 precision_kind: str = "estimated",
+                 surprise_k: float = 4.0,
                  seed: int = 0) -> None:
         if obs_dim < 1 or n_actions < 1:
             raise ValueError("dims must be >= 1")
+        if precision_kind not in ("estimated", "uniform", "shift_reset"):
+            raise ValueError(f"unknown precision_kind {precision_kind!r}")
         self.obs_dim = obs_dim
         self.n_actions = n_actions
         self.feat_dim = obs_dim + n_actions
@@ -80,6 +85,11 @@ class HierarchicalGenerativeModel:
         self.max_contexts = max_contexts
         self.seed = seed
         self._rng = random.Random(seed)
+        # Precision kind: "estimated" (pi from error stats), "uniform"
+        # (ablation), "shift_reset" (shift-robust variant, EXP-AB-C2B).
+        self.precision_kind = ("uniform" if uniform_precision
+                               else precision_kind)
+        self.surprise_k = float(surprise_k)
 
         scale = 0.05
         # L0 fast weights.
@@ -96,12 +106,18 @@ class HierarchicalGenerativeModel:
         # L0 posterior state belief (persists across ticks).
         self.mu0: List[float] = _zeros(obs_dim)
 
-        self.prec0 = PrecisionEstimator(obs_dim, window=precision_window,
-                                        uniform=uniform_precision)
-        self.prec1 = PrecisionEstimator(obs_dim, window=precision_window,
-                                        uniform=uniform_precision)
-        self.precR = PrecisionEstimator(1, window=precision_window,
-                                        uniform=uniform_precision)
+        def _mk_precision(n_channels: int):
+            if self.precision_kind == "shift_reset":
+                return ShiftRobustPrecisionEstimator(
+                    n_channels, window=precision_window,
+                    surprise_k=self.surprise_k)
+            return PrecisionEstimator(
+                n_channels, window=precision_window,
+                uniform=(self.precision_kind == "uniform"))
+
+        self.prec0 = _mk_precision(obs_dim)
+        self.prec1 = _mk_precision(obs_dim)
+        self.precR = _mk_precision(1)
 
         self._r_err_mean = 0.0
         self._r_err_m2 = 0.0
@@ -265,6 +281,8 @@ class HierarchicalGenerativeModel:
             "eta0": self.eta0, "etaD": self.etaD,
             "eta_r": self.eta_r, "etaR": self.etaR,
             "max_contexts": self.max_contexts, "seed": self.seed,
+            "precision_kind": self.precision_kind,
+            "surprise_k": self.surprise_k,
             "W": self.W, "w_r": self.w_r, "b_r": self.b_r,
             "ctx_D": {",".join(map(str, k)): v
                       for k, v in self.ctx_D.items()},
@@ -284,6 +302,8 @@ class HierarchicalGenerativeModel:
         self.eta0 = state["eta0"]; self.etaD = state["etaD"]
         self.eta_r = state["eta_r"]; self.etaR = state["etaR"]
         self.max_contexts = state["max_contexts"]; self.seed = state["seed"]
+        self.precision_kind = state.get("precision_kind", "estimated")
+        self.surprise_k = float(state.get("surprise_k", 4.0))
         self.W = state["W"]; self.w_r = state["w_r"]; self.b_r = state["b_r"]
         self.ctx_D = {tuple(map(int, k.split(","))): v
                       for k, v in state["ctx_D"].items()}

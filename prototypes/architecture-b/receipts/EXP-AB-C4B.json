@@ -1,0 +1,114 @@
+{
+  "architecture": "B",
+  "config_hash": "8b4a94a811d15a0f7ed5764c5ef4d60316dc697c36d30a7bf65dbf61bef1f386",
+  "contract_version": "1.0.0",
+  "experiment_id": "EXP-AB-C4B",
+  "interpretation": "KILL CONFIRMED PERMANENTLY: AI IG_probe 0.5443 vs greedy 0.7124 vs random 0.5497 \u2014 the sharper metric does not revive active inference. The label stays off.",
+  "limitations": "Probe drawn from a random policy: it matches random's experience distribution, which if anything favors random \u2014 a conservative test for AI. Identical init across modes makes probe-before identical by construction. 3 seeds; affect='none'.",
+  "preregistered": {
+    "ablation": "The action policy (active_inference vs greedy vs random).",
+    "baseline": "arch_b with action_mode greedy / random (same world model, same seeds \u2014 only the act() policy differs).",
+    "conditions": {
+      "affect": "none",
+      "agent": "arch_b v1",
+      "env": "pomaze v1.0.0",
+      "episodes": 15,
+      "probe_seed": 901,
+      "probe_size": 400
+    },
+    "hypothesis": "Active-inference action selection produces larger uncertainty reduction than greedy/random, measured as probe-set prediction-error decline (not error decline within predictable regions).",
+    "kill_rule": "AI seed-mean IG_probe <= max(greedy, random) seed-mean IG_probe -> label stays off PERMANENTLY (NR-B-009).",
+    "metric": "IG_probe = mean|e0| on a FIXED probe set before \u2212 after 15-episode pomaze training; seed-meaned. Secondary: mean_return.",
+    "null": "AI probe-error reduction <= greedy/random \u2014 the IG term is not causal; the 'active inference' label stays off permanently.",
+    "procedure": "Probe: 400 transitions from random-policy pomaze rollouts (fixed seeds, policy-independent). Per (seed, mode): fresh agent with IDENTICAL init across modes -> probe-before -> 15 closed-loop episodes -> probe-after. Probe eval is pure model prediction (eval_transition: no memory store, no retrieval correction) \u2014 it measures model knowledge, not memory.",
+    "seeds": [
+      321,
+      322,
+      323
+    ]
+  },
+  "result": {
+    "active_inference": {
+      "mean_IG_probe": 0.5443200190725854,
+      "mean_return": -3.6342222222222067,
+      "per_seed": [
+        {
+          "IG_probe": 0.49093901753904867,
+          "mean_return": -3.6593333333333176,
+          "probe_after": 1.1250418239523041,
+          "probe_before": 1.6159808414913528,
+          "seed": 321
+        },
+        {
+          "IG_probe": 0.4809841528034591,
+          "mean_return": -3.3353333333333186,
+          "probe_after": 1.1215562753430697,
+          "probe_before": 1.6025404281465288,
+          "seed": 322
+        },
+        {
+          "IG_probe": 0.6610368868752485,
+          "mean_return": -3.907999999999985,
+          "probe_after": 1.007493390161693,
+          "probe_before": 1.6685302770369415,
+          "seed": 323
+        }
+      ]
+    },
+    "greedy": {
+      "mean_IG_probe": 0.7123917270769362,
+      "mean_return": -5.958222222222228,
+      "per_seed": [
+        {
+          "IG_probe": 0.7475164499862348,
+          "mean_return": -5.989333333333338,
+          "probe_after": 0.868464391505118,
+          "probe_before": 1.6159808414913528,
+          "seed": 321
+        },
+        {
+          "IG_probe": 0.7300559457942902,
+          "mean_return": -5.986666666666673,
+          "probe_after": 0.8724844823522385,
+          "probe_before": 1.6025404281465288,
+          "seed": 322
+        },
+        {
+          "IG_probe": 0.6596027854502837,
+          "mean_return": -5.898666666666672,
+          "probe_after": 1.0089274915866577,
+          "probe_before": 1.6685302770369415,
+          "seed": 323
+        }
+      ]
+    },
+    "random": {
+      "mean_IG_probe": 0.5496542375456316,
+      "mean_return": -4.130666666666649,
+      "per_seed": [
+        {
+          "IG_probe": 0.6261846297135206,
+          "mean_return": -4.094666666666648,
+          "probe_after": 0.9897962117778322,
+          "probe_before": 1.6159808414913528,
+          "seed": 321
+        },
+        {
+          "IG_probe": 0.501150319138109,
+          "mean_return": -4.133333333333315,
+          "probe_after": 1.1013901090084197,
+          "probe_before": 1.6025404281465288,
+          "seed": 322
+        },
+        {
+          "IG_probe": 0.5216277637852653,
+          "mean_return": -4.163999999999982,
+          "probe_after": 1.1469025132516761,
+          "probe_before": 1.6685302770369415,
+          "seed": 323
+        }
+      ]
+    }
+  },
+  "written_utc": "2026-10-07T07:01:16.300138+00:00"
+}

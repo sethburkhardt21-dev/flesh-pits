@@ -31,6 +31,11 @@ Configuration knobs (all honest ablations):
   affect:      "error" | "pad" | "none"
   lesion_l1:   True disables the L1 top-down path (K3)
   uniform_precision: True forces all pi = 1 (claim-2 ablation)
+  memory_enabled: False swaps in DisabledStore (no encoding/retrieval;
+                  M1 no-memory ablation)
+  precision_kind: "estimated" | "uniform" | "shift_reset" — shift-robust
+                  precision variant (C2B); surprise_k sets the change-point
+                  threshold
   frozen:      True zeroes every learning rate (K1/K2)
   replay_actions: optional list[int] — act() consumes these instead of
                   selecting (K2 identical-stream replay)
@@ -51,7 +56,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
 from env_interface import Agent, obs_to_vector  # noqa: E402
 
 from generative_model import HierarchicalGenerativeModel  # noqa: E402
-from memory import EpisodicStore  # noqa: E402
+from memory import EpisodicStore, DisabledStore  # noqa: E402
 from predictions import PredictionLog, UsefulnessPredictor  # noqa: E402
 from active_inference import ActiveInferenceSelector  # noqa: E402
 from affect import ErrorAffect, PadController  # noqa: E402
@@ -66,6 +71,9 @@ class ArchB(Agent):
                  affect: str = "error",
                  lesion_l1: bool = False,
                  uniform_precision: bool = False,
+                 memory_enabled: bool = True,
+                 precision_kind: str = "estimated",
+                 surprise_k: float = 4.0,
                  frozen: bool = False,
                  lamV: float = 1.0, lamIG: float = 0.5, lamR: float = 0.10,
                  seed: int = 0,
@@ -77,6 +85,9 @@ class ArchB(Agent):
         self.affect_kind = affect
         self.lesion_l1 = lesion_l1
         self.uniform_precision = uniform_precision
+        self.memory_enabled = memory_enabled
+        self.precision_kind = precision_kind
+        self.surprise_k = surprise_k
         self.frozen = frozen
         self.seed = seed
         self.log_path = log_path
@@ -88,10 +99,12 @@ class ArchB(Agent):
                     etaR=0.0) if frozen else {}
         self.model = HierarchicalGenerativeModel(
             self.obs_dim, n_actions, cat_slices=self._cat_slices,
-            uniform_precision=uniform_precision, seed=seed, **etas)
+            uniform_precision=uniform_precision,
+            precision_kind=precision_kind, surprise_k=surprise_k,
+            seed=seed, **etas)
         self.base_etas = (self.model.eta0, self.model.etaD,
                           self.model.eta_r, self.model.etaR)
-        self.memory = EpisodicStore()
+        self.memory = EpisodicStore() if memory_enabled else DisabledStore()
         self.selector = ActiveInferenceSelector(
             n_actions, lamV=lamV, lamIG=lamIG, lamR=lamR,
             mode=action_mode if action_mode != "replay" else "random",
@@ -373,6 +386,9 @@ class ArchB(Agent):
                 "affect": self.affect_kind,
                 "lesion_l1": self.lesion_l1,
                 "uniform_precision": self.uniform_precision,
+                "memory_enabled": self.memory_enabled,
+                "precision_kind": self.precision_kind,
+                "surprise_k": self.surprise_k,
                 "frozen": self.frozen, "seed": self.seed,
             },
             "model": self.model.snapshot(),

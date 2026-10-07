@@ -6,8 +6,8 @@
 
 | Architecture | Fate | Basis |
 |---|---|---|
-| **A — workspace-centric** | **STRONGEST SURVIVOR** | K1–K4 all PASS; K4 re-run PASS 4/4 on canonical env. Maturity: buffer/broadcast/ignition/consumers CAUSAL, attention ADAPTIVE. |
-| **B — predictive-model-centric** | **MIXED — core survives, ornaments killed** | K1, K2, K5 survive; C1 holds. K4 (error-affect), C2 (precision), C4 (active-inference label) KILLED by its own experiments. K3 weak. |
+| **A — workspace-centric** | **STRONGEST SURVIVOR** | K1–K4 all PASS; K4 re-run PASS 4/4 on canonical env. Maturity: buffer/broadcast/ignition/consumers CAUSAL, attention GENERALIZING (K5: noisy-signal + multi-reversal generalize 4/4; delayed_reward loses structurally NR-A-006; changing_rule no-gap without cue input NR-A-007), bids CAUSAL for arbitration dynamics (K7: winner entropy → 0.0 bits — but learned gains compensate for dead bids; the K4 win is carried by the gain loop NR-A-009). NR-A-004 RESOLVED: R1 sub-ignition exploratory path recommended (freeze recovery 0.0→0.78, K1–K3 byte-identical, K2 sole-path untouched) — not yet wired into default tick, pending decision. |
+| **B — predictive-model-centric** | **MIXED — core survives, ornaments killed** | K1, K2, K5 survive; C1 holds. K4 (error-affect), C2 (precision), C4 (active-inference label) KILLED by its own experiments. K3 weak at short horizon but hierarchy EARNS ITS KEEP on longer horizons (K3B: reward-channel lesion gap +0.0602, 3/3 seeds, ~19× K3). Memory proven CAUSAL by ablation (M1: selective deficit +2.200 pomaze, 3/3 seeds). |
 | **D — lean null** | **The bar, honestly weak** | Loses to symbolic everywhere; two falsifiable weaknesses isolated and preserved. |
 | **C — hybrid** | **DEFERRED by design** | Merger of proven parts only — premature to build before A/B verdicts. Candidate components: A's workspace machinery + B's learned predictor. |
 

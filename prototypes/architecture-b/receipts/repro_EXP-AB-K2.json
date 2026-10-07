@@ -1,0 +1,91 @@
+{
+  "aggregate": {
+    "holds": 5,
+    "n": 5,
+    "reproduces": true,
+    "seeds": [
+      72101,
+      72102,
+      72103,
+      72104,
+      72105
+    ]
+  },
+  "architecture": "B",
+  "config_hash": "6efe5abc9ced844d229464237bb9463910ac727982b9e1d68b0c65a9a011c134",
+  "contract_version": "1.0.0",
+  "experiment_id": "EXP-AB-K2",
+  "interpretation": "REPRODUCES \u2014 original verdict holds on 5/5 fresh seeds.",
+  "limitations": "Multi-seed reproduction of the single-seed original. All RNG streams derive from the fresh primary seed; agent construction seeds = primary seed (originals used hardcoded agent seeds). Same environments, same code, same gates.",
+  "original_primary_seed": 102,
+  "per_seed": [
+    {
+      "delta": 0.41190131019548637,
+      "kill": false,
+      "mean_abs_e0_frozen": 1.3807576470386393,
+      "mean_abs_e0_learn": 0.968856336843153,
+      "n_ticks": 390,
+      "seed": 72101,
+      "verdict_holds": true
+    },
+    {
+      "delta": 0.4052410029093745,
+      "kill": false,
+      "mean_abs_e0_frozen": 1.3216363420098434,
+      "mean_abs_e0_learn": 0.9163953391004689,
+      "n_ticks": 390,
+      "seed": 72102,
+      "verdict_holds": true
+    },
+    {
+      "delta": 0.414939997452238,
+      "kill": false,
+      "mean_abs_e0_frozen": 1.3222772890635721,
+      "mean_abs_e0_learn": 0.9073372916113341,
+      "n_ticks": 390,
+      "seed": 72103,
+      "verdict_holds": true
+    },
+    {
+      "delta": 0.4256279793850243,
+      "kill": false,
+      "mean_abs_e0_frozen": 1.3753705342614904,
+      "mean_abs_e0_learn": 0.9497425548764661,
+      "n_ticks": 390,
+      "seed": 72104,
+      "verdict_holds": true
+    },
+    {
+      "delta": 0.4146163638835816,
+      "kill": false,
+      "mean_abs_e0_frozen": 1.3052936943183975,
+      "mean_abs_e0_learn": 0.8906773304348159,
+      "n_ticks": 390,
+      "seed": 72105,
+      "verdict_holds": true
+    }
+  ],
+  "preregistered": {
+    "baseline": "arch_b frozen replaying the learned agent's actions.",
+    "conditions": {
+      "affect": "none (world-model isolation; affect in K4)",
+      "agent": "arch_b v1",
+      "env": "changing_rule v1.0.0",
+      "episodes": 10,
+      "primary_seed": 102,
+      "reproduction_seeds": [
+        72101,
+        72102,
+        72103,
+        72104,
+        72105
+      ]
+    },
+    "hypothesis": "A learned predictor has lower prediction error than a fixed (random-init, frozen) predictor on the IDENTICAL action stream.",
+    "kill": "No gap -> ship the fixed predictor; learning is decorative.",
+    "metric": "mean |e0| over all ticks of 10 changing_rule episodes, identical actions replayed.",
+    "null": "No prediction-error gap (learning machinery is decorative)."
+  },
+  "reproduction": true,
+  "written_utc": "2026-10-07T07:03:16.083791+00:00"
+}

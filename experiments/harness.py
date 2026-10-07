@@ -117,7 +117,13 @@ def run_experiment(env_name, agent_name, n_episodes, primary_seed,
 def write_receipt(result, receipts_dir, hypothesis="", null="",
                   preregistered_metric="", baseline="", conditions="",
                   interpretation="", limitations=""):
-    """Write the §38/§46 receipt JSON. Returns the file path."""
+    """Write the §38/§46 receipt JSON. Returns the file path.
+
+    Receipts are hash-chained: each receipt carries prev_receipt_hash (sha256
+    of the most recently written *other* receipt in receipts_dir, None for the
+    first) and its own receipt_hash. verify_chain() checks the chain.
+    """
+    import hashlib
     os.makedirs(receipts_dir, exist_ok=True)
     receipt = {
         "experiment_id": result["experiment_id"],
@@ -137,9 +143,59 @@ def write_receipt(result, receipts_dir, hypothesis="", null="",
         "limitations": limitations,
     }
     path = os.path.join(receipts_dir, f"{result['experiment_id']}.json")
+    prev = None
+    candidates = sorted(
+        (q for q in os.listdir(receipts_dir) if q.endswith(".json")),
+        key=lambda q: os.path.getmtime(os.path.join(receipts_dir, q)))
+    candidates = [c for c in candidates
+                  if os.path.join(receipts_dir, c) != path]
+    if candidates:
+        # chain to the previous receipt's content hash (None if pre-chain)
+        with open(os.path.join(receipts_dir, candidates[-1])) as f:
+            try:
+                prev = json.load(f).get("receipt_hash")
+            except (json.JSONDecodeError, OSError):
+                prev = None
+    receipt["prev_receipt_hash"] = prev
+    body = json.dumps(receipt, indent=2, sort_keys=True)
+    receipt["receipt_hash"] = hashlib.sha256(body.encode()).hexdigest()
     with open(path, "w") as f:
         json.dump(receipt, f, indent=2, sort_keys=True)
     return path
+
+
+def verify_chain(receipts_dir):
+    """Verify the hash chain over *.json receipts sorted by mtime.
+
+    Returns (ok, problems). A receipt verifies iff its stored receipt_hash
+    matches the hash of its body minus receipt_hash, and its
+    prev_receipt_hash matches the previous receipt's stored receipt_hash
+    (None for the first). Pre-chain receipts (no receipt_hash) are reported,
+    not failed.
+    """
+    import hashlib
+    files = sorted(
+        (q for q in os.listdir(receipts_dir) if q.endswith(".json")),
+        key=lambda q: os.path.getmtime(os.path.join(receipts_dir, q)))
+    problems = []
+    prev_hash = None
+    for fn in files:
+        p = os.path.join(receipts_dir, fn)
+        with open(p) as f:
+            rec = json.load(f)
+        stored = rec.get("receipt_hash")
+        if stored is None:
+            problems.append(f"{fn}: no receipt_hash (pre-chain receipt)")
+            continue
+        body = {k: v for k, v in rec.items() if k != "receipt_hash"}
+        calc = hashlib.sha256(
+            json.dumps(body, indent=2, sort_keys=True).encode()).hexdigest()
+        if calc != stored:
+            problems.append(f"{fn}: receipt_hash mismatch")
+        if rec.get("prev_receipt_hash") != prev_hash:
+            problems.append(f"{fn}: prev_receipt_hash mismatch")
+        prev_hash = stored
+    return (len(problems) == 0, problems)
 
 
 def main(argv=None):

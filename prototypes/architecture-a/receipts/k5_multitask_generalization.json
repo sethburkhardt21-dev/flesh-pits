@@ -1,0 +1,244 @@
+{
+  "experiment": "K5_multitask_generalization",
+  "margin": 1.3,
+  "need": 3,
+  "probes": {
+    "P1_delayed_reward": {
+      "pass": false,
+      "results": {
+        "101": {
+          "frozen_total": 0.38,
+          "learned_gains": {
+            "branch_a": 0.7,
+            "branch_b": 0.01,
+            "forward": 0.784,
+            "stay": 0.01
+          },
+          "learned_total": 0.06,
+          "ratio": 0.158,
+          "win": false
+        },
+        "202": {
+          "frozen_total": 0.8,
+          "learned_gains": {
+            "branch_a": 0.775,
+            "branch_b": 0.7,
+            "forward": 0.01,
+            "stay": 0.01
+          },
+          "learned_total": 0.12,
+          "ratio": 0.15,
+          "win": false
+        },
+        "303": {
+          "frozen_total": 0.5,
+          "learned_gains": {
+            "branch_a": 0.01,
+            "branch_b": 0.01,
+            "forward": 0.706,
+            "stay": 0.01
+          },
+          "learned_total": 0.04,
+          "ratio": 0.08,
+          "win": false
+        },
+        "404": {
+          "frozen_total": 0.36,
+          "learned_gains": {
+            "branch_a": 0.01,
+            "branch_b": 0.01,
+            "forward": 0.784,
+            "stay": 0.175
+          },
+          "learned_total": 0.06,
+          "ratio": 0.167,
+          "win": false
+        }
+      },
+      "wins": 0
+    },
+    "P2_noisy_signal": {
+      "pass": true,
+      "results": {
+        "101": {
+          "frozen_total": 96.03,
+          "learned_gains": {
+            "a": 1.621,
+            "b": 0.831,
+            "c": 1.993
+          },
+          "learned_total": 126.0,
+          "ratio": 1.312,
+          "win": true
+        },
+        "202": {
+          "frozen_total": 86.13,
+          "learned_gains": {
+            "a": 1.765,
+            "b": 0.829,
+            "c": 2.0
+          },
+          "learned_total": 128.77,
+          "ratio": 1.495,
+          "win": true
+        },
+        "303": {
+          "frozen_total": 92.08,
+          "learned_gains": {
+            "a": 1.721,
+            "b": 0.806,
+            "c": 2.0
+          },
+          "learned_total": 135.66,
+          "ratio": 1.473,
+          "win": true
+        },
+        "404": {
+          "frozen_total": 81.95,
+          "learned_gains": {
+            "a": 1.625,
+            "b": 0.881,
+            "c": 1.925
+          },
+          "learned_total": 124.31,
+          "ratio": 1.517,
+          "win": true
+        }
+      },
+      "wins": 4
+    },
+    "P3_multi_reversal": {
+      "pass": true,
+      "results": {
+        "101": {
+          "frozen_total": 98.56,
+          "learned_gains": {
+            "a": 0.836,
+            "b": 0.753,
+            "c": 2.0
+          },
+          "learned_per_phase": [
+            52.09,
+            41.05,
+            38.48,
+            39.54
+          ],
+          "learned_total": 171.16,
+          "ratio": 1.737,
+          "win": true
+        },
+        "202": {
+          "frozen_total": 85.61,
+          "learned_gains": {
+            "a": 0.898,
+            "b": 0.835,
+            "c": 2.0
+          },
+          "learned_per_phase": [
+            52.4,
+            40.86,
+            41.25,
+            40.76
+          ],
+          "learned_total": 175.26,
+          "ratio": 2.047,
+          "win": true
+        },
+        "303": {
+          "frozen_total": 90.16,
+          "learned_gains": {
+            "a": 0.825,
+            "b": 0.721,
+            "c": 2.0
+          },
+          "learned_per_phase": [
+            51.43,
+            41.1,
+            40.45,
+            38.58
+          ],
+          "learned_total": 171.56,
+          "ratio": 1.903,
+          "win": true
+        },
+        "404": {
+          "frozen_total": 97.84,
+          "learned_gains": {
+            "a": 0.918,
+            "b": 0.883,
+            "c": 2.0
+          },
+          "learned_per_phase": [
+            52.19,
+            42.13,
+            39.76,
+            41.32
+          ],
+          "learned_total": 175.39,
+          "ratio": 1.793,
+          "win": true
+        }
+      },
+      "wins": 4
+    },
+    "P4_changing_rule": {
+      "pass": false,
+      "results": {
+        "101": {
+          "frozen_total": 232.0,
+          "learned_gains": {
+            "a0": 1.4,
+            "a1": 0.875
+          },
+          "learned_total": 254.0,
+          "ratio": 1.095,
+          "win": false
+        },
+        "202": {
+          "frozen_total": 237.0,
+          "learned_gains": {
+            "a0": 0.085,
+            "a1": 1.25
+          },
+          "learned_total": 244.0,
+          "ratio": 1.03,
+          "win": false
+        },
+        "303": {
+          "frozen_total": 227.0,
+          "learned_gains": {
+            "a0": 0.7,
+            "a1": 0.95
+          },
+          "learned_total": 247.0,
+          "ratio": 1.088,
+          "win": false
+        },
+        "404": {
+          "frozen_total": 241.0,
+          "learned_gains": {
+            "a0": 1.1,
+            "a1": 0.775
+          },
+          "learned_total": 259.0,
+          "ratio": 1.075,
+          "win": false
+        }
+      },
+      "wins": 0
+    }
+  },
+  "seeds": [
+    101,
+    202,
+    303,
+    404
+  ],
+  "theta": 0.45,
+  "verdicts": {
+    "P1_delayed_reward": false,
+    "P2_noisy_signal": true,
+    "P3_multi_reversal": true,
+    "P4_changing_rule": false
+  }
+}
