@@ -1,0 +1,6 @@
+=== repro5_EXP-AB-C2B ===
+C2B: revival=False
+  /home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/receipts/repro5_EXP-AB-C2B.json
+  5-SEED REPLICATION (0/5 seeds: revival): KILL REPLICATES. Recorded verdict was on 3 seeds; this replication ran the identical instrument on 5 fresh seeds [75201, 75202, 75203, 75204, 75205].
+  arch: /home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/receipts/repro5_EXP-AB-C2B.json
+  lane: /home/hatch/workspace/chambers/emergent-mind/flesh-pits/receipts/repro5_EXP-AB-C2B.json

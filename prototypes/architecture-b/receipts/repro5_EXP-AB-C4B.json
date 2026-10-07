@@ -1,0 +1,190 @@
+{
+  "architecture": "B",
+  "config_hash": "f83d0bab68fcdbf90acafdf4f1035f8df1b8cdeb282739dfd4699331bdf03853",
+  "contract_version": "1.0.0",
+  "experiment_id": "repro5_EXP-AB-C4B",
+  "interpretation": "KILL CONFIRMED PERMANENTLY: AI IG_probe 0.4476 vs greedy 0.6487 vs random 0.5530 \u2014 the sharper metric does not revive active inference. The label stays off.\n\n5-SEED REPLICATION (5/5 seeds: kill condition): KILL REPLICATES. Recorded verdict was on 3 seeds; this replication ran the identical instrument on 5 fresh seeds [75301, 75302, 75303, 75304, 75305].\n\nCORRECTION 2026-10-07T09:20Z: the verdict line first written here said KILL OVERTURNED due to an inverted label in the driver's verdict map (n_holds counts kill-condition holds, so 5/5 must map to KILL REPLICATES, not OVERTURNED). The per-seed data and the preregistered rule were always correct: 5/5 seeds satisfy AI IG_probe <= max(greedy, random), so the preregistered gate (>= 4/5) gives KILL REPLICATES. Verdict text corrected; data, seeds, instrument, and decision rule unchanged.",
+  "limitations": "Probe drawn from a random policy: it matches random's experience distribution, which if anything favors random \u2014 a conservative test for AI. Identical init across modes makes probe-before identical by construction. 3 seeds; affect='none'.",
+  "preregistered": {
+    "ablation": "The action policy (active_inference vs greedy vs random).",
+    "baseline": "arch_b with action_mode greedy / random (same world model, same seeds \u2014 only the act() policy differs).",
+    "conditions": {
+      "affect": "none",
+      "agent": "arch_b v1",
+      "env": "pomaze v1.0.0",
+      "episodes": 15,
+      "probe_seed": 901,
+      "probe_size": 400,
+      "replication_of": "EXP-AB-C4B",
+      "reproduction_seeds": [
+        75301,
+        75302,
+        75303,
+        75304,
+        75305
+      ]
+    },
+    "hypothesis": "Active-inference action selection produces larger uncertainty reduction than greedy/random, measured as probe-set prediction-error decline (not error decline within predictable regions).",
+    "kill_rule": "AI seed-mean IG_probe <= max(greedy, random) seed-mean IG_probe -> label stays off PERMANENTLY (NR-B-009).",
+    "metric": "IG_probe = mean|e0| on a FIXED probe set before \u2212 after 15-episode pomaze training; seed-meaned. Secondary: mean_return.",
+    "null": "AI probe-error reduction <= greedy/random \u2014 the IG term is not causal; the 'active inference' label stays off permanently.",
+    "procedure": "Probe: 400 transitions from random-policy pomaze rollouts (fixed seeds, policy-independent). Per (seed, mode): fresh agent with IDENTICAL init across modes -> probe-before -> 15 closed-loop episodes -> probe-after. Probe eval is pure model prediction (eval_transition: no memory store, no retrieval correction) \u2014 it measures model knowledge, not memory.",
+    "seeds": [
+      75301,
+      75302,
+      75303,
+      75304,
+      75305
+    ]
+  },
+  "prev_receipt_hash": "a1b2d8216680614538955b82dee0f6d24e30c9b158205138d0b0006f7c143274",
+  "receipt_hash": "30bba4a4cb508dfa60fac2b522dfbc93aa22e5901b90615f510c0c85cc7ec1d0",
+  "replication": {
+    "correction": "CORRECTION 2026-10-07T09:20Z: the verdict line first written here said KILL OVERTURNED due to an inverted label in the driver's verdict map (n_holds counts kill-condition holds, so 5/5 must map to KILL REPLICATES, not OVERTURNED). The per-seed data and the preregistered rule were always correct: 5/5 seeds satisfy AI IG_probe <= max(greedy, random), so the preregistered gate (>= 4/5) gives KILL REPLICATES. Verdict text corrected; data, seeds, instrument, and decision rule unchanged.",
+    "determinism_g0a": "",
+    "experiment_id": "repro5_EXP-AB-C4B",
+    "holds_seeds": [
+      75301,
+      75302,
+      75303,
+      75304,
+      75305
+    ],
+    "n_holds": 5,
+    "replicates": "EXP-AB-C4B",
+    "seeds": [
+      75301,
+      75302,
+      75303,
+      75304,
+      75305
+    ],
+    "verdict": "5-SEED REPLICATION (5/5 seeds: kill condition): KILL REPLICATES. Recorded verdict was on 3 seeds; this replication ran the identical instrument on 5 fresh seeds [75301, 75302, 75303, 75304, 75305]."
+  },
+  "result": {
+    "active_inference": {
+      "mean_IG_probe": 0.44758225861137557,
+      "mean_return": -3.6853333333333174,
+      "per_seed": [
+        {
+          "IG_probe": 0.32675518383962654,
+          "mean_return": -3.12733333333332,
+          "probe_after": 1.2892256576517263,
+          "probe_before": 1.6159808414913528,
+          "seed": 75301
+        },
+        {
+          "IG_probe": 0.25891701190456806,
+          "mean_return": -3.9906666666666486,
+          "probe_after": 1.3436234162419607,
+          "probe_before": 1.6025404281465288,
+          "seed": 75302
+        },
+        {
+          "IG_probe": 0.6092299083909021,
+          "mean_return": -3.82266666666665,
+          "probe_after": 1.0593003686460394,
+          "probe_before": 1.6685302770369415,
+          "seed": 75303
+        },
+        {
+          "IG_probe": 0.5484868661780533,
+          "mean_return": -4.103999999999983,
+          "probe_after": 1.1015246825491904,
+          "probe_before": 1.6500115487272438,
+          "seed": 75304
+        },
+        {
+          "IG_probe": 0.4945223227437281,
+          "mean_return": -3.381999999999987,
+          "probe_after": 1.181165354107403,
+          "probe_before": 1.675687676851131,
+          "seed": 75305
+        }
+      ]
+    },
+    "greedy": {
+      "mean_IG_probe": 0.6486504271162459,
+      "mean_return": -5.964533333333338,
+      "per_seed": [
+        {
+          "IG_probe": 0.6177312641166467,
+          "mean_return": -5.948000000000005,
+          "probe_after": 0.9982495773747061,
+          "probe_before": 1.6159808414913528,
+          "seed": 75301
+        },
+        {
+          "IG_probe": 0.33097278664702157,
+          "mean_return": -5.938666666666672,
+          "probe_after": 1.2715676414995072,
+          "probe_before": 1.6025404281465288,
+          "seed": 75302
+        },
+        {
+          "IG_probe": 0.7694051204664324,
+          "mean_return": -5.968000000000004,
+          "probe_after": 0.8991251565705091,
+          "probe_before": 1.6685302770369415,
+          "seed": 75303
+        },
+        {
+          "IG_probe": 0.778691630639577,
+          "mean_return": -5.989333333333338,
+          "probe_after": 0.8713199180876667,
+          "probe_before": 1.6500115487272438,
+          "seed": 75304
+        },
+        {
+          "IG_probe": 0.7464513337115517,
+          "mean_return": -5.978666666666672,
+          "probe_after": 0.9292363431395794,
+          "probe_before": 1.675687676851131,
+          "seed": 75305
+        }
+      ]
+    },
+    "random": {
+      "mean_IG_probe": 0.5529718331892465,
+      "mean_return": -4.0834666666666495,
+      "per_seed": [
+        {
+          "IG_probe": 0.6719516865213986,
+          "mean_return": -4.016666666666649,
+          "probe_after": 0.9440291549699542,
+          "probe_before": 1.6159808414913528,
+          "seed": 75301
+        },
+        {
+          "IG_probe": 0.2908664847189495,
+          "mean_return": -4.122666666666649,
+          "probe_after": 1.3116739434275793,
+          "probe_before": 1.6025404281465288,
+          "seed": 75302
+        },
+        {
+          "IG_probe": 0.5379166045859596,
+          "mean_return": -3.8459999999999828,
+          "probe_after": 1.1306136724509819,
+          "probe_before": 1.6685302770369415,
+          "seed": 75303
+        },
+        {
+          "IG_probe": 0.5208114430002557,
+          "mean_return": -4.191999999999982,
+          "probe_after": 1.129200105726988,
+          "probe_before": 1.6500115487272438,
+          "seed": 75304
+        },
+        {
+          "IG_probe": 0.7433129471196691,
+          "mean_return": -4.2399999999999824,
+          "probe_after": 0.932374729731462,
+          "probe_before": 1.675687676851131,
+          "seed": 75305
+        }
+      ]
+    }
+  },
+  "written_utc": "2026-10-07T09:12:51.991659+00:00"
+}

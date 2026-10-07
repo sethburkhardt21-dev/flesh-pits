@@ -1,0 +1,269 @@
+{
+  "architecture": "B",
+  "config_hash": "e3dc81f331d690e797a8162778edf341018893b36e4a0c1a15067e900f6d2d71",
+  "contract_version": "1.0.0",
+  "experiment_id": "repro5_EXP-AB-K3B",
+  "interpretation": "HIERARCHY EARNS ITS KEEP: arm-A lesion gaps grew vs K3's +0.0032 \u2014 |e0| gap +0.0079, |rerr| gap -0.0319 (seed-means). Arm B: |e0| +0.0356, terminal |rerr| -0.0224 (expected \u22480 \u2014 hidden branch bounds it).\n\n5-SEED REPLICATION (4/5 seeds: hierarchy grown): REPRODUCES. Recorded verdict was on 3 seeds; this replication ran the identical instrument on 5 fresh seeds [75401, 75402, 75403, 75404, 75405].",
+  "limitations": "Open-loop training isolates the weight/precision machinery (as K3); closed-loop control effects are factored out by design. Arm-B terminal ticks flagged by reward >= 0.5. 3 seeds.",
+  "preregistered": {
+    "ablation": "L1 top-down path (lesion_l1) \u2014 same lesion as K3.",
+    "baseline": "arch_b lesion_l1=True (L0-only), identical transitions.",
+    "conditions": {
+      "affect": "none",
+      "agent": "arch_b v1",
+      "replication_of": "EXP-AB-K3B",
+      "reproduction_seeds": [
+        75401,
+        75402,
+        75403,
+        75404,
+        75405
+      ]
+    },
+    "decision_rule": "Arm-A |e0| or |rerr| lesion gap clearly larger than K3's +0.0032 (seed-mean) -> hierarchy earns its keep. Gaps at K3 scale or smaller -> effect stays weak; note as a bound.",
+    "hypothesis": "With longer training on structured tasks, the intact-vs-L1-lesioned prediction gap GROWS beyond K3's +0.0032: the top-down context experts earn their keep where predictable structure spans longer horizons.",
+    "metric": "Arm A (changing_rule, 1500 train transitions, held-out 200 from a stable phase): mean|e0| and mean|rerr| intact vs lesioned. Arm B (delayed_reward, 600 train / 120 held-out): same metrics; preregistered expectation: terminal |rerr| gap \u2248 0 because the correct branch is hidden (50/50 unpredictable from obs) \u2014 arm B bounds the test, arm A carries it.",
+    "null": "Gaps stay tiny/absent \u2014 the hierarchy effect is bounded at K3's weak level.",
+    "procedure": "Open-loop transition training via learn_transition (no retrieval correction/affect \u2014 isolates the weight/precision machinery, as in K3), 3 seeds.",
+    "seeds": [
+      75401,
+      75402,
+      75403,
+      75404,
+      75405
+    ]
+  },
+  "prev_receipt_hash": "39bf916647d47e0bb48b8af9a9d760dc9e803837cca358695dc6c3dd11d6ffee",
+  "receipt_hash": "2fcd0a9ea630eb6d090b69b67205cee56759bfac1525a5447665ba1951e067c1",
+  "replication": {
+    "determinism_g0a": "",
+    "experiment_id": "repro5_EXP-AB-K3B",
+    "holds_seeds": [
+      75401,
+      75403,
+      75404,
+      75405
+    ],
+    "n_holds": 4,
+    "replicates": "EXP-AB-K3B",
+    "seeds": [
+      75401,
+      75402,
+      75403,
+      75404,
+      75405
+    ],
+    "verdict": "5-SEED REPLICATION (4/5 seeds: hierarchy grown): REPRODUCES. Recorded verdict was on 3 seeds; this replication ran the identical instrument on 5 fresh seeds [75401, 75402, 75403, 75404, 75405]."
+  },
+  "result": {
+    "arm_a_changing_rule": {
+      "mean_delta_e0": 0.007887644150273255,
+      "mean_delta_rerr": -0.03191653069158633,
+      "per_seed": [
+        {
+          "delta_e0": 0.027186737709807285,
+          "delta_rerr": 0.10373172244518614,
+          "intact": {
+            "mean_abs_e0": 0.9003113555606498,
+            "mean_abs_rerr": 0.6266374011810286,
+            "mean_abs_rerr_terminal": 0.5888903058760527,
+            "n_terminal": 109
+          },
+          "lesioned": {
+            "mean_abs_e0": 0.9274980932704571,
+            "mean_abs_rerr": 0.7303691236262148,
+            "mean_abs_rerr_terminal": 0.7611295840878168,
+            "n_terminal": 109
+          },
+          "n_heldout": 200,
+          "n_train": 1500,
+          "seed": 75401
+        },
+        {
+          "delta_e0": -0.006806929528095584,
+          "delta_rerr": -0.03047538205482192,
+          "intact": {
+            "mean_abs_e0": 0.8904541923555002,
+            "mean_abs_rerr": 0.7024839252113381,
+            "mean_abs_rerr_terminal": 0.7835523799008597,
+            "n_terminal": 146
+          },
+          "lesioned": {
+            "mean_abs_e0": 0.8836472628274046,
+            "mean_abs_rerr": 0.6720085431565161,
+            "mean_abs_rerr_terminal": 0.7533316262826755,
+            "n_terminal": 146
+          },
+          "n_heldout": 200,
+          "n_train": 1500,
+          "seed": 75402
+        },
+        {
+          "delta_e0": 0.004296808225473403,
+          "delta_rerr": -0.08550687692100967,
+          "intact": {
+            "mean_abs_e0": 0.8931159728340237,
+            "mean_abs_rerr": 0.6602672456920787,
+            "mean_abs_rerr_terminal": 0.6082264753387394,
+            "n_terminal": 134
+          },
+          "lesioned": {
+            "mean_abs_e0": 0.8974127810594971,
+            "mean_abs_rerr": 0.5747603687710691,
+            "mean_abs_rerr_terminal": 0.554841196339113,
+            "n_terminal": 134
+          },
+          "n_heldout": 200,
+          "n_train": 1500,
+          "seed": 75403
+        },
+        {
+          "delta_e0": 0.005424040764599125,
+          "delta_rerr": -0.27528174848123044,
+          "intact": {
+            "mean_abs_e0": 0.8933459941262041,
+            "mean_abs_rerr": 0.9682252890009567,
+            "mean_abs_rerr_terminal": 1.045323330308118,
+            "n_terminal": 127
+          },
+          "lesioned": {
+            "mean_abs_e0": 0.8987700348908032,
+            "mean_abs_rerr": 0.6929435405197263,
+            "mean_abs_rerr_terminal": 0.488018111025687,
+            "n_terminal": 127
+          },
+          "n_heldout": 200,
+          "n_train": 1500,
+          "seed": 75404
+        },
+        {
+          "delta_e0": 0.009337563579582042,
+          "delta_rerr": 0.12794963155394423,
+          "intact": {
+            "mean_abs_e0": 0.8589801405081569,
+            "mean_abs_rerr": 0.6291698845035961,
+            "mean_abs_rerr_terminal": 0.5831036691599081,
+            "n_terminal": 144
+          },
+          "lesioned": {
+            "mean_abs_e0": 0.8683177040877389,
+            "mean_abs_rerr": 0.7571195160575404,
+            "mean_abs_rerr_terminal": 0.6092912509924262,
+            "n_terminal": 144
+          },
+          "n_heldout": 200,
+          "n_train": 1500,
+          "seed": 75405
+        }
+      ]
+    },
+    "arm_b_delayed_reward": {
+      "mean_delta_e0": 0.03558431125325738,
+      "mean_delta_rerr": -0.17481165343478897,
+      "mean_delta_rerr_terminal": -0.02241168150663737,
+      "per_seed": [
+        {
+          "delta_e0": 0.03515127160405296,
+          "delta_rerr": -0.07420069517361441,
+          "delta_rerr_terminal": 0.0,
+          "intact": {
+            "mean_abs_e0": 0.42794071207723505,
+            "mean_abs_rerr": 0.23935750440826736,
+            "mean_abs_rerr_terminal": 0.0,
+            "n_terminal": 0
+          },
+          "lesioned": {
+            "mean_abs_e0": 0.463091983681288,
+            "mean_abs_rerr": 0.16515680923465295,
+            "mean_abs_rerr_terminal": 0.0,
+            "n_terminal": 0
+          },
+          "n_heldout": 120,
+          "n_train": 600,
+          "seed": 75401
+        },
+        {
+          "delta_e0": 0.045103087439384515,
+          "delta_rerr": 0.18607556852665652,
+          "delta_rerr_terminal": -0.07367185516854136,
+          "intact": {
+            "mean_abs_e0": 0.3374050977569694,
+            "mean_abs_rerr": 0.6018743527264352,
+            "mean_abs_rerr_terminal": 1.241983261495451,
+            "n_terminal": 2
+          },
+          "lesioned": {
+            "mean_abs_e0": 0.38250818519635393,
+            "mean_abs_rerr": 0.7879499212530917,
+            "mean_abs_rerr_terminal": 1.1683114063269096,
+            "n_terminal": 2
+          },
+          "n_heldout": 120,
+          "n_train": 600,
+          "seed": 75402
+        },
+        {
+          "delta_e0": 0.050811378475170255,
+          "delta_rerr": -0.5130189575571122,
+          "delta_rerr_terminal": 0.0,
+          "intact": {
+            "mean_abs_e0": 0.5242145456980719,
+            "mean_abs_rerr": 0.6714838217729,
+            "mean_abs_rerr_terminal": 0.0,
+            "n_terminal": 0
+          },
+          "lesioned": {
+            "mean_abs_e0": 0.5750259241732422,
+            "mean_abs_rerr": 0.1584648642157877,
+            "mean_abs_rerr_terminal": 0.0,
+            "n_terminal": 0
+          },
+          "n_heldout": 120,
+          "n_train": 600,
+          "seed": 75403
+        },
+        {
+          "delta_e0": 0.036014756013378474,
+          "delta_rerr": -0.3687682579716259,
+          "delta_rerr_terminal": 0.0,
+          "intact": {
+            "mean_abs_e0": 0.22264390908065265,
+            "mean_abs_rerr": 0.722055005854153,
+            "mean_abs_rerr_terminal": 0.0,
+            "n_terminal": 0
+          },
+          "lesioned": {
+            "mean_abs_e0": 0.2586586650940311,
+            "mean_abs_rerr": 0.3532867478825272,
+            "mean_abs_rerr_terminal": 0.0,
+            "n_terminal": 0
+          },
+          "n_heldout": 120,
+          "n_train": 600,
+          "seed": 75404
+        },
+        {
+          "delta_e0": 0.010841062734300688,
+          "delta_rerr": -0.10414592499824882,
+          "delta_rerr_terminal": -0.0383865523646455,
+          "intact": {
+            "mean_abs_e0": 0.1574839692847249,
+            "mean_abs_rerr": 0.45959807438858036,
+            "mean_abs_rerr_terminal": 0.5643537596143942,
+            "n_terminal": 2
+          },
+          "lesioned": {
+            "mean_abs_e0": 0.1683250320190256,
+            "mean_abs_rerr": 0.35545214939033154,
+            "mean_abs_rerr_terminal": 0.5259672072497487,
+            "n_terminal": 2
+          },
+          "n_heldout": 120,
+          "n_train": 600,
+          "seed": 75405
+        }
+      ]
+    }
+  },
+  "written_utc": "2026-10-07T09:13:47.510119+00:00"
+}

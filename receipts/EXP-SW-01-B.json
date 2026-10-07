@@ -1,0 +1,135 @@
+{
+  "baseline": "frozen ArchB (frozen=True), identical streams + init seeds.",
+  "conditions": "self_world v1.0.0; STEP=0.2; MAX_STEPS=60; reward 0.0; contract 1.0.0; cause labels from info used for SCORING ONLY, never by agents. B: ArchB affect='none', learn_transition training (10 eps x 60), held-out predict_next eval (5 eps x 60); init seed 75001..75004 paired. A: WorkspaceTick channels ['hand','ball'], change-detector specialists, capacity=3, gain_lr=0.05, closed-loop via scalar-reward adapter (4 eps x 60 ticks), action map {'hand':0,'ball':1}.",
+  "config": {
+    "arch": "B",
+    "conditions": "self_world v1.0.0; STEP=0.2; MAX_STEPS=60; reward 0.0; contract 1.0.0; cause labels from info used for SCORING ONLY, never by agents. B: ArchB affect='none', learn_transition training (10 eps x 60), held-out predict_next eval (5 eps x 60); init seed 75001..75004 paired. A: WorkspaceTick channels ['hand','ball'], change-detector specialists, capacity=3, gain_lr=0.05, closed-loop via scalar-reward adapter (4 eps x 60 ticks), action map {'hand':0,'ball':1}.",
+    "env": "self_world",
+    "env_version": "1.0.0",
+    "experiment_id": "EXP-SW-01-B",
+    "preregistration": "experiments/preregistration_SELF_WORLD.json",
+    "seeds": [
+      75101,
+      75102,
+      75103,
+      75104
+    ]
+  },
+  "config_hash": "52a3d0c26e7f212eb479a6aa92553c0f60b4807a9f61ec489c0f937ea35581c0",
+  "episodes": [
+    {
+      "D_adj": 0.019384713899275194,
+      "D_frozen": 0.08950197332002247,
+      "D_intact": 0.10888668721929766,
+      "frozen_mean_e_ball": 0.5458054079603671,
+      "frozen_mean_e_hand": 0.4563034346403447,
+      "intact_mean_e_ball": 0.1656903572789325,
+      "intact_mean_e_hand": 0.05680367005963484,
+      "n_heldout": 300,
+      "seed": 75101
+    },
+    {
+      "D_adj": 0.17392547048813206,
+      "D_frozen": -0.05275654332436214,
+      "D_intact": 0.12116892716376992,
+      "frozen_mean_e_ball": 0.4596433169062905,
+      "frozen_mean_e_hand": 0.5123998602306526,
+      "intact_mean_e_ball": 0.1710237563143743,
+      "intact_mean_e_hand": 0.049854829150604386,
+      "n_heldout": 300,
+      "seed": 75102
+    },
+    {
+      "D_adj": 0.029479104813159546,
+      "D_frozen": 0.07959083162516045,
+      "D_intact": 0.10906993643832,
+      "frozen_mean_e_ball": 0.589577649850668,
+      "frozen_mean_e_hand": 0.5099868182255075,
+      "intact_mean_e_ball": 0.1603246978737352,
+      "intact_mean_e_hand": 0.051254761435415214,
+      "n_heldout": 300,
+      "seed": 75103
+    },
+    {
+      "D_adj": 0.14123431485721186,
+      "D_frozen": -0.013317460821125171,
+      "D_intact": 0.12791685403608669,
+      "frozen_mean_e_ball": 0.4940930778567413,
+      "frozen_mean_e_hand": 0.5074105386778665,
+      "intact_mean_e_ball": 0.18708620282273902,
+      "intact_mean_e_hand": 0.059169348786652344,
+      "n_heldout": 300,
+      "seed": 75104
+    }
+  ],
+  "experiment_id": "EXP-SW-01-B",
+  "hypothesis": "B's action-conditioned generative model predicts self-caused observation changes better than world-caused ones: mean|e|_ball > mean|e|_hand on held-out transitions.",
+  "interpretation": "DISTINCTION DETECTED (PASS)",
+  "limitations": "",
+  "null_hypothesis": "D ~= 0 intact, or the frozen arm shows the same gap (architectural bias, not learned attribution).",
+  "preregistered_metric": "D_adj = D_intact - D_frozen per seed (AMENDED pre-run: paired bias-corrected gap, identical held-out stream for both arms); PASS iff seed-mean D_adj > +0.05 AND D_adj > 0 on >= 3/4 seeds.",
+  "prev_receipt_hash": "351df448fd8ed269066c9a91abe8c95e1f1f0aee988ec6c5c8aa62102aff00a0",
+  "primary_seed": [
+    75101,
+    75102,
+    75103,
+    75104
+  ],
+  "receipt_hash": "44d1f7396bf804dae62ffd8a09562b30549c95bc7677269240c8fc51f0d05ea9",
+  "started_utc": "2026-10-07T09:10:29.766507+00:00",
+  "summary": {
+    "per_seed": [
+      {
+        "D_adj": 0.019384713899275194,
+        "D_frozen": 0.08950197332002247,
+        "D_intact": 0.10888668721929766,
+        "frozen_mean_e_ball": 0.5458054079603671,
+        "frozen_mean_e_hand": 0.4563034346403447,
+        "intact_mean_e_ball": 0.1656903572789325,
+        "intact_mean_e_hand": 0.05680367005963484,
+        "n_heldout": 300,
+        "seed": 75101
+      },
+      {
+        "D_adj": 0.17392547048813206,
+        "D_frozen": -0.05275654332436214,
+        "D_intact": 0.12116892716376992,
+        "frozen_mean_e_ball": 0.4596433169062905,
+        "frozen_mean_e_hand": 0.5123998602306526,
+        "intact_mean_e_ball": 0.1710237563143743,
+        "intact_mean_e_hand": 0.049854829150604386,
+        "n_heldout": 300,
+        "seed": 75102
+      },
+      {
+        "D_adj": 0.029479104813159546,
+        "D_frozen": 0.07959083162516045,
+        "D_intact": 0.10906993643832,
+        "frozen_mean_e_ball": 0.589577649850668,
+        "frozen_mean_e_hand": 0.5099868182255075,
+        "intact_mean_e_ball": 0.1603246978737352,
+        "intact_mean_e_hand": 0.051254761435415214,
+        "n_heldout": 300,
+        "seed": 75103
+      },
+      {
+        "D_adj": 0.14123431485721186,
+        "D_frozen": -0.013317460821125171,
+        "D_intact": 0.12791685403608669,
+        "frozen_mean_e_ball": 0.4940930778567413,
+        "frozen_mean_e_hand": 0.5074105386778665,
+        "intact_mean_e_ball": 0.18708620282273902,
+        "intact_mean_e_hand": 0.059169348786652344,
+        "n_heldout": 300,
+        "seed": 75104
+      }
+    ],
+    "rule_fired": true,
+    "seed_mean_D_adj": 0.09100590101444467,
+    "seed_mean_D_frozen": 0.025754700199923902,
+    "seed_mean_D_intact": 0.11676060121436857,
+    "seeds_positive_D_adj": 4,
+    "verdict": "DISTINCTION DETECTED (PASS)"
+  },
+  "written_utc": "2026-10-07T09:10:29.766671+00:00"
+}

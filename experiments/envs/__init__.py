@@ -13,10 +13,11 @@ from resource_world import ResourceWorld  # noqa: E402
 from cue_delayed_reward import CueDelayedReward  # noqa: E402
 from delayed_multistep import DelayedMultistep  # noqa: E402
 from compositional_rule import CompositionalRule  # noqa: E402
+from self_world import SelfWorld  # noqa: E402
 
 ALL_ENVS = [GridWorld, POMaze, ChangingRule, DelayedReward, ResourceWorld,
-            CueDelayedReward, DelayedMultistep, CompositionalRule]
+            CueDelayedReward, DelayedMultistep, CompositionalRule, SelfWorld]
 
 __all__ = ["GridWorld", "POMaze", "ChangingRule", "DelayedReward",
            "ResourceWorld", "CueDelayedReward", "DelayedMultistep",
-           "CompositionalRule", "ALL_ENVS"]
+           "CompositionalRule", "SelfWorld", "ALL_ENVS"]

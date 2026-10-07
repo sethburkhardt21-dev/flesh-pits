@@ -322,5 +322,94 @@ class TestUsefulness(unittest.TestCase):
         self.assertAlmostEqual(u.predict(q), 0.5, delta=0.1)
 
 
+class TestShadowGate(unittest.TestCase):
+    """EXP-FP-0007 instrument: the gate reads a shadow-trained predictor."""
+
+    def _agent(self, **kw):
+        kw.setdefault("gate_uhat_source", "shadow")
+        return ArchB(observation_space=SPACE, n_actions=2,
+                     env_name="test", seed=0, **kw)
+
+    def _stub_correction(self, agent, corr_vec=(0.5, 0.0, 0.0)):
+        agent.memory.retrieval_correction = lambda ov, k=5: {
+            "correction": list(corr_vec),
+            "mean_similarity": 0.9, "n": 5}
+
+    def test_invalid_source_raises(self):
+        with self.assertRaises(ValueError):
+            ArchB(observation_space=SPACE, n_actions=2, env_name="test",
+                  gate_uhat_source="bogus")
+
+    def test_live_is_default_and_shadow_zero_init(self):
+        a = ArchB(observation_space=SPACE, n_actions=2, env_name="test")
+        self.assertEqual(a.gate_uhat_source, "live")
+        self.assertEqual(a.shadow_usefulness.w, [0.0] * 4)
+        self.assertEqual(a.shadow_usefulness.b, 0.0)
+
+    def test_gate_reads_shadow_not_live(self):
+        # The EXP-FP-0006 degeneracy: live uhat is cold at exactly 0.0 and
+        # the strict sign gate would block. In shadow mode the gate must
+        # read the shadow predictor instead.
+        a = self._agent(gate_policy="uhat", gate_threshold=0.0)
+        a.reset(5, {"type": "discrete", "n": 2})
+        a.shadow_usefulness.w = [2.0, 0.0, 0.0, 0.0]
+        self._stub_correction(a)
+        a._open_tick([1.0, 0.0, 0.0], 0)
+        st = a.gate.stats()
+        self.assertEqual(st["n_available"], 1)
+        # qfeat[0] = mean_similarity = 0.9 -> shadow uhat = 1.8 > 0.
+        self.assertEqual(st["n_applied"], 1)
+        self.assertGreater(a._pending["uhat_gate"], 0.0)
+        self.assertEqual(a._pending["uhat"], 0.0)  # live still cold
+
+    def test_shadow_trains_on_counterfactual(self):
+        # Blocked correction: live predictor trains on realized benefit 0
+        # (stays degenerate); shadow trains on the counterfactual
+        # unconditional benefit (moves off zero).
+        a = self._agent(gate_policy="uhat", gate_threshold=0.0)
+        a.reset(5, {"type": "discrete", "n": 2})
+        self._stub_correction(a)
+        a._open_tick([1.0, 0.0, 0.0], 0)
+        # Shadow is cold -> uhat_gate == 0.0 -> strict gate blocks.
+        self.assertEqual(a.gate.stats()["n_applied"], 0)
+        xhat_raw = a._pending["xhat_raw"]
+        corr = a._pending["correction"]
+        obs_helped = [x + c for x, c in zip(xhat_raw, corr)]
+        a._close_tick(obs_helped)
+        self.assertEqual(len(a._shadow_hist), 1)
+        uhat_gate, benefit = a._shadow_hist[0]
+        self.assertEqual(uhat_gate, 0.0)
+        # Counterfactual benefit = |e0_raw| - 0 = |correction|.
+        self.assertAlmostEqual(benefit, 0.5, places=9)
+        self.assertNotEqual(a.shadow_usefulness.w, [0.0] * 4)
+        self.assertNotEqual(a.shadow_usefulness.b, 0.0)
+        # Live predictor saw realized benefit 0 -> unchanged (degenerate).
+        self.assertEqual(a.usefulness.w, [0.0] * 4)
+        self.assertEqual(a.usefulness.b, 0.0)
+
+    def test_shadow_snapshot_restore(self):
+        a = self._agent()
+        a.reset(5, {"type": "discrete", "n": 2})
+        a.shadow_usefulness.w = [1.0, 2.0, 3.0, 4.0]
+        a.shadow_usefulness.b = 0.5
+        s = a.snapshot()
+        json.dumps(s)
+        b = self._agent()
+        b.restore(s)
+        self.assertEqual(b.shadow_usefulness.w, [1.0, 2.0, 3.0, 4.0])
+        self.assertEqual(b.shadow_usefulness.b, 0.5)
+        self.assertEqual(b.gate_uhat_source, "shadow")
+
+    def test_restore_tolerates_pre_shadow_snapshot(self):
+        a = self._agent()
+        a.reset(5, {"type": "discrete", "n": 2})
+        s = a.snapshot()
+        del s["shadow_usefulness"]
+        del s["gate_uhat_source"]
+        b = self._agent()
+        b.restore(s)  # must not raise
+        self.assertEqual(b.gate_uhat_source, "live")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

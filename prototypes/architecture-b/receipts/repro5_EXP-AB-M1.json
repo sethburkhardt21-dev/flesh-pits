@@ -1,0 +1,153 @@
+{
+  "architecture": "B",
+  "config_hash": "c862dfb2388b54995ba0a039d5009a829b9e043c96b6816966b40fd52b88ca14",
+  "contract_version": "1.0.0",
+  "experiment_id": "repro5_EXP-AB-M1",
+  "interpretation": "SELECTIVE DEFICIT as preregistered: pomaze delta +2.158 > delayed_reward delta +0.050. Episodic memory is causally load-bearing on the partial-observability task.\n\n5-SEED REPLICATION (5/5 seeds: selective deficit): REPRODUCES. Recorded verdict was on 3 seeds; this replication ran the identical instrument on 5 fresh seeds [75101, 75102, 75103, 75104, 75105].\nG0a determinism spot-check (seed 75101, identical helper calls): PASS (all 4 re-runs match to 1e-12)",
+  "limitations": "DisabledStore also removes the per-action error signal used by the AI selector's IG term (falls back to the running table), so the ablation covers the store's full causal footprint. 3 seeds; affect='none' isolates the world model.",
+  "preregistered": {
+    "ablation": "arch_b memory_enabled=False: DisabledStore \u2014 no encoding, no retrieval correction, per-action error prediction returns None (selector falls back to its running table).",
+    "baseline": "arch_b memory_enabled=True (intact store).",
+    "conditions": {
+      "action_mode": "active_inference",
+      "affect": "none",
+      "agent": "arch_b v1",
+      "replication_of": "EXP-AB-M1",
+      "reproduction_seeds": [
+        75101,
+        75102,
+        75103,
+        75104,
+        75105
+      ]
+    },
+    "decision_rule": "Selective deficit (pomaze seed-mean delta > 0 and > delayed_reward seed-mean delta) -> memory earns a causal role. Seed-mean deltas \u2248 0 on both tasks -> memory decorative in B (NR-B-007).",
+    "hypothesis": "Disabling episodic memory produces a SELECTIVE deficit: pomaze (partial observability; recall should aid revisit-avoidance via retrieval correction) degrades more than delayed_reward (credit flows through the reward-channel learning path).",
+    "metric": "mean_return per task; per-seed delta = intact \u2212 no_memory; seed-mean deltas compared across tasks.",
+    "null": "Disabling memory changes nothing on either task \u2014 the EpisodicStore is decorative in Architecture B.",
+    "procedure": "Closed-loop runs: pomaze 15 episodes, delayed_reward 10 episodes; affect='none' (world-model isolation); action_mode='active_inference'; identical primary seeds for both conditions (paired).",
+    "seeds": [
+      75101,
+      75102,
+      75103,
+      75104,
+      75105
+    ]
+  },
+  "prev_receipt_hash": "438fceb731ab685bb361cdbaa784669a018d773b9c42c4c246e58431401c19ff",
+  "receipt_hash": "bb2ad1579e6bc71c1c5f8c5eef6a9a5ed304a6894bd3cf8cbbefdb3b878e63ad",
+  "replication": {
+    "determinism_g0a": "G0a determinism spot-check (seed 75101, identical helper calls): PASS (all 4 re-runs match to 1e-12)",
+    "experiment_id": "repro5_EXP-AB-M1",
+    "holds_seeds": [
+      75101,
+      75102,
+      75103,
+      75104,
+      75105
+    ],
+    "n_holds": 5,
+    "replicates": "EXP-AB-M1",
+    "seeds": [
+      75101,
+      75102,
+      75103,
+      75104,
+      75105
+    ],
+    "verdict": "5-SEED REPLICATION (5/5 seeds: selective deficit): REPRODUCES. Recorded verdict was on 3 seeds; this replication ran the identical instrument on 5 fresh seeds [75101, 75102, 75103, 75104, 75105]."
+  },
+  "result": {
+    "delayed_reward": {
+      "mean_delta": 0.0496,
+      "per_seed": [
+        {
+          "delta": 0.086,
+          "intact": 0.086,
+          "intact_memories": 140,
+          "no_memory": 0.0,
+          "nomem_memories": 0,
+          "seed": 75101
+        },
+        {
+          "delta": 0.041999999999999996,
+          "intact": 0.041999999999999996,
+          "intact_memories": 140,
+          "no_memory": 0.0,
+          "nomem_memories": 0,
+          "seed": 75102
+        },
+        {
+          "delta": 0.046,
+          "intact": 0.046,
+          "intact_memories": 140,
+          "no_memory": 0.0,
+          "nomem_memories": 0,
+          "seed": 75103
+        },
+        {
+          "delta": 0.044,
+          "intact": 0.044,
+          "intact_memories": 140,
+          "no_memory": 0.0,
+          "nomem_memories": 0,
+          "seed": 75104
+        },
+        {
+          "delta": 0.03,
+          "intact": 0.03,
+          "intact_memories": 140,
+          "no_memory": 0.0,
+          "nomem_memories": 0,
+          "seed": 75105
+        }
+      ]
+    },
+    "pomaze": {
+      "mean_delta": 2.158000000000018,
+      "per_seed": [
+        {
+          "delta": 2.798666666666685,
+          "intact": -3.1133333333333195,
+          "intact_memories": 2521,
+          "no_memory": -5.912000000000004,
+          "nomem_memories": 0,
+          "seed": 75101
+        },
+        {
+          "delta": 2.2546666666666844,
+          "intact": -3.601333333333319,
+          "intact_memories": 2715,
+          "no_memory": -5.856000000000003,
+          "nomem_memories": 0,
+          "seed": 75102
+        },
+        {
+          "delta": 1.8973333333333513,
+          "intact": -3.652666666666652,
+          "intact_memories": 2740,
+          "no_memory": -5.550000000000003,
+          "nomem_memories": 0,
+          "seed": 75103
+        },
+        {
+          "delta": 2.1273333333333504,
+          "intact": -3.7873333333333203,
+          "intact_memories": 2794,
+          "no_memory": -5.914666666666671,
+          "nomem_memories": 0,
+          "seed": 75104
+        },
+        {
+          "delta": 1.7120000000000197,
+          "intact": -3.841999999999984,
+          "intact_memories": 2844,
+          "no_memory": -5.554000000000004,
+          "nomem_memories": 0,
+          "seed": 75105
+        }
+      ]
+    }
+  },
+  "written_utc": "2026-10-07T09:10:07.573257+00:00"
+}

@@ -1,0 +1,85 @@
+{
+  "baseline": "arch_b lesion_l1=True (L0-only), identical transitions.",
+  "conditions": "Identical to K3B: open-loop learn_transition training (no retrieval correction/affect); arm A changing_rule 45 episodes (train first 1500, held-out 1600-1800); arm B delayed_reward 60 episodes (train first 600, held-out last 120); identical init seeds within seed; terminal |rerr| flagged by reward >= 0.5. | REPRODUCES iff per-seed grown holds on >= 4/5 seeds. < 4/5 -> hierarchy signal FRAGILE on longer horizons (bound tightened). Gaps at/below K3 scale on >= 4/5 -> effect stays weak / OVERTURNED.",
+  "config": {
+    "instrument": "experiments_phase4.py verbatim (EXP-AB-K3B)",
+    "replicates": "EXP-AB-K3B",
+    "seeds": [
+      75401,
+      75402,
+      75403,
+      75404,
+      75405
+    ]
+  },
+  "config_hash": "bafed3d09ccd1cce16121321a9e889ee1cbfefd4646064a4fa533e53d884a416",
+  "episodes": {},
+  "experiment_id": "repro5_EXP-AB-K3B",
+  "hypothesis": "On 5 fresh seeds the arm-A lesion gaps still grow beyond K3's +0.0032 scale, replicating the K3B hierarchy signal.",
+  "interpretation": "5-SEED REPLICATION (4/5 seeds: hierarchy grown): REPRODUCES. Recorded verdict was on 3 seeds; this replication ran the identical instrument on 5 fresh seeds [75401, 75402, 75403, 75404, 75405].",
+  "limitations": "Instrument verbatim from Phase-4; only the seed list changed. 5 fresh seeds; no tuning.",
+  "null_hypothesis": "Gaps stay tiny/absent \u2014 the hierarchy effect is bounded at K3's weak level.",
+  "preregistered_metric": "Identical to K3B: per-seed grown = (delta_e0 > 0.0032 + 1e-9) OR (delta_rerr > 0.0032 + 1e-9) on arm A (changing_rule, 1500 train / 200 held-out). Arm B recorded descriptively.",
+  "prev_receipt_hash": "4134388a206047fea8c68fb497517ed67c94dc224008743af18e90be705865ec",
+  "primary_seed": "75401-75405",
+  "receipt_hash": "881d7fcb52cdc0ce58f5ee291d61456458851ca92b763ed37f423f5013362eb7",
+  "started_utc": "2026-10-07T09:12:52.547871+00:00",
+  "summary": {
+    "arm_a": {
+      "per_seed": [
+        {
+          "delta_e0": 0.027186737709807285,
+          "delta_rerr": 0.10373172244518614,
+          "grown": true,
+          "seed": 75401
+        },
+        {
+          "delta_e0": -0.006806929528095584,
+          "delta_rerr": -0.03047538205482192,
+          "grown": false,
+          "seed": 75402
+        },
+        {
+          "delta_e0": 0.004296808225473403,
+          "delta_rerr": -0.08550687692100967,
+          "grown": true,
+          "seed": 75403
+        },
+        {
+          "delta_e0": 0.005424040764599125,
+          "delta_rerr": -0.27528174848123044,
+          "grown": true,
+          "seed": 75404
+        },
+        {
+          "delta_e0": 0.009337563579582042,
+          "delta_rerr": 0.12794963155394423,
+          "grown": true,
+          "seed": 75405
+        }
+      ],
+      "seed_mean_delta_e0": 0.007887644150273255,
+      "seed_mean_delta_rerr": -0.03191653069158633
+    },
+    "arm_b": {
+      "seed_mean_delta_e0": 0.03558431125325738,
+      "seed_mean_delta_rerr_terminal": -0.02241168150663737
+    },
+    "detail_receipt": "prototypes/architecture-b/receipts/repro5_EXP-AB-K3B.json",
+    "grown_seeds": [
+      75401,
+      75403,
+      75404,
+      75405
+    ],
+    "seeds": [
+      75401,
+      75402,
+      75403,
+      75404,
+      75405
+    ],
+    "verdict": "5-SEED REPLICATION (4/5 seeds: hierarchy grown): REPRODUCES. Recorded verdict was on 3 seeds; this replication ran the identical instrument on 5 fresh seeds [75401, 75402, 75403, 75404, 75405]."
+  },
+  "written_utc": "2026-10-07T09:13:47.647415+00:00"
+}

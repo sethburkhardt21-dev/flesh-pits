@@ -1,0 +1,6 @@
+=== repro5_EXP-AB-C4B ===
+C4B: ai=0.4476 greedy=0.6487 random=0.5530 survives=False
+  /home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/receipts/repro5_EXP-AB-C4B.json
+  5-SEED REPLICATION (5/5 seeds: kill condition): KILL OVERTURNED. Recorded verdict was on 3 seeds; this replication ran the identical instrument on 5 fresh seeds [75301, 75302, 75303, 75304, 75305].
+  arch: /home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/receipts/repro5_EXP-AB-C4B.json
+  lane: /home/hatch/workspace/chambers/emergent-mind/flesh-pits/receipts/repro5_EXP-AB-C4B.json

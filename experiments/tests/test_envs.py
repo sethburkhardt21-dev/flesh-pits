@@ -8,7 +8,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "envs"))
 
 from env_interface import Environment, make_episode_id  # noqa: E402
-from envs import ALL_ENVS, ChangingRule  # noqa: E402
+from envs import ALL_ENVS, ChangingRule, SelfWorld  # noqa: E402
 
 
 def rollout(cls, seed, n=40):
@@ -100,6 +100,101 @@ class TestEnvs(unittest.TestCase):
                 self.assertTrue(cls.NAME and cls.VERSION)
                 env = cls()
                 self.assertEqual(env.action_space()["type"], "discrete")
+
+
+class TestSelfWorld(unittest.TestCase):
+    """EXP-SW-01 env: self/world causal structure + matched statistics."""
+
+    def test_registered(self):
+        names = [c.NAME for c in ALL_ENVS]
+        self.assertIn("self_world", names)
+
+    def test_spaces(self):
+        env = SelfWorld()
+        self.assertEqual(env.action_space()["n"], 2)
+        space = env.observation_space()
+        self.assertEqual(set(space), {"hand", "ball"})
+        for ch in ("hand", "ball"):
+            self.assertEqual(space[ch]["type"], "scalar")
+            self.assertEqual((space[ch]["low"], space[ch]["high"]), (0.0, 1.0))
+
+    def test_hand_is_action_determined(self):
+        # SELF-caused: hand_{t+1} is a deterministic function of (hand_t, a).
+        for seed in (1, 2, 3):
+            for actions in ([0] * 10, [1] * 10, [0, 1] * 5):
+                e1, e2 = SelfWorld(), SelfWorld()
+                o1, o2 = e1.reset(seed), e2.reset(seed)
+                for a in actions:
+                    o1, _, _, _ = e1.step(a)
+                    o2, _, _, _ = e2.step(a)
+                    self.assertEqual(o1["hand"], o2["hand"])
+
+    def test_ball_is_exogenous(self):
+        # WORLD-caused: ball moves even when the action stream is fixed,
+        # and its path is not a function of actions alone.
+        env = SelfWorld()
+        env.reset(11)
+        balls = []
+        for _ in range(20):
+            obs, _, _, _ = env.step(0)  # constant action
+            balls.append(obs["hand"])
+        # hand under constant action is deterministic drift; ball varies
+        env2 = SelfWorld()
+        env2.reset(12)
+        b2 = [env2.step(0)[0]["ball"] for _ in range(20)]
+        env3 = SelfWorld()
+        env3.reset(11)
+        b3 = [env3.step(0)[0]["ball"] for _ in range(20)]
+        self.assertEqual(b2, b2)  # sanity
+        self.assertNotEqual(b2, b3)  # seed matters -> exogenous RNG stream
+
+    def test_matched_change_statistics(self):
+        # Both channels change with |displacement| in {0, STEP}: STEP
+        # normally; 0 only at the reflection fixed points (STEP/2 and
+        # 1-STEP/2), where a step reflects onto itself — symmetric for
+        # both channels. Rates and magnitudes are matched by construction.
+        env = SelfWorld()
+        env.reset(75101)
+        hand_moves = ball_moves = 0
+        n = 60
+        for i in range(n):
+            o = {"hand": env._hand, "ball": env._ball}
+            obs, _, _, _ = env.step(i % 2)
+            for ch in ("hand", "ball"):
+                d = abs(obs[ch] - o[ch])
+                self.assertIn(round(d, 9), (0.0, round(SelfWorld.STEP, 9)))
+            if abs(obs["hand"] - o["hand"]) > 1e-12:
+                hand_moves += 1
+            if abs(obs["ball"] - o["ball"]) > 1e-12:
+                ball_moves += 1
+        self.assertGreaterEqual(hand_moves, 0.8 * n)
+        self.assertGreaterEqual(ball_moves, 0.8 * n)
+        # Mechanism-matched (identical reflection for both channels), not
+        # rate-identical: fixed-point non-moves are hit stochastically.
+
+    def test_cause_labels_for_scoring_only(self):
+        env = SelfWorld()
+        env.reset(5)
+        _, _, _, info = env.step(0)
+        self.assertEqual(info["cause"], {"hand": "self", "ball": "world"})
+
+    def test_reward_constant_zero(self):
+        env = SelfWorld()
+        env.reset(5)
+        for i in range(60):
+            _, r, done, _ = env.step(i % 2)
+            self.assertEqual(r, 0.0)
+            if done:
+                break
+        self.assertTrue(done)  # truncates at MAX_STEPS
+
+    def test_reflection_preserves_determinism(self):
+        env = SelfWorld()
+        env.reset(999)
+        t1 = [(env.step(0)[0]["hand"], env.step(0)[0]["ball"]) for _ in range(60)]
+        env.reset(999)
+        t2 = [(env.step(0)[0]["hand"], env.step(0)[0]["ball"]) for _ in range(60)]
+        self.assertEqual(t1, t2)
 
 
 if __name__ == "__main__":

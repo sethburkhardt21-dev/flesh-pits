@@ -1,0 +1,73 @@
+{
+  "baseline": "arch_b memory_enabled=True (intact store).",
+  "conditions": "Identical to M1: pomaze 15 episodes, delayed_reward 10 episodes, affect='none', action_mode='active_inference', paired primary seeds. | REPRODUCES iff per-seed selective deficit holds on >= 4/5 seeds. Seed-mean deltas \u2248 0 on both tasks -> DECORATIVE (memory demoted to EXECUTED). Mixed (< 4/5, > 0/5 selective) -> FRAGILE.",
+  "config": {
+    "instrument": "experiments_phase4.py verbatim (EXP-AB-M1)",
+    "replicates": "EXP-AB-M1",
+    "seeds": [
+      75101,
+      75102,
+      75103,
+      75104,
+      75105
+    ]
+  },
+  "config_hash": "43ee7eebe3a519233a1fa35eeb27db5e563fdb99393972cc319b7ecb61820da7",
+  "episodes": {},
+  "experiment_id": "repro5_EXP-AB-M1",
+  "hypothesis": "On 5 fresh seeds, disabling episodic memory selectively degrades pomaze vs delayed_reward, replicating EXP-AB-M1.",
+  "interpretation": "5-SEED REPLICATION (5/5 seeds: selective deficit): REPRODUCES. Recorded verdict was on 3 seeds; this replication ran the identical instrument on 5 fresh seeds [75101, 75102, 75103, 75104, 75105].\nG0a determinism spot-check (seed 75101, identical helper calls): PASS (all 4 re-runs match to 1e-12)",
+  "limitations": "Instrument verbatim from Phase-4; only the seed list changed. 5 fresh seeds; no tuning.",
+  "null_hypothesis": "Seed-mean deltas \u2248 0 on both tasks \u2014 the EpisodicStore is decorative in B (NR-B-007).",
+  "preregistered_metric": "Identical to M1: mean_return per task; per-seed delta = intact \u2212 no_memory; per-seed selective = (delta_pom > 0) AND (delta_pom > delta_drw + 1e-9).",
+  "prev_receipt_hash": "94909f8f25d15fbd228ba982ab8266ea9e3351009c3073ecb4a9927a9e815d97",
+  "primary_seed": "75101-75105",
+  "receipt_hash": "351df448fd8ed269066c9a91abe8c95e1f1f0aee988ec6c5c8aa62102aff00a0",
+  "started_utc": "2026-10-07T09:09:07.276297+00:00",
+  "summary": {
+    "detail_receipt": "prototypes/architecture-b/receipts/repro5_EXP-AB-M1.json",
+    "per_seed": [
+      {
+        "delayed_reward_delta": 0.086,
+        "pomaze_delta": 2.798666666666685,
+        "seed": 75101,
+        "selective": true
+      },
+      {
+        "delayed_reward_delta": 0.041999999999999996,
+        "pomaze_delta": 2.2546666666666844,
+        "seed": 75102,
+        "selective": true
+      },
+      {
+        "delayed_reward_delta": 0.046,
+        "pomaze_delta": 1.8973333333333513,
+        "seed": 75103,
+        "selective": true
+      },
+      {
+        "delayed_reward_delta": 0.044,
+        "pomaze_delta": 2.1273333333333504,
+        "seed": 75104,
+        "selective": true
+      },
+      {
+        "delayed_reward_delta": 0.03,
+        "pomaze_delta": 1.7120000000000197,
+        "seed": 75105,
+        "selective": true
+      }
+    ],
+    "seed_mean_delta_delayed_reward": 0.0496,
+    "seed_mean_delta_pomaze": 2.158000000000018,
+    "seeds": [
+      75101,
+      75102,
+      75103,
+      75104,
+      75105
+    ],
+    "verdict": "5-SEED REPLICATION (5/5 seeds: selective deficit): REPRODUCES. Recorded verdict was on 3 seeds; this replication ran the identical instrument on 5 fresh seeds [75101, 75102, 75103, 75104, 75105]."
+  },
+  "written_utc": "2026-10-07T09:10:18.654251+00:00"
+}

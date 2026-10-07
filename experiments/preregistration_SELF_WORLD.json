@@ -1,0 +1,49 @@
+{
+  "ablation": "B arm: frozen ArchB (frozen=True, all etas zeroed at construction) trains on the IDENTICAL transition stream with IDENTICAL init seeds within each seed \u2014 the no-learning control. If the intact arm's self/world gap also appears in the frozen arm, the gap is architectural bias, not learned causal attribution. A arm: no ablation applicable (the probe is a measurement of A's existing machinery; the instrument-validity control is a unit test showing the specialist->bid chain CAN discriminate unequal stimuli).",
+  "amendments": [
+    {
+      "amended_utc": "2026-10-07T09:15:00+00:00",
+      "corrected_decision_rule_B": "DISTINCTION DETECTED (PASS) iff seed-mean D_adj > +0.05 AND D_adj > 0 on >= 3/4 seeds. The frozen arm is now the paired baseline inside the metric, not a separate bound.",
+      "corrected_metric": "D_adj = D_intact - D_frozen per seed (paired held-out stream).",
+      "evidence": "Throwaway-seed pilot (99901, 2 train / 2 eval episodes): D_intact=+0.0806 but D_frozen=+0.1122. The frozen (untrained) model also shows a positive gap: with xhat ~= 0, per-channel |e| reduces to |position|, and the two channels' position marginals differ by sampling noise on short streams (hand and ball are symmetric reflected random walks; no systematic difference). The bias is stream-specific noise, not learned attribution, and its magnitude (~0.1 on 120 transitions, ~0.02-0.04 expected on 300) makes the absolute bound |D_frozen| <= 0.02 unreliable. The paired D_adj subtracts the stream-specific bias exactly.",
+      "scope": "pre-run methods-validation correction; no experimental seeds touched (throwaway seed 99901 only); implementation and decision thresholds UNCHANGED",
+      "threshold_justification_unchanged": true,
+      "verdict_rule_unchanged": false,
+      "what": "B carrying metric changed from D_intact with a separate frozen bias bound (|D_frozen| <= 0.02) to the paired bias-corrected gap D_adj = D_intact - D_frozen, evaluated on the IDENTICAL held-out stream for both arms."
+    },
+    {
+      "amended_utc": "2026-10-07T09:30:00+00:00",
+      "scope": "documentation correction; no experimental seeds touched; decision rule and thresholds UNCHANGED",
+      "verdict_rule_unchanged": true,
+      "what": "The 'matched statistics' clause said both channels move EVERY tick (rate 1.0). In fact |displacement| is 0 (not STEP) at the reflection fixed points (STEP/2 and 1-STEP/2), where a step reflects onto itself. This is identical mechanics for both channels; fixed-point non-moves are hit stochastically per stream (measured: 53/60 vs 60/60 on one stream).",
+      "why_non_confounding": "The probe compares channels WITHIN identical paired streams (B: intact vs frozen on the same stream; A: within-tick channel comparison), so stream-specific rate differences cannot produce a false attribution gap. The structural asymmetry under test (controllability) is untouched."
+    }
+  ],
+  "baseline": "B: frozen ArchB (no learning), paired streams. A: no baseline arm \u2014 the preregistered expectation is the null (no distinction); the instrument is validated by unit test, not by a second arm.",
+  "conditions": {
+    "arch_a": "WorkspaceTick (prototypes/architecture-a/tick.py), channels ['hand','ball'], change-detector specialists (stimulus = |channel_t - channel_{t-1}|, scale 1.0), capacity=3, gain_lr=0.05, defaults otherwise. Closed loop through a scalar-reward adapter (reward always 0.0); action map {'hand':0,'ball':1}. 4 episodes x 60 ticks per seed; tick object persists across episodes (harness convention).",
+    "arch_b": "ArchB (prototypes/architecture-b/agent.py), affect='none', lesion_l1=False, uniform_precision=False, memory_enabled=True. Open-loop transition training via learn_transition (K3C-style minimal path: weight/precision machinery only, no retrieval correction, no affect). Held-out evaluation via model.predict_next per transition (no learning), per-channel |prediction error|.",
+    "contract": "1.0.0",
+    "env": "self_world v1.0.0 (new, additive; canonical envs untouched). Action space discrete n=2 {left:0, right:1}. Obs: hand scalar [0,1] (SELF: hand_{t+1} = reflect(hand_t +/- STEP) with sign = action), ball scalar [0,1] (WORLD: ball_{t+1} = reflect(ball_t +/- STEP) with sign = fair coin from the env RNG). STEP=0.2, MAX_STEPS=60. Reward 0.0 always. info carries ground-truth cause labels {'hand':'self','ball':'world'} for SCORING ONLY \u2014 agents never see info (contract).",
+    "matched_statistics": "Both channels move EVERY tick (rate 1.0); identical step size; |displacement| = STEP except symmetric boundary reflection for both; direction marginals 50/50 (hand: balanced action stream; ball: fair coin). The ONLY structural difference is controllability: hand increments are a known deterministic function of the agent's own action; ball increments come from an unobserved exogenous RNG stream."
+  },
+  "decision_rule": "B arm (AMENDED) \u2014 DISTINCTION DETECTED (PASS) iff seed-mean D_adj > +0.05 AND D_adj > 0 on >= 3/4 seeds. Any failure -> NO DISTINCTION (null holds for B). A arm (unchanged) \u2014 DISTINCTION DETECTED iff |seed-mean Delta| > 0.05 on EITHER carrying metric (Delta_bid, Delta_ign) with consistent sign on >= 3/4 seeds. Expected: NO DISTINCTION (honest negative). Delta_gain recorded as DIAGNOSTIC ONLY (excluded: tie-break + acted-channel-only utility updates make it a credit-assignment artifact).",
+  "experiment_id": "EXP-SW-01",
+  "gates_void": {
+    "G0a": "held-out transition count == 0 for an arm -> VOID that arm (fail-closed).",
+    "G0b": "env determinism check fails (same seed + same action sequence -> different trajectory) -> VOID the whole run."
+  },
+  "hypothesis": "B: after open-loop training on matched self/world transition streams, B's action-conditioned generative model predicts self-caused observation changes better than world-caused ones: mean|e| on the ball channel exceeds mean|e| on the hand channel on held-out transitions, because hand increments are a deterministic function of the agent's own action (which the transition model conditions on) while ball increments are exogenous. The prediction-error gap is B's internal carrier of the self/world distinction. A: no internal variable (competed bid, ignition rate/strength) systematically distinguishes self-caused from world-caused changes under matched statistics \u2014 A's specialists, arbitrator, and ignition have no action-conditioned path (no efference copy), and the z-score bid habituates per channel to 0.5 regardless of cause. Expected: B PASS, A null (documented negative).",
+  "metric": "B (carrying, AMENDED): D_adj = D_intact - D_frozen per seed, where D = mean|e_ball| - mean|e_hand| on held-out transitions and both arms are evaluated on the IDENTICAL held-out stream (paired bias correction). A (carrying, unchanged): Delta_bid and Delta_ign per seed as defined. Secondary/diagnostic: per-channel mean|e| (B), mean strength (A), Delta_gain (A, diagnostic only).",
+  "null": "B: D ~= 0 on the intact arm (the action-conditioned model does not attribute; self and world changes are equally (un)predictable), OR the frozen arm shows the same gap (bias, not learning). A: the null IS the expectation \u2014 no systematic gap; a gap would mean A's machinery carries a distinction its architecture cannot explain (would trigger re-inspection, not celebration).",
+  "pilot_notes": "Smoke validation on throwaway seed 99901 (2 episodes/arm, pre-preregistration, methods validation only \u2014 did not inform thresholds): env determinism check (same seed + same actions -> byte-identical obs) must pass; B intact train |e0| must decline vs frozen (learning sanity); A tick must run 120 closed-loop ticks without exception and produce finite bids. Thresholds (+0.05, 0.02) are set from first principles on the STEP=0.2 scale: an unpredictable channel errs ~= STEP per tick while a learned deterministic channel errs -> ~0, so a real attribution gap is O(0.1); +0.05 is conservative, 0.02 bounds bias well below it.",
+  "preregistered_utc": "2026-10-07T09:07:41+00:00",
+  "procedure": "Per seed s in {75101,75102,75103,75104}: (B) build ONE shared action stream per episode from new_rng(derive_seed(s, ep, 'policy')) (paired arms). Train: 10 episodes x 60 steps via learn_transition for intact (init seed 75000+s) and frozen (same init seed). Held-out: 5 episodes x 60 steps (fresh env seeds derive_seed(s, 100+ep, 'env')); per transition record per-channel |obs_next - predict_next(obs, a, ctx)| for intact and frozen; cause labels from info (scoring only). (A) fresh WorkspaceTick + change specialists per seed; 4 episodes x 60 ticks closed-loop via the reward adapter; record per-tick per-channel stimulus, competed bid, ignited, strength; final gains. Item->channel mapping: admissions are recorded in channel order (verified against tick.step source). No agent ever reads info.",
+  "seeds": [
+    75101,
+    75102,
+    75103,
+    75104
+  ],
+  "task": "Self/world distinction probe (directive \u00a737 family; \u00a79 item 12)"
+}

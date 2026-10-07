@@ -46,6 +46,12 @@ Configuration knobs (all honest ablations):
                   benefit)
   gate_rate:      application probability for the random gate
   gate_seed:      seed for the random gate's RNG
+  gate_uhat_source: "live" (default; the gate reads the live
+                  UsefulnessPredictor's uhat) | "shadow" (EXP-FP-0007: the
+                  gate reads a second UsefulnessPredictor trained on the
+                  counterfactual UNCONDITIONAL benefit, so gating never
+                  contaminates its training data; the live predictor keeps
+                  training on realized benefit and is not read by the gate)
 """
 
 from __future__ import annotations
@@ -89,7 +95,8 @@ class ArchB(Agent):
                  gate_policy: str = "ungated",
                  gate_threshold: float = 0.0,
                  gate_rate: float = 1.0,
-                 gate_seed: int = 0) -> None:
+                 gate_seed: int = 0,
+                 gate_uhat_source: str = "live") -> None:
         self.observation_space = dict(observation_space)
         self.n_actions = n_actions
         self.env_name = env_name
@@ -127,6 +134,19 @@ class ArchB(Agent):
         self.gate = RetrievalGate(policy=gate_policy,
                                   threshold=gate_threshold,
                                   rate=gate_rate, seed=gate_seed)
+        if gate_uhat_source not in ("live", "shadow"):
+            raise ValueError(
+                f"unknown gate_uhat_source: {gate_uhat_source!r}")
+        self.gate_uhat_source = gate_uhat_source
+        # EXP-FP-0007 shadow predictor: a second UsefulnessPredictor used
+        # ONLY as the gate's uhat source in shadow mode. It trains on the
+        # counterfactual unconditional benefit every available-correction
+        # tick, so the gate's decisions never contaminate its training
+        # data. The live predictor above is untouched (still trains on
+        # realized benefit, still feeds the §30 records).
+        self.shadow_usefulness = UsefulnessPredictor()
+        # Run diagnostic: (uhat_gate, benefit_shadow) per shadow tick.
+        self._shadow_hist: List[tuple] = []
         self.plog: Optional[PredictionLog] = None
 
         self.replay_actions: Optional[List[int]] = None
@@ -278,7 +298,13 @@ class ArchB(Agent):
         # §9 item 6: the gate reads uhat but never modifies the predictor.
         # With policy "ungated" this reduces to the original behavior
         # (decide -> True, correction applied whenever available).
-        apply = self.gate.decide(uhat) if correction is not None else False
+        # EXP-FP-0007: gate_uhat_source="shadow" reads the shadow
+        # predictor's uhat instead of the live one.
+        uhat_gate = uhat
+        if correction is not None and self.gate_uhat_source == "shadow":
+            uhat_gate = self.shadow_usefulness.predict(qfeat)
+        apply = (self.gate.decide(uhat_gate)
+                 if correction is not None else False)
         if correction is not None and apply:
             xhat = [x + c for x, c in zip(xhat_raw, correction)]
             retrieval_used = True
@@ -296,6 +322,8 @@ class ArchB(Agent):
             "rhat": rhat, "rconf": rconf, "runc": runc,
             "oconf": oconf, "ounc": ounc,
             "uhat": uhat, "uconf": uconf, "uunc": uunc,
+            "uhat_gate": uhat_gate,
+            "correction": correction,
             "qfeat": qfeat,
             "reward": 0.0, "done": False,
         }
@@ -362,6 +390,22 @@ class ArchB(Agent):
         else:
             self.usefulness.update(p["qfeat"], e0_raw_abs - e0_abs)
 
+        # EXP-FP-0007 shadow predictor: trains on the counterfactual
+        # UNCONDITIONAL benefit (what applying the correction would have
+        # done), so gating never contaminates its training data. The live
+        # predictor above keeps training on realized benefit, exactly as
+        # in EXP-FP-0006.
+        if (self.gate_uhat_source == "shadow"
+                and p.get("correction") is not None):
+            corr_vec = p["correction"]
+            xhat_applied = [x + c for x, c in zip(p["xhat_raw"], corr_vec)]
+            e_applied = math.sqrt(sum((o - x) ** 2
+                                      for o, x in zip(obs_next,
+                                                      xhat_applied)))
+            benefit_shadow = e0_raw_abs - e_applied
+            self.shadow_usefulness.update(p["qfeat"], benefit_shadow)
+            self._shadow_hist.append((p["uhat_gate"], benefit_shadow))
+
         self._tick += 1
         self._pending = None
 
@@ -416,6 +460,8 @@ class ArchB(Agent):
             "err_affect": self.err_affect.snapshot(),
             "pad": self.pad.snapshot(),
             "usefulness": self.usefulness.snapshot(),
+            "shadow_usefulness": self.shadow_usefulness.snapshot(),
+            "gate_uhat_source": self.gate_uhat_source,
             "gate": self.gate.snapshot(),
             "episode": self._episode, "tick": self._tick,
             "last_action": self._last_action, "e1_ema": self._e1_ema,
@@ -434,6 +480,11 @@ class ArchB(Agent):
         self.err_affect.restore(state["err_affect"])
         self.pad.restore(state["pad"])
         self.usefulness.restore(state["usefulness"])
+        # Tolerant of pre-shadow snapshots (gate_uhat_source defaults live).
+        self.gate_uhat_source = state.get("gate_uhat_source", "live")
+        su = state.get("shadow_usefulness")
+        if su is not None:
+            self.shadow_usefulness.restore(su)
         self.gate.restore(state["gate"])
         self._episode = state["episode"]
         self._tick = state["tick"]

@@ -15,8 +15,11 @@ appended beneath, never edited into the preregistration.
 | EXP-FP-0003 | delayed_reward | symbolic vs arch_d | mean_return, 20 eps | PREREGISTERED |
 | EXP-FP-0004 | pomaze | arch_d vs fixed_predictor | mean_return, 20 eps | PREREGISTERED |
 | EXP-FP-0005 | pomaze | S-01 vs memory_port prioritized vs uniform vs no replay | IG_probe (offline replay improvement), 4 seeds | PREREGISTERED |
+| EXP-FP-0007 | pomaze | ungated vs shadow-ûhat-gated vs random-gated | mean_return, 15 eps; ΔGU, ΔGR; win: seed-mean>0 both, ≥3/4 agree | PREREGISTERED |
+| EXP-FP-0008 | pomaze/delayed_reward/changing_rule | estimated vs uniform precision heads | terminal-spike mean\|rerr\| ratio ≥3× AND est>0.3; ≥3/4 seeds | PREREGISTERED |
 | EXP-AB-K3B | changing_rule + delayed_reward | arch_b intact vs lesion_l1 | lesion gap (lesioned − intact) mean|e0|, mean|rerr|, 3 seeds | COMPLETE (result below) |
 | EXP-AB-K3C | delayed_multistep + compositional_rule | arch_b intact vs lesion_l1 | lesion gap D_e0 (task 1), D_rerr (task 2), 4 seeds | COMPLETE (result below) |
+| EXP-AB-5SEED | pomaze/changing_rule/delayed_reward | Phase-4 replication (M1, C2B, C4B, K3B) | original per-seed decision rules, ≥4/5 seeds | COMPLETE (result below) |
 
 ---
 
@@ -284,3 +287,191 @@ Negative results preserved in research/negative_results.md.
 - Limitations (from receipt): "Open-loop training isolates the weight/precision machinery (as K3/K3B); closed-loop control effects are factored out by design. Task-1 reference is a scripted policy (ArchB/random references stall pe..." (verbatim, truncated in receipt).
 - Negative result: recorded as a bound on the K3B claim — the K3B hierarchy effect does not generalize beyond the two K3B envs.
 - Receipts: receipts/EXP-AB-K3C.json (lane summary, chained) + prototypes/architecture-b/receipts/EXP-AB-K3C.json (detail, pre-chain as of this writing). Note: the lane-summary receipt was written while the old harness write/verify convention was in force (prev_receipt_hash=None); this historical byte state is preserved untouched per lab law.
+
+---
+
+## EXP-FP-0007 — non-degenerate ûhat-gating instrument: shadow-trained predictor (§9 item 6, B gap #2 follow-up)
+
+**PREREGISTERED (2026-10-07, before run — code not yet written)**
+- hypothesis: Gating the retrieval correction on ûhat from a
+  shadow-trained predictor (training data uncontaminated by gating) beats
+  unconditional retrieval-correction on pomaze mean episode return, AND
+  beats random gating at the same application rate — the learned ranking
+  signal (corr(uhat, benefit) = +0.40…+0.48 on clean unconditional data,
+  EXP-FP-0006) carries decision-usable value once the cold-start
+  degeneracy is removed.
+- null: gated ≤ ungated, or gated ≤ random-gated — the ranking signal has
+  no decision value even with a non-degenerate instrument.
+- preregistered metric (EXACT): mean episode return on pomaze over 15
+  closed-loop episodes. Per-seed: ΔGU = mean(G)−mean(U);
+  ΔGR = mean(G)−mean(R). Win rule: seed-mean ΔGU > 0 AND seed-mean
+  ΔGR > 0, with ≥3/4 seeds agreeing on the sign of BOTH comparisons.
+  (Identical to EXP-FP-0006.)
+- arms: U = ungated (correction applied whenever available;
+  gate_policy="ungated"). G = shadow-ûhat gate (gate_policy="uhat",
+  threshold=0.0 FROZEN, gate_uhat_source="shadow"): the gate reads ûhat
+  from a second UsefulnessPredictor updated on every available-correction
+  tick with the counterfactual unconditional benefit
+  |obs−xhat_raw|−|obs−(xhat_raw+correction)|; the live predictor trains on
+  realized benefit exactly as in EXP-FP-0006 and is not read by the gate.
+  The UsefulnessPredictor class itself is NOT modified (gate reads only).
+  R = RetrievalGate(policy="random", rate=r_s) where r_s = per-seed
+  measured application rate of arm G, gate_seed=derive_seed(s, 0, "gate").
+  R runs after U and G on the same seeds.
+- baseline: arm U (unconditional retrieval-correction).
+- conditions: pomaze v1.0.0, arch_b v1, affect='none',
+  action_mode='active_inference', 15 episodes, identical primary seeds
+  across the three arms (paired). 4 fresh seeds {73501, 73502, 73503,
+  73504} — no overlap with any prior experiment's seeds.
+- instrument selection (recorded before implementation): option (a)
+  shadow-trained predictor CHOSEN over (b) warm start — a warm-started
+  predictor retrains on gated/contaminated outcomes and drifts back toward
+  the degenerate fixed point, so the instrument would still test a
+  contaminated policy; and over (c) non-strict threshold + warm start —
+  uhat>=0 at cold start applies nearly everything, muddying whether any
+  win comes from ranking or from a near-ungated rate. The shadow isolates
+  exactly one variable: the ranking signal's decision value with
+  uncontaminated training data.
+- frozen gates (VOID, not reinterpreted): G0 instrument-validity — G
+  application rate strictly in (0, 1) on ≥3/4 seeds (the gate must make
+  discriminating decisions); else VOID as instrument failure. This is the
+  EXP-FP-0006 lesson: distinguish "gate collapsed" from "ranking has no
+  value". G1 fabrication-tripwire CLEAN on new/modified code, pre-run.
+  G2 determinism spot-check: seed 73501 G arm recomputed → mean_return
+  identical to 1e-12, else VOID. G3 hash-chained receipt + verify_chain.
+- closed-loop caveat (part of the tested object): the gated trajectory
+  diverges from the ungated trajectory once gating blocks; the shadow
+  predictor's training data is uncontaminated by gating (counterfactual
+  unconditional benefit) but lives on the gated trajectory. The experiment
+  tests the full shadow-gated policy.
+- honest prior: EXP-FP-0006's secondary found skipping vs applying the
+  correction return-neutral on pomaze (ΔGU −0.33…+0.23 per seed) — a NULL
+  on return remains plausible even with a working instrument. The value is
+  in testing the instrument and bounding the ranking signal's decision
+  value.
+- secondary diagnostics (descriptive): G application rate per seed;
+  corr(uhat_shadow, benefit_shadow) on the G arm; corr(uhat_live,
+  benefit_realized) from the U arm PredictionLog (replication of the
+  EXP-FP-0006 ranking check on fresh seeds).
+
+**RESULT: pending — preregistered before implementation.**
+
+**AMENDMENT (2026-10-07, pre-interpretation — first run declared VOID per G2)**
+- What happened: the first run completed all four seeds (G application
+  rates 0.79–0.80, non-degenerate; shadow corr +0.40…+0.53) but the G2
+  determinism spot-check FIRED — the recomputed seed-73501 G arm's
+  mean_return differed from the stored value by more than 1e-12.
+- Root cause (verified, not assumed): the G2 gate compared the recompute's
+  UNROUNDED mean_return against the per-seed dict's ROUNDED (4-decimal)
+  G_mean_return — a gate implementation bug, not experimental
+  nondeterminism. Direct check: two fresh G-arm runs on seed 73501 give
+  bit-identical means (-2.4593333333333214 == -2.4593333333333214).
+- Ruling: run VOID per the frozen gate. No numbers from the voided run
+  were interpreted or retained for any claim.
+- Fix (code only, preregistration untouched): the per-seed dict now
+  carries G_mean_return_raw (unrounded) and G2 compares unrounded at
+  1e-12, honoring the preregistered precision.
+- Rerun on the same preregistered seeds {73501–73504} (deterministic;
+  voided numbers discarded).
+
+---
+
+## EXP-FP-0008 — precision-explosion characterization: estimated vs uniform reward head on rare terminal spikes (C2 pathology family follow-up)
+
+**PREREGISTERED (2026-10-07, before run — code not yet written; full JSON:
+experiments/preregistration_EXP-FP-0008.json)**
+- background: EXP-AB-K3C task-1 pilot (throwaway seed 99901,
+  delayed_multistep): the lesioned model's estimated-precision reward head
+  exploded on rare terminal +1.0 spikes (5/600 train transitions) —
+  b_r=0.31, max|w_r|=0.73, rhat=1.27 predicted on a 0.02 tick; held-out
+  mean|rerr|=0.8256 vs intact 0.2809; lesioned+uniform control stayed sane
+  (b_r=0.018, mean|rerr|=0.10). Mechanism hypothesis: rare spikes in a ~0
+  reward sea lower rerr variance → estimated piR stays high → massive
+  per-spike w_r updates (d = eta_r·piR·rerr·f) with no absorber. Second
+  independent sighting of the C2 precision pathology family (C2 kill was
+  FRAGILE 3/5).
+- hypothesis: The estimated-precision reward head systematically
+  misbehaves on rare high-reward events: across tasks with rare terminal
+  spikes, intact ArchB with estimated precision shows the explosion
+  signature on terminal-spike trials while the uniform-precision control
+  stays sane; on a dense-reward task the signature is absent.
+- null: no systematic estimated-vs-uniform difference on terminal-spike
+  trials across tasks.
+- preregistered metric (EXACT): per task per seed, on held-out
+  terminal-spike trials (reward ≥ 0.5): explosion signature iff
+  mean|rerr|_estimated_terminal ≥ 3 × mean|rerr|_uniform_terminal AND
+  mean|rerr|_estimated_terminal > 0.3. Task signature iff ≥3/4 seeds show it.
+- verdict mapping (CHARACTERIZATION, not a kill): SYSTEMATIC iff ≥2 of 3
+  tasks show the task signature; TASK-LOCAL iff exactly 1; ABSENT iff 0.
+- tasks: pomaze v1.0.0 (rare goal +1.0), delayed_reward v1.0.0 (delayed
+  +1.0 at corridor end), changing_rule v1.0.0 (dense {0,1}, negative
+  control — signature expected ABSENT; rewards are not rare so rerr
+  variance stays high and piR stays low).
+- procedure (K3B-instrument-faithful): per task per seed: (1) collect a
+  transition stream with the symbolic reference baseline (pomaze: frontier
+  exploration; delayed_reward: branch_a + forward; changing_rule: WSLS) —
+  train episodes then held-out episodes with disjoint episode seeds;
+  (2) two INTACT ArchB (lesion_l1=False) with IDENTICAL init seeds train
+  open-loop via learn_transition on the identical train stream — arm E
+  estimated precision (default), arm F uniform_precision=True;
+  (3) held-out eval via predict_reward → |rhat−r|; terminal-spike trials
+  flagged reward ≥ 0.5 (same flag as K3B/K3C).
+- episode counts: pomaze train 20 / held 10; delayed_reward train 30 /
+  held 15; changing_rule train 30 / held 10.
+- seeds: {74301, 74302, 74303, 74304} — fresh, no overlap with any prior
+  experiment's seeds. Train/eval init seeds: derive_seed(s, 0, "agent").
+- secondary diagnostics (descriptive, mechanism check): post-training b_r
+  and max|w_r| per arm; mean piR on terminal training trials (arm E);
+  training-stream rerr variance (arm E); realized spike rate per task.
+- frozen gates (VOID, not reinterpreted): G0a held-out terminal trials ==
+  0 for a task → VOID that task. G0b fabrication-tripwire CLEAN pre-run.
+  G0c determinism spot-check: seed 74301 arm E recomputed → b_r identical
+  to 1e-12, else VOID. G0d hash-chained receipt + verify_chain.
+- limitations (preregistered): open-loop training isolates the
+  weight/precision machinery (K3/K3B/K3C precedent); closed-loop control
+  effects factored out by design. Intact models only — the pilot sighting
+  was lesioned; if the signature needs the lesion's missing R_ctx absorber
+  this design will show TASK-LOCAL/ABSENT and that boundary is itself the
+  finding.
+
+**RESULT: pending — preregistered before implementation.**
+
+---
+
+## EXP-AB-5SEED — 5-seed multi-seed replication of Phase-4 (M1, C2B, C4B, K3B) (§9 item #3)
+
+**PREREGISTERED (2026-10-07, 09:06 UTC, before run; full JSON: experiments/preregistration_EXP-AB-5SEED.json)**
+- instrument: VERBATIM reuse of prototypes/architecture-b/experiments_phase4.py (exp_m1, exp_c2b, exp_c4b, exp_k3b) — no redefinition, no parameter changes. Only the seed-list parameter changes (3 -> 5 fresh seeds) and receipt IDs (repro5_EXP-AB-*); additive driver prototypes/architecture-b/repro_phase4_5seed.py.
+- replication rule (frozen): verdict REPRODUCES / KILL REPLICATES iff the original verdict's per-seed decision holds on >= 4/5 fresh seeds. < 4/5 -> FRAGILE (3/5) or OVERTURNED (<= 2/5).
+- repro5_EXP-AB-M1: replicates EXP-AB-M1 (SELECTIVE DEFICIT: pomaze +2.200 vs delayed_reward +0.046). Per-seed selective = delta_pom > 0 AND delta_pom > delta_drw + 1e-9. Fresh seeds {75101..75105}.
+- repro5_EXP-AB-C2B: replicates EXP-AB-C2B (KILL: shift_reset 23.97 < estimated 24.10 < uniform 28.47; stationary 24.40 < 34.00). Per-seed revival = (shift: shift_reset >= estimated − 1e-9 AND > uniform + 1e-9) AND (stationary: shift_reset >= uniform − 1e-9). KILL REPLICATES iff revival fails on >= 4/5. Fresh seeds {75201..75205}.
+- repro5_EXP-AB-C4B: replicates EXP-AB-C4B (KILL PERMANENT: AI 0.5443 < greedy 0.7124 ≈ random 0.5497). Per-seed kill-holds = AI IG_probe <= max(greedy, random) + 1e-9. KILL REPLICATES iff >= 4/5. Fresh seeds {75301..75305}.
+- repro5_EXP-AB-K3B: replicates EXP-AB-K3B (SURVIVES, STRENGTHENED: arm-A |rerr| gap +0.0602 3/3). Per-seed grown = delta_e0 > 0.0032 + 1e-9 OR delta_rerr > 0.0032 + 1e-9 on arm A. REPRODUCES iff >= 4/5. Fresh seeds {75401..75405}.
+- seed freshness: all 20 primaries checked against the registry, all receipts, and all driver files — no overlap with phase3 (101-109), phase4 (301-333), repro (72001-72705), calib (73101-73105), consolidation (61701-61704), retrieval-gate (73401-73404), K3C (74101-74104), pathology (74301-74304).
+- frozen gates: G0a determinism spot-check (M1 seed 75101 re-run through identical helper calls, match to 1e-12, else VOID). G0b seed-level VOID on crash/non-finite (frozen list, no reseeding). G0c tripwire CLEAN pre-run (done); gate suite green before close. No post-run tuning.
+
+**RESULT (2026-10-07, all four complete — identical instruments, receipts hash-chained)**
+
+- repro5_EXP-AB-M1 (seeds {75101..75105}, G0a determinism PASS): selective deficit holds 5/5 — pomaze deltas +2.7987/+2.2547/+1.8973/+2.1273/+1.7120 (seed-mean +2.158), delayed_reward +0.0860/+0.0420/+0.0460/+0.0440/+0.0300 (seed-mean +0.050). **REPRODUCES 5/5.** EpisodicStore earns REPRODUCED — first arch-B component at that maturity. Receipts: receipts/repro5_EXP-AB-M1.json + prototypes/architecture-b/receipts/repro5_EXP-AB-M1.json.
+- repro5_EXP-AB-C2B (seeds {75201..75205}): shift arm seed-means shift_reset 25.60 vs estimated 24.36 vs uniform 28.68; stationary shift_reset 26.60 vs uniform 33.28. Revival holds on 0/5 seeds. **KILL REPLICATES 5/5.** Receipts: receipts/repro5_EXP-AB-C2B.json + prototypes/architecture-b/receipts/repro5_EXP-AB-C2B.json.
+- repro5_EXP-AB-C4B (seeds {75301..75305}): AI IG_probe 0.4476 vs greedy 0.6487 vs random 0.5530 (seed-means); kill condition holds 5/5. **KILL REPLICATES 5/5.** Driver labeling bug caught at close: the verdict map inverted C4B's holds-count and first wrote KILL OVERTURNED; corrected to KILL REPLICATES in both receipts with an amendment note, receipts re-hashed — per-seed data untouched. Receipts: receipts/repro5_EXP-AB-C4B.json + prototypes/architecture-b/receipts/repro5_EXP-AB-C4B.json.
+- repro5_EXP-AB-K3B (seeds {75401..75405}): per-seed "grown" holds 4/5 (fails on 75402). **Preregistered gate fires REPRODUCES at exactly 4/5 — BUT the carrying channel reversed**: arm-A |rerr| gap −0.0319 seed-mean, negative on 3/5 seeds (75402 −0.0305, 75403 −0.0855, 75404 −0.2753); the signal rides |e0| (+0.0079, positive 4/5) at ~2.5× K3 scale. The +0.0602 was seed-fragile. Verdict stands per the frozen gate; substance weakened (NR-B-009, research/negative_results.md). Receipts: receipts/repro5_EXP-AB-K3B.json + prototypes/architecture-b/receipts/repro5_EXP-AB-K3B.json.
+- interpretation: pure prediction learning (K2) and episodic memory (M1) replicate cleanly; the adaptive machinery (C2/C2B, C4/C4B) stays dead on fresh seeds; the hierarchy's longer-horizon signal replicates in the letter of the gate but loses its headline channel. The cross-cutting pattern holds: prediction machinery learns robustly; context/precision machinery does not robustly convert learning into better decisions.
+- limitations: pomaze/changing_rule/delayed_reward only; open-loop for K3B; C2B's ONE variant only; G0a spot-check covered M1 only (identical seeded-RNG pipeline shared by all four instruments).
+
+---
+
+## EXP-SW-01 — self/world distinction probe (§9 item #12)
+
+**PREREGISTERED (2026-10-07, 09:07 UTC, before implementation; full JSON: experiments/preregistration_SELF_WORLD.json; 2 pre-run amendments, no experimental seeds touched)**
+- new env (additive): self_world v1.0.0 — hand channel SELF-caused (deterministic f(action)), ball channel WORLD-caused (exogenous fair coin); STEP=0.2, MAX_STEPS=60, reward 0.0; matched change statistics (same step size, symmetric reflection, 50/50 directions); cause labels in info for SCORING ONLY (agents never see info).
+- B arm: ArchB affect='none', open-loop learn_transition training (10 eps x 60), held-out predict_next eval (5 eps x 60); intact vs frozen (paired streams + paired init seeds 75001..75004). Carrying metric (AMENDED pre-run): D_adj = D_intact − D_frozen per seed, D = mean|e_ball| − mean|e_hand|, identical held-out stream for both arms (the amendment: throwaway-seed pilot showed the frozen arm also gaps positive from position-marginal sampling noise — D_frozen is stream-specific bias, so it is subtracted paired rather than bounded absolutely).
+- A arm: WorkspaceTick closed-loop via scalar-reward adapter, change-detector specialists, 4 eps x 60 ticks. Carrying: Delta_bid, Delta_ign; DISTINCTION iff |seed-mean| > 0.05 on either with consistent sign >= 3/4 seeds. Expectation: NO DISTINCTION (honest negative — no action-conditioned path in A). Delta_gain diagnostic only (tie-break + acted-channel-only utility updates = credit-assignment artifact).
+- frozen gates: G0a held-out transitions == 0 -> VOID arm; G0b determinism check -> VOID run. Tripwire CLEAN pre-run on new code.
+- seeds {75101..75104}. Note: seed integers coincide with the concurrent repro5_EXP-AB-M1 lane's {75101..75105} (preregistered 09:06 UTC, one minute earlier, unknown to this worker at design time) — NO contamination: different envs, different models, domain-separated RNG streams; reproducibility is per (experiment, seed).
+
+**RESULT (2026-10-07, ~09:35 UTC)**
+- B: **DISTINCTION DETECTED (PASS)** — seed-mean D_adj = +0.091 (> +0.05), D_adj > 0 on 4/4 seeds (+0.019/+0.174/+0.029/+0.141). D_intact stable 4/4 (+0.109…+0.128): intact e_hand ≈ 0.05–0.06 vs e_ball ≈ 0.16–0.19. Per-seed D_adj variance is driven by D_frozen noise (−0.053…+0.090) — the paired correction working as designed. Interpretation: B's action-conditioned generative model predicts self-caused changes better than world-caused ones; the prediction-error gap is learned (frozen shows only stream noise), i.e. B carries the self/world distinction in its prediction error. Receipt: receipts/EXP-SW-01-B.json (hash-chained, self-verified).
+- A: **NO DISTINCTION (null holds — expected negative)** — seed-mean Delta_bid = +0.0009, Delta_ign = 0.000 (nothing ever ignited: habituated bids sit below the ignition threshold on both channels). Gains floored symmetric (0.01/0.01). Interpretation: no internal variable of A distinguishes matched self/world changes — A's specialists/arbitrator/ignition have no action-conditioned path (no efference copy) and the z-score bid habituates per channel to 0.5 regardless of cause. Instrument validated by unit test (chain discriminates unequal stimuli). Receipt: receipts/EXP-SW-01-A.json (hash-chained, self-verified).
+- limitations: B trained open-loop (K3C precedent) — closed-loop attribution untested; D_adj per-seed variance large (frozen-noise dominated on 2/4 seeds); single env (self_world); A probe used constant-zero reward (gain dynamics symmetric by construction).
+- CONSCIOUSNESS: UNRESOLVED — a prediction-error gap is a mechanism, not a subject.

@@ -119,3 +119,10 @@ not reconstructed — inventing entries would be fabrication.
   EXP-AB-K3B); ../../receipts/EXP-AB-K3C.json (lane summary, harness
   chain). New envs: flesh-pits/experiments/envs/delayed_multistep.py,
   compositional_rule.py (registered additively; canonical envs untouched).
+
+## 2026-10-07 — NR-B-009: K3B's reward-channel hierarchy signal reverses on fresh seeds (weakening, not kill)
+- Expectation: the K3B verdict (SURVIVES, STRENGTHENED) would replicate on 5 fresh seeds — arm-A reward-channel lesion gap staying positive at ~19× K3's +0.0032 scale (+0.0602, 3/3 seeds).
+- Observed (repro5_EXP-AB-K3B, 5 fresh seeds {75401..75405}, identical instrument, preregistered): the frozen gate fires REPRODUCES at exactly 4/5 seeds (per-seed "grown" = delta_e0 > 0.0032 OR delta_rerr > 0.0032 on arm A). But the carrying channel REVERSED: arm-A |rerr| gap −0.0319 seed-mean, negative on 3/5 seeds (75402 −0.0305, 75403 −0.0855, 75404 −0.2753 — the lesion HELPS reward prediction there). The replication's signal rides the |e0| channel (+0.0079 seed-mean, positive 4/5), at only ~2.5× K3's scale. Arm B: |e0| +0.0356 (reproduces direction), terminal |rerr| −0.0224 (≈0, as preregistered).
+- Rules out: "K3B's +0.0602 reward-channel gap is a robust property of the hierarchy on longer horizons." The +0.0602 was seed-fragile. The hierarchy's longer-horizon contribution is, at best, a thin dynamics-channel effect; its locus and magnitude are not stable across seeds.
+- Verdict note: REPRODUCES per the frozen gate (4/5) — this is a substantive weakening, not a verdict change. The two-env phenomenon (K3C) stands; the scope bound tightens further.
+- Receipts: receipts/repro5_EXP-AB-K3B.json (arch-b detail, chain-linked to EXP-AB-K3B); ../../receipts/repro5_EXP-AB-K3B.json (lane summary, harness chain).

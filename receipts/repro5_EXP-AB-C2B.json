@@ -1,0 +1,104 @@
+{
+  "baseline": "arch_b uniform pi=1; arch_b estimated pi.",
+  "conditions": "Identical to C2B: shift arm 10 episodes changing_rule (1 flip); stationary arm 5 episodes phase-0 (10% noise); affect='none'; paired seeds; reset-count diagnostic recorded. | KILL REPLICATES iff per-seed revival fails on >= 4/5 seeds (revival holds on <= 1/5). Revival holds on >= 4/5 -> precision REVIVED (rejection overturned \u2014 the kill was seed-fragile).",
+  "config": {
+    "instrument": "experiments_phase4.py verbatim (EXP-AB-C2B)",
+    "replicates": "EXP-AB-C2B",
+    "seeds": [
+      75201,
+      75202,
+      75203,
+      75204,
+      75205
+    ]
+  },
+  "config_hash": "701abd681f5e89fcfd637088020a16b89e32664917387723057372bc5b6a7959",
+  "episodes": {},
+  "experiment_id": "repro5_EXP-AB-C2B",
+  "hypothesis": "On 5 fresh seeds the shift-aware precision variant still fails the revival rule, replicating the C2B KILL.",
+  "interpretation": "5-SEED REPLICATION (0/5 seeds: revival): KILL REPLICATES. Recorded verdict was on 3 seeds; this replication ran the identical instrument on 5 fresh seeds [75201, 75202, 75203, 75204, 75205].",
+  "limitations": "Instrument verbatim from Phase-4; only the seed list changed. 5 fresh seeds; no tuning.",
+  "null_hypothesis": "Uniform >= shift-reset on both tasks \u2014 the precision idea is dead even in shift-aware form (this IS the recorded verdict; the null is the hypothesis here).",
+  "preregistered_metric": "Identical to C2B: mean_return seed-meaned; per-seed revival = (shift: shift_reset >= estimated \u2212 1e-9 AND shift_reset > uniform + 1e-9) AND (stationary: shift_reset >= uniform \u2212 1e-9).",
+  "prev_receipt_hash": "44d1f7396bf804dae62ffd8a09562b30549c95bc7677269240c8fc51f0d05ea9",
+  "primary_seed": "75201-75205",
+  "receipt_hash": "dd8927fb9564a4234b80776a36825a3e0ddedb315a1cfaeb5f36d915f9f63c16",
+  "started_utc": "2026-10-07T09:10:19.169709+00:00",
+  "summary": {
+    "detail_receipt": "prototypes/architecture-b/receipts/repro5_EXP-AB-C2B.json",
+    "revival_holds_seeds": [],
+    "seeds": [
+      75201,
+      75202,
+      75203,
+      75204,
+      75205
+    ],
+    "shift": {
+      "estimated": {
+        "per_seed": [
+          23.2,
+          25.7,
+          23.7,
+          25.1,
+          24.1
+        ],
+        "seed_mean_return": 24.36
+      },
+      "shift_reset": {
+        "per_seed": [
+          27.1,
+          23.3,
+          24.8,
+          27.3,
+          25.5
+        ],
+        "seed_mean_return": 25.6
+      },
+      "uniform": {
+        "per_seed": [
+          29.3,
+          30.7,
+          21.6,
+          30.8,
+          31.0
+        ],
+        "seed_mean_return": 28.68
+      }
+    },
+    "stationary": {
+      "estimated": {
+        "per_seed": [
+          24.2,
+          30.0,
+          26.4,
+          27.6,
+          26.8
+        ],
+        "seed_mean_return": 27.0
+      },
+      "shift_reset": {
+        "per_seed": [
+          25.6,
+          23.8,
+          28.4,
+          27.0,
+          28.2
+        ],
+        "seed_mean_return": 26.6
+      },
+      "uniform": {
+        "per_seed": [
+          31.6,
+          34.4,
+          32.4,
+          33.0,
+          35.0
+        ],
+        "seed_mean_return": 33.28
+      }
+    },
+    "verdict": "5-SEED REPLICATION (0/5 seeds: revival): KILL REPLICATES. Recorded verdict was on 3 seeds; this replication ran the identical instrument on 5 fresh seeds [75201, 75202, 75203, 75204, 75205]."
+  },
+  "written_utc": "2026-10-07T09:10:48.767595+00:00"
+}

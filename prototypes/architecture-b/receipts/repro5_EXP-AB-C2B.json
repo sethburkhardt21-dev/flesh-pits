@@ -1,0 +1,169 @@
+{
+  "architecture": "B",
+  "config_hash": "530f95f0256765914b57562f3d1030bcdb27dccb6aa8aa1b0f7e1617b80761e7",
+  "contract_version": "1.0.0",
+  "experiment_id": "repro5_EXP-AB-C2B",
+  "interpretation": "REJECTED: shift_reset shift 25.60 vs estimated 24.36 vs uniform 28.68; stationary 26.60 vs uniform 33.28. The revival rule failed \u2014 shift-aware precision joins the rejected list.\n\n5-SEED REPLICATION (0/5 seeds: revival): KILL REPLICATES. Recorded verdict was on 3 seeds; this replication ran the identical instrument on 5 fresh seeds [75201, 75202, 75203, 75204, 75205].",
+  "limitations": "ONE preregistered variant (k=4.0); no tuning after the run. Stationary arm is 5 phase-0 episodes (200 trials). 3 seeds. affect='none' isolates the world model.",
+  "preregistered": {
+    "ablation": "arch_b precision_kind='shift_reset', surprise_k=4.0 (preregistered; ONE variant).",
+    "baseline": "arch_b uniform pi=1; arch_b estimated pi (C2 replication).",
+    "conditions": {
+      "affect": "none",
+      "agent": "arch_b v1",
+      "replication_of": "EXP-AB-C2B",
+      "reproduction_seeds": [
+        75201,
+        75202,
+        75203,
+        75204,
+        75205
+      ],
+      "surprise_k": 4.0
+    },
+    "hypothesis": "ShiftRobustPrecisionEstimator (surprise-triggered window reset, k=4.0) matches or beats estimated precision and beats uniform pi=1 on noisy changing_rule, without losing to uniform on a stationary noisy task.",
+    "metric": "mean_return over episodes, seed-meaned. Shift arm: 10 episodes changing_rule (1 rule flip). Stationary arm: 5 episodes changing_rule phase-0 only (rule fixed, 10% noise).",
+    "null": "Uniform >= shift-reset on both tasks \u2014 the precision idea is dead even in shift-aware form.",
+    "procedure": "Closed-loop runs, affect='none', identical primary seeds across the three conditions (paired). Diagnostic: window reset counts \u2014 expected ~1 per flip on the shift arm, ~0 on the stationary arm.",
+    "revival_rule": "Revival iff (shift: shift_reset seed-mean >= estimated seed-mean AND > uniform seed-mean) AND (stationary: shift_reset seed-mean >= uniform seed-mean). Otherwise it joins the rejected list (NR-B-008).",
+    "seeds": [
+      75201,
+      75202,
+      75203,
+      75204,
+      75205
+    ]
+  },
+  "prev_receipt_hash": "ca8a8f82308075d216d0b50d24720ac7a9dfb69f12737db0ce6340d14ef3f157",
+  "receipt_hash": "56261da54ef089e50dc0d5a5cf91cbbdfc8813028665f4957264317095e3982f",
+  "replication": {
+    "determinism_g0a": "",
+    "experiment_id": "repro5_EXP-AB-C2B",
+    "holds_seeds": [],
+    "n_holds": 0,
+    "replicates": "EXP-AB-C2B",
+    "seeds": [
+      75201,
+      75202,
+      75203,
+      75204,
+      75205
+    ],
+    "verdict": "5-SEED REPLICATION (0/5 seeds: revival): KILL REPLICATES. Recorded verdict was on 3 seeds; this replication ran the identical instrument on 5 fresh seeds [75201, 75202, 75203, 75204, 75205]."
+  },
+  "result": {
+    "shift": {
+      "estimated": {
+        "mean_resets": 0.0,
+        "mean_return": 24.36,
+        "per_seed_resets": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "per_seed_returns": [
+          23.2,
+          25.7,
+          23.7,
+          25.1,
+          24.1
+        ]
+      },
+      "shift_reset": {
+        "mean_resets": 110.4,
+        "mean_return": 25.6,
+        "per_seed_resets": [
+          133,
+          114,
+          62,
+          102,
+          141
+        ],
+        "per_seed_returns": [
+          27.1,
+          23.3,
+          24.8,
+          27.3,
+          25.5
+        ]
+      },
+      "uniform": {
+        "mean_resets": 0.0,
+        "mean_return": 28.68,
+        "per_seed_resets": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "per_seed_returns": [
+          29.3,
+          30.7,
+          21.6,
+          30.8,
+          31.0
+        ]
+      }
+    },
+    "stationary": {
+      "estimated": {
+        "mean_resets": 0.0,
+        "mean_return": 27.0,
+        "per_seed_resets": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "per_seed_returns": [
+          24.2,
+          30.0,
+          26.4,
+          27.6,
+          26.8
+        ]
+      },
+      "shift_reset": {
+        "mean_resets": 55.0,
+        "mean_return": 26.6,
+        "per_seed_resets": [
+          65,
+          63,
+          17,
+          63,
+          67
+        ],
+        "per_seed_returns": [
+          25.6,
+          23.8,
+          28.4,
+          27.0,
+          28.2
+        ]
+      },
+      "uniform": {
+        "mean_resets": 0.0,
+        "mean_return": 33.28,
+        "per_seed_resets": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "per_seed_returns": [
+          31.6,
+          34.4,
+          32.4,
+          33.0,
+          35.0
+        ]
+      }
+    }
+  },
+  "written_utc": "2026-10-07T09:10:48.748658+00:00"
+}

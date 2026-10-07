@@ -19,6 +19,11 @@ Families (by obs keys):
                  -> greedy move onto visible needed resource, else deterministic
                     wall-following coverage (fixed turn order, bump = view
                     unchanged after a move action).
+  self_world     {hand, ball}
+                 -> fixed action 0 (degenerate but valid: the env has
+                    constant zero reward; the probe measures representational
+                    distinction, not task performance, so the symbolic bar
+                    is mere valid-action conformance).
 
 Fully deterministic: the episode seed is ignored (kept only for interface
 conformance). This is the "classical AI" bar: any learning architecture
@@ -94,6 +99,10 @@ class SymbolicBaselineAgent(BaselineAgent):
             return "resource_world"
         if "wall_n" in keys:
             return "pomaze"
+        if "hand" in keys and "ball" in keys:
+            # self_world (zero-reward probe env): fixed valid action;
+            # the probe scores representational distinction, not return.
+            return "self_world"
         return "grid_world"
 
     def act(self, obs: dict) -> int:
@@ -103,7 +112,8 @@ class SymbolicBaselineAgent(BaselineAgent):
                 "pomaze": self._act_pomaze,
                 "changing_rule": self._act_wsls,
                 "delayed_reward": self._act_delayed,
-                "resource_world": self._act_resource}[self._family](obs)
+                "resource_world": self._act_resource,
+                "self_world": self._act_self_world}[self._family](obs)
 
     def update(self, obs, action, reward, done, info) -> None:
         if self._family == "changing_rule" and reward is not None:
@@ -262,6 +272,14 @@ class SymbolicBaselineAgent(BaselineAgent):
             self._last_action = (self._last_action + 1) % 4
         self._last_view = cur_view
         return self._last_action
+
+    # -- self_world: zero-reward probe env ----------------------------------
+    def _act_self_world(self, obs):
+        # Degenerate but valid: fixed action 0. The probe scores whether
+        # the agent's internal machinery distinguishes self-caused (hand)
+        # from world-caused (ball) change; a symbolic baseline cannot, so
+        # the honest bar is valid-action conformance, not performance.
+        return 0
 
     # -- continuity ---------------------------------------------------------
     def _extra_state(self):

@@ -1,0 +1,7 @@
+=== repro5_EXP-AB-M1 ===
+M1: pomaze d=+2.158 delayed_reward d=+0.050
+  /home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/receipts/repro5_EXP-AB-M1.json
+  G0a determinism spot-check (seed 75101, identical helper calls): PASS (all 4 re-runs match to 1e-12)
+  5-SEED REPLICATION (5/5 seeds: selective deficit): REPRODUCES. Recorded verdict was on 3 seeds; this replication ran the identical instrument on 5 fresh seeds [75101, 75102, 75103, 75104, 75105].
+  arch: /home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/receipts/repro5_EXP-AB-M1.json
+  lane: /home/hatch/workspace/chambers/emergent-mind/flesh-pits/receipts/repro5_EXP-AB-M1.json

@@ -1,0 +1,6 @@
+=== repro5_EXP-AB-K3B ===
+K3B: armA d_e0=+0.0079 d_rerr=-0.0319 grown=True
+  /home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/receipts/repro5_EXP-AB-K3B.json
+  5-SEED REPLICATION (4/5 seeds: hierarchy grown): REPRODUCES. Recorded verdict was on 3 seeds; this replication ran the identical instrument on 5 fresh seeds [75401, 75402, 75403, 75404, 75405].
+  arch: /home/hatch/workspace/chambers/emergent-mind/flesh-pits/prototypes/architecture-b/receipts/repro5_EXP-AB-K3B.json
+  lane: /home/hatch/workspace/chambers/emergent-mind/flesh-pits/receipts/repro5_EXP-AB-K3B.json
