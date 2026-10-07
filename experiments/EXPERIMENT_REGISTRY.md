@@ -557,6 +557,30 @@ verifies, chained to EXP-FP-0007; G0a/G0c/G0d pass, no voided tasks)**
 
 ---
 
+## EXP-SW-02-B — closed-loop self/world extension (§9 item #12 follow-up)
+
+**PREREGISTERED (2026-10-07, 09:45 UTC, before implementation; full JSON: experiments/preregistration_SELF_WORLD_CL.json; no amendments, no experimental seeds touched)**
+- addresses EXP-SW-01's stated limitation: "B trained open-loop only; closed-loop attribution untested."
+- new env (additive): self_world_cl v1.0.0 — SUBCLASSES self_world, identical transition dynamics (canonical self_world.py untouched); reward = -(hand - 0.5)^2 so control quality depends on predicting the SELF-caused hand channel; ball remains WORLD-caused and reward-irrelevant. Cause labels in info for SCORING ONLY (agents never see info).
+- arms (paired init seeds 76001..76004): intact (EXP-SW-01 B open-loop training: 10 eps x 60 learn_transition on self_world, then frozen — base_etas zeroed, no learning in control), action-shuffle (identical streams/budget/init seeds, but learn_transition receives shuffled action labels from an independent derive_seed(s, ep, "shuffle") stream — learns transition marginals, cannot learn action-conditioning; the attribution lesion), frozen (ArchB(frozen=True), no training — no-learning control).
+- controller (all arms, same code): greedy one-step planner over model.predict_next — choose a minimizing |xhat[hand] - 0.5|; ties keep the previous action. No act()/update() path in control; the model's action-conditioned predictions drive action selection. 5 control eps x 60 on self_world_cl.
+- carrying metric: R_gap_attrib = return_intact - return_shuffle per seed. ATTRIBUTION ADVANTAGE (PASS) iff seed-mean > +1.0 AND > 0 on >= 3/4 seeds (threshold from first principles on the reward scale: expected gap ~+19, bar >10x below it). Secondary: R_gap_learn (vs frozen). Diagnostic: online D_intact from predict_next during control (does the EXP-SW-01 distinction persist under closed-loop action selection?).
+- frozen gates: G0b determinism (both envs) -> VOID run; G0a zero control episodes -> VOID arm; G0c learning-sanity (non-voiding, recorded).
+- SCOPE: B-only, preregistered explicitly — A's EXP-SW-01 arm showed no action-conditioned machinery to test or ablate (no efference copy); running A's tick against a reward would test nothing about the distinction.
+- seeds {75201..75204}. Note: seed integers coincide with the repro5_EXP-AB-C2B lane's {75201..75205} — NO contamination: different envs, different models, domain-separated RNG streams; reproducibility is per (experiment, seed).
+- tripwire CLEAN pre-run on all new code; 11 new instrument tests green (env reward semantics, planner tie-break, lesion-stream divergence, verdict rule).
+- CONSCIOUSNESS: UNRESOLVED — preregistered: "A closed-loop return advantage is a control mechanism — evidence that a learned causal attribution does work in action selection — not evidence of a subject."
+
+**RESULT (2026-10-07, ~09:55 UTC)**
+- **ATTRIBUTION ADVANTAGE (PASS)** — seed-mean R_gap_attrib = +13.59 (> +1.0), positive on 3/4 seeds (+41.40 / 0.00 / +9.76 / +3.20). return_intact = -6.0 on all 4 seeds (exactly the predicted discrete-action limit cycle: hand oscillates 0.5 <-> 0.3/0.7); return_frozen = -47.4 on all 4 seeds; return_shuffle = -47.4 / -6.0 / -15.76 / -9.20. G0c learning-sanity true on all seeds/arms; G0a/G0b passed.
+- Interpretation: the distinction does WORK. The learned action-conditioned attribution (intact action term +0.33 at hand=0.5) drives greedy control to the predicted limit cycle; the shuffled control's action term is ~10x smaller noise (-0.048…+0.031), and the frozen control has none. The gap is carried by action-conditioning specifically (intact > shuffle), not by learning in general.
+- Caveat (honest): seed 75202's lesion noise happened to carry the correct sign (+0.031), so the shuffle arm traced the intact limit cycle exactly (R_gap_attrib = 0.0). The lesion is statistical, not surgical — on ~1/4 seeds shuffled-label noise aligns helpfully. The preregistered rule allowed exactly one such seed; the mechanism diagnostic (action-term magnitude) explains it.
+- Diagnostic: online D_intact = +0.117…+0.165 (seed-mean +0.142) — the EXP-SW-01 prediction-error distinction persists DURING closed-loop action selection; online D_shuffle ≈ +0.01…+0.03 (near zero — the lesion kills the distinction too).
+- Receipt: receipts/EXP-SW-02-B.json (hash-chained onto the EXP-FP-0008 tip, self-verified).
+- CONSCIOUSNESS: UNRESOLVED — a control advantage is a mechanism, not a subject.
+
+---
+
 ## EXP-FP-C-BUILD-AND-BEAT — C build-and-beat vs A and B (§9 item 11)
 
 **PREREGISTERED (2026-10-07, before implementation/run; canonical copy:

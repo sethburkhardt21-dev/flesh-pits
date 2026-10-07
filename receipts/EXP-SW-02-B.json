@@ -1,0 +1,169 @@
+{
+  "baseline": "action-shuffled ArchB (attribution lesion); secondary: frozen ArchB (no learning).",
+  "conditions": "self_world v1.0.0 offline training (10 eps x 60 learn_transition); self_world_cl v1.0.0 control (reward = -(hand - 0.5)^2; 5 eps x 60, model frozen, base_etas zeroed); greedy one-step planner on model.predict_next minimizing |xhat[hand] - 0.5|, ties keep last action; arms: intact / action-shuffled (paired streams+init seeds 76001..76004) / frozen; cause labels from info for SCORING ONLY, never by agents; contract 1.0.0.",
+  "config": {
+    "arch": "B",
+    "conditions": "self_world v1.0.0 offline training (10 eps x 60 learn_transition); self_world_cl v1.0.0 control (reward = -(hand - 0.5)^2; 5 eps x 60, model frozen, base_etas zeroed); greedy one-step planner on model.predict_next minimizing |xhat[hand] - 0.5|, ties keep last action; arms: intact / action-shuffled (paired streams+init seeds 76001..76004) / frozen; cause labels from info for SCORING ONLY, never by agents; contract 1.0.0.",
+    "env_control": "self_world_cl",
+    "env_control_version": "1.0.0",
+    "env_train": "self_world",
+    "experiment_id": "EXP-SW-02-B",
+    "preregistration": "experiments/preregistration_SELF_WORLD_CL.json",
+    "seeds": [
+      75201,
+      75202,
+      75203,
+      75204
+    ]
+  },
+  "config_hash": "9956d48910ff07b98b965b9085de11da1379dd78f25fa9dda4f8ea0798baa482",
+  "episodes": [
+    {
+      "R_gap_attrib": 41.399999999999686,
+      "R_gap_learn": 41.399999999999686,
+      "g0c_intact": true,
+      "g0c_shuffle": true,
+      "online_D_intact": 0.1569581586091204,
+      "online_D_shuffle": 0.026177297139518024,
+      "online_mean_e_ball_intact": 0.18391308771600876,
+      "online_mean_e_hand_intact": 0.026954929106888348,
+      "return_frozen": -47.39999999999969,
+      "return_intact": -6.000000000000004,
+      "return_shuffle": -47.39999999999969,
+      "seed": 75201
+    },
+    {
+      "R_gap_attrib": 0.0,
+      "R_gap_learn": 41.399999999999686,
+      "g0c_intact": true,
+      "g0c_shuffle": true,
+      "online_D_intact": 0.11609417263604888,
+      "online_D_shuffle": 0.024764124919772812,
+      "online_mean_e_ball_intact": 0.1661860791126399,
+      "online_mean_e_hand_intact": 0.05009190647659103,
+      "return_frozen": -47.39999999999969,
+      "return_intact": -6.000000000000004,
+      "return_shuffle": -6.000000000000004,
+      "seed": 75202
+    },
+    {
+      "R_gap_attrib": 9.759999999999955,
+      "R_gap_learn": 41.399999999999686,
+      "g0c_intact": true,
+      "g0c_shuffle": true,
+      "online_D_intact": 0.16532578816235818,
+      "online_D_shuffle": 0.030991258096189966,
+      "online_mean_e_ball_intact": 0.20617487105598992,
+      "online_mean_e_hand_intact": 0.04084908289363174,
+      "return_frozen": -47.39999999999969,
+      "return_intact": -6.000000000000004,
+      "return_shuffle": -15.75999999999996,
+      "seed": 75203
+    },
+    {
+      "R_gap_attrib": 3.199999999999993,
+      "R_gap_learn": 41.399999999999686,
+      "g0c_intact": true,
+      "g0c_shuffle": true,
+      "online_D_intact": 0.12801861957421934,
+      "online_D_shuffle": 0.014303007099935816,
+      "online_mean_e_ball_intact": 0.16332656160987194,
+      "online_mean_e_hand_intact": 0.035307942035652615,
+      "return_frozen": -47.39999999999969,
+      "return_intact": -6.000000000000004,
+      "return_shuffle": -9.199999999999998,
+      "seed": 75204
+    }
+  ],
+  "experiment_id": "EXP-SW-02-B",
+  "hypothesis": "The self/world distinction does closed-loop WORK: the action-conditioned model's greedy controller earns higher return than the action-shuffled control.",
+  "interpretation": "ATTRIBUTION ADVANTAGE (PASS)",
+  "limitations": "CONSCIOUSNESS: UNRESOLVED \u2014 a control advantage is a mechanism, not a subject.",
+  "null_hypothesis": "R_gap_attrib ~= 0: no control advantage from the action-conditioned attribution (measurement-only epiphenomenon), or the gap is generic learning.",
+  "preregistered_metric": "R_gap_attrib = return_intact - return_shuffle per seed; ATTRIBUTION ADVANTAGE (PASS) iff seed-mean > +1.0 AND > 0 on >= 3/4 seeds.",
+  "prev_receipt_hash": "357701620bc722ede3da960a74c8c8201c90ffc098a3e4f99002ac64281a6bba",
+  "primary_seed": [
+    75201,
+    75202,
+    75203,
+    75204
+  ],
+  "receipt_hash": "e89c29ee125592ed166959dce9af00c91ffb3c221f31bdd5e4c8c4d0e36f66a4",
+  "started_utc": "2026-10-07T09:47:28.485213+00:00",
+  "summary": {
+    "g0c_flags": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "per_seed": [
+      {
+        "R_gap_attrib": 41.399999999999686,
+        "R_gap_learn": 41.399999999999686,
+        "g0c_intact": true,
+        "g0c_shuffle": true,
+        "online_D_intact": 0.1569581586091204,
+        "online_D_shuffle": 0.026177297139518024,
+        "online_mean_e_ball_intact": 0.18391308771600876,
+        "online_mean_e_hand_intact": 0.026954929106888348,
+        "return_frozen": -47.39999999999969,
+        "return_intact": -6.000000000000004,
+        "return_shuffle": -47.39999999999969,
+        "seed": 75201
+      },
+      {
+        "R_gap_attrib": 0.0,
+        "R_gap_learn": 41.399999999999686,
+        "g0c_intact": true,
+        "g0c_shuffle": true,
+        "online_D_intact": 0.11609417263604888,
+        "online_D_shuffle": 0.024764124919772812,
+        "online_mean_e_ball_intact": 0.1661860791126399,
+        "online_mean_e_hand_intact": 0.05009190647659103,
+        "return_frozen": -47.39999999999969,
+        "return_intact": -6.000000000000004,
+        "return_shuffle": -6.000000000000004,
+        "seed": 75202
+      },
+      {
+        "R_gap_attrib": 9.759999999999955,
+        "R_gap_learn": 41.399999999999686,
+        "g0c_intact": true,
+        "g0c_shuffle": true,
+        "online_D_intact": 0.16532578816235818,
+        "online_D_shuffle": 0.030991258096189966,
+        "online_mean_e_ball_intact": 0.20617487105598992,
+        "online_mean_e_hand_intact": 0.04084908289363174,
+        "return_frozen": -47.39999999999969,
+        "return_intact": -6.000000000000004,
+        "return_shuffle": -15.75999999999996,
+        "seed": 75203
+      },
+      {
+        "R_gap_attrib": 3.199999999999993,
+        "R_gap_learn": 41.399999999999686,
+        "g0c_intact": true,
+        "g0c_shuffle": true,
+        "online_D_intact": 0.12801861957421934,
+        "online_D_shuffle": 0.014303007099935816,
+        "online_mean_e_ball_intact": 0.16332656160987194,
+        "online_mean_e_hand_intact": 0.035307942035652615,
+        "return_frozen": -47.39999999999969,
+        "return_intact": -6.000000000000004,
+        "return_shuffle": -9.199999999999998,
+        "seed": 75204
+      }
+    ],
+    "rule_fired": true,
+    "seed_mean_R_gap_attrib": 13.58999999999991,
+    "seed_mean_R_gap_learn": 41.399999999999686,
+    "seed_mean_online_D_intact": 0.1415991847454367,
+    "seed_mean_return_frozen": -47.39999999999969,
+    "seed_mean_return_intact": -6.000000000000004,
+    "seed_mean_return_shuffle": -19.589999999999915,
+    "seeds_positive_R_gap_attrib": 3,
+    "verdict": "ATTRIBUTION ADVANTAGE (PASS)"
+  },
+  "written_utc": "2026-10-07T09:47:28.485418+00:00"
+}
