@@ -27,6 +27,20 @@
         "seeded by build_registry from Phase 7 pre-allocations (owner-standing)"
       ],
       "purpose": "Phase 7 pre-allocation: calibration lane"
+    },
+    "EXP-FP-011x": {
+      "claimed_by_pid": 56068,
+      "claimed_utc": "2026-10-07T13:33:58.806208+00:00",
+      "lane": "uncertainty-hazard",
+      "notes": [],
+      "purpose": "Track D: metacognition hazard program \u2014 decision-usable uncertainty estimators (2026-10-07)"
+    },
+    "EXP-FP-012x": {
+      "claimed_by_pid": 56550,
+      "claimed_utc": "2026-10-07T13:35:49.844448+00:00",
+      "lane": "ecr-generalization",
+      "notes": [],
+      "purpose": "Track A: ECR generalization bounds battery across 6 sparse-reward envs (6 experiment IDs 0120-0125)"
     }
   },
   "ids": {
@@ -225,6 +239,83 @@
       "source": "receipt",
       "written_utc": "2026-10-07T13:25:13.431272+00:00"
     },
+    "EXP-FP-0110": {
+      "claimed_utc": "2026-10-07T13:38:28.738202+00:00",
+      "family": "EXP-FP-011x",
+      "file": null,
+      "lane": "uncertainty-hazard",
+      "source": "claimed"
+    },
+    "EXP-FP-0111": {
+      "claimed_utc": "2026-10-07T13:38:29.119748+00:00",
+      "family": "EXP-FP-011x",
+      "file": null,
+      "lane": "uncertainty-hazard",
+      "source": "claimed"
+    },
+    "EXP-FP-0112": {
+      "claimed_utc": "2026-10-07T13:38:29.603331+00:00",
+      "family": "EXP-FP-011x",
+      "file": null,
+      "lane": "uncertainty-hazard",
+      "source": "claimed"
+    },
+    "EXP-FP-0113": {
+      "claimed_utc": "2026-10-07T13:38:30.058005+00:00",
+      "family": "EXP-FP-011x",
+      "file": null,
+      "lane": "uncertainty-hazard",
+      "source": "claimed"
+    },
+    "EXP-FP-0114": {
+      "claimed_utc": "2026-10-07T13:46:43.862205+00:00",
+      "family": "EXP-FP-011x",
+      "file": null,
+      "lane": "uncertainty-hazard",
+      "source": "claimed"
+    },
+    "EXP-FP-0120": {
+      "claimed_utc": "2026-10-07T13:35:58.871869+00:00",
+      "family": "EXP-FP-012x",
+      "file": null,
+      "lane": "ecr-generalization",
+      "source": "claimed"
+    },
+    "EXP-FP-0121": {
+      "claimed_utc": "2026-10-07T13:35:59.335345+00:00",
+      "family": "EXP-FP-012x",
+      "file": null,
+      "lane": "ecr-generalization",
+      "source": "claimed"
+    },
+    "EXP-FP-0122": {
+      "claimed_utc": "2026-10-07T13:35:59.718714+00:00",
+      "family": "EXP-FP-012x",
+      "file": null,
+      "lane": "ecr-generalization",
+      "source": "claimed"
+    },
+    "EXP-FP-0123": {
+      "claimed_utc": "2026-10-07T13:36:00.073391+00:00",
+      "family": "EXP-FP-012x",
+      "file": null,
+      "lane": "ecr-generalization",
+      "source": "claimed"
+    },
+    "EXP-FP-0124": {
+      "claimed_utc": "2026-10-07T13:36:00.532310+00:00",
+      "family": "EXP-FP-012x",
+      "file": null,
+      "lane": "ecr-generalization",
+      "source": "claimed"
+    },
+    "EXP-FP-0125": {
+      "claimed_utc": "2026-10-07T13:36:00.988181+00:00",
+      "family": "EXP-FP-012x",
+      "file": null,
+      "lane": "ecr-generalization",
+      "source": "claimed"
+    },
     "EXP-FP-C-BUILD-AND-BEAT": {
       "family": null,
       "file": "experiments/preregistration_ARCH_C.json",
@@ -260,6 +351,83 @@
       "file": "experiments/preregistration_SELF_WORLD_CL.json",
       "lane": null,
       "source": "preregistration"
+    },
+    "K12-A1": {
+      "claimed_utc": "2026-10-07T13:37:25.133700+00:00",
+      "family": null,
+      "file": null,
+      "lane": "k12-cue-bounds",
+      "source": "claimed"
+    },
+    "K12-A2": {
+      "claimed_utc": "2026-10-07T13:37:25.141982+00:00",
+      "family": null,
+      "file": null,
+      "lane": "k12-cue-bounds",
+      "source": "claimed"
+    },
+    "K12-A3": {
+      "claimed_utc": "2026-10-07T13:37:25.152984+00:00",
+      "family": null,
+      "file": null,
+      "lane": "k12-cue-bounds",
+      "source": "claimed"
+    },
+    "K12-B1": {
+      "claimed_utc": "2026-10-07T13:37:25.173401+00:00",
+      "family": null,
+      "file": null,
+      "lane": "k12-cue-bounds",
+      "source": "claimed"
+    },
+    "K12-B2": {
+      "claimed_utc": "2026-10-07T13:37:25.186334+00:00",
+      "family": null,
+      "file": null,
+      "lane": "k12-cue-bounds",
+      "source": "claimed"
+    },
+    "K12-B3": {
+      "claimed_utc": "2026-10-07T13:37:25.194980+00:00",
+      "family": null,
+      "file": null,
+      "lane": "k12-cue-bounds",
+      "source": "claimed"
+    },
+    "K12-C1": {
+      "claimed_utc": "2026-10-07T13:37:25.210255+00:00",
+      "family": null,
+      "file": null,
+      "lane": "k12-cue-bounds",
+      "source": "claimed"
+    },
+    "K12-C2": {
+      "claimed_utc": "2026-10-07T13:37:25.222192+00:00",
+      "family": null,
+      "file": null,
+      "lane": "k12-cue-bounds",
+      "source": "claimed"
+    },
+    "K12-C3": {
+      "claimed_utc": "2026-10-07T13:37:25.228743+00:00",
+      "family": null,
+      "file": null,
+      "lane": "k12-cue-bounds",
+      "source": "claimed"
+    },
+    "K12-D2": {
+      "claimed_utc": "2026-10-07T13:37:25.236302+00:00",
+      "family": null,
+      "file": null,
+      "lane": "k12-cue-bounds",
+      "source": "claimed"
+    },
+    "K12-D3": {
+      "claimed_utc": "2026-10-07T13:37:25.244966+00:00",
+      "family": null,
+      "file": null,
+      "lane": "k12-cue-bounds",
+      "source": "claimed"
     },
     "repro5_EXP-AB-C2B": {
       "family": null,

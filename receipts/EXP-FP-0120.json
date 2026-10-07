@@ -1,0 +1,332 @@
+{
+  "baseline": "frozen = identical ReturnConditionedEpisodicArbitrator, frozen=True, gains pinned 1.0, paired per seed",
+  "conditions": "grid_world v1.0.0; neutral specialists; capacity=4; gain_lr=0.15; theta=0.45; gain_cap=2.0; branch prior = all movement channels; max_steps=100; 8 episodes/arm; prereg experiments/preregistration_EXP-FP-0120.json",
+  "config": {
+    "arbitrator": "ReturnConditionedEpisodicArbitrator (EXP-FP-0080 independent reimplementation, module UNTOUCHED)",
+    "arbitrator_params": {
+      "branch_channels": [
+        "east",
+        "north",
+        "south",
+        "west"
+      ],
+      "corridor_boost": 0.01,
+      "max_steps": 100,
+      "prebranch_demote": 0.05,
+      "shape_punish": 0.02
+    },
+    "branch_channels": [
+      "east",
+      "north",
+      "south",
+      "west"
+    ],
+    "capacity": 4,
+    "channels": [
+      "north",
+      "south",
+      "east",
+      "west",
+      "stay"
+    ],
+    "env": "grid_world v1.0.0",
+    "episodes_per_arm": 8,
+    "floor": 0.01,
+    "frozen": "same class, frozen=True, gains pinned 1.0",
+    "gain_cap": 2.0,
+    "gain_lr": 0.15,
+    "gate": "learned_goal_episodes > frozen_goal_episodes on 4/4 (nav: negative per-tick rewards invert the R ratio)",
+    "max_steps": 100,
+    "replicates": "EXP-FP-0080 (cross-env generalization)",
+    "seeds": [
+      87101,
+      87102,
+      87103,
+      87104
+    ],
+    "specialists": "neutral (K5 P1 identical)",
+    "theta": 0.45
+  },
+  "config_hash": "31e1d2b7fe8013caf16e7181763c6cf28a8d38f106aaa72dfa5bb9f27a9f98ae",
+  "episodes": [
+    {
+      "arm": "learned",
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=87101:run=0",
+      "goal_episodes": 0,
+      "max_steps": 100,
+      "n_env_episodes": 17,
+      "return": -34.85,
+      "seed": 87101,
+      "successes": 0,
+      "truncated": false
+    },
+    {
+      "arm": "frozen",
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=87101:run=1",
+      "goal_episodes": 0,
+      "max_steps": 100,
+      "n_env_episodes": 17,
+      "return": -34.85,
+      "seed": 87101,
+      "successes": 0,
+      "truncated": false
+    },
+    {
+      "arm": "learned",
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=87102:run=0",
+      "goal_episodes": 2,
+      "max_steps": 100,
+      "n_env_episodes": 14,
+      "return": -26.950000000000003,
+      "seed": 87102,
+      "successes": 0,
+      "truncated": false
+    },
+    {
+      "arm": "frozen",
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=87102:run=1",
+      "goal_episodes": 2,
+      "max_steps": 100,
+      "n_env_episodes": 14,
+      "return": -27.35,
+      "seed": 87102,
+      "successes": 0,
+      "truncated": false
+    },
+    {
+      "arm": "learned",
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=87103:run=0",
+      "goal_episodes": 1,
+      "max_steps": 100,
+      "n_env_episodes": 19,
+      "return": -32.75,
+      "seed": 87103,
+      "successes": 0,
+      "truncated": false
+    },
+    {
+      "arm": "frozen",
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=87103:run=1",
+      "goal_episodes": 1,
+      "max_steps": 100,
+      "n_env_episodes": 19,
+      "return": -32.45,
+      "seed": 87103,
+      "successes": 0,
+      "truncated": false
+    },
+    {
+      "arm": "learned",
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=87104:run=0",
+      "goal_episodes": 2,
+      "max_steps": 100,
+      "n_env_episodes": 13,
+      "return": -26.1,
+      "seed": 87104,
+      "successes": 0,
+      "truncated": false
+    },
+    {
+      "arm": "frozen",
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=87104:run=1",
+      "goal_episodes": 2,
+      "max_steps": 100,
+      "n_env_episodes": 14,
+      "return": -26.1,
+      "seed": 87104,
+      "successes": 0,
+      "truncated": false
+    }
+  ],
+  "experiment_id": "EXP-FP-0120",
+  "hypothesis": "H1: ECR learned gains beat frozen gains on grid_world: learned reaches the goal in strictly more episodes than frozen on 4/4 fresh seeds",
+  "interpretation": "BREAKS (0/4). The goal tick pays -0.02+1.00=0.98 < 1.0, so ECR's terminal-success detector never fires: terminal success is absorbed as a shaping tick and the success lock-in (branch+progress cap-set) never executes. Episode boundaries leak across env episodes until the max_steps truncation reset. Learned gains stay ~1.0 (tiny shaping-classified updates on the 1-2 goal ticks reached); goal counts tied with frozen on all 4 seeds. All three ablations ~identical to full (sub-mechanisms inert in this regime).",
+  "limitations": "4 seeds; neutral specialists (bandit isolation); branch_channels prior given; ECR module untouched from EXP-FP-0080.",
+  "null_hypothesis": "H0: learned does not out-reach frozen on >=1 seed -> ECR does not generalize to grid_world",
+  "preregistered_metric": "goal_episodes(learned) vs goal_episodes(frozen) per seed; WIN iff learned > frozen (strict). R-gate INVALID here (negative per-tick rewards invert the ratio) -- preregistered adaptation",
+  "prev_receipt_hash": "d0a94207a753aeb9c3bff8b259f3bc04c212d6c32a29abf9b7fc5d9ab5defbc5",
+  "primary_seed": 87101,
+  "receipt_hash": "5ba670f8ea57a6798357d86c0b4f04ed86d2862f23a89f4b047974e9f24683f2",
+  "started_utc": "2026-10-07T13:42:11.889700+00:00",
+  "summary": {
+    "ablations": {
+      "no_boost": {
+        "note": "descriptive, not gated; frozen totals reused",
+        "seeds": {
+          "87101": {
+            "frozen_goal_episodes": 0,
+            "frozen_total": -34.85,
+            "learned_goal_episodes": 0,
+            "learned_successes": 0,
+            "learned_total": -34.85,
+            "ratio": null,
+            "win": false
+          },
+          "87102": {
+            "frozen_goal_episodes": 2,
+            "frozen_total": -27.35,
+            "learned_goal_episodes": 2,
+            "learned_successes": 0,
+            "learned_total": -28.150000000000002,
+            "ratio": null,
+            "win": false
+          }
+        },
+        "wins": 0
+      },
+      "no_prebranch": {
+        "note": "descriptive, not gated; frozen totals reused",
+        "seeds": {
+          "87101": {
+            "frozen_goal_episodes": 0,
+            "frozen_total": -34.85,
+            "learned_goal_episodes": 0,
+            "learned_successes": 0,
+            "learned_total": -34.85,
+            "ratio": null,
+            "win": false
+          },
+          "87102": {
+            "frozen_goal_episodes": 2,
+            "frozen_total": -27.35,
+            "learned_goal_episodes": 2,
+            "learned_successes": 0,
+            "learned_total": -26.950000000000003,
+            "ratio": null,
+            "win": false
+          }
+        },
+        "wins": 0
+      },
+      "no_punish": {
+        "note": "descriptive, not gated; frozen totals reused",
+        "seeds": {
+          "87101": {
+            "frozen_goal_episodes": 0,
+            "frozen_total": -34.85,
+            "learned_goal_episodes": 0,
+            "learned_successes": 0,
+            "learned_total": -34.85,
+            "ratio": null,
+            "win": false
+          },
+          "87102": {
+            "frozen_goal_episodes": 2,
+            "frozen_total": -27.35,
+            "learned_goal_episodes": 1,
+            "learned_successes": 0,
+            "learned_total": -23.900000000000002,
+            "ratio": null,
+            "win": false
+          }
+        },
+        "wins": 0
+      }
+    },
+    "margin": 1.3,
+    "max_return": -26.1,
+    "mean_return": -30.175,
+    "min_return": -34.85,
+    "n_episodes": 8,
+    "need": 4,
+    "passed": false,
+    "per_seed": [
+      {
+        "frozen_env_episodes": 17,
+        "frozen_goal_episodes": 0,
+        "frozen_successes": 0,
+        "frozen_total": -34.85,
+        "learned_env_episodes": 17,
+        "learned_gains": {
+          "east": 1.0,
+          "north": 1.0,
+          "south": 1.0,
+          "stay": 1.0,
+          "west": 1.0
+        },
+        "learned_goal_episodes": 0,
+        "learned_successes": 0,
+        "learned_total": -34.85,
+        "n_gain_updates": 800,
+        "ratio": null,
+        "seed": 87101,
+        "win": false
+      },
+      {
+        "frozen_env_episodes": 14,
+        "frozen_goal_episodes": 2,
+        "frozen_successes": 0,
+        "frozen_total": -27.35,
+        "learned_env_episodes": 14,
+        "learned_gains": {
+          "east": 1.0,
+          "north": 1.01,
+          "south": 1.01,
+          "stay": 0.96,
+          "west": 1.0
+        },
+        "learned_goal_episodes": 2,
+        "learned_successes": 0,
+        "learned_total": -26.950000000000003,
+        "n_gain_updates": 800,
+        "ratio": null,
+        "seed": 87102,
+        "win": false
+      },
+      {
+        "frozen_env_episodes": 19,
+        "frozen_goal_episodes": 1,
+        "frozen_successes": 0,
+        "frozen_total": -32.45,
+        "learned_env_episodes": 19,
+        "learned_gains": {
+          "east": 1.01,
+          "north": 1.0,
+          "south": 1.0,
+          "stay": 0.98,
+          "west": 1.0
+        },
+        "learned_goal_episodes": 1,
+        "learned_successes": 0,
+        "learned_total": -32.75,
+        "n_gain_updates": 800,
+        "ratio": null,
+        "seed": 87103,
+        "win": false
+      },
+      {
+        "frozen_env_episodes": 14,
+        "frozen_goal_episodes": 2,
+        "frozen_successes": 0,
+        "frozen_total": -26.1,
+        "learned_env_episodes": 13,
+        "learned_gains": {
+          "east": 1.01,
+          "north": 1.0,
+          "south": 1.01,
+          "stay": 0.96,
+          "west": 1.0
+        },
+        "learned_goal_episodes": 2,
+        "learned_successes": 0,
+        "learned_total": -26.1,
+        "n_gain_updates": 800,
+        "ratio": null,
+        "seed": 87104,
+        "win": false
+      }
+    ],
+    "stdev_return": 3.659064087987528,
+    "verdict": "BREAKS",
+    "wins": 0
+  },
+  "written_utc": "2026-10-07T13:44:24.612035+00:00"
+}

@@ -13,5 +13,21 @@
   "tests/test_attention_ecr.py::TestECRSuccess::test_episode_resets_after_success",
   "tests/test_attention_ecr.py::TestECRSuccess::test_success_credits_first_branch_win",
   "tests/test_attention_ecr.py::TestECRSuccess::test_success_locks_branch_and_progress_to_cap",
-  "tests/test_attention_ecr.py::TestECRSuccess::test_truncation_resets_without_credit"
+  "tests/test_attention_ecr.py::TestECRSuccess::test_truncation_resets_without_credit",
+  "tests/test_attention_ecr_repro.py::TestConstruction::test_frozen_gains_never_move",
+  "tests/test_attention_ecr_repro.py::TestConstruction::test_rejects_non_subset_branch_channels",
+  "tests/test_attention_ecr_repro.py::TestConstruction::test_rejects_nonpositive_max_steps",
+  "tests/test_attention_ecr_repro.py::TestConstruction::test_requires_priors_to_update",
+  "tests/test_attention_ecr_repro.py::TestDeterminism::test_identical_streams_identical_gains",
+  "tests/test_attention_ecr_repro.py::TestPreBranchNoop::test_branch_winners_never_demoted_prebranch",
+  "tests/test_attention_ecr_repro.py::TestPreBranchNoop::test_demote_when_above_branch_ceiling",
+  "tests/test_attention_ecr_repro.py::TestPreBranchNoop::test_no_demote_at_or_below_branch_ceiling",
+  "tests/test_attention_ecr_repro.py::TestPreBranchNoop::test_no_demote_post_branch",
+  "tests/test_attention_ecr_repro.py::TestShaping::test_progress_channel_is_episode_forward",
+  "tests/test_attention_ecr_repro.py::TestShaping::test_punish_floor_holds",
+  "tests/test_attention_ecr_repro.py::TestShaping::test_shaping_punishes_useless_protects_branches_boosts_winner",
+  "tests/test_attention_ecr_repro.py::TestSuccessCredit::test_first_branch_win_is_credited",
+  "tests/test_attention_ecr_repro.py::TestSuccessCredit::test_ledger_clears_on_success",
+  "tests/test_attention_ecr_repro.py::TestSuccessCredit::test_success_sets_branch_choice_and_progress_to_cap",
+  "tests/test_attention_ecr_repro.py::TestSuccessCredit::test_truncation_clears_without_cap_sets"
 ]

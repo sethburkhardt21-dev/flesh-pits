@@ -1,0 +1,94 @@
+{
+  "baseline": "frozen gains (same CueIndexedArbitrator class, frozen=True, pinned 1.0)",
+  "conditions": "k12_cue_battery timing=episodic (cue drawn per episode, constant for 40 steps); K10 protocol: 12 episodes x 40 steps, channels a0/a1, neutral specialists, capacity=2, gain_lr=0.15, theta=0.45, ORIGINAL delta rule (baseline 0.5), CueIndexedArbitrator. Frozen = same class, frozen=True, gains pinned 1.0. Main probe: context_fn = obs.get('cue') (cue in input; None when hidden).",
+  "config": {
+    "arbitrator": "CueIndexedArbitrator",
+    "capacity": 2,
+    "channels": [
+      "a0",
+      "a1"
+    ],
+    "env": "k12_cue_battery v1.0.0",
+    "episodes": 12,
+    "gain_lr": 0.15,
+    "prereg": "preregistration_<ID>.json sealed 2026-10-07T09:45Z",
+    "steps_per_episode": 40,
+    "theta": 0.45,
+    "update_rule": "original delta rule, baseline 0.5"
+  },
+  "config_hash": "cf874f21452e840a04cb0a9ab266d69842bcf0548632a3a33a6b2d888c036a20",
+  "episodes": 12,
+  "experiment_id": "K12-C1",
+  "hypothesis": "Cue-caused lift: total samples per cue (~240) unchanged from canonical; clustering within episodes does not starve the per-cue vectors.",
+  "interpretation": "ADAPTER-CAUSED (not cue-caused): main AND control both gap: the lift comes from the learning loop, not the cue (prediction was: LIFT (cue-caused).)",
+  "limitations": "12 episodes x 40 steps; neutral specialists (bandit isolation, no obs input to stimuli); 4 seeds/condition; flips every 5 episodes where enabled; 10% reward noise.",
+  "null_hypothesis": "Main fails -> cue-indexing needs within-episode cue alternation (e.g. the None-context mechanics break); record NR.",
+  "preregistered_metric": "R = total(learned)/total(frozen) per seed, separately for main and control probes",
+  "prev_receipt_hash": "d38181e7342172e3d3df5831a4492a9980951f40bcc347e9adeb53a61fc0606c",
+  "primary_seed": 61001,
+  "receipt_hash": "d7f1c9b12eba17488c33b35921374ea5937c5a0f81a45ee291cbbf57f090893e",
+  "started_utc": "2026-10-07T13:44:02.080981+00:00",
+  "summary": {
+    "control_wins": 4,
+    "env_kwargs": {
+      "timing": "episodic"
+    },
+    "main_wins": 4,
+    "margin": 1.3,
+    "need": 3,
+    "seed_rows": [
+      {
+        "ctrl_R": 1.763,
+        "ctrl_frozen": 215.0,
+        "ctrl_gap": true,
+        "ctrl_learned": 379.0,
+        "main_R": 1.753,
+        "main_frozen": 215.0,
+        "main_learned": 377.0,
+        "main_win": true,
+        "seed": 61001
+      },
+      {
+        "ctrl_R": 1.423,
+        "ctrl_frozen": 241.0,
+        "ctrl_gap": true,
+        "ctrl_learned": 343.0,
+        "main_R": 1.568,
+        "main_frozen": 241.0,
+        "main_learned": 378.0,
+        "main_win": true,
+        "seed": 61002
+      },
+      {
+        "ctrl_R": 1.409,
+        "ctrl_frozen": 252.0,
+        "ctrl_gap": true,
+        "ctrl_learned": 355.0,
+        "main_R": 1.607,
+        "main_frozen": 252.0,
+        "main_learned": 405.0,
+        "main_win": true,
+        "seed": 61003
+      },
+      {
+        "ctrl_R": 1.604,
+        "ctrl_frozen": 222.0,
+        "ctrl_gap": true,
+        "ctrl_learned": 356.0,
+        "main_R": 1.613,
+        "main_frozen": 222.0,
+        "main_learned": 358.0,
+        "main_win": true,
+        "seed": 61004
+      }
+    ],
+    "seeds": [
+      61001,
+      61002,
+      61003,
+      61004
+    ],
+    "verdict": "ADAPTER-CAUSED (not cue-caused)"
+  },
+  "written_utc": "2026-10-07T13:44:53.416435+00:00"
+}

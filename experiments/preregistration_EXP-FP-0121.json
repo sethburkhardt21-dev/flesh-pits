@@ -1,0 +1,72 @@
+{
+  "ablation_plan": {
+    "arms": {
+      "no_boost": "corridor_boost = 0.0",
+      "no_prebranch": "prebranch_demote = 0.0",
+      "no_punish": "shape_punish = 0.0"
+    },
+    "expected": "on envs where the full rule HOLDS: which of the three sub-mechanisms carries the win. On envs where it BREAKS: which sub-mechanism fails (e.g. success detector never fires -> all variants identical to full).",
+    "note": "descriptive mechanism evidence, not gated; per-seed WIN uses the same env-class gate; ordering vs the full rule is the diagnostic",
+    "seeds": "first 2 of the env's seed set; frozen totals reused (frozen is variant-independent)"
+  },
+  "baselines": {
+    "frozen": "same ReturnConditionedEpisodicArbitrator with frozen=True (gains pinned at 1.0) -- paired per seed (identical env seed, identical specialists)"
+  },
+  "config": {
+    "arbitrator": "ReturnConditionedEpisodicArbitrator (prototypes/architecture-a/attention_ecr_repro.py; the EXP-FP-0080 independent ECR reimplementation; module UNTOUCHED by this experiment)",
+    "arbitrator_params": {
+      "corridor_boost": 0.01,
+      "prebranch_demote": 0.05,
+      "shape_punish": 0.02
+    },
+    "branch_channels": [
+      "north",
+      "south",
+      "east",
+      "west"
+    ],
+    "branch_prior_justification": "same as EXP-FP-0120: every movement tick is a path-branching decision; verified insensitive by a one-seed re-run with branch_channels={'north'}.",
+    "capacity": 4,
+    "channels": "env action labels",
+    "env": "pomaze v1.0.0",
+    "gain_cap": 2.0,
+    "gain_floor": 0.01,
+    "gain_lr": 0.15,
+    "ignition_theta": 0.45,
+    "independence_note": "ECR rule and module unchanged from EXP-FP-0080; only the task environment varies. attention.py, tick.py, attention_ecr_repro.py byte-identical (G0 checks).",
+    "max_steps": 200,
+    "n_episodes": 6,
+    "no_tuning": "all ECR params held identical to EXP-FP-0080; no tuning on confirmatory seeds",
+    "seeds": [
+      87201,
+      87202,
+      87203,
+      87204
+    ],
+    "specialists": "neutral (0.5 + noise(0.05) on every channel; bandit isolation, K5 P1 / EXP-FP-0080 identical)",
+    "ticks_per_seed_arm": "6 * 200 (fixed loop, episodes auto-reset; early terminations may yield more env episodes)"
+  },
+  "driver": "prototypes/architecture-a/experiments/exp_fp_0120_ecr_generalization.py",
+  "expected_mechanism_note": "goal tick pays -0.01+1.00=0.99 <1.0: terminal success absorbed as shaping; success lock-in never fires. Partial observability additionally stresses the state-blind bandit. If learned==frozen exactly, that is the finding.",
+  "experiment_id": "EXP-FP-0121",
+  "frozen_gates": {
+    "G0": "canonical files byte-identical pre/post (attention.py, tick.py, attention_ecr_repro.py, k5_multitask_generalization.py, all envs/)",
+    "G1": "fabrication-tripwire CLEAN on new code (driver + writer)",
+    "G2": "determinism: recompute first seed's learned arm through the identical driver path, exact match (1e-12)",
+    "G3": "hash-chained receipt via experiments/harness.py write_receipt; on ReceiptExistsError claim a fresh ID, never force",
+    "G4": "nothing pushed to git; all artifacts local"
+  },
+  "gate": "HOLDS iff WIN on 4/4 fresh seeds {87201..87204}.",
+  "gate_adaptation": "same preregistered adaptation as EXP-FP-0120: negative per-tick rewards invert the R ratio; gate on goal-reaching episodes.",
+  "hypothesis": "H1: ECR learned gains beat frozen gains on pomaze: learned reaches the goal in strictly more episodes than frozen on 4/4 fresh seeds.",
+  "lane": "ecr-generalization (Track A)",
+  "metric": "goal_episodes(learned) vs goal_episodes(frozen) per seed; per-seed WIN iff learned > frozen (strict). Total return (less negative = better) secondary.",
+  "null": "H0: learned does not reach the goal in more episodes than frozen on >=1 seed -> ECR does not generalize to pomaze -> mechanistic bound recorded.",
+  "preregistered_at": "2026-10-07T09:41:11-04:00",
+  "preregistered_before": "any execution of the EXP-FP-012x battery driver on these seeds; module/driver written before, no confirmatory data seen",
+  "receipt_writer": "prototypes/architecture-a/experiments/write_receipt_012x.py",
+  "rng_policy": "seeded env RNG only (new_rng via env.reset with preregistered seeds x1000+e); neutral_specialists seeded per channel; no random.* in measurement code except seeded RNG declared here",
+  "seed_provenance": "Fresh seeds [87201, 87202, 87203, 87204]; 0 hits verified by word-boundary grep across experiments/ prototypes/ research/ ablations/ benchmarks/ receipts/ handoff/ at preregistration time (excluding this lane's own new files).",
+  "status": "PREREGISTERED",
+  "title": "ECR generalization: pomaze (partial-observability maze)"
+}

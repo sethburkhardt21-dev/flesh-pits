@@ -1,0 +1,70 @@
+{
+  "ablation_plan": {
+    "arms": {
+      "no_boost": "corridor_boost = 0.0",
+      "no_prebranch": "prebranch_demote = 0.0",
+      "no_punish": "shape_punish = 0.0"
+    },
+    "expected": "on envs where the full rule HOLDS: which of the three sub-mechanisms carries the win. On envs where it BREAKS: which sub-mechanism fails (e.g. success detector never fires -> all variants identical to full).",
+    "note": "descriptive mechanism evidence, not gated; per-seed WIN uses the same env-class gate; ordering vs the full rule is the diagnostic",
+    "seeds": "first 2 of the env's seed set; frozen totals reused (frozen is variant-independent)"
+  },
+  "baselines": {
+    "frozen": "same ReturnConditionedEpisodicArbitrator with frozen=True (gains pinned at 1.0) -- paired per seed (identical env seed, identical specialists)"
+  },
+  "config": {
+    "arbitrator": "ReturnConditionedEpisodicArbitrator (prototypes/architecture-a/attention_ecr_repro.py; the EXP-FP-0080 independent ECR reimplementation; module UNTOUCHED by this experiment)",
+    "arbitrator_params": {
+      "corridor_boost": 0.01,
+      "prebranch_demote": 0.05,
+      "shape_punish": 0.02
+    },
+    "branch_channels": [
+      "a0",
+      "a1"
+    ],
+    "branch_prior_justification": "every bandit tick is a branch decision; both actions are branch channels.",
+    "capacity": 4,
+    "channels": "env action labels",
+    "env": "compositional_rule v1.0.0",
+    "gain_cap": 2.0,
+    "gain_floor": 0.01,
+    "gain_lr": 0.15,
+    "ignition_theta": 0.45,
+    "independence_note": "ECR rule and module unchanged from EXP-FP-0080; only the task environment varies. attention.py, tick.py, attention_ecr_repro.py byte-identical (G0 checks).",
+    "max_steps": 40,
+    "n_episodes": 12,
+    "no_tuning": "all ECR params held identical to EXP-FP-0080; no tuning on confirmatory seeds",
+    "seeds": [
+      87401,
+      87402,
+      87403,
+      87404
+    ],
+    "specialists": "neutral (0.5 + noise(0.05) on every channel; bandit isolation, K5 P1 / EXP-FP-0080 identical)",
+    "ticks_per_seed_arm": "12 * 40 (fixed loop, episodes auto-reset; early terminations may yield more env episodes)"
+  },
+  "driver": "prototypes/architecture-a/experiments/exp_fp_0120_ecr_generalization.py",
+  "expected_mechanism_note": "single-cue marginals are 50% by construction; any cue-blind win-stay policy (ECR's degenerate form) caps at ~50% == frozen. Expected BREAK: ECR's state-blind bandit cannot represent the XOR contingency.",
+  "experiment_id": "EXP-FP-0123",
+  "frozen_gates": {
+    "G0": "canonical files byte-identical pre/post (attention.py, tick.py, attention_ecr_repro.py, k5_multitask_generalization.py, all envs/)",
+    "G1": "fabrication-tripwire CLEAN on new code (driver + writer)",
+    "G2": "determinism: recompute first seed's learned arm through the identical driver path, exact match (1e-12)",
+    "G3": "hash-chained receipt via experiments/harness.py write_receipt; on ReceiptExistsError claim a fresh ID, never force",
+    "G4": "nothing pushed to git; all artifacts local"
+  },
+  "gate": "HOLDS iff R >= 1.30 on 4/4 fresh seeds {87401..87404}.",
+  "gate_adaptation": "none needed (rewards in {0,1}).",
+  "hypothesis": "H1: ECR learned gains beat frozen gains on compositional_rule: R >= 1.30 on 4/4 fresh seeds.",
+  "lane": "ecr-generalization (Track A)",
+  "metric": "R = total(learned)/total(frozen) per seed, 12 episodes x 40 steps; per-seed WIN iff R >= 1.30.",
+  "null": "H0: R < 1.30 on >=1 seed -> ECR does not generalize to compositional_rule -> bound recorded.",
+  "preregistered_at": "2026-10-07T09:41:11-04:00",
+  "preregistered_before": "any execution of the EXP-FP-012x battery driver on these seeds; module/driver written before, no confirmatory data seen",
+  "receipt_writer": "prototypes/architecture-a/experiments/write_receipt_012x.py",
+  "rng_policy": "seeded env RNG only (new_rng via env.reset with preregistered seeds x1000+e); neutral_specialists seeded per channel; no random.* in measurement code except seeded RNG declared here",
+  "seed_provenance": "Fresh seeds [87401, 87402, 87403, 87404]; 0 hits verified by word-boundary grep across experiments/ prototypes/ research/ ablations/ benchmarks/ receipts/ handoff/ at preregistration time (excluding this lane's own new files).",
+  "status": "PREREGISTERED",
+  "title": "ECR generalization: compositional_rule (XOR contingency)"
+}

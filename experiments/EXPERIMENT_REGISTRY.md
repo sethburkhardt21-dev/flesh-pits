@@ -35,6 +35,23 @@ appended beneath, never edited into the preregistration.
 | EXP-FP-0021 | delayed_reward | arch_a ECR (EpisodicContrastiveArbitrator) learned vs frozen | R = total(learned)/total(frozen) ≥ 1.30 on 4/4 fresh seeds {21001–21004}, 8 eps/seed | COMPLETE (POSITIVE — 4/4 wins, NR-A-006 conditionally lifted; result below) |
 | EXP-FP-0080 | delayed_reward | arch_a ECR independent reimplementation (ReturnConditionedEpisodicArbitrator) learned vs frozen — replication of EXP-FP-0021 | R = total(learned)/total(frozen) ≥ 1.30 on 4/4 fresh seeds {82021–82024}, 8 eps/seed | COMPLETE (POSITIVE — 4/4 wins, REPRODUCED; result below) |
 | EXP-FP-0090 | changing_rule (post-flip shift) | arch_a: transferred (source-tuned) dynamics vs default dynamics vs frozen phase-0 endpoint; metric = time-to-criterion | (TTC_D−TTC_X)/TTC_D ≥ 0.30 on ≥3/4 fresh seeds {97011–97014} | COMPLETE (NEGATIVE — H0: dynamics do not transfer, 0/4 wins; endpoint H0 reference confirmed; result below) |
+| K12-A1 | k12_cue_battery n=2 (canonical anchor) | arch_a cue-indexed learned vs frozen + cue-zeroed control | R = total(learned)/total(frozen) ≥ 1.30 on ≥3/4 fresh seeds {41001–41004}, 12 eps/seed | COMPLETE (CUE-CAUSED LIFT 4/4, R 1.49–1.60, control 0/4; result below) |
+| K12-A2 | k12_cue_battery n=4 | arch_a cue-indexed learned vs frozen + cue-zeroed control | R ≥ 1.30 on ≥3/4 fresh seeds {42001–42004}, 12 eps/seed | COMPLETE (CUE-CAUSED LIFT 4/4, R 1.51–1.65, control 0/4; result below) |
+| K12-A3 | k12_cue_battery n=8 | arch_a cue-indexed learned vs frozen + cue-zeroed control | R ≥ 1.30 on ≥3/4 fresh seeds {43001–43004}, 12 eps/seed | COMPLETE (CUE-CAUSED LIFT 4/4, R 1.42–1.64, control 0/4; result below) |
+| K12-B1 | k12_cue_battery magnitude, fixed a* | arch_a cue-indexed learned vs frozen + cue-zeroed control | R ≥ 1.30 on ≥3/4 fresh seeds {51001–51004}, 12 eps/seed | COMPLETE (ADAPTER-CAUSED 4/4 both probes, R 1.60–2.09; not cue-caused; result below) |
+| K12-B2 | k12_cue_battery distractor cue, fixed a* | arch_a cue-indexed learned vs frozen + cue-zeroed control | R ≥ 1.30 on ≥3/4 fresh seeds {52001–52004}, 12 eps/seed | COMPLETE (ADAPTER-CAUSED 4/4 both probes, R 1.59–2.10; not cue-caused; result below) |
+| K12-B3 | k12_cue_battery magnitude × interaction | arch_a cue-indexed learned vs frozen + cue-zeroed control | R ≥ 1.30 on ≥3/4 fresh seeds {53001–53004}, 12 eps/seed | COMPLETE (CUE-CAUSED LIFT 4/4, R 1.50–1.58, control 0/4; result below) |
+| K12-C1 | k12_cue_battery episodic cue | arch_a cue-indexed learned vs frozen + cue-zeroed control | R ≥ 1.30 on ≥3/4 fresh seeds {61001–61004}, 12 eps/seed | COMPLETE (ADAPTER-CAUSED 4/4 both probes, R 1.41–1.76; not cue-caused; result below) |
+| K12-C2 | k12_cue_battery delayed cue | arch_a cue-indexed learned vs frozen + cue-zeroed control | R ≥ 1.30 on ≥3/4 fresh seeds {62001–62004}, 12 eps/seed | COMPLETE (BOUND STANDS 0/4, R 1.16–1.21; result below) |
+| K12-C3 | k12_cue_battery cue-at-t0-only | arch_a cue-indexed learned vs frozen + cue-zeroed control | R ≥ 1.30 on ≥3/4 fresh seeds {63001–63004}, 12 eps/seed | COMPLETE (INCONCLUSIVE 3/4 main, 2/4 control gaps; tracking-driven; result below) |
+| K12-D2 | k12_cue_battery cue noise 0.25 | arch_a cue-indexed learned vs frozen + cue-zeroed control | R ≥ 1.30 on ≥3/4 fresh seeds {72001–72004}, 12 eps/seed | COMPLETE (BOUND STANDS 0/4, R 1.10–1.21; result below) |
+| K12-D3 | k12_cue_battery cue noise 0.50 | arch_a cue-indexed learned vs frozen + cue-zeroed control | R ≥ 1.30 on ≥3/4 fresh seeds {73001–73004}, 12 eps/seed | COMPLETE (BOUND STANDS 0/4, R 1.00–1.04; result below) |
+| EXP-FP-0120 | grid_world | arch_a ECR (0080 independent reimplementation) learned vs frozen — generalization battery | goal_episodes(learned) > goal_episodes(frozen) on 4/4 fresh seeds {87101–87104} (R-gate invalid: negative per-tick rewards; preregistered adaptation) | COMPLETE (NEGATIVE — 0/4; terminal 0.98 < 1.0 detector misfire; result below) |
+| EXP-FP-0121 | pomaze | arch_a ECR (0080 independent reimplementation) learned vs frozen — generalization battery | goal_episodes(learned) > goal_episodes(frozen) on 4/4 fresh seeds {87201–87204} (R-gate invalid: negative per-tick rewards; preregistered adaptation) | COMPLETE (NEGATIVE — 0/4; no positive reward ever observed, learned ≡ frozen; result below) |
+| EXP-FP-0122 | changing_rule | arch_a ECR (0080 independent reimplementation) learned vs frozen — generalization battery | R = total(learned)/total(frozen) ≥ 1.30 on 4/4 fresh seeds {87301–87304}, 12 eps/seed | COMPLETE (NEGATIVE — 0/4, R 0.99–1.08; dense-reward degeneracy; result below) |
+| EXP-FP-0123 | compositional_rule | arch_a ECR (0080 independent reimplementation) learned vs frozen — generalization battery | R = total(learned)/total(frozen) ≥ 1.30 on 4/4 fresh seeds {87401–87404}, 12 eps/seed | COMPLETE (NEGATIVE — 0/4, R 0.95–1.11; dense degeneracy + XOR unrepresentable; result below) |
+| EXP-FP-0124 | cue_delayed_reward | arch_a ECR (0080 independent reimplementation) learned vs frozen — generalization battery | R = total(learned)/total(frozen) ≥ 1.30 on 4/4 fresh seeds {87501–87504}, 8 eps/seed | COMPLETE (NEGATIVE — 3/4 by the 4/4 gate, R 0.50–11.14; cue-blind lock-in; result below) |
+| EXP-FP-0125 | delayed_multistep | arch_a ECR (0080 independent reimplementation) learned vs frozen — generalization battery | R = total(learned)/total(frozen) ≥ 1.30 on 4/4 fresh seeds {87601–87604}, 8 eps/seed | COMPLETE (POSITIVE — 4/4, R 1.68–3.15; ECR generalizes along the corridor axis; result below) |
 
 ---
 
@@ -1089,3 +1106,175 @@ receipt records, chain verified, G0c determinism MATCH)**
 - Mechanism: the K4 win's process-ness does not cash out as transferable hyperparameter dynamics. DESIGN CAVEAT OWNED: the preregistered metric floors at TTC=40 (window=40), so 3/4 seeds sit at the measurement floor for both arms. Exploratory finer-resolution re-runs (deterministic, labeled exploratory, NOT gated): window=20 shows D and X trajectories BIT-IDENTICAL on seeds 97011/97012 (dynamics change nothing — adaptation saturates), X faster early on 97013 (first-20-tick mean 0.85 vs 0.65) and 97014 (0.90 vs 0.75); even at finest resolution only 1/4 seeds clears the 30% bar — H1 still unsupported. Re-adaptation from scratch hits criterion in ~40 ticks regardless; the speed is a property of the loop STRUCTURE (broadcast feedback + delta rule + fixed baseline) meeting a clean cue signal, not of the dynamics constants. What transfers across tasks in this architecture: nothing measured so far — endpoint gains fail (TRANSFER-K4-RESTORE H0), dynamics fail (here). What survives is the loop itself, run long enough to re-adapt.
 - Receipt: receipts/EXP-FP-0090.json (hash-chained via harness.write_receipt; self-hash verified, chain position clean). State: prototypes/architecture-a/receipts/transfer/EXP-FP-0090-state.json. Driver: prototypes/architecture-a/experiments/transfer_dynamics.py (NEW, additive; K4 originals unmodified).
 - Note: receipts/ chain verify reports two PRE-EXISTING prev_receipt_hash mismatches (EXP-AB-K3C.json, EXP-FP-0040.json; mtimes predate this run) plus legacy hashless pre-chain receipts — not caused by this experiment; EXP-FP-0090's own chain position is clean.
+
+---
+
+## EXP-FP-0120 — ECR generalization: grid_world
+
+**PREREGISTERED (2026-10-07T09:41 EDT, before run; experiments/preregistration_EXP-FP-0120.json; ID family EXP-FP-012x claimed via experiments/id_registry.py for lane ecr-generalization)**
+- hypothesis (H1): ECR learned gains beat frozen gains on grid_world: learned reaches the goal in strictly more episodes than frozen on 4/4 fresh seeds {87101..87104}.
+- null (H0): learned does not out-reach frozen on >=1 seed -> ECR does not generalize to grid_world.
+- preregistered metric / gate: goal_episodes(learned) vs goal_episodes(frozen) per seed; WIN iff learned > frozen (strict); HOLDS iff WIN on 4/4. GATE ADAPTATION (preregistered, justified): the canonical R = total(learned)/total(frozen) gate is INVALID here because per-tick rewards are negative (step -0.02, bump -0.05) -- R is a ratio of negatives, so R>=1.30 would mean learned is MORE negative (worse). The task objective is goal-reaching, so the gate compares goal-reaching episodes.
+- conditions: grid_world v1.0.0; arch_a WorkspaceTick, neutral specialists (K5 P1 / EXP-FP-0080 identical), capacity=4, gain_lr=0.15, theta=0.45; ECR module (attention_ecr_repro.py) UNTOUCHED from EXP-FP-0080; branch_channels = all movement channels {north,south,east,west} (documented prior: every movement tick is a path-branching decision; result insensitive to this choice -- only shaping-classified ticks update); max_steps=100; 8 episodes/arm; frozen = same class, frozen=True, gains pinned 1.0, paired per seed.
+- ablation plan (preregistered): three sub-mechanisms (no_boost / no_prebranch / no_punish) on the first 2 seeds, descriptive, frozen totals reused.
+- frozen gates: G0 canonical files byte-identical PASS; G1 fabrication-tripwire CLEAN on new code (driver + writer) PASS; G2 determinism recompute exact (seed 87101 learned=-34.85) PASS; G3 hash-chained receipts PASS (own chain position clean); G4 nothing pushed PASS.
+
+**RESULT (2026-10-07) — COMPLETE (NEGATIVE — BREAKS, 0/4)**
+- seed 87101: learned=-34.85 (goals 0/17) vs frozen=-34.85 (goals 0/17) -> LOSS — gains exactly 1.0 (goal never reached: zero updates)
+- seed 87102: learned=-26.95 (goals 2/14) vs frozen=-27.35 (goals 2/14) -> LOSS — gains {north: 1.01, south: 1.01, stay: 0.96}
+- seed 87103: learned=-32.75 (goals 1/19) vs frozen=-32.45 (goals 1/19) -> LOSS — gains {east: 1.01, stay: 0.98}
+- seed 87104: learned=-26.10 (goals 2/13) vs frozen=-26.10 (goals 2/14) -> LOSS (not strictly greater)
+- Mechanism: the goal tick pays -0.02 + 1.00 = 0.98 < 1.0, so ECR's terminal-success detector (r >= 1.0) NEVER fires. Terminal success is ABSORBED AS A SHAPING TICK (the 0.98 ticks produce the tiny gains drift seen on seeds 87102-87104: corridor-boost on the goal winner, demotion of the rest); the success lock-in (branch + progress cap-set) never executes. True episode boundaries leak across env episodes until the max_steps=100 truncation reset. Learned is ~frozen everywhere; goal counts tie on all seeds.
+- Ablations (descriptive, seeds 87101-87102): no_boost 0/2, no_prebranch 0/2, no_punish 0/2 -- all ~identical to full (the sub-mechanisms are inert where the success detector never fires).
+- Bound: ECR requires an UNDILUTED r >= 1.0 terminal signal. Any same-tick penalty/shaping that pulls the terminal reward below 1.0 silently converts terminal success into a shaping tick and the episodic lock-in never runs.
+- Receipt: receipts/EXP-FP-0120.json (hash-chained; self-hash + prev-link verified clean). Prereg: experiments/preregistration_EXP-FP-0120.json. Driver: prototypes/architecture-a/experiments/exp_fp_0120_ecr_generalization.py. Receipt writer: prototypes/architecture-a/experiments/write_receipt_012x.py. Staged results: var/ecr-gen-grid_world-results.json.
+- Limitations: 4 seeds; neutral specialists (bandit isolation -- the finding is about the gain rule, not a navigating agent); branch_channels prior given, not learned.
+
+## EXP-FP-0121 — ECR generalization: pomaze
+
+**PREREGISTERED (2026-10-07T09:41 EDT, before run; experiments/preregistration_EXP-FP-0121.json; ID claimed via experiments/id_registry.py)**
+- hypothesis (H1): ECR learned gains beat frozen gains on pomaze: learned reaches the goal in strictly more episodes than frozen on 4/4 fresh seeds {87201..87204}.
+- null (H0): learned does not out-reach frozen on >=1 seed -> ECR does not generalize to pomaze.
+- preregistered metric / gate: goal_episodes(learned) vs goal_episodes(frozen) per seed; WIN iff learned > frozen (strict); HOLDS iff WIN on 4/4. Same preregistered R-gate adaptation as EXP-FP-0120 (negative per-tick rewards).
+- conditions: pomaze v1.0.0; arch_a identical to EXP-FP-0120; branch_channels = all movement channels; max_steps=200; 6 episodes/arm; frozen paired per seed.
+- ablation plan: three sub-mechanisms on first 2 seeds, descriptive.
+- frozen gates: G0 PASS; G1 tripwire CLEAN PASS; G2 determinism exact (seed 87201 learned=-25.0) PASS; G3 hash chain clean PASS; G4 PASS.
+
+**RESULT (2026-10-07) — COMPLETE (NEGATIVE — BREAKS, 0/4)**
+- all 4 seeds: learned == frozen EXACTLY (totals -25.00/-24.64/-25.24/-24.80; goals 0/6 both arms; gains exactly 1.0 on every channel).
+- Mechanism: NO positive reward was ever observed in any trajectory -- the 0.99 goal tick (-0.01 + 1.00) never occurred, and every tick paid -0.01/-0.03. ECR has no update path for r < 0, so ZERO gain updates fired on all seeds: learned is bit-identical to frozen. Both arms are unsolved (0/6 goals -- a random bandit cannot solve the 11x11 maze in 6x200 ticks), so the goal-count gate sits at floor; the mechanism finding (the detector never fires) is exact regardless of task difficulty.
+- Ablations: all three variants byte-identical to full on both seeds (no trigger exists for any sub-mechanism).
+- Bound: ECR is INERT when the reward stream contains no positive ticks at all. It cannot bootstrap from pure penalty streams; there is no negative-reward update path by design.
+- Receipt: receipts/EXP-FP-0121.json (hash-chained, clean). Prereg: experiments/preregistration_EXP-FP-0121.json. Driver/writer: as EXP-FP-0120. Staged: var/ecr-gen-pomaze-results.json.
+- Limitations: 4 seeds; task at floor for both arms (neither reaches the goal); neutral specialists; branch prior given.
+
+## EXP-FP-0122 — ECR generalization: changing_rule
+
+**PREREGISTERED (2026-10-07T09:41 EDT, before run; experiments/preregistration_EXP-FP-0122.json; ID claimed via experiments/id_registry.py)**
+- hypothesis (H1): ECR learned gains beat frozen gains on changing_rule: R >= 1.30 on 4/4 fresh seeds {87301..87304}.
+- null (H0): R < 1.30 on >=1 seed -> ECR does not generalize to changing_rule.
+- preregistered metric: R = total(learned)/total(frozen) per seed, 12 episodes x 40 steps (K5 P4 identical); WIN iff R >= 1.30; HOLDS iff 4/4. No gate adaptation needed (rewards in {0,1}, totals positive).
+- conditions: changing_rule v1.0.0; arch_a identical; branch_channels = {a0, a1} (every bandit tick is a branch decision); max_steps=40; frozen paired per seed.
+- ablation plan: three sub-mechanisms on first 2 seeds, descriptive.
+- frozen gates: G0 PASS; G1 tripwire CLEAN PASS; G2 determinism exact (seed 87301 learned=232.0) PASS; G3 hash chain clean PASS; G4 PASS.
+
+**RESULT (2026-10-07) — COMPLETE (NEGATIVE — BREAKS, 0/4)**
+- seed 87301: learned=232.0 (232 correct) vs frozen=234.0 -> R=0.99 LOSS — gains {a0: 2.0, a1: 2.0}
+- seed 87302: learned=243.0 vs frozen=224.0 -> R=1.08 LOSS — gains {a0: 2.0, a1: 1.0}
+- seed 87303: learned=242.0 vs frozen=244.0 -> R=0.99 LOSS — gains {a0: 2.0, a1: 2.0}
+- seed 87304: learned=239.0 vs frozen=237.0 -> R=1.01 LOSS — gains {a0: 2.0, a1: 1.0}
+- Mechanism: dense per-step +1.0 makes ECR's success path fire on nearly every correct tick. With NO shaping stream, the progress-channel identification degenerates to its canonical-order tie-break: argmax over all-zero shaping receipts always returns the first channel (a0), so EVERY success sets gains[a0]=cap. The policy becomes ~always-a0 (modulo noise) = chance-level on the cue-varying rule. The expected win-stay degeneracy (preregistered expectation) does NOT materialize -- the tie-break dominates it. All three ablations are byte-identical to full on both seeds: with rewards in {0,1} and every winner a branch channel, NO sub-mechanism ever triggers (no 0<r<1 ticks, no pre-branch non-branch winners), so the variants are the same computation.
+- Bound: ECR's episodic machinery has no purchase on dense-reward bandits. Where the reward stream lacks a shaping-identified progress channel, the success lock-in pins an ARBITRARY (canonical-first) channel and performance collapses to chance.
+- Receipt: receipts/EXP-FP-0122.json (hash-chained, clean). Prereg: experiments/preregistration_EXP-FP-0122.json. Staged: var/ecr-gen-changing_rule-results.json.
+- Limitations: 4 seeds; neutral specialists; PROTOCOL DEVIATION (disclosed): a timing pilot executed the single learned arm on seed 87301 before the battery run; no code, parameter, or gate changed as a result; the battery re-ran it deterministically (G2 exact match 232.000000), so no information could have leaked into the design.
+
+## EXP-FP-0123 — ECR generalization: compositional_rule
+
+**PREREGISTERED (2026-10-07T09:41 EDT, before run; experiments/preregistration_EXP-FP-0123.json; ID claimed via experiments/id_registry.py)**
+- hypothesis (H1): ECR learned gains beat frozen gains on compositional_rule: R >= 1.30 on 4/4 fresh seeds {87401..87404}.
+- null (H0): R < 1.30 on >=1 seed -> ECR does not generalize to compositional_rule.
+- preregistered metric: R per seed, 12 episodes x 40 steps; WIN iff R >= 1.30; HOLDS iff 4/4. No gate adaptation (rewards in {0,1}).
+- conditions: compositional_rule v1.0.0; arch_a identical; branch_channels = {a0, a1}; max_steps=40; frozen paired per seed.
+- ablation plan: three sub-mechanisms on first 2 seeds, descriptive.
+- frozen gates: G0 PASS; G1 tripwire CLEAN PASS; G2 determinism exact (seed 87401 learned=218.0) PASS; G3 hash chain clean PASS; G4 PASS.
+
+**RESULT (2026-10-07) — COMPLETE (NEGATIVE — BREAKS, 0/4)**
+- seed 87401: learned=218.0 vs frozen=230.0 -> R=0.95 LOSS — gains {a0: 2.0, a1: 1.0}
+- seed 87402: learned=255.0 vs frozen=230.0 -> R=1.11 LOSS — gains {a0: 2.0, a1: 1.0}
+- seed 87403: learned=242.0 vs frozen=254.0 -> R=0.95 LOSS — gains {a0: 2.0, a1: 1.0}
+- seed 87404: learned=232.0 vs frozen=233.0 -> R=1.00 LOSS — gains {a0: 2.0, a1: 1.0}
+- Mechanism: the SAME degeneracy as EXP-FP-0122 (dense +1.0, no shaping -> progress ID falls back to canonical tie-break -> a0 pinned at cap -> chance-level), PLUS the XOR contingency is unrepresentable by the cue-blind bandit regardless of the gain rule (single-cue marginals are 50% by construction). All ablations byte-identical to full.
+- Bound: ECR cannot learn contingencies that require INPUT CONDITIONING. This restates the K10 bound for ECR: the rule is state-blind by design (sees only the (winner, reward) stream), so any cue-dependent or compositional structure is outside its hypothesis class.
+- Receipt: receipts/EXP-FP-0123.json (hash-chained, clean). Prereg: experiments/preregistration_EXP-FP-0123.json. Staged: var/ecr-gen-compositional_rule-results.json.
+- Limitations: 4 seeds; neutral specialists; the degeneracy is shared with EXP-FP-0122, so the XOR-specific claim rests on the construction (50% marginals), not on a differential measurement.
+
+## EXP-FP-0124 — ECR generalization: cue_delayed_reward
+
+**PREREGISTERED (2026-10-07T09:41 EDT, before run; experiments/preregistration_EXP-FP-0124.json; ID claimed via experiments/id_registry.py)**
+- hypothesis (H1): ECR learned gains beat frozen gains on cue_delayed_reward: R >= 1.30 on 4/4 fresh seeds {87501..87504}.
+- null (H0): R < 1.30 on >=1 seed -> ECR does not generalize to cue-conditioned contingencies.
+- preregistered metric: R per seed, 8 episodes x <=15 steps; WIN iff R >= 1.30; HOLDS iff 4/4. No gate adaptation (same reward semantics as delayed_reward).
+- conditions: cue_delayed_reward v1.0.0; arch_a identical; branch_channels = {branch_a, branch_b}; max_steps=15; frozen paired per seed.
+- ablation plan: three sub-mechanisms on first 2 seeds, descriptive.
+- frozen gates: G0 PASS; G1 tripwire CLEAN PASS; G2 determinism exact (seed 87501 learned=0.82) PASS; G3 hash chain clean PASS; G4 PASS.
+
+**RESULT (2026-10-07) — COMPLETE (NEGATIVE — BREAKS by the 4/4 gate, 3/4)**
+- seed 87501: learned=0.82 (0 succ) vs frozen=0.24 (0) -> R=3.42 WIN — gains {forward: 1.07, stay: 0.18} (shaping-only edge)
+- seed 87502: learned=0.92 (0) vs frozen=1.84 (1) -> R=0.50 LOSS — gains {forward: 1.06, stay: 0.08} (no success to lock; frozen lucked one)
+- seed 87503: learned=1.56 (1) vs frozen=0.14 (0) -> R=11.14 WIN — gains {branch_b: 2.0, forward: 2.0, stay: 0.46}
+- seed 87504: learned=2.02 (1) vs frozen=0.50 (0) -> R=4.04 WIN — gains {branch_a: 2.0, forward: 2.0, stay: 0.01}
+- Mechanism: the correct branch varies per episode with the cue (correct == cue), but ECR's lock-in is CUE-BLIND: it credits the first successful episode's branch with no input conditioning (the K9/K10 structural bound). It helps when the locked branch matches the episode's cue (3/4 seeds) and cannot recover on mismatch: failures emit no updates (r==0 post-branch -> no gain change), so a wrong lock perseverates. Seed 87502 shows the failure mode cleanly -- learned never secured a first success while frozen lucked one (R=0.50).
+- Ablations (descriptive, seeds 87501-87502): no_boost 1/2 (R 1.33 WIN / 1.04 LOSS); no_prebranch 0/2 (R 1.25 / 0.13 -- pre-branch demotion is LOAD-BEARING: without it the t=0 poisoning of the K9 failure mode returns); no_punish 1/2 (R 2.50 WIN / 0.49 LOSS).
+- Bound: ECR requires a STATIONARY correct branch (or luck). It has no mechanism to condition the lock-in on per-episode cues and no mechanism to unlearn a wrong lock -- failures are silent.
+- Receipt: receipts/EXP-FP-0124.json (hash-chained, clean). Prereg: experiments/preregistration_EXP-FP-0124.json. Staged: var/ecr-gen-cue_delayed_reward-results.json.
+- Limitations: 4 seeds; neutral specialists; PROTOCOL DEVIATION (disclosed): a timing pilot executed the single learned arm on seed 87501 before the battery run; no code, parameter, or gate changed as a result; the battery re-ran it deterministically (G2 exact match 0.820000).
+
+## EXP-FP-0125 — ECR generalization: delayed_multistep
+
+**PREREGISTERED (2026-10-07T09:41 EDT, before run; experiments/preregistration_EXP-FP-0125.json; ID claimed via experiments/id_registry.py)**
+- hypothesis (H1): ECR learned gains beat frozen gains on delayed_multistep: R >= 1.30 on 4/4 fresh seeds {87601..87604}.
+- null (H0): R < 1.30 on >=1 seed -> ECR does not generalize to multi-step conjunctions.
+- preregistered metric: R per seed, 8 episodes x <=45 steps; WIN iff R >= 1.30; HOLDS iff 4/4. No gate adaptation (terminal 0.02+1.00=1.02 >= 1.0 fires the detector correctly).
+- conditions: delayed_multistep v1.0.0; arch_a identical; branch_channels = {branch_a, branch_b} (t=0 branch and junction sub-branch share the channels; ECR credits only the FIRST branch winner -- the junction is the generalization stress); max_steps=45; frozen paired per seed.
+- ablation plan: three sub-mechanisms on first 2 seeds, descriptive.
+- frozen gates: G0 PASS; G1 tripwire CLEAN PASS; G2 determinism exact (seed 87601 learned=3.84) PASS; G3 hash chain clean PASS; G4 PASS.
+
+**RESULT (2026-10-07) — COMPLETE (POSITIVE — HOLDS, 4/4)**
+- seed 87601: learned=3.84 (1 succ) vs frozen=1.22 (0) -> R=3.15 WIN — gains {branch_b: 2.0, forward: 2.0, stay: 0.01}
+- seed 87602: learned=4.46 (1) vs frozen=2.22 (0) -> R=2.01 WIN — gains {branch_b: 2.0, forward: 2.0, stay: 0.01}
+- seed 87603: learned=3.10 (0) vs frozen=1.84 (0) -> R=1.68 WIN — gains {forward: 1.33, stay: 0.01} (shaping-only edge, no success)
+- seed 87604: learned=4.18 (1) vs frozen=1.70 (0) -> R=2.46 WIN — gains {branch_b: 2.0, forward: 2.0, stay: 0.01}
+- Mechanism: the terminal tick pays 1.02 >= 1.0, so the success detector fires correctly. The first-branch lock-in + forward corridor machinery carry the win; the junction choice reuses the locked branch gains, so the (branch, sub) conjunction is solved whenever the pattern is (locked, locked). On seed 87603 (0 successes) the shaping-only edge still clears the gate (R=1.68) -- the corridor machinery (forward boost, stay demotion, progress lock) alone beats frozen's wandering, the same shaping-level edge noted in EXP-FP-0021's limitations.
+- Ablations (descriptive, seeds 87601-87602): no_boost 1/2 (R 1.39 WIN / 1.23 LOSS); no_prebranch 0/2 (R 1.03 / 0.63 -- pre-branch demotion LOAD-BEARING: without it t=0 poisoning collapses the long corridor); no_punish 2/2 (R 2.30 / 1.84 -- shaping-tick demotion NOT load-bearing here).
+- Caveats: the lock is ONE-SHOT -- there is no re-choice mechanism if the first success's branch mismatches later patterns; ECR-episodes bleed across env episodes on failed runs (the ledger clears only on r>=1.0 or the 45-tick truncation -- the same property EXP-FP-0080 has on delayed_reward); the conjunction component of the win depends on luck-of-the-lock (first success's branch vs later patterns).
+- Receipt: receipts/EXP-FP-0125.json (hash-chained, clean). Prereg: experiments/preregistration_EXP-FP-0125.json. Staged: var/ecr-gen-delayed_multistep-results.json.
+- Limitations: 4 seeds; neutral specialists; not tested against adversarial pattern schedules (patterns drawn iid per episode).
+
+---
+
+## EXP-FP-012x — ECR GENERALIZATION BOUNDS: one-page statement (Track A, 2026-10-07)
+
+**ECR holds on {delayed_multistep} with R in [1.68, 3.15]; it breaks on {grid_world, pomaze, changing_rule, compositional_rule, cue_delayed_reward (3/4, fails the 4/4 gate)}.**
+
+Per-env verdicts (learned vs frozen, 4 fresh seeds each, preregistered gates):
+- delayed_multistep: HOLDS 4/4, R = 3.15 / 2.01 / 1.68 / 2.46. Terminal 1.02 fires the detector; first-branch lock-in + corridor machinery solve the two-stage conjunction (junction reuses locked branch gains); shaping-only edge suffices on the success-less seed.
+- cue_delayed_reward: BREAKS 3/4, R = 3.42 / 0.50 / 11.14 / 4.04. Cue-blind lock-in: helps when the locked branch matches the episode's cue, perseverates wrongly otherwise; failures are silent (no unlearning).
+- changing_rule: BREAKS 0/4, R in [0.99, 1.08]. Dense +1.0 with no shaping degenerates the progress-channel ID to canonical tie-break (a0 pinned at cap); policy ~ chance. All ablations byte-identical to full.
+- compositional_rule: BREAKS 0/4, R in [0.95, 1.11]. Same degeneracy, plus XOR is unrepresentable cue-blind.
+- grid_world: BREAKS 0/4 (goal-count gate). Goal tick 0.98 < 1.0: terminal success absorbed as a shaping tick; success lock-in never fires; learned ~ frozen.
+- pomaze: BREAKS 0/4 (goal-count gate). No positive reward ever observed: zero updates, learned bit-identical to frozen.
+
+**The bound, stated exactly:** ECR is a corridor-task gain rule, not a general sparse-reward solver. It holds iff ALL of the following hold: (1) terminal success is delivered as a per-tick reward >= 1.0, UNDILUTED by same-tick penalties or shaping (else the r>=1.0 detector misfires and terminal success is absorbed as shaping -- grid_world/pomaze); (2) the credit-relevant structure is a single branch decision per episode, or a conjunction solvable by reusing one locked branch (delayed_reward, delayed_multistep); (3) the correct branch is STATIONARY across episodes, or the rule gets lucky -- ECR is input-blind and has no cue-conditioning and no unlearning of a wrong lock (cue_delayed_reward); (4) a positive shaping stream exists to identify the progress channel -- without it, the success lock-in pins the canonical-first channel and performance collapses to chance (changing_rule, compositional_rule). The three sub-mechanisms' load-bearing status is regime-dependent: pre-branch demotion is load-bearing wherever the rule holds (multistep 0/2, cue 0/2 without it); corridor boost is partial; shaping-tick demotion is load-bearing on the canonical task but not on multistep (2/2 wins without it). On dense-reward bandits all three are inert (ablations byte-identical to full) -- the diagnostic signature of the degenerate regime.
+
+**What this means for the harvest decision:** ECR (EXP-FP-0021, REPRODUCED by EXP-FP-0080) is a REAL mechanism with a NARROW, now-mapped envelope: sparse terminal reward + undiluted >=1.0 signal + single stationary branch + shaping-identified progress channel. Outside that envelope it is inert (nav), degenerate (dense bandits), or fragile (cue-varying). It is NOT a general sparse-reward solution. Any harvest candidate must carry these four boundary conditions as integration constraints; a "general ECR" would require (a) a learned/adaptive success threshold (not the hardcoded 1.0), (b) input-conditioned (cue-indexed) gain vectors, (c) an unlearning path for wrong locks, and (d) a progress-channel ID that does not fall back to canonical tie-break -- each of which is a new experiment, not a tuning.
+
+**Causal maturity:** ECR remains REPRODUCED (EXP-FP-0080) on delayed_reward; this battery establishes the GENERALIZING boundary: GENERALIZING holds on the corridor axis (delayed_reward -> delayed_multistep) and fails on the reward-structure axis (diluted/dense/absent positives), the contingency axis (cue-varying, compositional), and the observability axis (input-blindness). No claim beyond what the six preregistered gates measured.
+
+**Provenance:** driver prototypes/architecture-a/experiments/exp_fp_0120_ecr_generalization.py; writer prototypes/architecture-a/experiments/write_receipt_012x.py; ECR module prototypes/architecture-a/attention_ecr_repro.py (UNTOUCHED); preregs experiments/preregistration_EXP-FP-012{0..5}.json (sealed 2026-10-07T09:41 EDT, before the run); receipts receipts/EXP-FP-012{0..5}.json (hash-chained, self-hash + prev-link verified clean for all six); staged results var/ecr-gen-<env>-results.json; IDs EXP-FP-012x family claimed via experiments/id_registry.py (lane ecr-generalization). Protocol deviation disclosed: a timing pilot ran single learned arms on seeds 87501/87301 pre-battery; nothing changed as a result; G2 exact-match confirms determinism.
+
+---
+
+## K12 — CUE-STRUCTURE BOUNDS: one-page statement (Track B, 2026-10-07)
+
+**K10 lifts {per-tick-observable cue×action interactions at cardinalities 2–8, and cue-gated-magnitude interactions} with R in [1.42, 1.65] (4/4 seeds each, clean cue-zeroed controls); the bound reasserts on {delayed observability (R 1.16–1.21) and cue noise ≥ 0.25 (R 1.10–1.21 at 0.25; 1.00–1.04 at 0.50)} because {per-cue gain vectors starve: weak per-tick error signals plus flip-forced relearning keep the vectors near 1.0, and the hidden half-episode trains a cue-averaged context vector that actively anti-learns}; the architectural limit is stated exactly below.**
+
+Per-condition verdicts (learned vs frozen, 4 fresh seeds each, K10 protocol: 12 eps × 40 steps, a0/a1, capacity=2, gain_lr=0.15, theta=0.45; control = cue-zeroed context, same class):
+- K12-A1 (n=2, canonical anchor): CUE-CAUSED LIFT 4/4, R = 1.49 / 1.60 / 1.55 / 1.58; control 0/4 (R 0.98–1.07). Replicates K10 B1 (1.52–1.68) on fresh seeds.
+- K12-A2 (n=4): CUE-CAUSED LIFT 4/4, R = 1.51–1.65; control 0/4.
+- K12-A3 (n=8): CUE-CAUSED LIFT 4/4, R = 1.42–1.64; control 0/4. Preregistered prediction of sample starvation at n=8 FALSIFIED — 60 samples/cue still converge the vectors (±0.075 gain/step reaches cap in ~13 correct ticks; flips every 5 episodes leave just enough budget).
+- K12-B1 (cue-gated magnitude, fixed a*): ADAPTER-CAUSED — main 4/4 AND control 4/4 (R 1.60–2.09). The lift is not cue-caused: the correct action is cue-independent.
+- K12-B2 (pure distractor cue, fixed a*): ADAPTER-CAUSED — main 4/4 AND control 4/4 (R 1.59–2.10), main ≈ control per seed. Cue indexing adds nothing on a cue-free task.
+- K12-B3 (magnitude × interaction): CUE-CAUSED LIFT 4/4, R = 1.50–1.58; control 0/4. Magnitude asymmetry neither substitutes for the interaction nor poisons per-cue learning.
+- K12-C1 (episodic cue, constant per episode): ADAPTER-CAUSED — main 4/4 (R 1.57–1.75) AND control 4/4 (R 1.41–1.76). Control gain vector converged to {a0:1.93, a1:0.73} with no cue input: the episode-stationary contingency is trackable by the unconditioned delta learner, so no cue-caused lift is measurable (preregistered LIFT prediction overturned by the control).
+- K12-C2 (delayed cue, hidden steps 0–19): BOUND STANDS 0/4, R = 1.16–1.21; control 0/4. Mechanism (diagnostic rerun, seed 62001): per-cue vectors undiverged ({0.80,1.03}/{1.18,0.95}); the hidden-half None-context vector anti-learned to {0.70,0.40}. Visible half gives ~50 samples/cue/phase — insufficient to unlearn+relearn across flips, and the hidden half drags the shared path.
+- K12-C3 (cue at t=0 only): INCONCLUSIVE — main 3/4 (R 1.28–1.88), control 2/4 gaps. Diagnostic: per-cue vectors stuck at ~1.0 (12 samples/cue); the None-context vector tracked the episode-stationary hidden contingency ({0.58,2.00}). Where C3 gaps, it is tracking, not cue use — same confound class as C1.
+- K12-D2 (cue noise 0.25): BOUND STANDS 0/4, R = 1.10–1.21; control 0/4. Mechanism (seed 72001): final per-cue vectors {0.95,0.80}/{0.95,1.48} vs A1's {2.00,0.80}/{0.73,1.70} — the 75/25 mixture weakens the per-tick error to ~0.026 gain units, and with 5-episode flips plus near-tie arbitration the vectors never separate.
+- K12-D3 (cue noise 0.50, uninformative): BOUND STANDS 0/4, R = 1.00–1.04. Per-cue vectors converge to the cue-averaged vector; in-principle no cue-caused lift.
+
+Prediction scorecard: 6/8 directional predictions confirmed; falsified: A3 (starvation predicted, lift observed) and C1 (cue-caused lift predicted, adapter-caused observed); C3 predicted BOUND STANDS, observed INCONCLUSIVE (tracking-driven). Exploratory C2/D2 resolved as BOUND STANDS.
+
+**The bound, stated exactly:** the K10 cue-indexed lift holds iff ALL of the following hold: (1) the cue is observable on the ticks where reward-relevant actions are chosen — delayed observability reasserts the bound (C2 0/4); (2) the cue is informative enough that per-cue vectors converge within one phase — at 25% cue noise the observable-optimal mixture's error signal is too weak to separate vectors before the next rule flip (D2 0/4; D3 0/4 in principle); (3) the contingency varies faster than the unconditioned learner's tracking timescale — when the hidden contingency is episode-stationary, the context-free delta rule tracks it cue-free (C1 control R 1.41–1.76), so a main-probe gap there is a confound, not a cue effect; (4) the correct action actually depends on the cue — on fixed-action tasks the cue-zeroed control gaps identically (B1/B2), so the lift is adapter-caused. Cardinality 2–8 does not reassert the bound; the n>8 boundary is unmapped (open follow-up).
+
+**Causal maturity:** K10 remains CAUSAL on the canonical structure (A1 replicates K10 B1 on fresh seeds, 4/4, R 1.49–1.60 vs original 1.52–1.68). This battery establishes the GENERALIZING boundary: GENERALIZING holds on the cardinality axis (2→8) and on magnitude-interaction composition (B3); fails on the observability-timing axis (delayed) and the cue-reliability axis (noise ≥ 0.25); is UNMEASURABLE (confounded) on episode-stationary structures where the unconditioned baseline tracks. No claim beyond what the eleven preregistered gates measured.
+
+**Provenance:** driver prototypes/architecture-a/experiments/k12_cue_structure_battery.py; env experiments/k12_cue_battery_envs.py (K12CueBattery; canonical knob setting byte-equivalent to changing_rule v1.0.0 — verified preflight); preregs prototypes/architecture-a/receipts/preregistration_K12-*.json (sealed 2026-10-07T09:45Z, before the driver was written); receipts prototypes/architecture-a/receipts/K12-*.json (experiments/harness.py write_receipt, fail-closed; all 11 self-hashes verified); IDs K12-A1..K12-D3 claimed via experiments/id_registry.py claim_id (lane k12-cue-bounds), no collisions. Protocol deviations disclosed: (a) two-`envs` module shadow resolved by loading harness lazily in phase 2 with re-pointed sys.path/sys.modules — no protocol change; (b) driver edits after prereg sealing were code-bug fixes only (import ordering, B2 seed list aligned to prereg seeds), hypotheses unchanged.

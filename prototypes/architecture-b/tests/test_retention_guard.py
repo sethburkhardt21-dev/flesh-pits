@@ -9,7 +9,7 @@ import math
 import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from generative_model import HierarchicalGenerativeModel
 from retention_guard import RetentionGuardModel, make_retention_agent

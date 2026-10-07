@@ -1,0 +1,539 @@
+{
+  "families": {
+    "EXP-FP-0110": {
+      "domains": {
+        "action_consequence": {
+          "base_rate": 0.5112820512820513,
+          "brier_B": 0.25189547435897436,
+          "brier_climo": 0.250517926574669,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.0657071254561335,
+          "ece": 0.03297179487179479,
+          "mce": 0.1853968253968254,
+          "n": 1950,
+          "signed_error": 0.0015410256410256428,
+          "skill_vs_climo": -0.005498799240200469,
+          "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+        },
+        "competence_failure": {
+          "base_rate": 0.09538461538461539,
+          "brier_B": 0.11065484615384616,
+          "brier_climo": 0.0869864266436259,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.048072528122124716,
+          "ece": 0.07542051282051282,
+          "mce": 0.3933333333333333,
+          "n": 1950,
+          "signed_error": 0.06277435897435897,
+          "skill_vs_climo": -0.27209324975708293,
+          "verdict": "MISCALIBRATED (fails to beat climatology; over-confident)"
+        },
+        "next_obs": {
+          "base_rate": 0.5030769230769231,
+          "brier_B": 0.2531898076923077,
+          "brier_climo": 0.25087920802774016,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.048072528122124716,
+          "ece": 0.04206410256410262,
+          "mce": 0.307,
+          "n": 1950,
+          "signed_error": 0.0011512820512820524,
+          "skill_vs_climo": -0.00921000860426835,
+          "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+        },
+        "retrieval_usefulness": {
+          "base_rate": 0.4451282051282051,
+          "brier_B": 0.25284003846153846,
+          "brier_climo": 0.24785342714500413,
+          "brier_const05": 0.25,
+          "corr_sigma_err": -0.0019797253188485425,
+          "ece": 0.0681974358974359,
+          "mce": 0.1921739130434782,
+          "n": 1950,
+          "signed_error": 0.012279487179487179,
+          "skill_vs_climo": -0.0201191945335375,
+          "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+        }
+      },
+      "family": "conformal",
+      "gate": {
+        "domains_beaten": 0,
+        "verdict": "REJECT"
+      }
+    },
+    "EXP-FP-0110-abl": {
+      "domains": {
+        "action_consequence": {
+          "base_rate": 0.5112820512820513,
+          "brier_B": 0.25952273459621095,
+          "brier_climo": 0.250517926574669,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.09923236771338821,
+          "ece": 0.10970755666167603,
+          "mce": 0.9990324985528023,
+          "n": 1950,
+          "signed_error": -0.10753723781123539,
+          "skill_vs_climo": -0.03594476508992672,
+          "verdict": "MISCALIBRATED (fails to beat climatology; under-confident)"
+        },
+        "competence_failure": {
+          "base_rate": 0.09538461538461539,
+          "brier_B": 0.0949339799610607,
+          "brier_climo": 0.0869864266436259,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.027857140537247062,
+          "ece": 0.09463608146139744,
+          "mce": 0.1777027266839306,
+          "n": 1950,
+          "signed_error": -0.09427156304768682,
+          "skill_vs_climo": -0.09136544199010599,
+          "verdict": "MISCALIBRATED (fails to beat climatology; under-confident)"
+        },
+        "next_obs": {
+          "base_rate": 0.5030769230769231,
+          "brier_B": 0.48290756733862245,
+          "brier_climo": 0.25087920802774016,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.027857140537247062,
+          "ece": 0.48326200173503914,
+          "mce": 0.7657934725388913,
+          "n": 1950,
+          "signed_error": 0.48267011378633357,
+          "skill_vs_climo": -0.9248608568838694,
+          "verdict": "MISCALIBRATED (fails to beat climatology; over-confident)"
+        },
+        "retrieval_usefulness": {
+          "base_rate": 0.4451282051282051,
+          "brier_B": 0.2487927898405871,
+          "brier_climo": 0.24785342714500413,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.066708402773584,
+          "ece": 0.04856082467191871,
+          "mce": 0.3253665478487686,
+          "n": 1950,
+          "signed_error": 0.00424241556416357,
+          "skill_vs_climo": -0.003789992764689165,
+          "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+        }
+      },
+      "family": "gauss_abl",
+      "gate": {
+        "domains_beaten": 0,
+        "verdict": "REJECT"
+      }
+    },
+    "EXP-FP-0111": {
+      "domains": {
+        "action_consequence": {
+          "base_rate": 0.5112820512820513,
+          "brier_B": 0.2499736658780361,
+          "brier_climo": 0.250517926574669,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.09898946826509464,
+          "ece": 0.027841877569172512,
+          "mce": 0.37050434431047663,
+          "n": 1950,
+          "signed_error": -0.019164548297783777,
+          "skill_vs_climo": 0.0021725419177563987,
+          "verdict": "MISCALIBRATED (beats climatology but reliability off-diagonal; dispersion error)"
+        },
+        "competence_failure": {
+          "base_rate": 0.09538461538461539,
+          "brier_B": 0.08742408975771683,
+          "brier_climo": 0.0869864266436259,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.021381176512003608,
+          "ece": 0.023289094162968517,
+          "mce": 0.41222222222222227,
+          "n": 1950,
+          "signed_error": 0.013301787740018526,
+          "skill_vs_climo": -0.005031395482929746,
+          "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+        },
+        "next_obs": {
+          "base_rate": 0.5030769230769231,
+          "brier_B": 0.25120688415741504,
+          "brier_climo": 0.25087920802774016,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.021381176512003608,
+          "ece": 0.01694124757006895,
+          "mce": 0.1656150068929318,
+          "n": 1950,
+          "signed_error": -0.008091635305376741,
+          "skill_vs_climo": -0.0013061111450840546,
+          "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+        },
+        "retrieval_usefulness": {
+          "base_rate": 0.4451282051282051,
+          "brier_B": 0.24711960449918471,
+          "brier_climo": 0.24785342714500413,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.06072699130134896,
+          "ece": 0.02667757953111091,
+          "mce": 0.8,
+          "n": 1950,
+          "signed_error": 0.014513747763318732,
+          "skill_vs_climo": 0.002960712120353759,
+          "verdict": "MISCALIBRATED (beats climatology but reliability off-diagonal; dispersion error)"
+        }
+      },
+      "family": "rolling200",
+      "gate": {
+        "domains_beaten": 2,
+        "verdict": "REJECT"
+      }
+    },
+    "EXP-FP-0111-abl": {
+      "domains": {
+        "action_consequence": {
+          "base_rate": 0.5112820512820513,
+          "brier_B": 0.2552124409174104,
+          "brier_climo": 0.250517926574669,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.11624245288791116,
+          "ece": 0.06352287194531842,
+          "mce": 0.4158653846153846,
+          "n": 1950,
+          "signed_error": -0.007073167803306596,
+          "skill_vs_climo": -0.018739235179412228,
+          "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+        },
+        "competence_failure": {
+          "base_rate": 0.09538461538461539,
+          "brier_B": 0.08794949251315361,
+          "brier_climo": 0.0869864266436259,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.05274049855016968,
+          "ece": 0.03286244979083513,
+          "mce": 0.41222222222222227,
+          "n": 1950,
+          "signed_error": 0.019016295944681284,
+          "skill_vs_climo": -0.011071449957052337,
+          "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+        },
+        "next_obs": {
+          "base_rate": 0.5030769230769231,
+          "brier_B": 0.2548307629589968,
+          "brier_climo": 0.25087920802774016,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.05274049855016968,
+          "ece": 0.04729937510478343,
+          "mce": 0.46634615384615385,
+          "n": 1950,
+          "signed_error": -0.001807311612719864,
+          "skill_vs_climo": -0.015750826711872223,
+          "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+        },
+        "retrieval_usefulness": {
+          "base_rate": 0.4451282051282051,
+          "brier_B": 0.2441156000921774,
+          "brier_climo": 0.24785342714500413,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.12154237673418056,
+          "ece": 0.045889691523494903,
+          "mce": 0.19405594405594406,
+          "n": 1950,
+          "signed_error": 0.006645773048807193,
+          "skill_vs_climo": 0.015080796323384993,
+          "verdict": "CALIBRATED"
+        }
+      },
+      "family": "rolling50",
+      "gate": {
+        "domains_beaten": 1,
+        "verdict": "REJECT"
+      }
+    },
+    "EXP-FP-0112": {
+      "domains": {
+        "action_consequence": {
+          "base_rate": 0.5,
+          "brier_B": 0.12754871794871797,
+          "brier_climo": 0.2506427427091555,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.2891732388590411,
+          "ece": 0.023589744006153834,
+          "mce": 0.06890756302521017,
+          "n": 1950,
+          "signed_error": 0.0016410256789743717,
+          "skill_vs_climo": 0.4911134606569286,
+          "verdict": "CALIBRATED"
+        },
+        "competence_failure": {
+          "base_rate": 0.12307692307692308,
+          "brier_B": 0.06974358974358975,
+          "brier_climo": 0.10864069502380513,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.15313325481744441,
+          "ece": 0.03282051354358974,
+          "mce": 0.39375000000000004,
+          "n": 1950,
+          "signed_error": -0.014769230087179485,
+          "skill_vs_climo": 0.35803439283679406,
+          "verdict": "MISCALIBRATED (beats climatology but reliability off-diagonal; dispersion error)"
+        },
+        "next_obs": {
+          "base_rate": 0.44461538461538463,
+          "brier_B": 0.15113846153846155,
+          "brier_climo": 0.24782304013803888,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.15313325481744441,
+          "ece": 0.04635897470923074,
+          "mce": 0.13944954128440368,
+          "n": 1950,
+          "signed_error": 0.028512820567692318,
+          "skill_vs_climo": 0.3901355521493217,
+          "verdict": "CALIBRATED"
+        },
+        "retrieval_usefulness": {
+          "base_rate": 0.418974358974359,
+          "brier_B": 0.14112820512820515,
+          "brier_climo": 0.24429707343944396,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.25529276153976294,
+          "ece": 0.038769231146666666,
+          "mce": 0.13179723502304164,
+          "n": 1950,
+          "signed_error": 0.02030769237948719,
+          "skill_vs_climo": 0.4223090635459953,
+          "verdict": "CALIBRATED"
+        }
+      },
+      "family": "ensemble",
+      "gate": {
+        "domains_beaten": 4,
+        "verdict": "PASS"
+      },
+      "truncation": {
+        "73601": {
+          "D1": 390,
+          "D2": 390,
+          "D3": 390,
+          "D4": 390
+        },
+        "73602": {
+          "D1": 390,
+          "D2": 390,
+          "D3": 390,
+          "D4": 390
+        },
+        "73603": {
+          "D1": 390,
+          "D2": 390,
+          "D3": 390,
+          "D4": 390
+        },
+        "73604": {
+          "D1": 390,
+          "D2": 390,
+          "D3": 390,
+          "D4": 390
+        },
+        "73605": {
+          "D1": 390,
+          "D2": 390,
+          "D3": 390,
+          "D4": 390
+        }
+      }
+    },
+    "EXP-FP-0112-abl": {
+      "domains": {
+        "action_consequence": {
+          "base_rate": 0.5,
+          "brier_B": 0.29083062591494785,
+          "brier_climo": 0.2506427427091555,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.18811520764091716,
+          "ece": 0.20937696307891399,
+          "mce": 0.32982017044330547,
+          "n": 1950,
+          "signed_error": -0.20689993870857884,
+          "skill_vs_climo": -0.16033930514567563,
+          "verdict": "MISCALIBRATED (fails to beat climatology; under-confident)"
+        },
+        "competence_failure": {
+          "base_rate": 0.12307692307692308,
+          "brier_B": 0.12560801639449065,
+          "brier_climo": 0.10864069502380513,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.04140823642747305,
+          "ece": 0.13395452114627066,
+          "mce": 0.42193401257432317,
+          "n": 1950,
+          "signed_error": 0.12686246274981142,
+          "skill_vs_climo": -0.15617832127240794,
+          "verdict": "MISCALIBRATED (fails to beat climatology; over-confident)"
+        },
+        "next_obs": {
+          "base_rate": 0.44461538461538463,
+          "brier_B": 0.25850096309834325,
+          "brier_climo": 0.24782304013803888,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.04140823642747305,
+          "ece": 0.10014788253877933,
+          "mce": 0.7353748640967762,
+          "n": 1950,
+          "signed_error": 0.10014788253877938,
+          "skill_vs_climo": -0.04308688552265649,
+          "verdict": "MISCALIBRATED (fails to beat climatology; over-confident)"
+        },
+        "retrieval_usefulness": {
+          "base_rate": 0.418974358974359,
+          "brier_B": 0.24960253849388075,
+          "brier_climo": 0.24429707343944396,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.1080744314566938,
+          "ece": 0.10182319872902844,
+          "mce": 0.26441354946662093,
+          "n": 1950,
+          "signed_error": -0.008920550377699666,
+          "skill_vs_climo": -0.021717268159382686,
+          "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+        }
+      },
+      "family": "member0_gauss_ablation",
+      "gate": {
+        "domains_beaten": 0,
+        "verdict": "REJECT"
+      }
+    },
+    "EXP-FP-0113": {
+      "domains": {
+        "action_consequence": {
+          "base_rate": 0.5112820512820513,
+          "brier_B": 0.2498823934868468,
+          "brier_climo": 0.250517926574669,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.09898946826509464,
+          "ece": 0.0454127081479156,
+          "mce": 0.22388826579693338,
+          "n": 1950,
+          "signed_error": -0.03611445922503944,
+          "skill_vs_climo": 0.0025368766878755,
+          "verdict": "CALIBRATED"
+        },
+        "competence_failure": {
+          "base_rate": 0.09538461538461539,
+          "brier_B": 0.0875657534605464,
+          "brier_climo": 0.0869864266436259,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.021381176512003608,
+          "ece": 0.024019370326180844,
+          "mce": 0.41222222222222227,
+          "n": 1950,
+          "signed_error": 0.01653976640545081,
+          "skill_vs_climo": -0.006659967988959403,
+          "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+        },
+        "next_obs": {
+          "base_rate": 0.5030769230769231,
+          "brier_B": 0.24953323554188256,
+          "brier_climo": 0.25087920802774016,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.021381176512003608,
+          "ece": 0.03362606076253374,
+          "mce": 0.31805615526843145,
+          "n": 1950,
+          "signed_error": -0.017490758183183307,
+          "skill_vs_climo": 0.005365022061568303,
+          "verdict": "MISCALIBRATED (beats climatology but reliability off-diagonal; dispersion error)"
+        },
+        "retrieval_usefulness": {
+          "base_rate": 0.4451282051282051,
+          "brier_B": 0.2431014130368816,
+          "brier_climo": 0.24785342714500413,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.06072699130134896,
+          "ece": 0.026006452742656627,
+          "mce": 0.8,
+          "n": 1950,
+          "signed_error": 0.018553438271775104,
+          "skill_vs_climo": 0.01917267863858274,
+          "verdict": "MISCALIBRATED (beats climatology but reliability off-diagonal; dispersion error)"
+        }
+      },
+      "family": "stratified",
+      "gate": {
+        "domains_beaten": 3,
+        "verdict": "PASS"
+      }
+    },
+    "EXP-FP-0113-abl": {
+      "domains": {
+        "action_consequence": {
+          "base_rate": 0.5112820512820513,
+          "brier_B": 0.25097524385136133,
+          "brier_climo": 0.250517926574669,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.09898946826509464,
+          "ece": 0.04629693300834457,
+          "mce": 0.3343294231887125,
+          "n": 1950,
+          "signed_error": -0.04629693300834455,
+          "skill_vs_climo": -0.001825487233369838,
+          "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+        },
+        "competence_failure": {
+          "base_rate": 0.09538461538461539,
+          "brier_B": 0.0873521582178799,
+          "brier_climo": 0.0869864266436259,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.021381176512003608,
+          "ece": 0.015889909237420122,
+          "mce": 0.41222222222222227,
+          "n": 1950,
+          "signed_error": 0.013978096636425125,
+          "skill_vs_climo": -0.004204467160748626,
+          "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+        },
+        "next_obs": {
+          "base_rate": 0.5030769230769231,
+          "brier_B": 0.251436821620001,
+          "brier_climo": 0.25087920802774016,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.021381176512003608,
+          "ece": 0.021966816092261695,
+          "mce": 0.7021276595744681,
+          "n": 1950,
+          "signed_error": -0.021966816092261674,
+          "skill_vs_climo": -0.0022226377253200535,
+          "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+        },
+        "retrieval_usefulness": {
+          "base_rate": 0.4451282051282051,
+          "brier_B": 0.24826129209772743,
+          "brier_climo": 0.24785342714500413,
+          "brier_const05": 0.25,
+          "corr_sigma_err": 0.06072699130134896,
+          "ece": 0.027827684250774618,
+          "mce": 0.8,
+          "n": 1950,
+          "signed_error": 0.025018627632956737,
+          "skill_vs_climo": -0.0016455893203553007,
+          "verdict": "MISCALIBRATED (fails to beat climatology; dispersion error)"
+        }
+      },
+      "family": "stratified_mod2",
+      "gate": {
+        "domains_beaten": 0,
+        "verdict": "REJECT"
+      }
+    }
+  },
+  "n_ticks_pooled": {
+    "D1": 1950,
+    "D2": 1950,
+    "D3": 1950,
+    "D4": 1950
+  },
+  "seeds": [
+    73601,
+    73602,
+    73603,
+    73604,
+    73605
+  ],
+  "started_utc": "2026-10-07T13:43:46.206251+00:00",
+  "written_utc": "2026-10-07T13:44:10.663271+00:00"
+}

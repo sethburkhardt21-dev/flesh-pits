@@ -1,0 +1,94 @@
+{
+  "baseline": "frozen gains (same CueIndexedArbitrator class, frozen=True, pinned 1.0)",
+  "conditions": "k12_cue_battery timing=delayed (obs['cue']=None for steps 0..19; iid cue steps 20..39); K10 protocol: 12 episodes x 40 steps, channels a0/a1, neutral specialists, capacity=2, gain_lr=0.15, theta=0.45, ORIGINAL delta rule (baseline 0.5), CueIndexedArbitrator. Frozen = same class, frozen=True, gains pinned 1.0. Main probe: context_fn = obs.get('cue') (cue in input; None when hidden).",
+  "config": {
+    "arbitrator": "CueIndexedArbitrator",
+    "capacity": 2,
+    "channels": [
+      "a0",
+      "a1"
+    ],
+    "env": "k12_cue_battery v1.0.0",
+    "episodes": 12,
+    "gain_lr": 0.15,
+    "prereg": "preregistration_<ID>.json sealed 2026-10-07T09:45Z",
+    "steps_per_episode": 40,
+    "theta": 0.45,
+    "update_rule": "original delta rule, baseline 0.5"
+  },
+  "config_hash": "cf874f21452e840a04cb0a9ab266d69842bcf0548632a3a33a6b2d888c036a20",
+  "episodes": 12,
+  "experiment_id": "K12-C2",
+  "hypothesis": "EXPLORATORY, no directional prediction: hidden-phase ticks train the None-context vector (cue-averaged, ~chance), visible-phase ticks train per-cue vectors (~120 samples each); net R could land either side of 1.30.",
+  "interpretation": "BOUND STANDS: main shows no gap: the NR-A-007 bound reasserts on this cue structure (prediction was: EXPLORATORY (expect INCONCLUSIVE or weak LIFT; R in 1.1-1.4).)",
+  "limitations": "12 episodes x 40 steps; neutral specialists (bandit isolation, no obs input to stimuli); 4 seeds/condition; flips every 5 episodes where enabled; 10% reward noise.",
+  "null_hypothesis": "Main fails -> half-episode cue absence starves the lift (BOUND STANDS on delayed observability).",
+  "preregistered_metric": "R = total(learned)/total(frozen) per seed, separately for main and control probes",
+  "prev_receipt_hash": "d7f1c9b12eba17488c33b35921374ea5937c5a0f81a45ee291cbbf57f090893e",
+  "primary_seed": 62001,
+  "receipt_hash": "fb9e45abeaca965bfb8c271789fc75128a3907acd5da9edf5887c1557476d6c6",
+  "started_utc": "2026-10-07T13:44:02.080981+00:00",
+  "summary": {
+    "control_wins": 0,
+    "env_kwargs": {
+      "timing": "delayed"
+    },
+    "main_wins": 0,
+    "margin": 1.3,
+    "need": 3,
+    "seed_rows": [
+      {
+        "ctrl_R": 1.035,
+        "ctrl_frozen": 227.0,
+        "ctrl_gap": false,
+        "ctrl_learned": 235.0,
+        "main_R": 1.163,
+        "main_frozen": 227.0,
+        "main_learned": 264.0,
+        "main_win": false,
+        "seed": 62001
+      },
+      {
+        "ctrl_R": 1.025,
+        "ctrl_frozen": 237.0,
+        "ctrl_gap": false,
+        "ctrl_learned": 243.0,
+        "main_R": 1.211,
+        "main_frozen": 237.0,
+        "main_learned": 287.0,
+        "main_win": false,
+        "seed": 62002
+      },
+      {
+        "ctrl_R": 0.896,
+        "ctrl_frozen": 231.0,
+        "ctrl_gap": false,
+        "ctrl_learned": 207.0,
+        "main_R": 1.16,
+        "main_frozen": 231.0,
+        "main_learned": 268.0,
+        "main_win": false,
+        "seed": 62003
+      },
+      {
+        "ctrl_R": 0.971,
+        "ctrl_frozen": 242.0,
+        "ctrl_gap": false,
+        "ctrl_learned": 235.0,
+        "main_R": 1.165,
+        "main_frozen": 242.0,
+        "main_learned": 282.0,
+        "main_win": false,
+        "seed": 62004
+      }
+    ],
+    "seeds": [
+      62001,
+      62002,
+      62003,
+      62004
+    ],
+    "verdict": "BOUND STANDS"
+  },
+  "written_utc": "2026-10-07T13:44:53.439490+00:00"
+}

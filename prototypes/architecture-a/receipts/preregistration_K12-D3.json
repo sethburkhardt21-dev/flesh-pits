@@ -1,0 +1,34 @@
+{
+  "ablation": "control: context_fn = lambda obs: None (cue withheld; K10 confound control) \u2014 confirms the lift is cue-caused, not adapter-caused",
+  "baseline": "frozen gains (same CueIndexedArbitrator class, frozen=True, pinned 1.0)",
+  "config": {
+    "arbitrator": "CueIndexedArbitrator",
+    "capacity": 2,
+    "channels": [
+      "a0",
+      "a1"
+    ],
+    "episodes": 12,
+    "gain_lr": 0.15,
+    "steps": 40,
+    "theta": 0.45,
+    "update_rule": "original delta rule, baseline 0.5"
+  },
+  "env": "k12_cue_battery cue_noise=0.50 (observed cue independent of h)",
+  "experiment_id": "K12-D3",
+  "gate": "CUE-CAUSED LIFT iff main_wins >= 3/4 (R >= 1.30 per seed) AND control_wins <= 1/4. ADAPTER-CAUSED (not cue-caused) iff main_wins >= 3/4 AND control_wins >= 3/4. BOUND STANDS iff main_wins <= 1/4. Exactly 2/4 main = INCONCLUSIVE (needs more seeds).",
+  "hypothesis": "BOUND STANDS: per-cue vectors converge to the same cue-averaged vector as the context-free bandit (~chance); no cue-caused lift is possible in principle.",
+  "note": "preregistration sealed BEFORE the driver was written/run (K10 confound rule adopted)",
+  "null_hypothesis": "Main lifts with clean control -> CONFOUND: lift without information; investigate module/memory leak.",
+  "prediction": "BOUND STANDS (main <= 1/4) \u2014 directional prediction.",
+  "preregistered_metric": "R = total(learned)/total(frozen) per seed, separately for main and control probes",
+  "protocol": "K10 protocol: 12 episodes x 40 steps, channels a0/a1, neutral specialists, capacity=2, gain_lr=0.15, theta=0.45, ORIGINAL delta rule (baseline 0.5), CueIndexedArbitrator. Frozen = same class, frozen=True, gains pinned 1.0. Main probe: context_fn = obs.get('cue') (cue in input; None when hidden).",
+  "sealed_utc": "2026-10-07T09:45:00Z",
+  "seeds": [
+    73001,
+    73002,
+    73003,
+    73004
+  ],
+  "title": "K12 cue-structure battery \u2014 uninformative cue p=0.50"
+}

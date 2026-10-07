@@ -41,11 +41,12 @@ class RetrievalGate:
     POLICY_UNGATED = "ungated"
     POLICY_UHAT = "uhat"
     POLICY_RANDOM = "random"
+    POLICY_P_EXT = "p_ext"
 
     def __init__(self, policy: str = "ungated", threshold: float = 0.0,
                  rate: float = 1.0, seed: int = 0) -> None:
         if policy not in (self.POLICY_UNGATED, self.POLICY_UHAT,
-                          self.POLICY_RANDOM):
+                          self.POLICY_RANDOM, self.POLICY_P_EXT):
             raise ValueError(f"unknown retrieval-gate policy: {policy!r}")
         if policy == self.POLICY_RANDOM and not 0.0 <= rate <= 1.0:
             raise ValueError("random-gate rate must be in [0, 1]")
@@ -54,6 +55,10 @@ class RetrievalGate:
         self.rate = float(rate)
         self.seed = int(seed)
         self._rng = random.Random(seed)
+        # External probability for POLICY_P_EXT (Track D decision-use tests):
+        # the driver sets gate._p_ext before each act(); decide() applies iff
+        # _p_ext > threshold. Default 0.5 = abstain-neutral.
+        self._p_ext = 0.5
         # Diagnostics (ticks where a correction was available only).
         self.n_available = 0
         self.n_applied = 0

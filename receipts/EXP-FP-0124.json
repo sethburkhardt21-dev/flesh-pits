@@ -1,0 +1,323 @@
+{
+  "baseline": "frozen = identical ReturnConditionedEpisodicArbitrator, frozen=True, gains pinned 1.0, paired per seed",
+  "conditions": "cue_delayed_reward v1.0.0; neutral specialists; capacity=4; gain_lr=0.15; theta=0.45; gain_cap=2.0; branch_channels={branch_a,branch_b}; max_steps=15; 8 episodes/arm; prereg experiments/preregistration_EXP-FP-0124.json",
+  "config": {
+    "arbitrator": "ReturnConditionedEpisodicArbitrator (EXP-FP-0080 independent reimplementation, module UNTOUCHED)",
+    "arbitrator_params": {
+      "branch_channels": [
+        "branch_a",
+        "branch_b"
+      ],
+      "corridor_boost": 0.01,
+      "max_steps": 15,
+      "prebranch_demote": 0.05,
+      "shape_punish": 0.02
+    },
+    "branch_channels": [
+      "branch_a",
+      "branch_b"
+    ],
+    "capacity": 4,
+    "channels": [
+      "branch_a",
+      "branch_b",
+      "forward",
+      "stay"
+    ],
+    "env": "cue_delayed_reward v1.0.0",
+    "episodes_per_arm": 8,
+    "floor": 0.01,
+    "frozen": "same class, frozen=True, gains pinned 1.0",
+    "gain_cap": 2.0,
+    "gain_lr": 0.15,
+    "gate": "R >= 1.30 on 4/4",
+    "max_steps": 15,
+    "replicates": "EXP-FP-0080 (cross-env generalization)",
+    "seeds": [
+      87501,
+      87502,
+      87503,
+      87504
+    ],
+    "specialists": "neutral (K5 P1 identical)",
+    "theta": 0.45
+  },
+  "config_hash": "c2bec61844a67cbbc4738ae0e8a7d0762f69b0229cd93335e42ea40d61c4a073",
+  "episodes": [
+    {
+      "arm": "learned",
+      "done": true,
+      "episode_id": "cue_delayed_reward:v1.0.0:seed=87501:run=0",
+      "goal_episodes": 0,
+      "max_steps": 15,
+      "n_env_episodes": 8,
+      "return": 0.8200000000000001,
+      "seed": 87501,
+      "successes": 0,
+      "truncated": false
+    },
+    {
+      "arm": "frozen",
+      "done": true,
+      "episode_id": "cue_delayed_reward:v1.0.0:seed=87501:run=1",
+      "goal_episodes": 0,
+      "max_steps": 15,
+      "n_env_episodes": 8,
+      "return": 0.24,
+      "seed": 87501,
+      "successes": 0,
+      "truncated": false
+    },
+    {
+      "arm": "learned",
+      "done": true,
+      "episode_id": "cue_delayed_reward:v1.0.0:seed=87502:run=0",
+      "goal_episodes": 0,
+      "max_steps": 15,
+      "n_env_episodes": 8,
+      "return": 0.92,
+      "seed": 87502,
+      "successes": 0,
+      "truncated": false
+    },
+    {
+      "arm": "frozen",
+      "done": true,
+      "episode_id": "cue_delayed_reward:v1.0.0:seed=87502:run=1",
+      "goal_episodes": 0,
+      "max_steps": 15,
+      "n_env_episodes": 8,
+      "return": 1.84,
+      "seed": 87502,
+      "successes": 1,
+      "truncated": false
+    },
+    {
+      "arm": "learned",
+      "done": true,
+      "episode_id": "cue_delayed_reward:v1.0.0:seed=87503:run=0",
+      "goal_episodes": 0,
+      "max_steps": 15,
+      "n_env_episodes": 8,
+      "return": 1.56,
+      "seed": 87503,
+      "successes": 1,
+      "truncated": false
+    },
+    {
+      "arm": "frozen",
+      "done": true,
+      "episode_id": "cue_delayed_reward:v1.0.0:seed=87503:run=1",
+      "goal_episodes": 0,
+      "max_steps": 15,
+      "n_env_episodes": 8,
+      "return": 0.14,
+      "seed": 87503,
+      "successes": 0,
+      "truncated": false
+    },
+    {
+      "arm": "learned",
+      "done": true,
+      "episode_id": "cue_delayed_reward:v1.0.0:seed=87504:run=0",
+      "goal_episodes": 0,
+      "max_steps": 15,
+      "n_env_episodes": 8,
+      "return": 2.02,
+      "seed": 87504,
+      "successes": 1,
+      "truncated": false
+    },
+    {
+      "arm": "frozen",
+      "done": true,
+      "episode_id": "cue_delayed_reward:v1.0.0:seed=87504:run=1",
+      "goal_episodes": 0,
+      "max_steps": 15,
+      "n_env_episodes": 8,
+      "return": 0.5,
+      "seed": 87504,
+      "successes": 0,
+      "truncated": false
+    }
+  ],
+  "experiment_id": "EXP-FP-0124",
+  "hypothesis": "H1: ECR learned gains beat frozen gains on cue_delayed_reward: R >= 1.30 on 4/4 fresh seeds",
+  "interpretation": "BREAKS by the 4/4 gate (3/4): R = 3.42 / 0.50 / 11.14 / 4.04. The correct branch varies per episode with the cue; ECR's lock-in is cue-blind: it helps when the locked branch matches the episode's cue (3/4 seeds) and cannot recover on mismatch (seed 87502: frozen lucked 1 success, learned 0, R=0.50). Failures emit no updates (r==0 post-branch), so a wrong lock perseverates. Ablations: no_prebranch 0/2 (pre-branch demotion load-bearing -- t=0 poisoning returns without it), no_boost 1/2, no_punish 1/2.",
+  "limitations": "4 seeds; neutral specialists; PROTOCOL DEVIATION: a timing pilot ran the single learned arm on seed 87501 before the battery; no code, parameter, or gate changed as a result; the battery re-ran it deterministically (G2 exact match 0.820000).",
+  "null_hypothesis": "H0: R < 1.30 on >=1 seed -> ECR does not generalize to cue-conditioned contingencies",
+  "preregistered_metric": "R = total(learned)/total(frozen) per seed, 8 episodes x <=15 steps; WIN iff R >= 1.30",
+  "prev_receipt_hash": "a4099b6c056b6ec341e27e7ff0157caa958b8f70466f5c1d0ce4b251921a0a7c",
+  "primary_seed": 87501,
+  "receipt_hash": "b4e413ae4262fd9762034c32d268482915fc1db7c6cb4844abc8c3f38164d23a",
+  "started_utc": "2026-10-07T13:42:34.705498+00:00",
+  "summary": {
+    "ablations": {
+      "no_boost": {
+        "note": "descriptive, not gated; frozen totals reused",
+        "seeds": {
+          "87501": {
+            "frozen_goal_episodes": 0,
+            "frozen_total": 0.24,
+            "learned_goal_episodes": 0,
+            "learned_successes": 0,
+            "learned_total": 0.32,
+            "ratio": 1.3333333333333335,
+            "win": true
+          },
+          "87502": {
+            "frozen_goal_episodes": 0,
+            "frozen_total": 1.84,
+            "learned_goal_episodes": 0,
+            "learned_successes": 1,
+            "learned_total": 1.92,
+            "ratio": 1.0434782608695652,
+            "win": false
+          }
+        },
+        "wins": 1
+      },
+      "no_prebranch": {
+        "note": "descriptive, not gated; frozen totals reused",
+        "seeds": {
+          "87501": {
+            "frozen_goal_episodes": 0,
+            "frozen_total": 0.24,
+            "learned_goal_episodes": 0,
+            "learned_successes": 0,
+            "learned_total": 0.3,
+            "ratio": 1.25,
+            "win": false
+          },
+          "87502": {
+            "frozen_goal_episodes": 0,
+            "frozen_total": 1.84,
+            "learned_goal_episodes": 0,
+            "learned_successes": 0,
+            "learned_total": 0.24,
+            "ratio": 0.13043478260869565,
+            "win": false
+          }
+        },
+        "wins": 0
+      },
+      "no_punish": {
+        "note": "descriptive, not gated; frozen totals reused",
+        "seeds": {
+          "87501": {
+            "frozen_goal_episodes": 0,
+            "frozen_total": 0.24,
+            "learned_goal_episodes": 0,
+            "learned_successes": 0,
+            "learned_total": 0.6,
+            "ratio": 2.5,
+            "win": true
+          },
+          "87502": {
+            "frozen_goal_episodes": 0,
+            "frozen_total": 1.84,
+            "learned_goal_episodes": 0,
+            "learned_successes": 0,
+            "learned_total": 0.9,
+            "ratio": 0.4891304347826087,
+            "win": false
+          }
+        },
+        "wins": 1
+      }
+    },
+    "margin": 1.3,
+    "max_return": 2.02,
+    "mean_return": 1.0050000000000001,
+    "min_return": 0.14,
+    "n_episodes": 8,
+    "need": 4,
+    "passed": false,
+    "per_seed": [
+      {
+        "frozen_env_episodes": 8,
+        "frozen_goal_episodes": 0,
+        "frozen_successes": 0,
+        "frozen_total": 0.24,
+        "learned_env_episodes": 8,
+        "learned_gains": {
+          "branch_a": 1.0,
+          "branch_b": 1.0,
+          "forward": 1.07,
+          "stay": 0.18
+        },
+        "learned_goal_episodes": 0,
+        "learned_successes": 0,
+        "learned_total": 0.8200000000000001,
+        "n_gain_updates": 120,
+        "ratio": 3.416666666666667,
+        "seed": 87501,
+        "win": true
+      },
+      {
+        "frozen_env_episodes": 8,
+        "frozen_goal_episodes": 0,
+        "frozen_successes": 1,
+        "frozen_total": 1.84,
+        "learned_env_episodes": 8,
+        "learned_gains": {
+          "branch_a": 1.0,
+          "branch_b": 1.0,
+          "forward": 1.06,
+          "stay": 0.08
+        },
+        "learned_goal_episodes": 0,
+        "learned_successes": 0,
+        "learned_total": 0.92,
+        "n_gain_updates": 120,
+        "ratio": 0.5,
+        "seed": 87502,
+        "win": false
+      },
+      {
+        "frozen_env_episodes": 8,
+        "frozen_goal_episodes": 0,
+        "frozen_successes": 0,
+        "frozen_total": 0.14,
+        "learned_env_episodes": 8,
+        "learned_gains": {
+          "branch_a": 1.0,
+          "branch_b": 2.0,
+          "forward": 2.0,
+          "stay": 0.46
+        },
+        "learned_goal_episodes": 0,
+        "learned_successes": 1,
+        "learned_total": 1.56,
+        "n_gain_updates": 120,
+        "ratio": 11.142857142857142,
+        "seed": 87503,
+        "win": true
+      },
+      {
+        "frozen_env_episodes": 8,
+        "frozen_goal_episodes": 0,
+        "frozen_successes": 0,
+        "frozen_total": 0.5,
+        "learned_env_episodes": 8,
+        "learned_gains": {
+          "branch_a": 2.0,
+          "branch_b": 1.0,
+          "forward": 2.0,
+          "stay": 0.01
+        },
+        "learned_goal_episodes": 0,
+        "learned_successes": 1,
+        "learned_total": 2.02,
+        "n_gain_updates": 120,
+        "ratio": 4.04,
+        "seed": 87504,
+        "win": true
+      }
+    ],
+    "stdev_return": 0.6768862533690576,
+    "verdict": "BREAKS",
+    "wins": 3
+  },
+  "written_utc": "2026-10-07T13:44:24.929000+00:00"
+}
