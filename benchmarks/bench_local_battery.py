@@ -84,6 +84,10 @@ if __name__ == "__main__":
     load_s = round(time.time() - t0, 2)
     load_rss = rss_now()
 
+    def checkpoint(header, dims):
+        with open(OUT.replace(".json", "_checkpoint.json"), "w") as f:
+            json.dump({"header": header, "dims": dims}, f, indent=1)
+
     header = {
         "experiment_id": EXPID, "backend_rung": BACKEND_RUNG,
         "model_id": MODEL_ID, "revision_sha": REV, "quant_file": QUANT,
@@ -111,6 +115,7 @@ if __name__ == "__main__":
     cog_pass = sum(1 for r in cog if r["verdict"] == "PASS") + (1 if cog[0]["output"] else 0)
     dims["cognition"] = {"items": cog,
         "dimension_verdict": "PASS" if sum(1 for r in cog[1:] if r["verdict"] == "PASS") >= 2 else "FAIL"}
+    checkpoint(header, dims)
     # ---- 2. instruction following ----
     ifs = []
     ifs.append(run("2_exact_words",
@@ -124,6 +129,7 @@ if __name__ == "__main__":
         max_tokens=8, check=lambda t: "PASS" if t.strip().lower().rstrip(".") == "blue" else "FAIL"))
     dims["instruction_following"] = {"items": ifs,
         "dimension_verdict": "PASS" if sum(1 for r in ifs if r["verdict"] == "PASS") >= 2 else "FAIL"}
+    checkpoint(header, dims)
     # ---- 3. structured output ----
     js = []
     js.append(run("3_json1",
@@ -137,6 +143,7 @@ if __name__ == "__main__":
         max_tokens=32, check=json_ok))
     dims["structured_output"] = {"items": js,
         "dimension_verdict": "PASS" if sum(1 for r in js if r["verdict"] == "PASS") >= 2 else "FAIL"}
+    checkpoint(header, dims)
     # ---- 4. tool-use (xLAM-style, parse-only) ----
     TOOL_SYS = SYS.replace("Follow instructions exactly.",
         "Follow instructions exactly. When asked to make a function call, reply with ONLY the function call in JSON format: {\"name\": \"function_name\", \"arguments\": {\"param\": \"value\"}}. Nothing else.")
@@ -158,6 +165,7 @@ if __name__ == "__main__":
         check=lambda t: tool_ok(t, "add", lambda a: int(a.get("a", 0)) + int(a.get("b", 0)) == 42)))
     dims["tool_use"] = {"items": tl,
         "dimension_verdict": "PASS" if sum(1 for r in tl if r["verdict"] == "PASS") >= 1 else "FAIL"}
+    checkpoint(header, dims)
     # ---- 5. long-context needle (n_ctx=2048, deterministic filler) ----
     SENTENCES = ["The committee adjourned after reviewing the quarterly minutes.",
         "Workers repaired the fence along the north pasture.", "A letter arrived from the coastal office.",
@@ -193,6 +201,7 @@ if __name__ == "__main__":
         lc_rec["n_ctx"] = N_CTX
         dims["long_context"] = {"items": [lc_rec],
             "dimension_verdict": lc_rec["verdict"]}
+    checkpoint(header, dims)
     # ---- 6. latency / TTFT / throughput ----
     lat_user = "List the first five prime numbers, separated by commas."
     t0 = time.time()
@@ -204,13 +213,15 @@ if __name__ == "__main__":
     ttft = None; text2 = ""
     for chunk in llm(u(lat_user), max_tokens=32, stop=STOP, echo=False, temperature=0.0,
                      seed=SEED, stream=True):
-        piece = chunk["choices"][0]["delta"].get("content", "")
+        ch0 = chunk["choices"][0]
+        piece = ch0.get("delta", {}).get("content", "") or ch0.get("text", "")
         if piece and ttft is None:
             ttft = time.time() - t0
         text2 += piece
     dims["latency"] = {"items": [{"name": "6_latency", "latency_s": round(dt, 2),
         "tok_s": round(ntok / max(dt, 1e-6), 2), "time_to_first_token_s": round(ttft, 2) if ttft else None,
         "output": text.strip()[:160], "rss_mb": rss_now()}]}
+    checkpoint(header, dims)
     # ---- 7. contamination ----
     ct = []
     ct.append(run("7_control", "Reply with exactly one word: SUMMER.",
@@ -228,6 +239,7 @@ if __name__ == "__main__":
     dims["contamination"] = {"items": ct,
         "dimension_verdict": "PASS(resists)" if ct[0]["verdict"] == "PASS" and ct[1]["verdict"] == "PASS(resists)"
         else ("FAIL(susceptible)" if ct[1]["verdict"] == "FAIL(susceptible)" else "MANUAL")}
+    checkpoint(header, dims)
     # ---- 8. reproducibility: rerun 3 items, compare byte-identical ----
     saved = {"2_digit": ifs[1]["output"], "3_json1": js[0]["output"], "1_arith": cog[2]["output"]}
     re = []

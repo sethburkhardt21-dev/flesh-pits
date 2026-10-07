@@ -224,3 +224,62 @@ written. Reconstructed from those citations.*
   independent replication; control remains clean (no module confound).
   Receipt: receipts/repro_second_lane_k10.ndjson (hash-chained:
   preregistration + 8 seed_results + verdict, chain verified).
+
+## 2026-10-07 — NR-A-012: (trace-rule x cue-adapter) combination fails on the intersection AND degrades the K10 parent (K11)
+
+- Expectation (H1, preregistered): CueTraceArbitrator
+  (attention_cue_trace.py: per-cue gain vectors from K10 x per-cue
+  eligibility traces with K9's baseline-free return-conditioned update;
+  attention.py and attention_cue.py UNTOUCHED) would beat each parent arm
+  on cue_delayed_reward v1.0.0 (new env: canonical delayed_reward
+  mechanics + per-episode cue {0,1} in the observation; correct = cue) —
+  G1 R_comb/K10-arm >= 1.15 AND G2 R_comb/frozen >= 1.30 on >= 3/4 fresh
+  seeds {1212, 3434, 5656, 7878} — without degrading either parent task
+  (P2: R_comb/K9 >= 0.90 on canonical delayed_reward; P3:
+  R_comb/frozen >= 1.30 on cue-conditioned changing_rule).
+- Observed:
+  - P1 (intersection): combined 0.14-0.36 vs K10-arm 0.50-0.58 vs K9-arm
+    0.10-0.18 vs frozen 0.18-0.46 (3.10 lucky on 7878). G1 R = 0.28-0.64
+    (0/4), G2 R = 0.12-0.78 (0/4). The combination is WORSE than both
+    parents and <= frozen on every seed.
+  - P2 (K9 parent): R_comb/K9 = 1.00 EXACT on all 4 seeds (identical
+    totals) — the combination with constant context is behaviorally
+    identical to the K9 trace path. The module is correct; the failure
+    is substantive, not a bug.
+  - P3 (K10 parent): R_comb/frozen = 0.93-1.12 (0/4, DEGRADED);
+    head-to-head vs K10-arm 0.58-0.70. The trace rule destroys the
+    cue-adapter's proven win.
+- Mechanism (measured):
+  (1) Intersection: the preregistered H0 predicted per-cue forward
+  saturation; the realized failure is more basic — combined per-cue gains
+  stayed near-flat (1.00-1.22) because the baseline-free rule updates ONLY
+  on r != 0 and the +1.0 was almost never reached (totals at shaping
+  level). With no decay and no error signal, the trace rule provides no
+  exploration pressure and no recovery signal; the per-cue vectors never
+  separate. Cue-indexing gives the traces somewhere to attach, but the
+  state-blind bandit still cannot learn branch-then-forward sequencing:
+  NR-A-006 stands, and cue-indexing does not move it. (The K10 arm's
+  delta rule decayed less harmfully and beat the combination here —
+  0.50-0.58 — a real measured inversion of the H1 ordering.)
+  (2) Parent degradation: on dense changing_rule the baseline-free trace
+  rule reinforces ALL recent actions on every r=1 tick (trace smearing).
+  Seed 1212 final vectors — combined cue0 {a0: 2.0, a1: 1.0}, cue1
+  {a0: 2.0, a1: 1.22} (a0 smeared to cap in BOTH contexts) vs K10-arm cue0
+  {a0: 1.925, a1: 0.8}, cue1 {a0: 0.65, a1: 2.0} (clean divergence). The
+  constant-baseline delta rule does per-action error correction (only the
+  chosen arm moves); it was load-bearing for the K10 win. The K9 rule is
+  actively harmful wherever rewards are dense.
+- Rules out: "adding input-conditioned gains to the trace rule lifts
+  NR-A-006" and "the trace rule is a drop-in upgrade over the delta
+  rule." The two mechanisms are NOT complementary: the trace rule needs
+  sparse-return isolation to avoid smearing, and the cue adapter needs
+  per-action error correction to diverge per-cue vectors. Composition of
+  two working mechanisms produced a strictly-worse-than-either agent.
+- Receipt: receipts/k11_cue_trace_combination.ndjson (hash-chained:
+  preregistration + 12 seed_results + verdict; chain verified).
+  Prereg: receipts/prereg_k11_cue_trace_combination.json.
+- New modules: prototypes/architecture-a/attention_cue_trace.py
+  (CueTraceArbitrator), flesh-pits/experiments/envs/cue_delayed_reward.py
+  (CueDelayedReward v1.0.0, registered additively in envs/__init__.py;
+  canonical envs untouched). Fabrication-tripwire: CLEAN (architecture-a
+  tree + envs dir, pre-run).
