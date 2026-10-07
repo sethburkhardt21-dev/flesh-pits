@@ -39,6 +39,13 @@ Configuration knobs (all honest ablations):
   frozen:      True zeroes every learning rate (K1/K2)
   replay_actions: optional list[int] — act() consumes these instead of
                   selecting (K2 identical-stream replay)
+  gate_policy:    "ungated" (default; current behavior, correction applied
+                  whenever available) | "uhat" (apply iff uhat > threshold)
+                  | "random" (apply w.p. rate; chance control)
+  gate_threshold: uhat decision boundary (default 0.0: positive predicted
+                  benefit)
+  gate_rate:      application probability for the random gate
+  gate_seed:      seed for the random gate's RNG
 """
 
 from __future__ import annotations
@@ -58,6 +65,7 @@ from env_interface import Agent, obs_to_vector  # noqa: E402
 from generative_model import HierarchicalGenerativeModel  # noqa: E402
 from memory import EpisodicStore, DisabledStore  # noqa: E402
 from predictions import PredictionLog, UsefulnessPredictor  # noqa: E402
+from retrieval_gate import RetrievalGate  # noqa: E402
 from active_inference import ActiveInferenceSelector  # noqa: E402
 from affect import ErrorAffect, PadController  # noqa: E402
 
@@ -77,7 +85,11 @@ class ArchB(Agent):
                  frozen: bool = False,
                  lamV: float = 1.0, lamIG: float = 0.5, lamR: float = 0.10,
                  seed: int = 0,
-                 log_path: Optional[str] = None) -> None:
+                 log_path: Optional[str] = None,
+                 gate_policy: str = "ungated",
+                 gate_threshold: float = 0.0,
+                 gate_rate: float = 1.0,
+                 gate_seed: int = 0) -> None:
         self.observation_space = dict(observation_space)
         self.n_actions = n_actions
         self.env_name = env_name
@@ -112,6 +124,9 @@ class ArchB(Agent):
         self.err_affect = ErrorAffect()
         self.pad = PadController()
         self.usefulness = UsefulnessPredictor()
+        self.gate = RetrievalGate(policy=gate_policy,
+                                  threshold=gate_threshold,
+                                  rate=gate_rate, seed=gate_seed)
         self.plog: Optional[PredictionLog] = None
 
         self.replay_actions: Optional[List[int]] = None
@@ -253,12 +268,6 @@ class ArchB(Agent):
         xhat_raw = self.model.predict_next(state_vec, action, ctx)
         corr = self.memory.retrieval_correction(obs_vec, k=5)
         correction = corr["correction"]
-        if correction is not None:
-            xhat = [x + c for x, c in zip(xhat_raw, correction)]
-            retrieval_used = True
-        else:
-            xhat = list(xhat_raw)
-            retrieval_used = False
         rhat = self.model.predict_reward(state_vec, action, ctx)
         rconf, runc = self.model.reward_confidence()
         oconf, ounc = self.model.obs_confidence()
@@ -266,6 +275,16 @@ class ArchB(Agent):
             corr["mean_similarity"], corr["n"], ounc, self._e1_ema)
         uhat = self.usefulness.predict(qfeat)
         uconf, uunc = self.usefulness.confidence()
+        # §9 item 6: the gate reads uhat but never modifies the predictor.
+        # With policy "ungated" this reduces to the original behavior
+        # (decide -> True, correction applied whenever available).
+        apply = self.gate.decide(uhat) if correction is not None else False
+        if correction is not None and apply:
+            xhat = [x + c for x, c in zip(xhat_raw, correction)]
+            retrieval_used = True
+        else:
+            xhat = list(xhat_raw)
+            retrieval_used = False
         self._pending = {
             "tick": self._tick, "episode": self._episode,
             "obs_vec": obs_vec, "state_vec": state_vec, "action": action,
@@ -397,6 +416,7 @@ class ArchB(Agent):
             "err_affect": self.err_affect.snapshot(),
             "pad": self.pad.snapshot(),
             "usefulness": self.usefulness.snapshot(),
+            "gate": self.gate.snapshot(),
             "episode": self._episode, "tick": self._tick,
             "last_action": self._last_action, "e1_ema": self._e1_ema,
             "knobs": self.knobs,
@@ -414,6 +434,7 @@ class ArchB(Agent):
         self.err_affect.restore(state["err_affect"])
         self.pad.restore(state["pad"])
         self.usefulness.restore(state["usefulness"])
+        self.gate.restore(state["gate"])
         self._episode = state["episode"]
         self._tick = state["tick"]
         self._last_action = state["last_action"]

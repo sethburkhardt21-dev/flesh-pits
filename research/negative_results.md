@@ -5,6 +5,13 @@ Each entry: experiment ID, what was expected, what happened, what it rules
 out. Preregistrations live in experiments/EXPERIMENT_REGISTRY.md; per-run
 evidence in receipts/.
 
+## 2026-10-07 — EXP-FP-0006: the ûhat sign gate collapses to never-apply (B gap #2 — CLOSED BY REJECTION OF THE POLICY)
+- Expectation: gating the retrieval correction on ûhat (apply iff uhat > 0) would beat unconditional correction on pomaze mean return, and beat random gating at the same rate — proving ûhat carries decision-usable ranking signal.
+- Observed (4 fresh seeds {73401..73404}, 15 pomaze episodes/arm/seed, preregistered before the run): the gate NEVER applied the correction on any seed — application rate 0.000 (n_available 2621–2999, applied 0). Mechanism: cold-start degeneracy — uhat initializes at exactly 0.0, the strict `>` blocks from tick 0, the predictor then trains on the realized gated-outcome (benefit=0), and uhat stays at exactly 0.0 forever. The sign-gate policy is not self-bootstrapping. G ≡ R ≡ no-retrieval, so ΔGR = 0.000 exactly on all 4 seeds — the preregistered G-vs-R comparison is vacuous, not a test of ranking. Per-seed ΔGU (gated vs ungated): +0.231/+0.104/−0.325/+0.151 (seed-mean +0.040) — skipping vs applying the correction shows no measurable return difference on pomaze.
+- The negative is NOT "ûhat cannot rank": the clean-data ranking check (arm-U PredictionLogs, unconditional corrections, in-sample, n≈2600–3000/seed) gives corr(uhat, benefit) = +0.403…+0.483 across all 4 seeds, P(benefit>0)≈0.67, mean uhat tracking mean benefit. The predictor learns a real ranking signal — this gate policy cannot exploit it. (Consistent with EXP-FP-CALIB-01 D4: the *probabilistic* claim is miscalibrated; the *continuous ranking* has signal.)
+- Rules out: "a sign-of-predicted-benefit gate with a cold start is a usable retrieval policy." Exploiting the ranking signal requires a non-degenerate instrument (shadow-trained predictor, warm start, or a non-strict/warmer threshold) — a future experiment, not a retrofit of this one (no post-hoc tuning per the abstention rule).
+- The predictor stays EXECUTED; gap #2 is closed by rejection of this policy, not by integration. Receipt: receipts/EXP-FP-0006.json (hash-chained).
+
 ## 2026-10-07 — EXP-FP-0001: D does not navigate grid_world
 - Expectation: Architecture D's predictor + episodic memory + workspace would
   beat the stateless random baseline by learning to approach the goal.

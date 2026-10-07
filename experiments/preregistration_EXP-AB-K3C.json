@@ -1,0 +1,42 @@
+{
+  "ablation": "L1 top-down path (lesion_l1) \u2014 the same lesion as K3/K3B. Intact and lesioned arms share identical transition streams and identical agent init seeds within each seed.",
+  "amendments": [
+    {
+      "amended_utc": "2026-10-07T09:10:00+00:00",
+      "corrected_expectation": "Task-1 reward channel measures per-context base-rate concentration (intact tables learn stage-2 contexts ~= +0.2-0.25) plus the lesioned precision pathology \u2014 NOT pattern prediction. It remains a DIAGNOSTIC, not the carrying metric. Task-1 verdict still rests SOLELY on the preregistered D_e0 gate (> +0.0032 and > 0 on >= 3/4 seeds). Task-2 reward channel is unaffected (dense {0,1} rewards, no rare spikes; throwaway probe magnitudes sane).",
+      "evidence": "Throwaway-seed probe (99901): intact mean|rerr|=0.2809 vs lesioned-estimated 0.8256 (D_rerr=+0.54) on held-out rewards in {0.0, 0.02}. Lesioned reward head exploded (b_r=0.31, max|w_r|=0.73, predicting rhat=1.27 on a 0.02 tick). Control: lesioned with uniform_precision=True stays sane (b_r=0.018, mean|rerr|=0.10). Mechanism: the rare terminal +1.0 spikes (5/600 train transitions) lower rerr variance -> estimated piR stays high -> massive per-spike w_r updates with no R_ctx absorber under lesion. Same precision pathology family as the C2 kill.",
+      "scope": "pre-run methods-validation correction; no experimental seeds touched (throwaway seeds 99901/99902 only); implementation and decision rules UNCHANGED",
+      "verdict_rule_unchanged": true,
+      "what": "The preregistered expectation 'terminal |rerr| gap ~= 0 by construction' for task 1 is WRONG."
+    }
+  ],
+  "baseline": "arch_b lesion_l1=True (L0-only), identical transitions.",
+  "conditions": {
+    "affect": "none (world-model isolation; isolates the weight/precision machinery, as in K3/K3B)",
+    "agent": "arch_b v1",
+    "contract": "1.0.0",
+    "task1": "delayed_multistep v1.0.0 \u2014 30 episodes; train = episodes 0-19; held-out = episodes 20-29",
+    "task1_reference": "deterministic scripted policy: at t=0 choose branch = episode_seed % 2; forward in corridors; at the junction choose sub = (episode_seed // 2) % 2; forward to terminal. Exercises all 4 (branch, sub) combos across episodes. Chosen over ArchB closed-loop because the pilot showed ArchB stalls at pos<=12 (never finishes stage 1) and random play cannot traverse 30 cells in 45 steps (reaches junction at most, 0 terminal ticks).",
+    "task2": "compositional_rule v1.0.0 \u2014 45 episodes; train = episodes 0-39 (1600 transitions); held-out = episodes 40-44 (200 transitions, stable phase 8)",
+    "task2_reference": "ArchB closed-loop (affect='none'), K3B-arm-A-faithful; bandit always yields 40 transitions/episode."
+  },
+  "decision_rule": "Per-task PASS gates (frozen): Task 1 (delayed_multistep): carrying metric = seed-mean lesion gap D_e0 = mean_lesioned|e0| - mean_intact|e0| on held-out transitions. PASSES iff seed-mean D_e0 > +0.0032 (K3's weak-effect scale; same bar as K3B's decision rule) AND D_e0 > 0 on >= 3/4 seeds. Terminal |rerr| gap is preregistered to be ~= 0 by construction (hidden 2-bit pattern, 25% base rate predictability) \u2014 it bounds the reward instrument, it does not carry the verdict. Task 2 (compositional_rule): carrying metric = seed-mean D_rerr = mean_lesioned|rerr| - mean_intact|rerr| on held-out transitions (secondary: D_e0). PASSES iff seed-mean D_rerr > +0.0032 AND D_rerr > 0 on >= 3/4 seeds. Overall verdict: both tasks PASS -> SCOPE HOLDS (hierarchy earns its keep beyond the two K3B envs). Exactly one PASSES -> SCOPE BOUNDED: record the task characteristics where the hierarchy holds vs fails. Neither PASSES -> NO EFFECT on harder tasks: the hierarchy is a two-env phenomenon.",
+  "experiment_id": "EXP-AB-K3C",
+  "gates_void": {
+    "G0a": "held-out transition count == 0 for a task -> VOID that task (cannot happen by construction; fail-closed)."
+  },
+  "hypothesis": "B's hierarchy (L1 context-expert top-down path) earns its keep beyond the two K3B envs: (task 1) on a longer multi-stage delayed task the intact-vs-L1-lesioned |e0| gap stays positive \u2014 L1's stage/context-indexed dynamics prediction beats L0's global linear map over a 3x horizon with junction structure; (task 2) on a compositional XOR contingency the intact-vs-lesioned |rerr| gap stays positive \u2014 the context-indexed per-action reward tables capture the cue_a x cue_b x action 3-way interaction that L0's linear heads cannot represent (single-cue marginals are exactly 50/50 by construction).",
+  "metric": "Per task: lesion gap D = lesioned_metric - intact_metric on held-out transitions after open-loop training. Task 1 carrying: D_e0 (mean|e0| via eval_transition). Task 2 carrying: D_rerr (mean|rerr| via predict_reward). Secondary channels recorded for both.",
+  "null": "Lesion gaps vanish (<= 0) on the harder tasks \u2014 the hierarchy effect is a two-env phenomenon (changing_rule / delayed_reward only), and K3B's gaps do not generalize.",
+  "pilot_notes": "Pilot (throwaway seeds, pre-preregistration, methods validation only \u2014 did not inform metric thresholds): delayed_multistep deterministic True; compositional_rule deterministic True; always-correct policy on compositional_rule scores 0.80/1.0 (10% noise); cue_a-only policy scores 0.522 (~0.5, confirming uninformative single-cue marginals); ArchB reference on delayed_multistep stalls (max pos 12, 0 terminal ticks); random reference reaches the junction at most (0 terminal ticks). Reference-policy choice above follows from the pilot. Fabrication-tripwire CLEAN on both new env files.",
+  "preregistered_utc": "2026-10-07T08:55:00+00:00",
+  "procedure": "Open-loop transition training via learn_transition (no retrieval correction, no affect \u2014 isolates the weight/precision machinery, as in K3/K3B). Within each seed, one intact and one lesioned ArchB train on the IDENTICAL transition stream with IDENTICAL init seeds; held-out evaluation via eval_transition (mean|e0|) and predict_reward (mean|rerr|); terminal ticks flagged by reward >= 0.5 (same flag as K3B). Train/eval agent init seed = 74220+si for both arms (paired). Task 2 reference agent seed = 74210+si (K3B-arm-A-faithful). 4 fresh seeds.",
+  "seeds": [
+    74101,
+    74102,
+    74103,
+    74104
+  ],
+  "task": "Hierarchy beyond the two envs (B gap #3; \u00a79 item 7)",
+  "title": "EXP-AB-K3C preregistration \u2014 hierarchy beyond the two envs"
+}

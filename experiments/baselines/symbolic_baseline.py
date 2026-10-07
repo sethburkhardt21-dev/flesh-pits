@@ -83,7 +83,10 @@ class SymbolicBaselineAgent(BaselineAgent):
     # -- family detection ------------------------------------------------
     def _detect(self, obs):
         keys = set(obs.keys())
-        if "cue" in keys:
+        if "cue" in keys or "cue_a" in keys:
+            # compositional_rule (cue_a/cue_b) rides the changing_rule
+            # bandit family; WSLS keys on cue_a (degenerate but valid —
+            # single-cue marginals are uninformative by env design).
             return "changing_rule"
         if "branch" in keys:
             return "delayed_reward"
@@ -104,7 +107,7 @@ class SymbolicBaselineAgent(BaselineAgent):
 
     def update(self, obs, action, reward, done, info) -> None:
         if self._family == "changing_rule" and reward is not None:
-            cue = obs["cue"]
+            cue = obs["cue"] if "cue" in obs else obs["cue_a"]
             if reward == 0.0:
                 self._wsls[cue] = 1 - self._wsls[cue]  # lose: shift
             # win: stay (no change)
@@ -222,7 +225,8 @@ class SymbolicBaselineAgent(BaselineAgent):
 
     # -- changing_rule: win-stay / lose-shift -----------------------------
     def _act_wsls(self, obs):
-        return self._wsls[obs["cue"]]
+        cue = obs["cue"] if "cue" in obs else obs["cue_a"]
+        return self._wsls[cue]
 
     # -- delayed_reward: fixed branch_a, then forward ---------------------
     def _act_delayed(self, obs):

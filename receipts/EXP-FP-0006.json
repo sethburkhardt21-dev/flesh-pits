@@ -1,0 +1,184 @@
+{
+  "baseline": "arm U = ungated (current ArchB: correction whenever available).",
+  "conditions": "{\"action_mode\": \"active_inference\", \"affect\": \"none\", \"agent\": \"arch_b v1\", \"contract\": \"1.0.0\", \"env\": \"pomaze v1.0.0\", \"episodes\": 15, \"gate_threshold\": 0.0}",
+  "config": {
+    "action_mode": "active_inference",
+    "affect": "none",
+    "agent": "arch_b v1",
+    "contract": "1.0.0",
+    "env": "pomaze v1.0.0",
+    "episodes": 15,
+    "gate_threshold": 0.0
+  },
+  "config_hash": "753576ca8e5d80c21001464b535288293d161d5d3cf7dadd5161cfb249f5abf3",
+  "episodes": [],
+  "experiment_id": "EXP-FP-0006",
+  "hypothesis": "Gating the retrieval correction on \u00fbhat (apply only when uhat > 0) beats unconditional retrieval-correction on pomaze mean episode return, and beats random gating at the same application rate.",
+  "interpretation": "NEGATIVE per the preregistered rule (seed-mean \u0394GR=0.000 \u2264 0), but the mechanism is gate collapse, not measured ranking failure: the \u00fbhat sign gate (apply iff uhat > 0, \u03c4 frozen at 0.0) never applied the correction on any seed (application rate 0.000 on all 4; n_available 2621\u20132999). Cold-start degeneracy: uhat initializes at exactly 0.0, strict > blocks from tick 0, the predictor then trains on measured benefit=0 (the realized gated-outcome) and uhat stays at exactly 0.0 forever \u2014 the policy is not self-bootstrapping. G \u2261 R \u2261 no-retrieval, so the G-vs-R comparison is vacuous (\u0394GR=0 exactly), not evidence that \u00fbhat cannot rank. The clean-data ranking check says the opposite: corr(uhat, benefit) on arm-U PredictionLogs (unconditional corrections, in-sample) = +0.403\u2026+0.483 across 4 seeds (n\u22482600\u20133000), P(benefit>0)=0.67, mean uhat tracks mean benefit. The REJECTION is of the closed-loop sign-gate policy (it collapses), not of \u00fbhat's ranking ability. Predictor stays EXECUTED. Exploiting the ranking signal needs a non-degenerate instrument (shadow-trained predictor, warm start, or non-strict/warmer threshold) \u2014 a future experiment, not a retrofit here. Secondary: skipping the correction vs applying it shows no measurable return difference on pomaze (per-seed \u0394GU \u22120.325\u2026+0.231, seed-mean +0.040).",
+  "limitations": "pomaze only; 4 seeds; affect='none' isolates the world model; closed-loop policy test \u2014 blocked corrections train the predictor on benefit=0 (realized outcome); random arm rate r_s is the per-seed measured G application rate (conditional on correction availability).",
+  "null_hypothesis": "gated <= ungated, or gated <= random-gated \u2014 \u00fbhat has no decision-usable ranking signal.",
+  "preregistered_metric": "mean episode return on pomaze, 15 closed-loop episodes; per-seed \u0394GU = mean(G)\u2212mean(U), \u0394GR = mean(G)\u2212mean(R); win rule: seed-mean \u0394GU > 0 AND seed-mean \u0394GR > 0 with \u22653/4 seeds agreeing on the sign of BOTH comparisons.",
+  "prev_receipt_hash": "2824006c4973183540527b99cb3bc8e959fc5099193df0cce41efb7033e8519d",
+  "primary_seed": [
+    73401,
+    73402,
+    73403,
+    73404
+  ],
+  "receipt_hash": "94909f8f25d15fbd228ba982ab8266ea9e3351009c3073ecb4a9927a9e815d97",
+  "started_utc": "2026-10-07T08:47:58.514518+00:00",
+  "summary": {
+    "per_seed": [
+      {
+        "G_gate_stats": {
+          "application_rate": 0.0,
+          "mean_uhat": 0.0,
+          "mean_uhat_applied": null,
+          "mean_uhat_blocked": 0.0,
+          "n_applied": 0,
+          "n_available": 2832,
+          "n_blocked": 2832,
+          "policy": "uhat",
+          "rate_param": 1.0,
+          "threshold": 0.0
+        },
+        "G_mean_return": -3.526,
+        "R_gate_stats": {
+          "application_rate": 0.0,
+          "mean_uhat": 0.0,
+          "mean_uhat_applied": null,
+          "mean_uhat_blocked": 0.0,
+          "n_applied": 0,
+          "n_available": 2832,
+          "n_blocked": 2832,
+          "policy": "random",
+          "rate_param": 0.0,
+          "threshold": 0.0
+        },
+        "R_mean_return": -3.526,
+        "U_mean_return": -3.7567,
+        "U_ranking": {
+          "corr_uhat_benefit": 0.481238635266725,
+          "n": 2982
+        },
+        "delta_GR": 0.0,
+        "delta_GU": 0.2307,
+        "seed": 73401
+      },
+      {
+        "G_gate_stats": {
+          "application_rate": 0.0,
+          "mean_uhat": 0.0,
+          "mean_uhat_applied": null,
+          "mean_uhat_blocked": 0.0,
+          "n_applied": 0,
+          "n_available": 2999,
+          "n_blocked": 2999,
+          "policy": "uhat",
+          "rate_param": 1.0,
+          "threshold": 0.0
+        },
+        "G_mean_return": -3.8973,
+        "R_gate_stats": {
+          "application_rate": 0.0,
+          "mean_uhat": 0.0,
+          "mean_uhat_applied": null,
+          "mean_uhat_blocked": 0.0,
+          "n_applied": 0,
+          "n_available": 2999,
+          "n_blocked": 2999,
+          "policy": "random",
+          "rate_param": 0.0,
+          "threshold": 0.0
+        },
+        "R_mean_return": -3.8973,
+        "U_mean_return": -4.0013,
+        "U_ranking": {
+          "corr_uhat_benefit": 0.4828887953822453,
+          "n": 2985
+        },
+        "delta_GR": 0.0,
+        "delta_GU": 0.104,
+        "seed": 73402
+      },
+      {
+        "G_gate_stats": {
+          "application_rate": 0.0,
+          "mean_uhat": 0.0,
+          "mean_uhat_applied": null,
+          "mean_uhat_blocked": 0.0,
+          "n_applied": 0,
+          "n_available": 2999,
+          "n_blocked": 2999,
+          "policy": "uhat",
+          "rate_param": 1.0,
+          "threshold": 0.0
+        },
+        "G_mean_return": -3.924,
+        "R_gate_stats": {
+          "application_rate": 0.0,
+          "mean_uhat": 0.0,
+          "mean_uhat_applied": null,
+          "mean_uhat_blocked": 0.0,
+          "n_applied": 0,
+          "n_available": 2999,
+          "n_blocked": 2999,
+          "policy": "random",
+          "rate_param": 0.0,
+          "threshold": 0.0
+        },
+        "R_mean_return": -3.924,
+        "U_mean_return": -3.5987,
+        "U_ranking": {
+          "corr_uhat_benefit": 0.40339103610787236,
+          "n": 2899
+        },
+        "delta_GR": 0.0,
+        "delta_GU": -0.3253,
+        "seed": 73403
+      },
+      {
+        "G_gate_stats": {
+          "application_rate": 0.0,
+          "mean_uhat": 0.0,
+          "mean_uhat_applied": null,
+          "mean_uhat_blocked": 0.0,
+          "n_applied": 0,
+          "n_available": 2621,
+          "n_blocked": 2621,
+          "policy": "uhat",
+          "rate_param": 1.0,
+          "threshold": 0.0
+        },
+        "G_mean_return": -3.0933,
+        "R_gate_stats": {
+          "application_rate": 0.0,
+          "mean_uhat": 0.0,
+          "mean_uhat_applied": null,
+          "mean_uhat_blocked": 0.0,
+          "n_applied": 0,
+          "n_available": 2621,
+          "n_blocked": 2621,
+          "policy": "random",
+          "rate_param": 0.0,
+          "threshold": 0.0
+        },
+        "R_mean_return": -3.0933,
+        "U_mean_return": -3.244,
+        "U_ranking": {
+          "corr_uhat_benefit": 0.44340427896097234,
+          "n": 2623
+        },
+        "delta_GR": 0.0,
+        "delta_GU": 0.1507,
+        "seed": 73404
+      }
+    ],
+    "seed_mean_delta_GR": 0.0,
+    "seed_mean_delta_GU": 0.04,
+    "seeds_agree_GR": 0,
+    "seeds_agree_GU": 3,
+    "verdict": "NEGATIVE (no ranking signal)"
+  },
+  "written_utc": "2026-10-07T08:50:10.078405+00:00"
+}

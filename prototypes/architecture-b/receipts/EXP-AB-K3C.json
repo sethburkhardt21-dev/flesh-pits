@@ -1,0 +1,344 @@
+{
+  "architecture": "B",
+  "config_hash": "a922e3e25ce3cf55850b006cc8f4954d9f38abe8ecae3289d1d30e789adcdded",
+  "contract_version": "1.0.0",
+  "experiment_id": "EXP-AB-K3C",
+  "interpretation": "NO EFFECT on harder tasks: lesion gaps vanish on both new tasks (task1 D_e0 seed-mean -0.0470, task2 D_rerr seed-mean -0.2684). The hierarchy effect is a two-env phenomenon \u2014 K3B's gaps do not generalize.",
+  "limitations": "Open-loop training isolates the weight/precision machinery (as K3/K3B); closed-loop control effects are factored out by design. Task-1 reference is a scripted policy (ArchB/random references stall per pilot); task-2 reference is ArchB closed-loop (K3B-arm-A-faithful). Terminal ticks flagged by reward >= 0.5. 4 fresh seeds.",
+  "preregistered": {
+    "ablation": "L1 top-down path (lesion_l1) \u2014 same lesion as K3/K3B.",
+    "baseline": "arch_b lesion_l1=True (L0-only), identical transitions.",
+    "conditions": {
+      "affect": "none",
+      "agent": "arch_b v1",
+      "contract": "1.0.0",
+      "task1": "delayed_multistep v1.0.0, 30 episodes, train eps 0-19, held-out eps 20-29, scripted reference policy",
+      "task2": "compositional_rule v1.0.0, 45 episodes, train eps 0-39 (1600 transitions), held-out eps 40-44 (200), ArchB closed-loop reference"
+    },
+    "decision_rule": "Task 1 PASSES iff seed-mean D_e0 > +0.0032 AND D_e0 > 0 on >= 3/4 seeds (terminal |rerr| preregistered ~= 0 by construction \u2014 bounds the reward instrument). Task 2 PASSES iff seed-mean D_rerr > +0.0032 AND D_rerr > 0 on >= 3/4 seeds. Both PASS -> SCOPE HOLDS; one PASSES -> SCOPE BOUNDED; neither -> NO EFFECT.",
+    "hypothesis": "B's hierarchy (L1 context-expert top-down path) earns its keep beyond the two K3B envs: (task 1) on a longer multi-stage delayed task the intact-vs-L1-lesioned |e0| gap stays positive; (task 2) on a compositional XOR contingency the intact-vs-lesioned |rerr| gap stays positive.",
+    "metric": "Per task: lesion gap D = lesioned - intact on held-out transitions. Task 1 (delayed_multistep) carrying: D_e0. Task 2 (compositional_rule) carrying: D_rerr.",
+    "null": "Lesion gaps vanish (<= 0) on the harder tasks \u2014 the hierarchy effect is a two-env phenomenon.",
+    "procedure": "Open-loop transition training via learn_transition (no retrieval correction/affect). Intact/lesioned arms share identical transition streams and init seeds within each seed. Terminal flag: reward >= 0.5. Full preregistration: flesh-pits/experiments/preregistration_EXP-AB-K3C.json.",
+    "seeds": [
+      74101,
+      74102,
+      74103,
+      74104
+    ]
+  },
+  "prev_receipt_hash": "39bf916647d47e0bb48b8af9a9d760dc9e803837cca358695dc6c3dd11d6ffee",
+  "receipt_hash": "265f8e7637a893494bfe901d0ea83b6c6a22c9a5a5b1ca3644badc4b452c1ef0",
+  "result": {
+    "task1_delayed_multistep": {
+      "mean_delta_e0": -0.04695095926976388,
+      "mean_delta_rerr": -0.21335168717860892,
+      "mean_delta_rerr_terminal": 0.0999486946992058,
+      "passes_gate": false,
+      "per_seed": [
+        {
+          "delta_e0": -0.05865294349535177,
+          "delta_rerr": -0.09310470715685959,
+          "delta_rerr_terminal": -0.05820539810105885,
+          "ep_lengths": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ],
+          "intact": {
+            "mean_abs_e0": 0.5974361583414406,
+            "mean_abs_rerr": 0.3528662537017081,
+            "mean_abs_rerr_terminal": 0.6815951346139943,
+            "n_terminal": 1
+          },
+          "lesioned": {
+            "mean_abs_e0": 0.5387832148460888,
+            "mean_abs_rerr": 0.2597615465448485,
+            "mean_abs_rerr_terminal": 0.6233897365129355,
+            "n_terminal": 1
+          },
+          "n_episodes": 30,
+          "n_heldout": 300,
+          "n_train": 600,
+          "seed": 74101
+        },
+        {
+          "delta_e0": -0.05026959821994459,
+          "delta_rerr": -0.56863400331044,
+          "delta_rerr_terminal": 0.5743242281096224,
+          "ep_lengths": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ],
+          "intact": {
+            "mean_abs_e0": 0.5353037353693698,
+            "mean_abs_rerr": 0.765994812429244,
+            "mean_abs_rerr_terminal": 0.5035845283952616,
+            "n_terminal": 2
+          },
+          "lesioned": {
+            "mean_abs_e0": 0.4850341371494252,
+            "mean_abs_rerr": 0.19736080911880405,
+            "mean_abs_rerr_terminal": 1.077908756504884,
+            "n_terminal": 2
+          },
+          "n_episodes": 30,
+          "n_heldout": 300,
+          "n_train": 600,
+          "seed": 74102
+        },
+        {
+          "delta_e0": -0.04257975021620175,
+          "delta_rerr": -0.13359237442518163,
+          "delta_rerr_terminal": -0.31863245723057676,
+          "ep_lengths": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ],
+          "intact": {
+            "mean_abs_e0": 0.5596077091981987,
+            "mean_abs_rerr": 0.40422160823343073,
+            "mean_abs_rerr_terminal": 1.407492404280988,
+            "n_terminal": 2
+          },
+          "lesioned": {
+            "mean_abs_e0": 0.5170279589819969,
+            "mean_abs_rerr": 0.2706292338082491,
+            "mean_abs_rerr_terminal": 1.0888599470504112,
+            "n_terminal": 2
+          },
+          "n_episodes": 30,
+          "n_heldout": 300,
+          "n_train": 600,
+          "seed": 74103
+        },
+        {
+          "delta_e0": -0.0363015451475574,
+          "delta_rerr": -0.058075663821954504,
+          "delta_rerr_terminal": 0.20230840601883643,
+          "ep_lengths": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30
+          ],
+          "intact": {
+            "mean_abs_e0": 0.5125638418381591,
+            "mean_abs_rerr": 0.7162695189068403,
+            "mean_abs_rerr_terminal": 0.21408344447598404,
+            "n_terminal": 3
+          },
+          "lesioned": {
+            "mean_abs_e0": 0.47626229669060166,
+            "mean_abs_rerr": 0.6581938550848858,
+            "mean_abs_rerr_terminal": 0.41639185049482047,
+            "n_terminal": 3
+          },
+          "n_episodes": 30,
+          "n_heldout": 300,
+          "n_train": 600,
+          "seed": 74104
+        }
+      ]
+    },
+    "task2_compositional_rule": {
+      "mean_delta_e0": -0.009661973975618743,
+      "mean_delta_rerr": -0.2684355801832369,
+      "mean_delta_rerr_terminal": -0.47811040308655944,
+      "passes_gate": false,
+      "per_seed": [
+        {
+          "delta_e0": -0.010250054167936673,
+          "delta_rerr": -0.21719173684821735,
+          "delta_rerr_terminal": -0.4946958498634798,
+          "intact": {
+            "mean_abs_e0": 1.199155662440908,
+            "mean_abs_rerr": 0.7854606579624879,
+            "mean_abs_rerr_terminal": 0.7396338296841831,
+            "n_terminal": 108
+          },
+          "lesioned": {
+            "mean_abs_e0": 1.1889056082729714,
+            "mean_abs_rerr": 0.5682689211142705,
+            "mean_abs_rerr_terminal": 0.2449379798207033,
+            "n_terminal": 108
+          },
+          "n_heldout": 200,
+          "n_train": 1600,
+          "seed": 74101
+        },
+        {
+          "delta_e0": -0.009715880171192959,
+          "delta_rerr": -0.34057238413741264,
+          "delta_rerr_terminal": -0.45609017670729,
+          "intact": {
+            "mean_abs_e0": 1.1725466938117806,
+            "mean_abs_rerr": 0.9100331602713895,
+            "mean_abs_rerr_terminal": 1.077260862156439,
+            "n_terminal": 119
+          },
+          "lesioned": {
+            "mean_abs_e0": 1.1628308136405876,
+            "mean_abs_rerr": 0.5694607761339768,
+            "mean_abs_rerr_terminal": 0.621170685449149,
+            "n_terminal": 119
+          },
+          "n_heldout": 200,
+          "n_train": 1600,
+          "seed": 74102
+        },
+        {
+          "delta_e0": -0.004191108163250412,
+          "delta_rerr": -0.24733338793308723,
+          "delta_rerr_terminal": -0.6757936045468649,
+          "intact": {
+            "mean_abs_e0": 1.1343230778659714,
+            "mean_abs_rerr": 0.7605511760156731,
+            "mean_abs_rerr_terminal": 0.8944578713101929,
+            "n_terminal": 109
+          },
+          "lesioned": {
+            "mean_abs_e0": 1.130131969702721,
+            "mean_abs_rerr": 0.5132177880825859,
+            "mean_abs_rerr_terminal": 0.21866426676332806,
+            "n_terminal": 109
+          },
+          "n_heldout": 200,
+          "n_train": 1600,
+          "seed": 74103
+        },
+        {
+          "delta_e0": -0.014490853400094927,
+          "delta_rerr": -0.26864481181423017,
+          "delta_rerr_terminal": -0.285861981228603,
+          "intact": {
+            "mean_abs_e0": 1.1442205384490962,
+            "mean_abs_rerr": 0.7805280958724058,
+            "mean_abs_rerr_terminal": 0.7283204559609288,
+            "n_terminal": 118
+          },
+          "lesioned": {
+            "mean_abs_e0": 1.1297296850490013,
+            "mean_abs_rerr": 0.5118832840581756,
+            "mean_abs_rerr_terminal": 0.44245847473232575,
+            "n_terminal": 118
+          },
+          "n_heldout": 200,
+          "n_train": 1600,
+          "seed": 74104
+        }
+      ]
+    },
+    "verdict": "NO EFFECT"
+  },
+  "written_utc": "2026-10-07T08:49:49.934063+00:00"
+}

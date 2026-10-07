@@ -47,7 +47,7 @@
 - **Model dependence (PENDING):** the §11 transfer test (0.5B↔1.5B) is in flight with another worker. FINAL_HANDOFF's model-dependence section stays PENDING until those results land. Note already established: the K4 learned-gains loop is model-free by construction (no foundation-model call anywhere in the loop — documented in `transfer_k4_restore.py`'s header, verified by own hand), so its verdict is about persisted-state transfer across restart, not model replacement.
 - Independent replication of A's K1–K4 by a second lane (the lane's REPRODUCED bar is "independent/repeated experiment confirms" — current 5/5 is single-lab).
 - 5-seed reproduction of M1, C2B, C4B, K3B (Phase-4 ran 3).
-- B's hierarchy beyond changing_rule/delayed_reward; the retrieval-usefulness prediction wired to gate retrieval (B gap #2).
+- B's hierarchy beyond changing_rule/delayed_reward. B gap #2 RESOLVED 2026-10-07 (EXP-FP-0006): the ûhat sign-gate policy collapses to never-apply on all 4 seeds (cold-start degeneracy — REJECTED as a policy); the predictor learns a real ranking signal (corr(uhat,benefit)=+0.40…+0.48 on clean arm-U data) that a non-degenerate instrument (shadow training / warm start) could exploit in a future experiment.
 - A sparse-reward redesign of the gain loop (NR-A-006 structural bound) and a cue-conditioned gain adapter (NR-A-007 architectural bound).
 - C built from the surviving parts, beaten against A and B by preregistered margins.
 - The 1.5B rung downloaded 2026-10-07 ~07:32 UTC (`flesh-pits/var/models/qwen2.5-1.5b-instruct-q4_k_m.gguf`, 785,362,944 bytes) — not yet benched; bench before any rung-1 experiment claim.

@@ -73,3 +73,49 @@ not reconstructed — inventing entries would be fabrication.
   future IG metric design, not a verdict change.
 - Receipt: receipts/EXP-AB-C4B.json. Source: CHECKPOINT.md Phase-4;
   handoff/REJECTED_IDEAS.md entry 2b.
+
+## 2026-10-07 — K3C: hierarchy does not generalize beyond the two K3B envs (hierarchy-scope bound)
+
+- Expectation (preregistered; full spec
+  flesh-pits/experiments/preregistration_EXP-AB-K3C.json): B's L1
+  hierarchy would earn its keep on harder tasks — intact-vs-L1-lesioned
+  |e0| gap positive on delayed_multistep (3× horizon, two-stage corridor
+  with junction; scripted reference policy, 30 episodes, train eps 0–19,
+  held-out eps 20–29), and |rerr| gap positive on compositional_rule
+  (cue_a×cue_b×action XOR contingency, single-cue marginals exactly
+  50/50; 45 episodes, train eps 0–39, held-out eps 40–44). Gates: seed-mean
+  carrying gap > +0.0032 (K3's weak-effect scale) AND positive on ≥3/4
+  fresh seeds {74101–74104}; both pass → SCOPE HOLDS, one → SCOPE BOUNDED,
+  neither → NO EFFECT.
+- Observed (4/4 seeds, K3B-identical open-loop instrument):
+  task 1 D_e0 seed-mean −0.0470 (−0.036…−0.059, negative 4/4) — disabling
+  L1 IMPROVES dynamics prediction on the longer multi-stage horizon;
+  task 2 D_rerr seed-mean −0.2684 (−0.217…−0.341, negative 4/4), D_e0
+  −0.0097 (negative 4/4) — the lesion helps on both channels. Verdict:
+  **NO EFFECT — the hierarchy is a two-env phenomenon** (changing_rule /
+  delayed_reward only).
+- Diagnosed (post-hoc, not preregistered): on phase-7 held-out (the phase
+  the context tables trained on) intact|rerr|=0.22 vs lesioned 0.51
+  (D=+0.29 — the tables DO capture the XOR within a stable phase); on
+  phase-8 held-out (flipped maps) intact 0.79 vs lesioned 0.57. The R
+  tables memorize the old phase's contingency and predict it confidently
+  after the flip, while L0-only degrades gracefully to chance.
+  Context-specificity is a liability under distribution shift — the same
+  cross-cutting pattern as the Phase-3 replications (K1/K3/C2: L1-context
+  and precision machinery does not robustly convert learning into better
+  decisions under shift).
+- Methods note: the preregistered task-1 expectation "terminal |rerr| ≈ 0
+  by construction" was corrected pre-run by amendment (throwaway-seed
+  probe): the intact model's context tables learn per-context base rates
+  while the lesioned model's estimated-precision reward head explodes on
+  the rare terminal spikes (verified: uniform precision keeps it sane,
+  0.10 vs 0.83) — same precision pathology family as the C2 kill. The
+  reward channel on task 1 was kept as a diagnostic, not the carrying
+  metric; the verdict rests on the preregistered D_e0/D_rerr gates.
+- Rules out: "the hierarchy earns its keep on harder tasks." Extends the
+  hierarchy-scope question (cf. NR-B-006, recorded LOST above — not
+  reconstructed; K3B's two-env evidence stands separately).
+- Receipts: receipts/EXP-AB-K3C.json (arch-b detail, hash-chained to
+  EXP-AB-K3B); ../../receipts/EXP-AB-K3C.json (lane summary, harness
+  chain). New envs: flesh-pits/experiments/envs/delayed_multistep.py,
+  compositional_rule.py (registered additively; canonical envs untouched).

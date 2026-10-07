@@ -175,6 +175,33 @@ Negative results preserved in research/negative_results.md.
 - D4 retrieval_usefulness: MISCALIBRATED (dispersion error; Brier 0.2610 vs climo 0.2472; observed benefit rate flat ~0.40-0.47 across predicted 0.08-0.64)
 - Finding: B's stated uncertainties are essentially uncoupled from actual error magnitude; not decision-usable as probabilities. No post-run tuning per preregistered abstention rule. Full table: benchmarks/calibration_battery_results.json.
 
+## EXP-FP-0006 — retrieval-usefulness gate: ûhat-gated vs unconditional vs random-gated on pomaze (§9 item 6, B gap #2)
+
+**PREREGISTERED (2026-10-07, before run)**
+- hypothesis: Gating the retrieval correction on ûhat (apply the correction only when uhat > 0, i.e. positive predicted error-reduction) beats unconditional retrieval-correction on pomaze mean episode return; AND beats random gating at the same application rate — ûhat carries ranking signal worth gating on.
+- null: gated ≤ ungated, or gated ≤ random-gated — ûhat has no decision-usable ranking signal. Consistent with EXP-FP-CALIB-01 D4: observed benefit rate flat (~0.40–0.47) across the predicted range; corr(sigma,|err|)=0.05.
+- preregistered metric (EXACT): mean episode return on pomaze over 15 closed-loop episodes. Per-seed: ΔGU = mean(G)−mean(U); ΔGR = mean(G)−mean(R). Win rule: seed-mean ΔGU > 0 AND seed-mean ΔGR > 0, with ≥3/4 seeds agreeing on the sign of BOTH comparisons.
+- arms: U = ungated (current ArchB: correction applied whenever available; default gate_policy="ungated"). G = RetrievalGate(policy="uhat", threshold=0.0). R = RetrievalGate(policy="random", rate=r_s) where r_s = per-seed measured application rate of arm G (corrections applied / corrections available), gate_seed=derive_seed(s, 0, "gate"). R runs after U and G on the same seeds with r_s fixed per seed.
+- baseline: arm U (unconditional retrieval-correction).
+- conditions: pomaze v1.0.0, arch_b v1, affect='none', action_mode='active_inference', 15 episodes, identical primary seeds across the three arms (paired). 4 fresh seeds {73401, 73402, 73403, 73404} — never used by any prior experiment (Phase-3: 101–109; Phase-4: 301–333; repro: 72001–72705; calib: 73101–73105; consolidation: 7000s/900s).
+- implementation: new module prototypes/architecture-b/retrieval_gate.py; the UsefulnessPredictor is NOT modified (gate reads uhat only). ArchB gains gate knobs (default "ungated" = bit-identical to current behavior); snapshot/restore extended for gate state.
+- gate parameter: τ=0.0 frozen — apply iff predicted benefit positive. No tuning, per the abstention rule.
+- closed-loop caveat (part of the tested object): when the gate blocks a correction, measured benefit = |e0_raw|−|e0_gated| = 0 and the predictor trains on that realized outcome. The experiment tests the full gated policy including its effect on predictor learning, not just the decision in isolation.
+- secondary diagnostics (descriptive): gate rate r_s per seed; mean uhat for applied vs blocked decisions; corr(uhat, benefit) parsed from arm-U PredictionLog JSONL (unconditional data — the clean ranking check).
+- verdict mapping: win rule met → H supported, gate INTEGRATED (maturity row updated). seed-mean ΔGR ≤ 0 → NEGATIVE: ûhat has no ranking signal; predictor stays EXECUTED, gap #2 closed by rejection, recorded in research/negative_results.md. ΔGU ≤ 0 but ΔGR > 0 → gating worse than unconditional but ûhat ranks (rate/threshold effect; investigate).
+
+**RESULT: pending — run not yet executed at registry time.**
+
+**RESULT (2026-10-07, run complete — 4 fresh seeds {73401..73404}, 15 pomaze episodes/arm/seed, receipt receipts/EXP-FP-0006.json, hash-chained)**
+- The ûhat sign gate COLLAPSED to never-apply on all 4 seeds: application rate 0.000 (n_available 2621–2999, applied 0). Cold-start degeneracy — uhat inits at exactly 0.0, strict `>` blocks from tick 0, predictor trains on realized benefit=0, uhat stays exactly 0.0. The policy is not self-bootstrapping.
+- Per-seed: U −3.757/−4.001/−3.599/−3.244; G −3.526/−3.897/−3.924/−3.093; R identical to G (rate 0 → never-apply). ΔGU +0.231/+0.104/−0.325/+0.151 (seed-mean +0.040); ΔGR 0.000 on all 4 (G≡R, vacuous comparison).
+- Preregistered rule fires NEGATIVE (ΔGR ≤ 0) — but the rejection is of the closed-loop sign-gate policy (it never made a discriminating decision), NOT of ûhat's ranking ability.
+- Clean ranking check (arm-U PredictionLogs, unconditional corrections, in-sample): corr(uhat, benefit) = +0.403…+0.483 across 4 seeds (n≈2600–3000), P(benefit>0)≈0.67, mean uhat tracks mean benefit. The predictor learns a real ranking signal; this gate cannot exploit it.
+- Secondary: skipping vs applying the correction shows no measurable return difference on pomaze (ΔGU −0.33…+0.23 per seed).
+- Predictor stays EXECUTED. The ranking-exploitation question needs a non-degenerate instrument (shadow-trained predictor, warm start, non-strict threshold) — future experiment, not a retrofit.
+
+---
+
 ## EXP-FP-0005 — consolidation race: S-01 vs memory_port, prioritized vs uniform vs no offline replay (§9 item 8)
 
 **PREREGISTERED (2026-10-07, before run; full spec sealed in prototypes/architecture-b/consolidation_race.py module docstring)**

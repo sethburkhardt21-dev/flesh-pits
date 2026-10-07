@@ -1,0 +1,67 @@
+{
+  "baseline": "arch_b lesion_l1=True (L0-only), identical transitions.",
+  "conditions": "{\"affect\": \"none\", \"agent\": \"arch_b v1\", \"contract\": \"1.0.0\", \"task1\": \"delayed_multistep v1.0.0, 30 episodes, train eps 0-19, held-out eps 20-29, scripted reference policy\", \"task2\": \"compositional_rule v1.0.0, 45 episodes, train eps 0-39 (1600 transitions), held-out eps 40-44 (200), ArchB closed-loop reference\"}",
+  "config": {
+    "instrument": "K3B open-loop (learn_transition / eval_transition / predict_reward)",
+    "lesion": "lesion_l1",
+    "seeds": [
+      74101,
+      74102,
+      74103,
+      74104
+    ],
+    "tasks": [
+      "delayed_multistep v1.0.0",
+      "compositional_rule v1.0.0"
+    ]
+  },
+  "config_hash": "a922e3e25ce3cf55850b006cc8f4954d9f38abe8ecae3289d1d30e789adcdded",
+  "episodes": {
+    "compositional_rule": {
+      "n_heldout": 200,
+      "n_train": 1600
+    },
+    "delayed_multistep": {
+      "n_heldout": 300,
+      "n_train": 600
+    }
+  },
+  "experiment_id": "EXP-AB-K3C",
+  "hypothesis": "B's hierarchy (L1 context-expert top-down path) earns its keep beyond the two K3B envs: (task 1) on a longer multi-stage delayed task the intact-vs-L1-lesioned |e0| gap stays positive; (task 2) on a compositional XOR contingency the intact-vs-lesioned |rerr| gap stays positive.",
+  "interpretation": "NO EFFECT on harder tasks: lesion gaps vanish on both new tasks (task1 D_e0 seed-mean -0.0470, task2 D_rerr seed-mean -0.2684). The hierarchy effect is a two-env phenomenon \u2014 K3B's gaps do not generalize.",
+  "limitations": "Open-loop training isolates the weight/precision machinery (as K3/K3B); closed-loop control effects are factored out by design. Task-1 reference is a scripted policy (ArchB/random references stall per pilot); task-2 reference is ArchB closed-loop (K3B-arm-A-faithful). Terminal ticks flagged by reward >= 0.5. 4 fresh seeds.",
+  "null_hypothesis": "Lesion gaps vanish (<= 0) on the harder tasks \u2014 the hierarchy effect is a two-env phenomenon.",
+  "preregistered_metric": "Per task: lesion gap D = lesioned - intact on held-out transitions. Task 1 (delayed_multistep) carrying: D_e0. Task 2 (compositional_rule) carrying: D_rerr.",
+  "prev_receipt_hash": null,
+  "primary_seed": "74101-74104",
+  "receipt_hash": "2824006c4973183540527b99cb3bc8e959fc5099193df0cce41efb7033e8519d",
+  "started_utc": "2026-10-07T08:48:57.879435+00:00",
+  "summary": {
+    "detail_receipt": "prototypes/architecture-b/receipts/EXP-AB-K3C.json",
+    "task1_delayed_multistep": {
+      "passes_gate": false,
+      "per_seed_delta_e0": [
+        -0.05865294349535177,
+        -0.05026959821994459,
+        -0.04257975021620175,
+        -0.0363015451475574
+      ],
+      "seed_mean_delta_e0": -0.04695095926976388,
+      "seed_mean_delta_rerr": -0.21335168717860892,
+      "seed_mean_delta_rerr_terminal": 0.0999486946992058
+    },
+    "task2_compositional_rule": {
+      "passes_gate": false,
+      "per_seed_delta_rerr": [
+        -0.21719173684821735,
+        -0.34057238413741264,
+        -0.24733338793308723,
+        -0.26864481181423017
+      ],
+      "seed_mean_delta_e0": -0.009661973975618743,
+      "seed_mean_delta_rerr": -0.2684355801832369
+    },
+    "verdict": "NO EFFECT"
+  },
+  "written_utc": "2026-10-07T08:49:50.001126+00:00"
+}
