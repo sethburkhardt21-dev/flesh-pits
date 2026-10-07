@@ -1,0 +1,233 @@
+{
+  "baseline": "fixed_predictor",
+  "conditions": "",
+  "config": {
+    "agent": "fixed_predictor",
+    "contract_version": "1.0.0",
+    "env": "pomaze",
+    "env_version": "1.0.0",
+    "max_steps": null,
+    "n_episodes": 20,
+    "primary_seed": 17
+  },
+  "config_hash": "b030eeaf26cc5145a6575dee56e385064261964eac4151e8bfb51a70a09e5007",
+  "episodes": [
+    {
+      "done": true,
+      "episode_id": "pomaze:v1.0.0:seed=3009833658:run=0",
+      "final_hash": "4554ea7903cd2a1e3fce2f0a8d6c0d3ff95e0809c7558d9f8844e05c7003f0e8",
+      "init_hash": "64414f3b861149e782a31cc8f11456199b2cce43751a51941425e5afb797a8e4",
+      "return": -6.000000000000005,
+      "seed": 3009833658,
+      "steps": 200,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "pomaze:v1.0.0:seed=3080068194:run=1",
+      "final_hash": "5b44554a3f0f2caee3891911e767bb0bcfbe1bf54c7b9f3f5c48594b89833da9",
+      "init_hash": "6d23f95edf83f6d779d8a6f8c94bdf6723b8e76a8d6f5322670a20039d695f3a",
+      "return": -6.000000000000005,
+      "seed": 3080068194,
+      "steps": 200,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "pomaze:v1.0.0:seed=2124402321:run=2",
+      "final_hash": "ca944515849fb74ef41f861c9109e530cf226afc2323e25f245fec6a009a9e10",
+      "init_hash": "375c02530a950e2b07b4045d26523bfa358e4261781832f7dc1efcfbbea2eb67",
+      "return": -5.840000000000003,
+      "seed": 2124402321,
+      "steps": 200,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "pomaze:v1.0.0:seed=3032960695:run=3",
+      "final_hash": "009911e34738caa5d954149ab182c5f59c62eba1745ecff8a1c8a1ea628458af",
+      "init_hash": "8f8628621e53e538e40ef150c79aaeabb38d8a44b44e53e2c75d32d01d9fda90",
+      "return": -6.000000000000005,
+      "seed": 3032960695,
+      "steps": 200,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "pomaze:v1.0.0:seed=2812128415:run=4",
+      "final_hash": "584b943a99cd0d3b37f98ee89d39e4eba7b2e666b0a63ccf377923cb0423f1eb",
+      "init_hash": "39751f8a23a16d2dabcf36e05e5141568708208d453186fd6a4c65d7b1314c1e",
+      "return": -5.880000000000004,
+      "seed": 2812128415,
+      "steps": 200,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "pomaze:v1.0.0:seed=3934538885:run=5",
+      "final_hash": "4de1bffbb0af6662044643445403538a658b25a28d211a8c43b9c22634129661",
+      "init_hash": "2e72560c3fb6884eff76db284b9f0b17d394251a25a0d085f0f002a85f31b530",
+      "return": -5.840000000000003,
+      "seed": 3934538885,
+      "steps": 200,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "pomaze:v1.0.0:seed=3306629128:run=6",
+      "final_hash": "a6a3db6f53e87c804e7101143cc37f1a4b8897ae63dd771beb08f2f5933f886d",
+      "init_hash": "337e9d11a24e9f03976e7984c1bdf56f9d1128a1952ed61159a044b054e07f14",
+      "return": -6.000000000000005,
+      "seed": 3306629128,
+      "steps": 200,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "pomaze:v1.0.0:seed=1780164731:run=7",
+      "final_hash": "23ae2c5173e756d1f3f370ae2de5b31ceccbc5bed8d9d262a0404ed34bb34b33",
+      "init_hash": "dd8f76ce804a7aab978f667341e2ac8fcb22f7250952bd66c84ed1998da484fd",
+      "return": -5.840000000000003,
+      "seed": 1780164731,
+      "steps": 200,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "pomaze:v1.0.0:seed=2088650958:run=8",
+      "final_hash": "6e9b05bdb05c9f1d3b684b02ec66d526052f62b667c33897be7be7b81e8f5e8c",
+      "init_hash": "d5cab0991b1790b69d8752b9301b696a99e71e11e3e6ffe78b51bea04ca366e1",
+      "return": -5.920000000000004,
+      "seed": 2088650958,
+      "steps": 200,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "pomaze:v1.0.0:seed=3230727299:run=9",
+      "final_hash": "fab5218213198aec28581d60bddeaf29f975086df4f5467bcd94aac8d15a33db",
+      "init_hash": "00a806d7a0e355048151756ba3cefd2cb11dc9e101e6c24d15abd00755962e4e",
+      "return": -6.000000000000005,
+      "seed": 3230727299,
+      "steps": 200,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "pomaze:v1.0.0:seed=1804846317:run=10",
+      "final_hash": "211a9e8353cb86fbb9466835b8d36c670c2e4033774778f48f446be81dc3d2a8",
+      "init_hash": "d0cd7e1034c972bb96b568bc40b5a2ebb8d12cdf0ee9fa0e6d5b46c035325c9a",
+      "return": -5.840000000000003,
+      "seed": 1804846317,
+      "steps": 200,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "pomaze:v1.0.0:seed=1569488015:run=11",
+      "final_hash": "3d571924c58a6066eba560decb3394c17b90b9169490ff1f017d4bec601e98b5",
+      "init_hash": "efb0728b332cadb39259ada41317ade853820061d62a03f904bf8d69bd469baf",
+      "return": -5.840000000000003,
+      "seed": 1569488015,
+      "steps": 200,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "pomaze:v1.0.0:seed=1060091964:run=12",
+      "final_hash": "6b107b91114a5088f241550cf082a5d2ed036bc1f94df7794c9c12d1eca4d5b4",
+      "init_hash": "66bb8ce1f94b299a6145de4d4d24403b839c4cfbdd4f1bd891bbea3f06bd0413",
+      "return": -6.000000000000005,
+      "seed": 1060091964,
+      "steps": 200,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "pomaze:v1.0.0:seed=1353122016:run=13",
+      "final_hash": "0c7c4cc64df76d9e2bdfab21cf51520c6a0fff284a1bb2400a6bc0cd8e70d787",
+      "init_hash": "69eacaa1b6cc5f93b488ff7d936d7826c5d58d494f7806121c7557eccd1b3fc7",
+      "return": -5.960000000000004,
+      "seed": 1353122016,
+      "steps": 200,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "pomaze:v1.0.0:seed=1396879488:run=14",
+      "final_hash": "19fb8a31091b2f4d13664f4fb55638aa82788a763feddcb20fc680069779c1be",
+      "init_hash": "7269226515ee59b8368527a766601f4181af880ea67a569bf4e1cd5041181a54",
+      "return": -6.000000000000005,
+      "seed": 1396879488,
+      "steps": 200,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "pomaze:v1.0.0:seed=1223252092:run=15",
+      "final_hash": "c8fef3fdfd9e1f56b18a85ce54676f1071f6c5005f726eebd89281aae3adaf0e",
+      "init_hash": "a58092503f733d6df0f31aa42a98f58e42dc7740c9c8dce9e9d42813afbd1697",
+      "return": -5.880000000000004,
+      "seed": 1223252092,
+      "steps": 200,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "pomaze:v1.0.0:seed=4071090269:run=16",
+      "final_hash": "db2cd128a9450290c1f4d2067058652f85e59caadb14662571119ae88b99804d",
+      "init_hash": "02a07622cdeca62b722bdaf487ae40298fc322bdac5283464174b5cd723aed70",
+      "return": -5.960000000000004,
+      "seed": 4071090269,
+      "steps": 200,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "pomaze:v1.0.0:seed=310841858:run=17",
+      "final_hash": "0a351e5a95966a611d2e991538c3af0726532f184a41910a78fcde5d35570498",
+      "init_hash": "f023682e24eefae5ca05484335cb10d3d93e352c15793c73e85aa92bab05e0a4",
+      "return": -5.840000000000003,
+      "seed": 310841858,
+      "steps": 200,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "pomaze:v1.0.0:seed=506055716:run=18",
+      "final_hash": "336bb7a33537387810d8bb6483cdfd8e460a21c6d5f1e54e312e5403db473e0c",
+      "init_hash": "335efb4add5cbc9f4cd0b82f7f184702fcc0a14516eca8142934d2b4925f0ccc",
+      "return": -6.000000000000005,
+      "seed": 506055716,
+      "steps": 200,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "pomaze:v1.0.0:seed=3442840942:run=19",
+      "final_hash": "7f31ae9e200f64c08f23862c6eb0651372d8c36c4af2cba488887f0afd6d9523",
+      "init_hash": "3e1d50d4fae67caf508b1af1c4c834eef8e1c7c33a5276f623092139fabcc4d9",
+      "return": -5.960000000000004,
+      "seed": 3442840942,
+      "steps": 200,
+      "truncated": true
+    }
+  ],
+  "experiment_id": "EXP-FP-0004-S",
+  "hypothesis": "D beats fixed_predictor on pomaze",
+  "interpretation": "",
+  "limitations": "",
+  "null_hypothesis": "no difference",
+  "preregistered_metric": "mean_return over 20 episodes",
+  "primary_seed": 17,
+  "started_utc": "2026-10-07T06:22:53.630286+00:00",
+  "summary": {
+    "max_return": -5.840000000000003,
+    "mean_return": -5.930000000000005,
+    "mean_steps": 200.0,
+    "min_return": -6.000000000000005,
+    "n_episodes": 20,
+    "stdev_return": 0.06913754406977518
+  },
+  "written_utc": "2026-10-07T06:22:53.636906+00:00"
+}

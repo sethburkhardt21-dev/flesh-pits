@@ -1,0 +1,133 @@
+{
+  "baseline": "persistent_no_learning",
+  "conditions": "",
+  "config": {
+    "agent": "persistent_no_learning",
+    "contract_version": "1.0.0",
+    "env": "changing_rule",
+    "env_version": "1.0.0",
+    "max_steps": null,
+    "n_episodes": 10,
+    "primary_seed": 11
+  },
+  "config_hash": "4ca4f121ac730d6fd2a86eddedb6738094c278feb21ba743c4cf0c0df9852bc4",
+  "episodes": [
+    {
+      "done": true,
+      "episode_id": "changing_rule:v1.0.0:seed=1209092262:run=0",
+      "final_hash": "853592f83b8955b607bc586da7d4b7632cb2e6d3578656898a04d1008d038f60",
+      "init_hash": "089924c2671db0155960b16f4bce6e5a73e822e07293318137bce7831c20860d",
+      "return": 19.0,
+      "seed": 1209092262,
+      "steps": 40,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "changing_rule:v1.0.0:seed=2538454497:run=1",
+      "final_hash": "b220da2dbfb2f273525467575fe1611f58bc79158dd5f4fc40932e7c37a1dcc9",
+      "init_hash": "10a4debf56f13821fabc068522233c7749c6e12eb78602dcee9d6fc11b764484",
+      "return": 21.0,
+      "seed": 2538454497,
+      "steps": 40,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "changing_rule:v1.0.0:seed=1608082949:run=2",
+      "final_hash": "6f267b05c9929a4f06f80defff6a0af3f2459a448ec217df74f7925f65c916fa",
+      "init_hash": "e634aaea5222199881b556059d5f27957c0dba3b3b8bee7e96a75986a3e7fd63",
+      "return": 15.0,
+      "seed": 1608082949,
+      "steps": 40,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "changing_rule:v1.0.0:seed=2535860303:run=3",
+      "final_hash": "5b5e72bfcdc4ad88a263e1d847904aa466e66d0533f6882218098715f2b06bf4",
+      "init_hash": "68f4b24c69373b592070ed9d9b6702090a7903c2679e953d0a75ce51d38da6f5",
+      "return": 19.0,
+      "seed": 2535860303,
+      "steps": 40,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "changing_rule:v1.0.0:seed=2431692387:run=4",
+      "final_hash": "80a8c4cbf55d032a997c49d8310a964ddad870315ef0c2aee575f722a0960328",
+      "init_hash": "e55460d5ad0029e39bca56657a656dfe75db1c72f8b8a07a6cd9e8665f9ff0ca",
+      "return": 22.0,
+      "seed": 2431692387,
+      "steps": 40,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "changing_rule:v1.0.0:seed=2200903286:run=5",
+      "final_hash": "46caf9ad8e9ba0bf11587041a4bc68e1899953067f6651ee113f13a440683e5d",
+      "init_hash": "fd25ea3252698716b6d8f533687dff8b39038532fd95ea69cb2741081afc71c4",
+      "return": 22.0,
+      "seed": 2200903286,
+      "steps": 40,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "changing_rule:v1.0.0:seed=662350497:run=6",
+      "final_hash": "5d581ecceb6faea5c7784aa5d6af0ec3d468c512573a54bb10399a8a78fabfad",
+      "init_hash": "0c89f62526ba0b439a67be1745057e4bc0b2c85b159af51ddd92da59f1300b34",
+      "return": 21.0,
+      "seed": 662350497,
+      "steps": 40,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "changing_rule:v1.0.0:seed=3519316270:run=7",
+      "final_hash": "2d1f5d86bc8178085bdbbd34437b55e195f898102dbb8bee081385c7cccf32ca",
+      "init_hash": "7cf20f9d4b799fd972a25694829bb784d3cecd564031cb3e8275e78f87e71c39",
+      "return": 24.0,
+      "seed": 3519316270,
+      "steps": 40,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "changing_rule:v1.0.0:seed=1110508319:run=8",
+      "final_hash": "161c439e24a2e6b8e176e02fdfb420cb13326d2abdee681b9583cbc35426d5c9",
+      "init_hash": "7468d570b8bec81beb9b488a7015410f3016e55bf5ab76f62694d656aaed3236",
+      "return": 15.0,
+      "seed": 1110508319,
+      "steps": 40,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "changing_rule:v1.0.0:seed=2028964483:run=9",
+      "final_hash": "83c8b30ac563f0755264b6e29bb644548dd28abf5f1c5c0361e7f8c3835f5f5a",
+      "init_hash": "a2497961e94ec8ad0173d998764bfaaca87a312e64af2c3fa3dabd98ab01b49a",
+      "return": 16.0,
+      "seed": 2028964483,
+      "steps": 40,
+      "truncated": true
+    }
+  ],
+  "experiment_id": "EXP-FP-0002-S",
+  "hypothesis": "D re-learns faster post-flip than no-learning baseline",
+  "interpretation": "",
+  "limitations": "",
+  "null_hypothesis": "no post-flip difference",
+  "preregistered_metric": "mean_return episodes 5-9",
+  "primary_seed": 11,
+  "started_utc": "2026-10-07T06:22:05.607499+00:00",
+  "summary": {
+    "max_return": 24.0,
+    "mean_return": 19.4,
+    "mean_steps": 40.0,
+    "min_return": 15.0,
+    "n_episodes": 10,
+    "stdev_return": 3.006659275674582
+  },
+  "written_utc": "2026-10-07T06:22:05.607810+00:00"
+}

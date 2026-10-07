@@ -1,0 +1,233 @@
+{
+  "baseline": "arch_d",
+  "conditions": "",
+  "config": {
+    "agent": "arch_d",
+    "contract_version": "1.0.0",
+    "env": "delayed_reward",
+    "env_version": "1.0.0",
+    "max_steps": null,
+    "n_episodes": 20,
+    "primary_seed": 13
+  },
+  "config_hash": "d16e380ef0c1dcdb976b4b8d64261ffb187cbcfd12986a9900c277b56c55582c",
+  "episodes": [
+    {
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=4246046047:run=0",
+      "final_hash": "a6d7098fd610abb66f60e08d35dc92757af6fb53f352f5d30b81da77aab2a475",
+      "init_hash": "c3a732bc4340e07e9a601ab0acd809586994d13be018f4792d069e89331185fb",
+      "return": 0.0,
+      "seed": 4246046047,
+      "steps": 15,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=2191841658:run=1",
+      "final_hash": "2653ddc94c7041bf39d41c2342b96242b99bc303a4a043b779be48bf374e859a",
+      "init_hash": "1ca8b23b41970a48eac291830049c7a30bf9bce0f3747793c7031973e7831631",
+      "return": 0.0,
+      "seed": 2191841658,
+      "steps": 15,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=3991552666:run=2",
+      "final_hash": "e19e8280fa103967c03eace8ad5566f34ddf5f5a56cff1741a53b34325e0cff7",
+      "init_hash": "79ffa1cff3009504f9aaf5282992edcda4af198d1c4da662c209643cab29bf3b",
+      "return": 0.0,
+      "seed": 3991552666,
+      "steps": 15,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=2282703074:run=3",
+      "final_hash": "11e2d6fa6f3b6af4a7caeb51d94da73f6ef3d2564a8ac0a483e0f5c8eb1271b3",
+      "init_hash": "45e94b9447382f750264ba2d810f8849c9a69c1448d1b7f7e409cc41b9fe6962",
+      "return": 0.0,
+      "seed": 2282703074,
+      "steps": 15,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=2302911632:run=4",
+      "final_hash": "7e3d296f76a0c8f5f3094bc83d28ab16866a956eeb6cdd00121975ec1cc0aca9",
+      "init_hash": "b9f9897f1371779e1229db4156a7223971c85c0a044e8bd800787fb9ba45c160",
+      "return": 0.0,
+      "seed": 2302911632,
+      "steps": 15,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=3606679797:run=5",
+      "final_hash": "fc9bc6e15d56b34c134925a8efdab90e3c35e160b040443df867fe18755d9685",
+      "init_hash": "445b7ebe80711f521a60090a1c092dc37f1040ccc10e66376eae1ac58947fe82",
+      "return": 0.0,
+      "seed": 3606679797,
+      "steps": 15,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=870987722:run=6",
+      "final_hash": "65e1c93e546496d220e1983c082a0efa50adc6a0cf2203e77c86ed43a1189f40",
+      "init_hash": "ca12f3d21adc887571ffb54036243a355291d80494b95d816fd1d97b50934730",
+      "return": 0.0,
+      "seed": 870987722,
+      "steps": 15,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=2223039417:run=7",
+      "final_hash": "552f1dd6884efddc267aa0430f01ce0ce5351a376dd62bdf0f78a59ba1449178",
+      "init_hash": "931afc8d3596971a55d289dd449cde0622263b6bc3e8aa34229c588213b08eb6",
+      "return": 0.0,
+      "seed": 2223039417,
+      "steps": 15,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=4005746193:run=8",
+      "final_hash": "069a4c4c45303c4b2e34fcf82c68ad559ecc23a32d585150d3479e003021a30e",
+      "init_hash": "6b1f7321cb49e24ab1c9e323f911637377703d2087dc5ebba049835ae69518fa",
+      "return": 0.0,
+      "seed": 4005746193,
+      "steps": 15,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=507559966:run=9",
+      "final_hash": "50aedc1b6fd297fb76a42dfd40cc205b1a323361129f1186b66b93f18ec9ebae",
+      "init_hash": "0f237f5f6640d7017cf394a4a4dcb8ec3c9cb797435028efd52467ae904c0f34",
+      "return": 0.0,
+      "seed": 507559966,
+      "steps": 15,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=1545371986:run=10",
+      "final_hash": "a4aacacacb01b5621a16785375889a1d1d1e404ff14cab166b0f7c9544ab5e0e",
+      "init_hash": "e2d3eb567222e440bf1c0ce5eb3507344491c8f124a22c325418906de5e20ade",
+      "return": 0.0,
+      "seed": 1545371986,
+      "steps": 15,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=2564607178:run=11",
+      "final_hash": "9f275e1852473f584480833728a29fbdee2b3c495ae2509dc8d395d2241e83c2",
+      "init_hash": "9afd9e2ebd64b0afbd1abfbae575d02d34f0c0008d4f1aa6880c0e3efbc292c1",
+      "return": 0.0,
+      "seed": 2564607178,
+      "steps": 15,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=1275303748:run=12",
+      "final_hash": "3041847917d2969147966bd900c2db6d9223dc0f3628573857e004572f549f75",
+      "init_hash": "2e68f816dc0831d95dcc87c8367a63fda74dbeb92df4dfa9bc597f36b575f21c",
+      "return": 0.0,
+      "seed": 1275303748,
+      "steps": 15,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=4275049927:run=13",
+      "final_hash": "284460ce0d329cc5798f9e8b1b9355885bea05b7e7fa864c6d78bcfb1bbb74a9",
+      "init_hash": "fb7c53b0b636f267dcbf5ada4a775eb0c1ef0a5f85a3321df27535511c4fa1c9",
+      "return": 0.0,
+      "seed": 4275049927,
+      "steps": 15,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=3932655159:run=14",
+      "final_hash": "14040ec38f74c6665f85a120526c9444b60160b3b03dc08f9ba34bc77db7d234",
+      "init_hash": "b6bc370bc9e77cadfbeb3cac85831470c391fa1de2504e8834e6a241bdd1ed1f",
+      "return": 0.0,
+      "seed": 3932655159,
+      "steps": 15,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=1142723349:run=15",
+      "final_hash": "287b173fc49fc03882ca2f8b11b75a904c334bcc34dd06cf711eb345a630d3e3",
+      "init_hash": "d0496dcf997162db9a8534b035c5325e2719fcb2ae630eeb48056f99eae4169e",
+      "return": 0.0,
+      "seed": 1142723349,
+      "steps": 15,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=2218553603:run=16",
+      "final_hash": "a41230eacbc8417a5d0e909f8de0784383d57f38b5faaebbf418d90cf14be487",
+      "init_hash": "e81a50ea19fb19615cda897e15de7caf551545c9fef4e8bfe87506b16b4a6e37",
+      "return": 0.0,
+      "seed": 2218553603,
+      "steps": 15,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=4019275417:run=17",
+      "final_hash": "b742dfa88034620f3920b4d2f9cc838642d5b4d700c879f7bf270576e073f380",
+      "init_hash": "ef53656a961c3c94c9aacbabdb7312762e257943572cbbdd2b1c1e930b1196fb",
+      "return": 0.0,
+      "seed": 4019275417,
+      "steps": 15,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=1362858344:run=18",
+      "final_hash": "92a573edd5e39b2cfcd5bcee4b5cbcbf271283b85c5209b444c57e8674c0e948",
+      "init_hash": "035c8414f1975758cf56e16e22d57ad2b51c6ad5b04762b2ed647a86ddeeb8ad",
+      "return": 0.0,
+      "seed": 1362858344,
+      "steps": 15,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "delayed_reward:v1.0.0:seed=3862476892:run=19",
+      "final_hash": "c76eb3897f6b0e3f26aa9194de146454b07df15a0995dda4ec509579b71982a1",
+      "init_hash": "75605f25042cb803927bd43e8e41ce5298da9ad210fbf7b2313e7cc8fce02501",
+      "return": 0.0,
+      "seed": 3862476892,
+      "steps": 15,
+      "truncated": true
+    }
+  ],
+  "experiment_id": "EXP-FP-0003-D",
+  "hypothesis": "symbolic matches/beats D on delayed_reward",
+  "interpretation": "",
+  "limitations": "",
+  "null_hypothesis": "D beats symbolic",
+  "preregistered_metric": "mean_return over 20 episodes",
+  "primary_seed": 13,
+  "started_utc": "2026-10-07T06:22:06.148535+00:00",
+  "summary": {
+    "max_return": 0.0,
+    "mean_return": 0.0,
+    "mean_steps": 15.0,
+    "min_return": 0.0,
+    "n_episodes": 20,
+    "stdev_return": 0.0
+  },
+  "written_utc": "2026-10-07T06:22:06.148782+00:00"
+}

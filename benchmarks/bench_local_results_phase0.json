@@ -1,0 +1,37 @@
+{
+ "model": "/home/hatch/workspace/flesh-pits/models/qwen2.5-0.5b-instruct-q4_k_m.gguf",
+ "n_threads": 2,
+ "load_s": 6.2,
+ "load_rss_mb": 606.8,
+ "tests": [
+  {
+   "name": "instruction_follow",
+   "latency_s": 10.34,
+   "tok_s": 0.3,
+   "output": "alpha beta gamma",
+   "verdict": "PASS"
+  },
+  {
+   "name": "structured_json",
+   "latency_s": 23.03,
+   "tok_s": 1.1,
+   "output": "{\"valence\": 0.5, \"arousal\": 0.2, \"label\": \"calm\"}",
+   "verdict": "PASS"
+  },
+  {
+   "name": "cognitive_probe",
+   "latency_s": 11.8,
+   "tok_s": 1.5,
+   "output": "The red cube, after being moved left, is likely to return to its original position.",
+   "verdict": "manual"
+  },
+  {
+   "name": "uncertainty",
+   "latency_s": 5.35,
+   "tok_s": 0.6,
+   "output": "100",
+   "verdict": "PASS"
+  }
+ ],
+ "peak_rss_mb": 619.3
+}

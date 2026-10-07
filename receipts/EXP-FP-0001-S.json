@@ -1,0 +1,333 @@
+{
+  "baseline": "stateless",
+  "conditions": "",
+  "config": {
+    "agent": "stateless",
+    "contract_version": "1.0.0",
+    "env": "grid_world",
+    "env_version": "1.0.0",
+    "max_steps": null,
+    "n_episodes": 30,
+    "primary_seed": 7
+  },
+  "config_hash": "1fb532dcabcb49d9ebc47772d47bb1ab059379da72df538cce558230dcd9d816",
+  "episodes": [
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=1839661001:run=0",
+      "final_hash": "2c783da8fa35a5c513df932367581353f05e6e59e62be9ab5078f19d611c0000",
+      "init_hash": "740fa221058cb62012e79c605a6fdff7fd10b0776bfee25fa5578405920d3992",
+      "return": -1.1500000000000004,
+      "seed": 1839661001,
+      "steps": 25,
+      "truncated": false
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=2440874681:run=1",
+      "final_hash": "ba2113dcba0741181bc10bd337d7fa48f2a69065a2bfc02c68f461675633dbc8",
+      "init_hash": "370b50e082f8f2c039443922688e078a7e9a04a060cc3b17db74f3183d1c1d50",
+      "return": -0.3800000000000008,
+      "seed": 2440874681,
+      "steps": 49,
+      "truncated": false
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=3796768985:run=2",
+      "final_hash": "82f331a605c0ac2eb078d7c649c6c09e71d544c79a104e93a923eefba77f45f1",
+      "init_hash": "f57a0f99fac36d44eef55f455b9c1970f53f0f9eba609bd588c8c01af57d1536",
+      "return": -2.7500000000000013,
+      "seed": 3796768985,
+      "steps": 100,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=3039607771:run=3",
+      "final_hash": "8afdaa580ffb12ce802ef5e0b5cc60af2c9f71094c6f1833ca10a9f064328b92",
+      "init_hash": "f8675836378c5d042740a67238a35c2e17715c2208256779245d12416f68d960",
+      "return": -1.1700000000000002,
+      "seed": 3039607771,
+      "steps": 26,
+      "truncated": false
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=787719014:run=4",
+      "final_hash": "75bf05d070b590b545e84a0ab38e3854f5210b89fb5d38a2f4e0a6565ecf2efc",
+      "init_hash": "aa4b65915d1eacf41286f286442c2b0a988e30a9264fae6409b1a676d8d67c6b",
+      "return": -2.8500000000000014,
+      "seed": 787719014,
+      "steps": 100,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=1763771389:run=5",
+      "final_hash": "a8e9c5374f20d65917a5e722f2578326f35cab572e803e572545a79b16f5bd3f",
+      "init_hash": "68a3ce2294598a4a286bbb11f016afb8e08d60721973327ce4661b3f5a0ebaef",
+      "return": -1.4100000000000004,
+      "seed": 1763771389,
+      "steps": 28,
+      "truncated": false
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=3992166620:run=6",
+      "final_hash": "094c66f49cf21e435e9554a59e5a2de814ee632f7d29ebaf8c4a3a01aa647a22",
+      "init_hash": "1235f04c919d0402bdc2d2fa4ee01da3e332fd947f1178ed3eda7bbb9f007ec2",
+      "return": -2.3900000000000015,
+      "seed": 3992166620,
+      "steps": 52,
+      "truncated": false
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=1785551751:run=7",
+      "final_hash": "7b6ff9f2cf23781283c94a336957170dafa90f39021168a904d0ba334917d0b6",
+      "init_hash": "74094cc56fc9c6d8c584b4ef0bc226a244cfdf40dd5aa7e0749feef02cb682f8",
+      "return": -3.3500000000000005,
+      "seed": 1785551751,
+      "steps": 100,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=4144209532:run=8",
+      "final_hash": "f9246502c893dfe343751e7326d40076be2859ac48355240934f23ca81873f91",
+      "init_hash": "d853808376e03d01b2ed266be823b3343f4eab7a492224790f3dfe900bfbe86a",
+      "return": -2.3500000000000014,
+      "seed": 4144209532,
+      "steps": 75,
+      "truncated": false
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=3824527700:run=9",
+      "final_hash": "ca0f466d97905f324502e7a84965b492b82cdae6c3675d0c91c4f16c112db2a9",
+      "init_hash": "3efab0a3e962b823b2483c4fc0b9a4c0f24b5aee5030cbed2e5230d863c414f7",
+      "return": -2.9000000000000017,
+      "seed": 3824527700,
+      "steps": 100,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=429095297:run=10",
+      "final_hash": "8e492c57d0505838d552e1850100cf7822d0a8bcb872489bb5b64bcc001d2fa7",
+      "init_hash": "199b17a99f7e0014812fa9dc9c07010ddb92d43423d5825f5414b918fdf6b2b6",
+      "return": -0.9700000000000013,
+      "seed": 429095297,
+      "steps": 61,
+      "truncated": false
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=1136631271:run=11",
+      "final_hash": "4e1f9084500955ad47546ffb5cfdab70303878b138e426b5a1cda55a66b00644",
+      "init_hash": "74f4699841004b8bf30100992d22ba19a5804043eaf33696b49ec8afde12a73a",
+      "return": -3.6499999999999995,
+      "seed": 1136631271,
+      "steps": 100,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=2812563640:run=12",
+      "final_hash": "2c27e07e3413fa85e1f73bdc1d7c77bdb0a2e181eb3135df7e597d1d05a6cb74",
+      "init_hash": "16c6fed89abb351cd0e7e3ca071e8d9d8d869fab92a3db60e8b7de48acba6823",
+      "return": -0.650000000000001,
+      "seed": 2812563640,
+      "steps": 65,
+      "truncated": false
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=2781830204:run=13",
+      "final_hash": "10e0aacd1954b95ce3047bd266bca5ae908facc31ba442d82ea40391dd5ed2e0",
+      "init_hash": "5edb9175a0d43edeb20a7d21406a01930ffc45da00ede23d5cb829695f67e5fa",
+      "return": -1.06,
+      "seed": 2781830204,
+      "steps": 18,
+      "truncated": false
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=1681391784:run=14",
+      "final_hash": "ec8e719850036879189dd5820016a9d8f47deaf8dbb6828e379db837ff0af8d7",
+      "init_hash": "4884a733c0b83ff6bda4a4359e99acfd1c1b285285ff10dc8cd078024b9c5225",
+      "return": -2.4300000000000015,
+      "seed": 1681391784,
+      "steps": 64,
+      "truncated": false
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=576413462:run=15",
+      "final_hash": "041790f62c3b40d003e254802086de4d174ebc3eea4bb1863533d962cc1cc108",
+      "init_hash": "a0489401ff3afc4c6621b8984d46ac7feae25ab49fa47629283f06e7e88b1518",
+      "return": -2.850000000000001,
+      "seed": 576413462,
+      "steps": 100,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=1828531229:run=16",
+      "final_hash": "3b6d04de4392ef042293a6f3516e6e081abf04160e6b21be4dbaeb5f94327829",
+      "init_hash": "087af767ea9e0434668f77deba7d00675374dc688db9d85639c8d769b01fb17a",
+      "return": -3.9999999999999987,
+      "seed": 1828531229,
+      "steps": 100,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=1979909105:run=17",
+      "final_hash": "67ed224473442f8787c05d6df0e08f5b0b6474268b18992fdbacecb32377292f",
+      "init_hash": "09c6347cc34e4e575c842475c04099d6a5a5d72bc9ac2c2fdf60902841847140",
+      "return": -1.2600000000000002,
+      "seed": 1979909105,
+      "steps": 23,
+      "truncated": false
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=3425230539:run=18",
+      "final_hash": "d10fa9a50f80a3fccbc8353aac212431c651aea7e82ebfa9b15847f52b3f513c",
+      "init_hash": "054a0e1ac04980c6f321cf85e7ac6c4c4e23db1c18c4e66806ab2109f991fc98",
+      "return": -3.8999999999999995,
+      "seed": 3425230539,
+      "steps": 100,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=2083358176:run=19",
+      "final_hash": "6778ddfa3496d26899313bfe76eb8e0cacbe33b889ab1c0b2ad84c926e404409",
+      "init_hash": "c8f0d9139620637529d0115aa587544276cdb0d1791d946584821549e16fe1e0",
+      "return": -3.1500000000000004,
+      "seed": 2083358176,
+      "steps": 100,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=2499718273:run=20",
+      "final_hash": "96af76822027d7909eb9151a9102487a135dd8c71a0eb028aadea03efb078285",
+      "init_hash": "80076c307f22e1a6cdcfa4e0e0c639b7a16c2e7508d48391eb1726440d39762b",
+      "return": -1.9300000000000002,
+      "seed": 2499718273,
+      "steps": 74,
+      "truncated": false
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=2054878172:run=21",
+      "final_hash": "5f7d8f573ae10d64d35056a9032d06d86a9196a8fa7e90481644d5b381c9d444",
+      "init_hash": "846a0bc085be3a5f0f4d89e49526a63803e99ce2a66bf4a9bd1b6acc78d3db26",
+      "return": -0.97,
+      "seed": 2054878172,
+      "steps": 16,
+      "truncated": false
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=344411989:run=22",
+      "final_hash": "eec7878272fefde35f176cdc56fa55f0da455b718def48ce3af98765652ba9f3",
+      "init_hash": "234ad11a5e2c2b76f811df8eb3307962110cf6623c6d1212d94dcdaa9cd7b265",
+      "return": -1.3500000000000003,
+      "seed": 344411989,
+      "steps": 35,
+      "truncated": false
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=1247336766:run=23",
+      "final_hash": "0af34e63a00a8bf683518738874ba924e4f3a34e1d360515a8cfa27fff12445e",
+      "init_hash": "254fd40987b786eab969867a17626fddc302e1528c1673ee55fb74596c6d81d2",
+      "return": -0.76,
+      "seed": 1247336766,
+      "steps": 8,
+      "truncated": false
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=1761851071:run=24",
+      "final_hash": "766f15dee7c01985d0502c64763500f3bc0e99a88d35e5aabb1a5611e43701c9",
+      "init_hash": "2146b46a54edc2ff0cf668ecf40a924960097649840da02686e0d4ed2ab088ff",
+      "return": -3.65,
+      "seed": 1761851071,
+      "steps": 100,
+      "truncated": false
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=1076138637:run=25",
+      "final_hash": "65b67d3de3394247a7d934dbfe34cdee61338329a398efa79c5c0f24ee53c065",
+      "init_hash": "27ea2b8f8feca8217124f3031d8bb8ecc24221eec26003aa9e996fa23ab2a08d",
+      "return": -3.4000000000000004,
+      "seed": 1076138637,
+      "steps": 100,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=638985808:run=26",
+      "final_hash": "ccf9d9d587b64ca72ef002f5a90ec8856360299500e3c35aa82a884e59ce4a6c",
+      "init_hash": "54228a63b9c1ed9e19e688a9f09f355bf91928d2466df9f809f866b7d425b35c",
+      "return": -1.6900000000000006,
+      "seed": 638985808,
+      "steps": 47,
+      "truncated": false
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=3722645864:run=27",
+      "final_hash": "3de2b4895492e530fce7f9fc841434f45fa9f3b5341e8667d2dd0fffe9357ed3",
+      "init_hash": "0b581df1f232bcc5536bb01cdd56c20b5f372256cc126695c961cb3e6110999d",
+      "return": -0.68,
+      "seed": 3722645864,
+      "steps": 4,
+      "truncated": false
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=2222228837:run=28",
+      "final_hash": "843c535ffe70733d79a58fbf5dcc9f7a2b0801483297ce2f4c628c18c739c653",
+      "init_hash": "e2a909952912c1ad448298ea90656cb349ca36d85d56eaa88ef38bd2ed36602d",
+      "return": -3.4,
+      "seed": 2222228837,
+      "steps": 100,
+      "truncated": true
+    },
+    {
+      "done": true,
+      "episode_id": "grid_world:v1.0.0:seed=3097630127:run=29",
+      "final_hash": "98aee181d39fa6e3727a9a3fbdf4d1d8cf04595e16ae9b461dafe9a8dc3fb8fe",
+      "init_hash": "f6b12793dcfb4b9b2877dad49e83326b76613a69bd101f9cca6ad826cbdabbc4",
+      "return": -1.5700000000000005,
+      "seed": 3097630127,
+      "steps": 36,
+      "truncated": false
+    }
+  ],
+  "experiment_id": "EXP-FP-0001-S",
+  "hypothesis": "D beats stateless on grid_world",
+  "interpretation": "",
+  "limitations": "",
+  "null_hypothesis": "D mean_return <= stateless mean_return",
+  "preregistered_metric": "mean_return over 30 episodes",
+  "primary_seed": 7,
+  "started_utc": "2026-10-07T06:21:57.183864+00:00",
+  "summary": {
+    "max_return": -0.3800000000000008,
+    "mean_return": -2.1340000000000003,
+    "mean_steps": 63.53333333333333,
+    "min_return": -3.9999999999999987,
+    "n_episodes": 30,
+    "stdev_return": 1.1046284443196273
+  },
+  "written_utc": "2026-10-07T06:21:57.184352+00:00"
+}
