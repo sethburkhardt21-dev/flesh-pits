@@ -1,0 +1,65 @@
+{
+  "driver": "experiments/repro_second_lane_k10.py (new file; does NOT import the original k10_cue_indexed_adapter.py)",
+  "expectation": "B1 reproduces 3-4/4 wins (WIN verdict); B2 reproduces 0-1/4 gaps (no-gap control).",
+  "experiment_id": "REPRO-SECOND-LANE-K10",
+  "gate_control_B2": "Per seed: GAP iff R >= 1.30. Control replicates (no gap) iff gaps <= 1/4 (no-gap on >= 3/4). CONFOUND iff gaps >= 3/4 -> do NOT claim, investigate. 2/4 gaps = INCONCLUSIVE.",
+  "gate_main_B1": "Original K10 gate applied per seed: WIN iff R >= 1.30. Verdict reproduces (BOUND LIFTED) iff wins >= 3/4; OVERTURNED iff wins <= 1/4; 2/4 = INCONCLUSIVE.",
+  "hypothesis": "Both K10 verdicts replicate on fresh seeds with an independently written driver: B1 cue-indexed gains beat frozen (bound lifts); B2 control (cue withheld) shows no gap.",
+  "lane": "second_lane (independent driver, rewritten from the published spec; only the architecture modules under test are imported)",
+  "null": "One or both K10 verdicts do not replicate (original was a seeding/single-driver artifact, or a module confound). A non-replication in either direction is reported as such.",
+  "original_verdicts": {
+    "B1_cue_indexed": "BOUND LIFTED: 4/4 wins, R 1.52-1.68",
+    "B2_cue_withheld": "control clean: 0/4 gaps, R 0.95-1.13"
+  },
+  "preregistered_before": "any implementation or execution of the second-lane K10 driver",
+  "preregistered_utc": "2026-10-07T07:58:00Z",
+  "prior_seeds": [
+    5555,
+    6666,
+    7777,
+    8888
+  ],
+  "protocol": {
+    "arbitrator": "CueIndexedArbitrator (prototypes/architecture-a/attention_cue.py)",
+    "capacity": 2,
+    "channel_to_action": {
+      "a0": 0,
+      "a1": 1
+    },
+    "channels": [
+      "a0",
+      "a1"
+    ],
+    "env": "changing_rule v1.0.0 (canonical flesh-pits/experiments/envs/changing_rule.py); rule flips every PHASE_LEN=5 episodes; 10% reward noise",
+    "episodes": 12,
+    "frozen_condition": "identical CueIndexedArbitrator with frozen=True (all context gain vectors pinned at 1.0)",
+    "gain_lr": 0.15,
+    "ignition_theta": 0.45,
+    "metric": "R = total_reward(learned) / total_reward(frozen) per seed per probe; WIN/GAP iff R >= 1.30",
+    "probes": {
+      "B1_cue_indexed": "context_fn = lambda obs: int(obs['cue'])  (cue in the input)",
+      "B2_cue_withheld": "context_fn = lambda obs: None  (control; constant context)"
+    },
+    "specialists": "neutral (0.5 + noise(0.05); bandit isolation, same as K5 P4)",
+    "steps_per_episode": 40,
+    "ticks_per_seed_condition": "12 * 40 = 480",
+    "update_rule": "original constant-baseline (0.5) delta rule, unchanged"
+  },
+  "receipt": "receipts/repro_second_lane_k10.ndjson (hash-chained: preregistration + 8 seed_results + verdict)",
+  "reproduction_rule": {
+    "inconclusive": "exactly 2/4 on either probe",
+    "note": "4-seed adaptation of the >=4/5 rule: 3/4 reproduces a win/lift verdict; <=1/4 reproduces a bound-stands/no-gap verdict.",
+    "overturns": "a probe's verdict reverses (B1 wins <=1/4; B2 gaps >=3/4)",
+    "reproduces": "verdict identity holds per probe (>=3/4 wins on B1; <=1/4 gaps on B2)"
+  },
+  "seal_sha256": "48453d1a5cb851003166bf1ebca056f3e28d7340966ab44fbb7751d6cc0c2c00",
+  "seed_disjointness": "All four replication seeds are distinct from the original K10 seed set and from every other known flesh-pits seed series.",
+  "seeds": [
+    91615,
+    91616,
+    91617,
+    91618
+  ],
+  "target": "K10-cue-indexed-adapter",
+  "type": "preregistration"
+}

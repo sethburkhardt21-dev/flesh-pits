@@ -10,8 +10,10 @@ from pomaze import POMaze  # noqa: E402
 from changing_rule import ChangingRule  # noqa: E402
 from delayed_reward import DelayedReward  # noqa: E402
 from resource_world import ResourceWorld  # noqa: E402
+from cue_delayed_reward import CueDelayedReward  # noqa: E402
 
-ALL_ENVS = [GridWorld, POMaze, ChangingRule, DelayedReward, ResourceWorld]
+ALL_ENVS = [GridWorld, POMaze, ChangingRule, DelayedReward, ResourceWorld,
+            CueDelayedReward]
 
 __all__ = ["GridWorld", "POMaze", "ChangingRule", "DelayedReward",
-           "ResourceWorld", "ALL_ENVS"]
+           "ResourceWorld", "CueDelayedReward", "ALL_ENVS"]

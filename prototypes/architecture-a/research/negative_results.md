@@ -178,6 +178,15 @@ written. Reconstructed from those citations.*
 - Receipt: receipts/k9_sparse_reward_redesign.ndjson (hash-chained:
   preregistration + 4 seed_results + verdict). Prereg:
   receipts/prereg_k9_sparse_reward_redesign.json.
+- Second-lane replication (2026-10-07): independent driver
+  (experiments/repro_second_lane_k9.py, rewritten from spec; no import of
+  the original script), preregistration sealed BEFORE the driver was
+  written (receipts/prereg_repro_second_lane_k9.json, seal
+  237fd706e356bb9c). Fresh seeds {91511, 91512, 91513, 91514}: R = 0.32 /
+  0.58 / 0.24 / 0.67 — 0/4 wins. VERDICT: REPRODUCES (BOUND STANDS again).
+  NR-A-011 holds under independent replication. Receipt:
+  receipts/repro_second_lane_k9.ndjson (hash-chained: preregistration + 4
+  seed_results + verdict, chain verified).
 
 ## 2026-10-07 — NR-A-007 conditionally LIFTED (K10): cue-indexed gains
 
@@ -204,3 +213,14 @@ written. Reconstructed from those citations.*
 - Receipt: receipts/k10_cue_indexed_adapter.ndjson (hash-chained:
   preregistration + 8 seed_results + verdict). Prereg:
   receipts/prereg_k10_cue_indexed_adapter.json.
+- Second-lane replication (2026-10-07): independent driver
+  (experiments/repro_second_lane_k10.py, rewritten from spec; no import of
+  the original script), preregistration sealed BEFORE the driver was
+  written (receipts/prereg_repro_second_lane_k10.json, seal
+  48453d1a5cb85100). Fresh seeds {91615, 91616, 91617, 91618}: B1 R =
+  1.45 / 1.58 / 1.56 / 1.47 — 4/4 wins; B2 control R = 0.88 / 1.06 /
+  1.02 / 1.07 — 0/4 gaps. VERDICT: REPRODUCES (both probes: B1 lift and
+  B2 no-gap control). The NR-A-007 conditional lift holds under
+  independent replication; control remains clean (no module confound).
+  Receipt: receipts/repro_second_lane_k10.ndjson (hash-chained:
+  preregistration + 8 seed_results + verdict, chain verified).

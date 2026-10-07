@@ -1,0 +1,57 @@
+{
+  "driver": "experiments/repro_second_lane_k9.py (new file; does NOT import the original k9_sparse_reward_redesign.py)",
+  "expectation": "BOUND STANDS replicates (fail of the lift, same as original).",
+  "experiment_id": "REPRO-SECOND-LANE-K9",
+  "gate": "Original K9 gate applied per seed: WIN iff R = total_reward(learned) / total_reward(frozen) >= 1.30. Replication verdict: BOUND STANDS (reproduces) iff wins <= 1/4; OVERTURNED (bound lifts, a finding) iff wins >= 3/4; 2/4 = INCONCLUSIVE.",
+  "hypothesis": "The K9 verdict (BOUND STANDS / NR-A-011: the return-conditioned baseline-free eligibility-trace gain redesign fails to lift the NR-A-006 delayed_reward bound) replicates on fresh seeds with an independently written driver.",
+  "lane": "second_lane (independent driver, rewritten from the published spec; only the architecture modules under test are imported)",
+  "null": "The K9 verdict does not replicate: the bound lifts on fresh seeds (the original 0/4 was a seeding/single-driver artifact). A non-replication in either direction is reported as such.",
+  "original_verdict": "BOUND STANDS (NR-A-006 structural); 0/4 wins, R 0.34-0.50",
+  "preregistered_before": "any implementation or execution of the second-lane K9 driver",
+  "preregistered_utc": "2026-10-07T07:58:00Z",
+  "prior_seeds": [
+    1111,
+    2222,
+    3333,
+    4444
+  ],
+  "protocol": {
+    "arbitrator": "SparseRewardArbitrator (prototypes/architecture-a/attention_sparse.py)",
+    "capacity": 4,
+    "channels": [
+      "branch_a",
+      "branch_b",
+      "forward",
+      "stay"
+    ],
+    "env": "delayed_reward v1.0.0 (canonical flesh-pits/experiments/envs/delayed_reward.py)",
+    "episodes": 8,
+    "floor": 0.01,
+    "frozen_condition": "identical SparseRewardArbitrator with frozen=True (gains pinned at 1.0)",
+    "gain_cap": 2.0,
+    "gain_lr": 0.15,
+    "ignition_theta": 0.45,
+    "metric": "R = total_reward(learned) / total_reward(frozen) per seed; per-seed WIN iff R >= 1.30",
+    "specialists": "neutral (0.5 + noise(0.05); bandit isolation, same as K5 P1)",
+    "steps_per_episode": "<=15 (DelayedReward.MAX_STEPS)",
+    "ticks_per_seed_condition": "8 * 15 = 120",
+    "trace_lambda": 0.9
+  },
+  "receipt": "receipts/repro_second_lane_k9.ndjson (hash-chained: preregistration + 4 seed_results + verdict)",
+  "reproduction_rule": {
+    "inconclusive": "wins == 2/4",
+    "note": "4-seed adaptation of the >=4/5 rule: 3/4 per-seed wins reproduces a win/lift verdict; <=1/4 reproduces a bound-stands verdict.",
+    "overturns": "original verdict reversed: BOUND LIFTED (wins >= 3/4)",
+    "reproduces": "verdict identity holds: BOUND STANDS again (wins <= 1/4)"
+  },
+  "seal_sha256": "237fd706e356bb9c452710eedfb35287c9f6352f2579fbc461bd63e02d72b7e4",
+  "seed_disjointness": "All four replication seeds are distinct from the original K9 seed set and from every other known flesh-pits seed series.",
+  "seeds": [
+    91511,
+    91512,
+    91513,
+    91514
+  ],
+  "target": "K9-sparse-reward-redesign",
+  "type": "preregistration"
+}
