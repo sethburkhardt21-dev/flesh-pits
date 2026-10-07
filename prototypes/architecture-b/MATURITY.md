@@ -189,3 +189,43 @@ receipts/EXP-FP-0010-POMAZE-DIAG.ndjson). B-STD: mean −3.58, p_goal 0.133
   not a single-mechanism one. Follow-up lead: separate head-learning
   from selector-use on the dense variant (does rhat learn the beacon
   gradient while the IG selector ignores it?).
+
+## 2026-10-07 — EXP-FP-0011 aliasing causal test: obs aliasing is NOT the binding constraint (NULL_HOLDS)
+
+Causal follow-up to the EXP-FP-0010 B diagnosis (aliasing 0.667, n_contexts=1,
+p_goal 0.133). Intervention: driver-side odometry wrapper
+(experiments/odom_wrapper.py, additive — B's core untouched) appending a
+coarse relative-position hash (odom_qx/odom_qy, 4x4 cells) computed from the
+obs stream + chosen actions only (no goal position, no walls, no absolute
+position, no env internals). 6 fresh paired seeds 93001–93006, 15
+episodes/arm/seed, preregistered before run
+(experiments/preregistration_ALIASING.json); receipt
+receipts/EXP-FP-0011-ALIASING.ndjson (35 records, hash-chained, verified).
+- H required p_goal to at least double AND mean return +0.5 vs paired
+  baseline. Observed: B-BASE mean −3.7270 / p_goal 0.1000; B-AUG mean
+  −3.3063 / p_goal 0.1556. Gate_a: 0.1556 ≥ 0.2000? NO. Gate_b: +0.4207 ≥
+  0.5? NO. **Verdict: NULL_HOLDS.**
+- §40 kill arm B-SHUF (identical channel format, odometry driven by an
+  independent seeded random stream — decorrelated from true position):
+  mean −3.3058 / p_goal 0.1556, indistinguishable from B-AUG
+  (Δ +0.0005 return, 0.0000 p_goal). The small sub-gate lift is fully
+  explained by the shuffle arm — it carries zero disambiguation
+  information, so the +0.42 is extra-channel/exploration noise, not
+  position resolution. Had the gates fired, H would have been rejected
+  by the kill arm regardless.
+- Post-hoc descriptive: the final B-AUG reward head DOES weight the odom
+  channels (seed 93001: w_r odom mean|w| = 0.046 vs native 0.156) — the
+  feature is absorbed but not load-bearing. B reaches the goal too rarely
+  for any representation to consolidate.
+- Control: same augmentation on changing_rule (inert constant channels):
+  23.2333 → 22.5889, Δ = −0.6444 ≥ −1.0 → PASS; existing competence intact.
+- Frozen gates all pass: G0 canonical files byte-identical pre/post, G1
+  tripwire CLEAN, G2 determinism −2.508000 vs −2.508000 MATCH, G3 chain
+  verified, G4 nothing pushed.
+- Maturity impact: the 0010 REPRESENTATION characterization stands as
+  measurement (aliasing 0.667 is real), but causally it is NOT the binding
+  constraint — B's pomaze failure remains EXPLORATION-dominant. No
+  component level moves. Mechanism lead: representation can only bind once
+  reward is found repeatedly — combine disambiguation with a
+  systematic-search exploration intervention. Recorded as a negative in
+  research/negative_results.md.

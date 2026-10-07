@@ -1,10 +1,14 @@
 """Regression test: maturity audit must not treat preregistration files as receipts."""
 import importlib.util
+from pathlib import Path
+
+# Anchor to the lab root regardless of pytest's invocation cwd.
+_LAB_ROOT = Path(__file__).resolve().parents[2]
+_AUDIT = _LAB_ROOT / "bin" / "maturity_audit.py"
 
 
 def _load():
-    spec = importlib.util.spec_from_file_location(
-        "ma", "bin/maturity_audit.py")
+    spec = importlib.util.spec_from_file_location("ma", str(_AUDIT))
     ma = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(ma)
     return ma

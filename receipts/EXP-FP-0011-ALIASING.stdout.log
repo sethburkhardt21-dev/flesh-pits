@@ -1,0 +1,34 @@
+  B-BASE     seed=93001: mean=-2.7500 p_goal=0.3333
+  B-BASE     seed=93002: mean=-3.9460 p_goal=0.0667
+  B-BASE     seed=93003: mean=-4.0200 p_goal=0.0000
+  B-BASE     seed=93004: mean=-3.8107 p_goal=0.0667
+  B-BASE     seed=93005: mean=-3.9553 p_goal=0.0667
+  B-BASE     seed=93006: mean=-3.8800 p_goal=0.0667
+  B-AUG      seed=93001: mean=-2.5080 p_goal=0.3333
+  B-AUG      seed=93002: mean=-3.4887 p_goal=0.1333
+  B-AUG      seed=93003: mean=-3.6800 p_goal=0.0667
+  B-AUG      seed=93004: mean=-3.2960 p_goal=0.1333
+  B-AUG      seed=93005: mean=-3.2727 p_goal=0.2000
+  B-AUG      seed=93006: mean=-3.5927 p_goal=0.0667
+  B-SHUF     seed=93001: mean=-2.6413 p_goal=0.2667
+  B-SHUF     seed=93002: mean=-3.2813 p_goal=0.2000
+  B-SHUF     seed=93003: mean=-3.3400 p_goal=0.2000
+  B-SHUF     seed=93004: mean=-3.6480 p_goal=0.0667
+  B-SHUF     seed=93005: mean=-3.5360 p_goal=0.0667
+  B-SHUF     seed=93006: mean=-3.3880 p_goal=0.1333
+  B-BASE-CR  seed=93001: mean=+22.4667 p_goal=0.0000
+  B-BASE-CR  seed=93002: mean=+24.0667 p_goal=0.0000
+  B-BASE-CR  seed=93003: mean=+22.0667 p_goal=0.0000
+  B-BASE-CR  seed=93004: mean=+21.7333 p_goal=0.0000
+  B-BASE-CR  seed=93005: mean=+24.0667 p_goal=0.0000
+  B-BASE-CR  seed=93006: mean=+25.0000 p_goal=0.0000
+  B-AUG-CR   seed=93001: mean=+24.0667 p_goal=0.0000
+  B-AUG-CR   seed=93002: mean=+21.1333 p_goal=0.0000
+  B-AUG-CR   seed=93003: mean=+23.0000 p_goal=0.0000
+  B-AUG-CR   seed=93004: mean=+21.9333 p_goal=0.0000
+  B-AUG-CR   seed=93005: mean=+23.0000 p_goal=0.0000
+  B-AUG-CR   seed=93006: mean=+22.4000 p_goal=0.0000
+  verdict: NULL_HOLDS (gate_a=False gate_b=False shuf=(False,False) control=True)
+  G0 post: MATCH; G2 determinism: -2.508000 vs -2.508000 -> MATCH
+  chain verify: True (35 records chained)
+  receipt: /home/hatch/workspace/chambers/emergent-mind/flesh-pits/receipts/EXP-FP-0011-ALIASING.ndjson (35 records, 278.4s)

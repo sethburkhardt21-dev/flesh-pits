@@ -98,3 +98,15 @@ random at least wanders; C pins itself against a wall.
   path for value information, or the gain loop needs a baseline that
   doesn't floor under sparse punishment — both are new experiments, not
   retrofits.
+
+## 2026-10-07 — EXP-FP-0011 attractor-break: CAUSAL test of the 0010 bump-attractor (mechanism confirmed, half discriminated)
+
+Two independent additive interventions on unmodified ArchC (prototypes/architecture-c/c_attractor_break.py; driver experiments/attractor_break.py; 6 fresh paired seeds 92001-92006; receipt receipts/EXP-FP-0011-ATTRACTOR-BREAK.ndjson, 69 records, chain verified; preregistration experiments/preregistration_ATTRACTOR_BREAK.json sealed before the run).
+
+**C-REPEAT-PENALTY** (anti-habituation: PENALTY=0.02 * wins-in-last-4 subtracted from the competed bid): pomaze stuck 0.973 -> 0.524 (Delta +0.449, gate >=0.3 FIRES), return -5.86 -> -4.10 (Delta +1.75, gate >=1.0 FIRES), 6/6 seeds consistent. **The self-reinforcing loop is causally load-bearing for the bump attractor.**
+
+**C-GAIN-LIFT** (gain floor 0.01 -> 0.5): pomaze stuck 0.973 -> 0.961, return -5.86 -> -5.75 (Delta +0.012 / +0.10 — neither gate fires). **Preserved negative: lifting the gain floor does not break the attractor.** Scaling frozen habituated bids by larger gains does not change argmax ordering enough to unfreeze the winner; the freeze is in the bid habituation + the action loop, not the gain magnitude.
+
+Control (healthy tasks undamaged): changing_rule seed-mean C-BASE 30.21, repeat-penalty 30.36 (gate >=0.7x PASSES), gain-lift 30.21 (per-seed returns byte-identical to base — the floor never binds under frequent reward, intervention inert there); compositional_rule 35.32 / 35.25 / 35.32. Preregistered verdict mapping -> **ATTRACTOR_BROKEN_USABLE**.
+
+Honest bound: breaking the loop restores ~random-walk performance (-4.10 vs RANDOM -4.15), not navigation (p_goal 0/90). The predictor's variation carries no goal gradient (stim-perp-beacon |r|=0.053, 0010), so unfreezing selection unpins the agent without pointing it at the beacon. Causality of the loop mechanism is proven; C's pomaze integration failure is NOT repaired. Maturity impact: no level changes (C remains a clean negative on pomaze); the mechanism row for A's learned-gain loop inside C is now CAUSAL (changing_rule + pomaze intervention evidence — the gain floor's role is load-bearing only via the loop it sustains).

@@ -1,0 +1,58 @@
+  pomaze             C-BASE           seed=92001: mean_return=-5.9013 mean_stuck=0.9753
+  pomaze             C-BASE           seed=92002: mean_return=-5.6320 mean_stuck=0.9709
+  pomaze             C-BASE           seed=92003: mean_return=-5.9160 mean_stuck=0.9790
+  pomaze             C-BASE           seed=92004: mean_return=-5.8840 mean_stuck=0.9710
+  pomaze             C-BASE           seed=92005: mean_return=-5.8773 mean_stuck=0.9693
+  pomaze             C-BASE           seed=92006: mean_return=-5.8787 mean_stuck=0.9697
+  pomaze             C-REPEAT-PENALTY seed=92001: mean_return=-4.0827 mean_stuck=0.5207
+  pomaze             C-REPEAT-PENALTY seed=92002: mean_return=-4.0507 mean_stuck=0.5127
+  pomaze             C-REPEAT-PENALTY seed=92003: mean_return=-4.1493 mean_stuck=0.5373
+  pomaze             C-REPEAT-PENALTY seed=92004: mean_return=-4.1400 mean_stuck=0.5350
+  pomaze             C-REPEAT-PENALTY seed=92005: mean_return=-4.0613 mean_stuck=0.5153
+  pomaze             C-REPEAT-PENALTY seed=92006: mean_return=-4.1013 mean_stuck=0.5253
+  pomaze             C-GAIN-LIFT      seed=92001: mean_return=-5.5533 mean_stuck=0.9476
+  pomaze             C-GAIN-LIFT      seed=92002: mean_return=-5.9027 mean_stuck=0.9757
+  pomaze             C-GAIN-LIFT      seed=92003: mean_return=-5.9187 mean_stuck=0.9797
+  pomaze             C-GAIN-LIFT      seed=92004: mean_return=-5.3253 mean_stuck=0.9139
+  pomaze             C-GAIN-LIFT      seed=92005: mean_return=-5.8960 mean_stuck=0.9740
+  pomaze             C-GAIN-LIFT      seed=92006: mean_return=-5.8840 mean_stuck=0.9710
+  changing_rule      C-BASE           seed=92001: mean_return=+30.9167
+  changing_rule      C-BASE           seed=92002: mean_return=+31.9167
+  changing_rule      C-BASE           seed=92003: mean_return=+29.9167
+  changing_rule      C-BASE           seed=92004: mean_return=+30.0000
+  changing_rule      C-BASE           seed=92005: mean_return=+28.8333
+  changing_rule      C-BASE           seed=92006: mean_return=+29.6667
+  changing_rule      C-REPEAT-PENALTY seed=92001: mean_return=+31.3333
+  changing_rule      C-REPEAT-PENALTY seed=92002: mean_return=+31.1667
+  changing_rule      C-REPEAT-PENALTY seed=92003: mean_return=+30.3333
+  changing_rule      C-REPEAT-PENALTY seed=92004: mean_return=+30.6667
+  changing_rule      C-REPEAT-PENALTY seed=92005: mean_return=+29.1667
+  changing_rule      C-REPEAT-PENALTY seed=92006: mean_return=+29.5000
+  changing_rule      C-GAIN-LIFT      seed=92001: mean_return=+30.9167
+  changing_rule      C-GAIN-LIFT      seed=92002: mean_return=+31.9167
+  changing_rule      C-GAIN-LIFT      seed=92003: mean_return=+29.9167
+  changing_rule      C-GAIN-LIFT      seed=92004: mean_return=+30.0000
+  changing_rule      C-GAIN-LIFT      seed=92005: mean_return=+28.8333
+  changing_rule      C-GAIN-LIFT      seed=92006: mean_return=+29.6667
+  compositional_rule C-BASE           seed=92001: mean_return=+35.5833
+  compositional_rule C-BASE           seed=92002: mean_return=+35.9167
+  compositional_rule C-BASE           seed=92003: mean_return=+35.0000
+  compositional_rule C-BASE           seed=92004: mean_return=+35.2500
+  compositional_rule C-BASE           seed=92005: mean_return=+34.5833
+  compositional_rule C-BASE           seed=92006: mean_return=+35.5833
+  compositional_rule C-REPEAT-PENALTY seed=92001: mean_return=+35.6667
+  compositional_rule C-REPEAT-PENALTY seed=92002: mean_return=+35.8333
+  compositional_rule C-REPEAT-PENALTY seed=92003: mean_return=+35.1667
+  compositional_rule C-REPEAT-PENALTY seed=92004: mean_return=+35.3333
+  compositional_rule C-REPEAT-PENALTY seed=92005: mean_return=+34.5833
+  compositional_rule C-REPEAT-PENALTY seed=92006: mean_return=+34.9167
+  compositional_rule C-GAIN-LIFT      seed=92001: mean_return=+35.5833
+  compositional_rule C-GAIN-LIFT      seed=92002: mean_return=+35.9167
+  compositional_rule C-GAIN-LIFT      seed=92003: mean_return=+35.0000
+  compositional_rule C-GAIN-LIFT      seed=92004: mean_return=+35.2500
+  compositional_rule C-GAIN-LIFT      seed=92005: mean_return=+34.5833
+  compositional_rule C-GAIN-LIFT      seed=92006: mean_return=+35.5833
+  verdict: {"C-REPEAT-PENALTY": {"delta_stuck_mean": 0.4481, "delta_return_mean": 1.7507, "G1_break": true, "changing_rule_mean": 30.3611, "G2_control_ok": true}, "C-GAIN-LIFT": {"delta_stuck_mean": 0.0122, "delta_return_mean": 0.1016, "G1_break": false, "changing_rule_mean": 30.2083, "G2_control_ok": true}, "C-BASE_changing_rule_mean": 30.2083, "C-BASE_compositional_rule_mean": 35.3194, "C-REPEAT-PENALTY_compositional_rule_mean": 35.25, "C-GAIN-LIFT_compositional_rule_mean": 35.3194}
+  G4 determinism: -5.901333 vs -5.901333 -> MATCH
+  chain verify: True (69 records chained)
+  receipt: /home/hatch/workspace/chambers/emergent-mind/flesh-pits/receipts/EXP-FP-0011-ATTRACTOR-BREAK.ndjson (69 records, 224.1s)
