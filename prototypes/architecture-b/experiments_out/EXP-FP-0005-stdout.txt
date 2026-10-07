@@ -1,0 +1,42 @@
+{
+ "gate_failures": [],
+ "determinism_spot_check_ok": true,
+ "rows": [
+  {
+   "seed": 61701,
+   "corpus_len": 4549,
+   "probe_before": 0.877786,
+   "IG_P1": -0.111382,
+   "IG_P2": -0.159458,
+   "IG_U": 0.211213,
+   "IG_N": 0.0
+  },
+  {
+   "seed": 61702,
+   "corpus_len": 4743,
+   "probe_before": 0.731743,
+   "IG_P1": -0.245686,
+   "IG_P2": -0.451768,
+   "IG_U": 0.066894,
+   "IG_N": 0.0
+  },
+  {
+   "seed": 61703,
+   "corpus_len": 4652,
+   "probe_before": 1.070455,
+   "IG_P1": 0.101716,
+   "IG_P2": -0.029023,
+   "IG_U": 0.373831,
+   "IG_N": 0.0
+  },
+  {
+   "seed": 61704,
+   "corpus_len": 4627,
+   "probe_before": 1.272748,
+   "IG_P1": 0.451196,
+   "IG_P2": 0.383111,
+   "IG_U": 0.641678,
+   "IG_N": 0.0
+  }
+ ]
+}

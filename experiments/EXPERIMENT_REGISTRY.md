@@ -14,6 +14,7 @@ appended beneath, never edited into the preregistration.
 | EXP-FP-0002 | changing_rule | arch_d vs persistent_no_learning | mean_return eps 5–9 (post-flip), 10 eps | PREREGISTERED |
 | EXP-FP-0003 | delayed_reward | symbolic vs arch_d | mean_return, 20 eps | PREREGISTERED |
 | EXP-FP-0004 | pomaze | arch_d vs fixed_predictor | mean_return, 20 eps | PREREGISTERED |
+| EXP-FP-0005 | pomaze | S-01 vs memory_port prioritized vs uniform vs no replay | IG_probe (offline replay improvement), 4 seeds | PREREGISTERED |
 
 ---
 
@@ -173,3 +174,42 @@ Negative results preserved in research/negative_results.md.
 - D3 competence_failure: MISCALIBRATED (over-confident; Brier 0.1025 vs climo 0.0734; S=+0.17; corr=0.02)
 - D4 retrieval_usefulness: MISCALIBRATED (dispersion error; Brier 0.2610 vs climo 0.2472; observed benefit rate flat ~0.40-0.47 across predicted 0.08-0.64)
 - Finding: B's stated uncertainties are essentially uncoupled from actual error magnitude; not decision-usable as probabilities. No post-run tuning per preregistered abstention rule. Full table: benchmarks/calibration_battery_results.json.
+
+## EXP-FP-0005 — consolidation race: S-01 vs memory_port, prioritized vs uniform vs no offline replay (§9 item 8)
+
+**PREREGISTERED (2026-10-07, before run; full spec sealed in prototypes/architecture-b/consolidation_race.py module docstring)**
+- hypothesis: Offline prioritized consolidation replay causally improves later prediction performance on a held-out probe vs no replay, and beats uniform replay at equal budget.
+- null: Offline replay changes nothing (no arm beats N); or prioritized replay does not beat uniform (priority is decoration).
+- preregistered metric: IG_probe = probe_before − probe_after, probe error = mean|eval_transition| on a FIXED 400-transition probe set (random-policy pomaze rollouts, probe seed 901, policy-independent, identical across arms/seeds). Fresh ArchB per arm, identical init (seed 7000+s), one online pass over the corpus before the offline phase. Higher IG = larger offline improvement.
+- arms: P1 prioritized via S-01 (promotion list, members in (-seeded relevance, id) order); P2 prioritized via memory_port (consolidate + get_replay_batch top-200); U uniform 200 without replacement (own mulberry32 PRNG, seed 4242+s — no random.* module, tripwire-clean); N no replay.
+- corpus: ONE fixed corpus per seed for all arms — 24 closed-loop pomaze episodes from fixed reference ArchB (active_inference, affect='none', seed 900+s).
+- relevance (preregistered; deployment-specific per H5 risk): rel_i = max(0.2, min(1.0, pe_i/max_pe)), pe_i = post-online eval_transition error. Identical for P1/P2.
+- replay budget K=200 per replay arm.
+- seeds: {61701, 61702, 61703, 61704} — fresh, no overlap with battery/Phase-4/repro seeds.
+- decision rules: G1: arm beats N iff seed-mean IG higher AND >= 3/4 per-seed wins (separate for P1, P2). G2: same rule P1-vs-U, P2-vs-U. G3: implementation winner = argmax(seed-mean IG) over {P1,P2}; no-winner if |Δ|<1e-6. If G1 fails for BOTH P1 and P2: Phase-4 battery claim gets a BOUND (mechanism CAUSAL, no measured offline lift on this corpus) — negative result.
+- gates (VOID, not reinterpreted): G0a corpus >= 300; G0b probe_before > 0; G0c replay counts exactly 200 in P1/P2/U; G0d determinism spot-check (seed 61701 P1 recompute, IG to 1e-12); G0e fabrication-tripwire CLEAN (done pre-run); G0f hash-chained receipt + verify_chain.
+- conditions: pomaze v1.0.0, arch_b v1, affect='none', contract v1.0.0.
+- config hash: recorded in receipt at run time.
+
+**AMENDMENT (2026-10-07, pre-interpretation — first run declared VOID per G0c)**
+- What happened: the first run completed all gates except G0c — memory_port's merge at the preregistered threshold 0.9 collapsed the ~4549-transition pomaze corpus to ~17–21 consolidated entries, so the raw top-200 replay batch yielded only 17/21/19/21 items (one value per seed).
+- Ruling: run VOID, per the preregistered gate. No numbers from the voided run were interpreted or retained for any claim; its results file was discarded.
+- Amended P2 replay protocol (implementation code AND parameters untouched): multiplicity replay through the consolidated entries — each entry replayed merged_count times (one training update per source transition, routed through the entry's consolidated mean vector with the representative member's (a, o2, r) — the merge carries non-vector fields from the highest-relevance member), in batch relevance order, total capped at 200 updates. This races memory_port's own "consolidate in place, replay the compacted entries" philosophy while restoring budget parity with P1/U.
+- Rerun on the same seeds {61701–61704} (deterministic; voided numbers discarded).
+
+**RESULT (2026-10-07, amended race run complete — 4 fresh seeds {61701..61704}, receipt receipts/EXP-FP-0005-S.json + EXP-FP-0005-D.json, all gates passed)**
+- Race table (IG_probe = probe_before − probe_after; higher = larger offline improvement):
+
+  | seed | probe_before | P1 (S-01) | P2 (memory_port) | U (uniform) | N (none) |
+  |---|---|---|---|---|---|
+  | 61701 | 0.877786 | −0.111382 | −0.159458 | +0.211213 | 0.0 |
+  | 61702 | 0.731743 | −0.245686 | −0.451768 | +0.066894 | 0.0 |
+  | 61703 | 1.070455 | +0.101716 | −0.029023 | +0.373831 | 0.0 |
+  | 61704 | 1.272748 | +0.451196 | +0.383111 | +0.641678 | 0.0 |
+  | seed-mean | — | **+0.049** | **−0.064** | **+0.323** | 0.0 |
+
+- G1 (replay vs no replay): P1-vs-N 2/4 per-seed wins (seed-mean +0.049 > 0) — FAILS the ≥3/4 rule. P2-vs-N 1/4 — FAILS. **Neither prioritized arm beats no-replay.**
+- G2 (prioritized vs uniform): U beats P1 4/4, U beats P2 4/4 (U seed-mean +0.323). Prioritization by prediction-error magnitude consistently HURTS offline replay on this corpus.
+- G3 (implementation race): **P1 (S-01) beats P2 (memory_port)** — seed-mean IG +0.049 vs −0.064 (Δ=+0.113); P1 > P2 on 4/4 seeds. S-01's "promote ids, replay raw" outperforms memory_port's "replay compressed summaries" here.
+- Interpretation: the Phase-4 battery "consolidation CAUSAL" claim gets a BOUND — the consolidation mechanism behaves per docs (mechanism CAUSAL, per brothel EXP-MEMORY-001), but offline replay shows NO measured probe improvement vs no-replay on the pomaze corpus, and prioritization is actively worse than uniform replay. Recorded as a negative result (research/negative_results.md). Mechanistic note: both implementations merge ~4600 transitions into ~17–21 groups at threshold 0.9 — pomaze obs vectors are highly mutually similar.
+- Limitations: pomaze only; priority function is prediction-error magnitude (deployment-specific); budget K=200 updates (~4% of corpus); probe measures model prediction error, not closed-loop return.

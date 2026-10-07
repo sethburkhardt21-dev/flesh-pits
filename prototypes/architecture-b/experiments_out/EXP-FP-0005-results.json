@@ -1,0 +1,233 @@
+{
+ "determinism_spot_check_ok": true,
+ "experiment_id": "EXP-FP-0005",
+ "gate_failures": [],
+ "prereg": {
+  "ablation": "U (uniform replay at equal budget) ablates priority; N ablates replay itself.",
+  "amendment_2026_10_07": "First run VOID per G0c (memory_port merge at threshold 0.9 collapsed ~4549 transitions to ~17-21 entries; raw top-200 batch = 17/21/19/21 items). No voided numbers interpreted or retained. Amended P2 to multiplicity replay through the consolidated entries; implementation code and parameters untouched. Rerun on the same seeds.",
+  "arms": {
+   "N": "no offline replay",
+   "P1": "prioritized via S-01 (promotion list; members ordered by (-seeded relevance, id); first 200 raw transitions)",
+   "P2": "prioritized via memory_port (consolidate + top-k batch; each consolidated entry replayed merged_count times through its mean vector with the representative member's (a, o2, r); total capped at 200 updates) [AMENDED 2026-10-07]",
+   "U": "uniform 200 raw transitions without replacement (own mulberry32 PRNG, seed 4242+s)"
+  },
+  "baseline": "N (no offline replay).",
+  "conditions": {
+   "affect": "none",
+   "agent": "arch_b v1",
+   "contract": "1.0.0",
+   "env": "pomaze v1.0.0"
+  },
+  "corpus": "ONE fixed corpus per seed for all arms: 24 closed-loop pomaze episodes from fixed reference ArchB (active_inference, affect='none', seed 900+s).",
+  "decision_rules": {
+   "G1": "arm beats N iff seed-mean IG higher AND >= 3/4 per-seed wins (tested separately for P1, P2)",
+   "G1_fail_both": "Phase-4 battery claim gets a BOUND (mechanism CAUSAL, no measured offline lift on this corpus) \u2014 negative result",
+   "G2": "same rule for P1-vs-U and P2-vs-U",
+   "G3": "implementation winner = argmax(seed-mean IG) over {P1,P2}; no-winner if |delta| < 1e-6"
+  },
+  "experiment_id": "EXP-FP-0005",
+  "gates": [
+   "G0a corpus >= 300",
+   "G0b probe_before > 0",
+   "G0c exactly 200 training updates scheduled in P1/P2/U",
+   "G0d determinism spot-check to 1e-12",
+   "G0e fabrication-tripwire CLEAN",
+   "G0f hash-chained receipt + verify_chain"
+  ],
+  "hypothesis": "Offline prioritized consolidation replay causally improves later prediction performance on a held-out probe vs no replay, and beats uniform replay at equal budget.",
+  "metric": "IG_probe = probe_before - probe_after; probe error = mean|eval_transition| on a fixed 400-transition probe set (random-policy pomaze rollouts, probe seed 901, policy-independent, identical across arms/seeds). Fresh ArchB per arm, identical init (seed 7000+s), one online pass over the corpus before the offline phase. Higher IG = larger offline improvement.",
+  "null": "Offline replay changes nothing (no arm beats N); or prioritized replay does not beat uniform (priority is decoration).",
+  "relevance": "rel_i = max(0.2, min(1.0, pe_i/max_pe)) with pe_i = post-online eval_transition error. Identical for P1/P2. Deployment-specific per H5 risk note.",
+  "replay_budget": 200,
+  "seeds": [
+   61701,
+   61702,
+   61703,
+   61704
+  ]
+ },
+ "results": [
+  {
+   "arms": {
+    "N": {
+     "IG": 0.0,
+     "probe_after": 0.8777864203886189,
+     "updates": 0
+    },
+    "P1": {
+     "IG": -0.11138156286700496,
+     "probe_after": 0.9891679832556238,
+     "updates": 200
+    },
+    "P2": {
+     "IG": -0.15945809924442955,
+     "probe_after": 1.0372445196330484,
+     "updates": 200
+    },
+    "U": {
+     "IG": 0.21121316910742716,
+     "probe_after": 0.6665732512811917,
+     "updates": 200
+    }
+   },
+   "corpus_len": 4549,
+   "diags": {
+    "P1": {
+     "cycles_run": 1,
+     "overflow": 0,
+     "promotion": 19,
+     "summaries": 19
+    },
+    "P2": {
+     "batch_entries": 17,
+     "consolidated": 17,
+     "cycles": 1,
+     "scheduled_updates": 200
+    },
+    "U": {
+     "draws": 200
+    }
+   },
+   "probe_before": 0.8777864203886189,
+   "seed": 61701
+  },
+  {
+   "arms": {
+    "N": {
+     "IG": 0.0,
+     "probe_after": 0.7317434730440137,
+     "updates": 0
+    },
+    "P1": {
+     "IG": -0.24568615355410595,
+     "probe_after": 0.9774296265981196,
+     "updates": 200
+    },
+    "P2": {
+     "IG": -0.4517682898703629,
+     "probe_after": 1.1835117629143765,
+     "updates": 200
+    },
+    "U": {
+     "IG": 0.06689441476978986,
+     "probe_after": 0.6648490582742238,
+     "updates": 200
+    }
+   },
+   "corpus_len": 4743,
+   "diags": {
+    "P1": {
+     "cycles_run": 1,
+     "overflow": 0,
+     "promotion": 21,
+     "summaries": 21
+    },
+    "P2": {
+     "batch_entries": 21,
+     "consolidated": 21,
+     "cycles": 1,
+     "scheduled_updates": 200
+    },
+    "U": {
+     "draws": 200
+    }
+   },
+   "probe_before": 0.7317434730440137,
+   "seed": 61702
+  },
+  {
+   "arms": {
+    "N": {
+     "IG": 0.0,
+     "probe_after": 1.070454937268166,
+     "updates": 0
+    },
+    "P1": {
+     "IG": 0.10171559531947771,
+     "probe_after": 0.9687393419486883,
+     "updates": 200
+    },
+    "P2": {
+     "IG": -0.029022668007354646,
+     "probe_after": 1.0994776052755206,
+     "updates": 200
+    },
+    "U": {
+     "IG": 0.37383061645780324,
+     "probe_after": 0.6966243208103627,
+     "updates": 200
+    }
+   },
+   "corpus_len": 4652,
+   "diags": {
+    "P1": {
+     "cycles_run": 1,
+     "overflow": 0,
+     "promotion": 17,
+     "summaries": 17
+    },
+    "P2": {
+     "batch_entries": 19,
+     "consolidated": 19,
+     "cycles": 1,
+     "scheduled_updates": 200
+    },
+    "U": {
+     "draws": 200
+    }
+   },
+   "probe_before": 1.070454937268166,
+   "seed": 61703
+  },
+  {
+   "arms": {
+    "N": {
+     "IG": 0.0,
+     "probe_after": 1.2727481303580743,
+     "updates": 0
+    },
+    "P1": {
+     "IG": 0.45119643886256655,
+     "probe_after": 0.8215516914955078,
+     "updates": 200
+    },
+    "P2": {
+     "IG": 0.3831107806334839,
+     "probe_after": 0.8896373497245904,
+     "updates": 200
+    },
+    "U": {
+     "IG": 0.6416775464127231,
+     "probe_after": 0.6310705839453512,
+     "updates": 200
+    }
+   },
+   "corpus_len": 4627,
+   "diags": {
+    "P1": {
+     "cycles_run": 1,
+     "overflow": 0,
+     "promotion": 20,
+     "summaries": 20
+    },
+    "P2": {
+     "batch_entries": 21,
+     "consolidated": 21,
+     "cycles": 1,
+     "scheduled_updates": 200
+    },
+    "U": {
+     "draws": 200
+    }
+   },
+   "probe_before": 1.2727481303580743,
+   "seed": 61704
+  }
+ ],
+ "seeds": [
+  61701,
+  61702,
+  61703,
+  61704
+ ]
+}

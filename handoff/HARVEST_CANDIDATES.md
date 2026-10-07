@@ -72,10 +72,11 @@
 - **Baseline:** no consolidation.
 - **Result:** CAUSAL (Phase-4 battery). Not re-run in Phase 5 — evidence is HISTORICAL from the Phase-4 battery, stated as such.
 - **Ablation:** battery consolidation ablation (Phase-4).
+- **Race result (EXP-FP-0005, 2026-10-07 — the KEEP_AND_DEEPEN race is now CLOSED):** the two implementations were raced on ONE fixed pomaze corpus (4 fresh seeds, preregistered, all gates passed; receipts `flesh-pits/receipts/EXP-FP-0005-S.json`, `-D.json`). (a) Neither implementation's offline replay beats no-replay (P1-vs-N 2/4 per-seed wins, P2-vs-N 1/4; seed-mean IG +0.049 / −0.064 vs N 0.0) — the battery "CAUSAL" claim gets a BOUND: mechanism behaves per docs, no measured offline performance lift on this corpus. (b) Uniform replay beats BOTH prioritized arms 4/4 (seed-mean +0.323) — PE-magnitude prioritization is actively worse than uniform here. (c) Implementation race: **S-01 wins** — S-01's "promote ids, replay raw" beats memory_port's "replay compressed summaries" 4/4 (Δ=+0.113 seed-mean IG). Harvest recommendation: S-01's consolidation+promotion as the consolidation mechanism, with the bound that offline replay's performance benefit is UNPROVEN and PE-magnitude prioritization is contraindicated on this evidence.
 - **Generalization result:** not generalized beyond the battery task; priority function needs validation per deployment.
 - **Integration surface:** any episodic store on the primary with an offline window.
 - **Expected benefit:** measurable offline improvement of retrieval quality.
-- **Risks:** priority function is deployment-specific; two honest batch implementations exist (race them on one corpus as the deepening experiment before wiring).
+- **Risks:** priority function is deployment-specific; the race shows PE-magnitude prioritization hurts vs uniform on pomaze — do not wire priority replay without per-deployment validation.
 - **Rollback:** disable the consolidation pass.
 
 ### H6. memory_provenance hash-chaining
