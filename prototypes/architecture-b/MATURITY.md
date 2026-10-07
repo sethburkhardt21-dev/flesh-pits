@@ -8,11 +8,11 @@ Scale: PRESENT → EXECUTED → INTEGRATED → CAUSAL → ADAPTIVE → GENERALIZ
 
 | Component | Maturity | Evidence |
 |---|---|---|
-| HierarchicalGenerativeModel (L0 linear + L1 context experts; persistent mu0) | **ADAPTIVE** | K1 survive (freeze → -4.6 return); K2 survive (learned err 0.98 < fixed 1.32); BAR intact 24.4 > lesioned 21.4 > chance 20.0; R table re-learns after flip. K3B (3 seeds, longer horizon): arm-A (changing_rule, 1500 train transitions) reward-channel lesion gap +0.0602, consistent 3/3 seeds (~19× K3's +0.0032) — the contingency lives in L1; |e0| gap +0.0054 grew but seed-unstable (1/3 reversed). Arm-B (delayed_reward) |e0| gap +0.0437 consistent 3/3; terminal |rerr| ≈ 0 as preregistered (hidden branch bounds it; metric underpowered, 0–1 terminal ticks in held-out). NOT generalizing (contingency shown on changing_rule/delayed_reward only). Multi-seed evidence now holds for the hierarchy claim on these tasks. |
+| HierarchicalGenerativeModel (L0 linear + L1 context experts; persistent mu0) | **INTEGRATED** | K2 survive 5/5 on fresh seeds (learned err gap 0.405–0.426, stable — prediction learning is robust); K3B (3 seeds, longer horizon): arm-A (changing_rule, 1500 train transitions) reward-channel lesion gap +0.0602, consistent 3/3 seeds (~19× K3's +0.0032) — the contingency lives in L1; |e0| gap +0.0054 grew but seed-unstable (1/3 reversed). Arm-B (delayed_reward) |e0| gap +0.0437 consistent 3/3; terminal |rerr| ≈ 0 as preregistered (hidden branch bounds it; metric underpowered, 0–1 terminal ticks in held-out). BAR intact 24.4 > lesioned 21.4 > chance 20.0. DOWNGRADED 2026-10-07 (was ADAPTIVE): K1's adaptive-control claim overturned on replication (0/5 — frozen beats learn by 0.8–10.2 on all 5 fresh seeds; the +4.6 was a lucky draw on both agent init and env stream). The learning machinery is real (K2 5/5) but not load-bearing for control on changing_rule. K3B's longer-horizon evidence is separate and stands. NOT generalizing (contingency shown on changing_rule/delayed_reward only). |
 | PrecisionEstimator (pi from error stats) | **CAUSAL, REJECTED (both forms)** | C2 KILL (replicated 2 seeds): uniform pi=1 beats estimated pi by 5.8–9.5 return points on changing_rule. C2B (3 seeds): the ONE preregistered shift-aware variant (surprise-triggered window reset, k=4.0) also loses — shift arm 23.97 < estimated 24.10 < uniform 28.47; stationary arm 24.40 < uniform 34.00. Diagnosed: max-channel surprise detector fired 82–110×/run (expected ~1 — cannot separate rule flips from single noisy trials), and post-reset cold-start reintroduces overshoot via tiny-window pi estimates. Do not ship in either form. |
 | EpisodicStore (experience_store port + provenance) | **CAUSAL** | M1 (3 seeds): disabling the store selectively degrades pomaze (seed-mean delta +2.200; all 3 seeds +1.83…+2.39) vs delayed_reward (+0.046). Retrieval correction + per-action error prediction are load-bearing on the partial-observability task. NOT decorative. Scope-bounded: shown on pomaze/delayed_reward only, not generalizing. |
-| §30 next-obs / action-consequence predictions | **INTEGRATED** | Logged every tick (JSONL); consumed by action selection. Calibration tracked. |
-| §30 retrieval-usefulness prediction | **EXECUTED** | Predicted + measured every tick, but uhat does NOT gate retrieval (unconditional correction) → not integrated. Gap. |
+| §30 next-obs / action-consequence predictions | **INTEGRATED** | Logged every tick (JSONL, `experiments_out/EXP-AB-BAR.predictions.jsonl`); consumed by action selection. Calibration tracked. |
+| §30 retrieval-usefulness prediction | **EXECUTED** | Predicted + measured every tick (per-tick logs in `experiments_out/EXP-AB-BAR.predictions.jsonl`), but uhat does NOT gate retrieval (unconditional correction) → not integrated. Gap. |
 | ActiveInferenceSelector | **INTEGRATED, label removed PERMANENTLY** | C4 KILL: greedy beat AI on preregistered IG metric (0.0502 > 0.0275). C4B (3 seeds): on the sharper uncertainty-reduction metric (probe-set prediction-error decline), AI 0.5443 < greedy 0.7124 ≈ random 0.5497 — kill confirmed permanently. The IG term's causal contribution is unproven under both metrics. Note: the probe metric rewards concentrated practice (greedy's narrow-deep experience), a caveat for future IG metric design — it does not change the verdict. |
 | ErrorAffect (error-derived valence/arousal) | **CAUSAL, REJECTED** | K4 KILL: PAD (-0.762) beat error-affect (-0.787) on resource_world. NR-B-002: arousal saturates → permanent over-exploration. Dropped; PAD kept as baseline. |
 | PadController (donor-exact baseline) | **CAUSAL** | Won K4. Kept as the cheaper baseline per the kill rule. |
@@ -21,15 +21,15 @@ Scale: PRESENT → EXECUTED → INTEGRATED → CAUSAL → ADAPTIVE → GENERALIZ
 
 | ID | Result | Verdict |
 |---|---|---|
-| K1 learning freeze | learn 26.2 > frozen 21.6 (+4.6) | SURVIVES — not a static function |
-| K2 learned vs fixed | learned err 0.98 < fixed 1.32 | SURVIVES — learning not decorative |
-| K3 hierarchy lesion | struct +0.0032 (lesioned worse), white-noise -0.0012 (flat) | SURVIVES, WEAK — effect tiny; metric diluted by unpredictable channels |
+| K1 learning freeze | learn 26.2 > frozen 21.6 (+4.6) | KILL on replication (2026-10-07): 0/5 fresh seeds hold — frozen beats learn by 0.8–10.2 on all 5. Original +4.6 was a lucky draw on both agent init and env stream (decomposition verified). Was: SURVIVES |
+| K2 learned vs fixed | learned err 0.98 < fixed 1.32 | SURVIVES — learning not decorative. REPRODUCES 5/5 (2026-10-07): gap 0.405–0.426, stable |
+| K3 hierarchy lesion | struct +0.0032 (lesioned worse), white-noise -0.0012 (flat) | KILL on replication (2026-10-07): structured delta −0.008…−0.028 on all 5 fresh seeds (lesion HELPS). Original |e0| probe is a bad instrument — seed-fragile, diluted. Was: SURVIVES, WEAK. (K3B's reward-channel instrument is separate and stands) |
 | K4 affect vs PAD | PAD -0.762 > error -0.787 | KILL — drop error-affect, keep PAD |
-| K5 shuffle | shuffled 0.8606 > ordered 0.8575 | SURVIVES, WEAK — gap tiny; same dilution |
-| C1 error decline | delayed_reward ✓, grid_world ✓ | HOLDS |
-| C2 precision ablation | uniform wins by 5.8–9.5 (2 seeds) | KILL — precision harmful under shift |
-| C4 active inference | greedy IG > AI IG | KILL — label comes off |
-| BAR concrete bar | intact 24.4 > lesioned 21.4 > 20.0 chance | MIXED — prereg decline metric confounded by flip; within-phase + return evidence supports hierarchy |
+| K5 shuffle | shuffled 0.8606 > ordered 0.8575 | KILL on replication (2026-10-07): shuffled-trained ≤ ordered-trained on all 5 fresh seeds (delta −0.0002…−0.0457). Temporal-prediction claim demoted per the preregistered kill condition. Was: SURVIVES, WEAK |
+| C1 error decline | delayed_reward ✓, grid_world ✓ | MIXED on replication (2026-10-07): 3/5 hold; flips small-magnitude and per-env, not systematic. Was: HOLDS |
+| C2 precision ablation | uniform wins by 5.8–9.5 (2 seeds) | KILL, FRAGILE (2026-10-07): uniform wins 2.5–9.9 on 3/5 fresh seeds; precision wins 0.8, 3.5 on 2. Engineering rejection stands (uniform wins more often, larger margins; C2B independently rejects the shift-aware variant), but the single-seed kill margin is seed-dependent |
+| C4 active inference | greedy IG > AI IG | KILL REPLICATES 4/5 (2026-10-07; 1 flip: seed 72602, AI IG 0.1082 > greedy 0.0656). C4B confirms permanently — label stays off |
+| BAR concrete bar | intact 24.4 > lesioned 21.4 > 20.0 chance | MIXED — "NOT CLEARED" reproduces 4/5 (2026-10-07; 1 seed cleared: 72704). Prereg decline metric confounded by flip; within-phase + return evidence supports hierarchy |
 | M1 no-memory ablation | pomaze delta +2.200 (3/3 seeds), delayed_reward +0.046 | SURVIVES — selective deficit; memory causally load-bearing on partial-observability task |
 | C2B shift-robust precision | shift_reset 23.97 < estimated 24.10 < uniform 28.47 (shift); 24.40 < 34.00 (stationary) | KILL — revival failed; shift-aware variant joins the rejected list |
 | C4B uncertainty-reduction IG | AI 0.5443 < greedy 0.7124 ≈ random 0.5497 (probe-error decline) | KILL CONFIRMED PERMANENTLY — label stays off |
@@ -37,8 +37,11 @@ Scale: PRESENT → EXECUTED → INTEGRATED → CAUSAL → ADAPTIVE → GENERALIZ
 
 ## Open gaps (honest)
 
-1. Phase-3 battery (K1–K5, C1, C2, C4, BAR) still single-seed — Phase-4
-   experiments (M1, C2B, C4B, K3B) each ran 3 fresh seeds.
+1. Phase-3 battery (K1–K5, C1, C2, C4, BAR) multi-seed replicated 2026-10-07
+   with mixed results — K2 REPRODUCES 5/5; K1/K3/K5 KILL on replication;
+   C1 MIXED (3/5); C2 KILL, FRAGILE (3/5); C4 KILL REPLICATES (4/5); BAR
+   MIXED verdict reproduces 4/5. Nothing in Phase-3 earns REPRODUCED.
+   Phase-4 experiments (M1, C2B, C4B, K3B) each ran 3 fresh seeds.
 2. Retrieval-usefulness prediction not wired to gate retrieval.
 3. Hierarchy generalization beyond changing_rule/delayed_reward untested.
 4. Precision weighting rejected in both tested forms (estimated, shift-reset);

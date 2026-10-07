@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-10-07T07:27:19.873986+00:00",
+  "generated_utc": "2026-10-07T07:30:37.932104+00:00",
   "scope": [
     "prototypes/architecture-a/MATURITY.md",
     "prototypes/architecture-b/MATURITY.md"
@@ -8,8 +8,8 @@
     "a": [
       {
         "component": "`workspace_buffer.py` (bounded buffer, eviction policy)",
-        "level": "CAUSAL",
-        "level_raw": "**CAUSAL**"
+        "level": "REPRODUCED",
+        "level_raw": "**REPRODUCED**"
       },
       {
         "component": "`bids.py` (RunningZScoreBid: change + habituation)",
@@ -28,13 +28,13 @@
       },
       {
         "component": "`broadcast.py` (sole-path bus)",
-        "level": "CAUSAL",
-        "level_raw": "**CAUSAL**"
+        "level": "REPRODUCED",
+        "level_raw": "**REPRODUCED**"
       },
       {
         "component": "consumers: memory_admit, self_model_update, planner_input, consolidation_eligible, report",
-        "level": "CAUSAL",
-        "level_raw": "**CAUSAL**"
+        "level": "REPRODUCED",
+        "level_raw": "**REPRODUCED**"
       },
       {
         "component": "consumer: attention_update",
@@ -60,8 +60,8 @@
     "b": [
       {
         "component": "HierarchicalGenerativeModel (L0 linear + L1 context experts; persistent mu0)",
-        "level": "ADAPTIVE",
-        "level_raw": "**ADAPTIVE**"
+        "level": "INTEGRATED",
+        "level_raw": "**INTEGRATED**"
       },
       {
         "component": "PrecisionEstimator (pi from error stats)",
@@ -100,112 +100,15 @@
       }
     ]
   },
-  "findings": [
-    {
-      "arch": "a",
-      "row": "`attention.py` (arbitration + learned gains)",
-      "type": "STALE",
-      "message": "cited NR-A-005 has no full entry in any research/negative_results.md"
-    },
-    {
-      "arch": "a",
-      "row": "`ignition.py` (recurrent bistable gate)",
-      "type": "STALE",
-      "message": "cited NR-A-004 has no full entry in any research/negative_results.md"
-    },
-    {
-      "arch": "a",
-      "row": "`ignition.py` (recurrent bistable gate)",
-      "type": "OVERCLAIMED",
-      "message": "claims identity for K8 in clause 'K8 (fresh seeds 51501\u201351503): frozen-gains ignition trajectories byte-identical 3/3 (gate ...' but no receipt records byte identity for them"
-    },
-    {
-      "arch": "a",
-      "row": "`ignition.py` (recurrent bistable gate)",
-      "type": "OVERCLAIMED",
-      "message": "REPRODUCED requires a cited multi-seed reproduction receipt (repro_*); none found on disk"
-    },
-    {
-      "arch": "a",
-      "row": "`tick.py` (sole-path wiring, closed loop)",
-      "type": "STALE",
-      "message": "cited NR-A-004 has no full entry in any research/negative_results.md"
-    },
-    {
-      "arch": "a",
-      "row": "`envs.py` (ChangingRelevanceEnv)",
-      "type": "STALE",
-      "message": "receipt 'K4-CANONICAL-RERUN.ndjson' missing on disk"
-    },
-    {
-      "arch": "b",
-      "row": "\u00a730 next-obs / action-consequence predictions",
-      "type": "WARN",
-      "message": "INTEGRATED: no verifiable citation token (receipt/experiment/NR) in evidence text"
-    },
-    {
-      "arch": "b",
-      "row": "\u00a730 retrieval-usefulness prediction",
-      "type": "WARN",
-      "message": "EXECUTED: no verifiable citation token (receipt/experiment/NR) in evidence text"
-    },
-    {
-      "arch": "b",
-      "row": "ErrorAffect (error-derived valence/arousal)",
-      "type": "STALE",
-      "message": "cited NR-B-002 has no full entry in any research/negative_results.md"
-    },
-    {
-      "arch": "a",
-      "row": "`workspace_buffer.py` (bounded buffer, eviction policy)",
-      "type": "STALE",
-      "message": "table claims CAUSAL but the REPRODUCIBILITY section assigns REPRODUCED (under-promoted); sync the table"
-    },
-    {
-      "arch": "b",
-      "row": "HierarchicalGenerativeModel (L0 linear + L1 context experts; persistent mu0)",
-      "type": "STALE",
-      "message": "table claims ADAPTIVE but the REPRODUCIBILITY section assigns INTEGRATED; sync the table"
-    },
-    {
-      "arch": "b",
-      "row": "kill-table K1",
-      "type": "STALE",
-      "message": "kill-table verdict 'SURVIVES \u2014 not a static function' does not reflect the replication outcome (expects keyword(s) ['KILL']); annotate with the 2026-10-07 replication result"
-    },
-    {
-      "arch": "b",
-      "row": "kill-table K3",
-      "type": "STALE",
-      "message": "kill-table verdict 'SURVIVES, WEAK \u2014 effect tiny; metric diluted by unpredictable channels' does not reflect the replication outcome (expects keyword(s) ['KILL']); annotate with the 2026-10-07 replication result"
-    },
-    {
-      "arch": "b",
-      "row": "kill-table K5",
-      "type": "STALE",
-      "message": "kill-table verdict 'SURVIVES, WEAK \u2014 gap tiny; same dilution' does not reflect the replication outcome (expects keyword(s) ['KILL']); annotate with the 2026-10-07 replication result"
-    },
-    {
-      "arch": "b",
-      "row": "kill-table C1",
-      "type": "STALE",
-      "message": "kill-table verdict 'HOLDS' does not reflect the replication outcome (expects keyword(s) ['MIXED']); annotate with the 2026-10-07 replication result"
-    },
-    {
-      "arch": "b",
-      "row": "open gaps #1",
-      "type": "STALE",
-      "message": "open gap #1 still says Phase-3 battery is single-seed, but repro_EXP-AB-*.json receipts exist on disk; reword with the mixed multi-seed outcome"
-    }
-  ],
+  "findings": [],
   "summary": {
     "rows_checked": {
       "a": 10,
       "b": 8
     },
-    "STALE": 12,
-    "OVERCLAIMED": 2,
-    "WARN": 2,
-    "verdict": "RED"
+    "STALE": 0,
+    "OVERCLAIMED": 0,
+    "WARN": 0,
+    "verdict": "GREEN"
   }
 }

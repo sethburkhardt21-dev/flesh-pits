@@ -38,9 +38,10 @@ RANK = {l: i for i, l in enumerate(LEVELS)}
 TABLE_HEADER = re.compile(r'^\|\s*Component\s*\|\s*(Maturity|Level)\s*\|\s*Evidence\s*\|')
 SEP_ROW = re.compile(r'^\|\s*-+')
 NR_RE = re.compile(r'NR-[AB]-\d{3}')
-RECEIPT_RE = re.compile(r'[A-Za-z0-9_\-\.]+\.(?:json|ndjson)')
+RECEIPT_RE = re.compile(
+    r'[A-Za-z0-9_\-\./]+\.(?:jsonl|ndjson|json)(?![A-Za-z])')
 RECEIPT_PATH_RE = re.compile(
-    r'flesh-pits/[A-Za-z0-9_\-\./]+\.(?:json|ndjson)')
+    r'flesh-pits/[A-Za-z0-9_\-\./]+\.(?:jsonl|ndjson|json)(?![A-Za-z])')
 EXP_FP_RE = re.compile(r'EXP-[A-Z]+-[A-Z0-9]+')
 # heading-level NR entry: the ID must head a section, not sit mid-sentence
 NR_HEADING = re.compile(r'(?m)^\s*(?:#{1,4}\s+.*|[-*]\s+)?NR-[AB]-\d{3}\b')
@@ -149,10 +150,14 @@ def resolve_receipt(arch, name):
     if name.startswith("flesh-pits/"):
         # workspace-relative path, e.g. flesh-pits/receipts/X.ndjson
         p = FP.parent / name
-        return p if p.is_file() else None
+        if p.is_file():
+            return p
     if "/" in name:
-        p = FP / name
-        return p if p.is_file() else None
+        for base in (FP, cfg["maturity"].parent):
+            p = base / name
+            if p.is_file():
+                return p
+        return None
     p = cfg["receipts"] / name
     return p if p.is_file() else None
 
@@ -163,7 +168,7 @@ def receipt_ok(path):
     if path.stat().st_size == 0:
         return False, "empty"
     try:
-        if path.suffix == ".ndjson":
+        if path.suffix in (".ndjson", ".jsonl"):
             n = sum(1 for ln in path.read_text(encoding="utf-8").splitlines()
                     if ln.strip())
             if n == 0:
